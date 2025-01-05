@@ -71,13 +71,7 @@ const TechStack = () => {
   return (
     <section id="tech-stack" className="py-12 bg-gradient-to-b from-white to-gray-50 dark:from-gray-800 dark:to-gray-900">
       <div className="section-container">
-        <div className="text-center mb-8">
-          <h2 className="heading-secondary mb-2">Tech Stack Favorites</h2>
-          <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto text-xl">
-            A list of selected technologies I use to build
-          </p>
-        </div>
-
+        <h2 className="heading-secondary text-center mb-16">Tech Stack Favorites</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {Object.entries(technologies).map(([category, { items, icon }]) => (
             <div

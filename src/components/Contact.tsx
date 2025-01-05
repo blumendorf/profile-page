@@ -21,7 +21,7 @@ export default function Contact() {
           <a
             href="#"
             onClick={handleEmailClick}
-            className="group flex items-center p-4 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-accent/5 dark:hover:bg-accent/10 transition-all duration-300"
+            className="group flex items-center p-4 bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-xl transition-all duration-300"
           >
             <div className="p-3 bg-accent/10 rounded-lg group-hover:bg-accent/20 transition-colors duration-300">
               <svg className="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -46,7 +46,7 @@ export default function Contact() {
             href="https://linkedin.com/in/marcoblu"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center p-4 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-accent/5 dark:hover:bg-accent/10 transition-all duration-300"
+            className="group flex items-center p-4 bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-xl transition-all duration-300"
           >
             <div className="p-3 bg-accent/10 rounded-lg group-hover:bg-accent/20 transition-colors duration-300">
               <svg className="w-6 h-6 text-accent" fill="currentColor" viewBox="0 0 24 24">
@@ -70,7 +70,7 @@ export default function Contact() {
             href="https://github.com/blumendorf"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center p-4 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-accent/5 dark:hover:bg-accent/10 transition-all duration-300"
+            className="group flex items-center p-4 bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-xl transition-all duration-300"
           >
             <div className="p-3 bg-accent/10 rounded-lg group-hover:bg-accent/20 transition-colors duration-300">
               <svg className="w-6 h-6 text-accent" fill="currentColor" viewBox="0 0 24 24">

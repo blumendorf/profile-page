@@ -2,7 +2,7 @@ export default function About() {
   return (
     <section id="about" className="py-20 bg-white dark:bg-gray-800">
       <div className="section-container">
-        <h2 className="heading-secondary text-center">About Me</h2>
+        <h2 className="heading-secondary text-center mb-16">About Me</h2>
         <div className="max-w-3xl mx-auto">
           <p className="text-lg text-gray-600 dark:text-gray-300 space-y-6">
             With over 15 years of software engineering and leadership experience, complemented by a PhD in Distributed Artificial Intelligence, I've consistently driven innovation in startup environments.
