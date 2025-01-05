@@ -67,3 +67,27 @@ jobs:
           release_name: Release ${{ github.sha }}
           draft: false
           prerelease: false
+
+  ftp-deploy:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: github-pages
+          path: artifact
+
+      - name: Extract artifact
+        run: tar -xf artifact/artifact.tar -C artifact
+
+      - name: Deploy to FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: artifact/
+          server-dir: /
