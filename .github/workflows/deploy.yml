@@ -41,19 +41,9 @@ jobs:
         with:
           path: './dist'
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
 
   create-release:
-    needs: deploy
+    needs: build
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -68,8 +58,19 @@ jobs:
           draft: false
           prerelease: false
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
   ftp-deploy:
-    needs: deploy
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -91,3 +92,6 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: artifact/
           server-dir: /
+          protocol: ftps
+          port: 21
+          security: strict # Enforces strict security
