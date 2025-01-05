@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 interface TimelineEntry {
   period: string
@@ -184,6 +185,28 @@ const timelineGroups: TimelineGroup[] = [
 function Timeline() {
   const [isOpen, setIsOpen] = useState(false)
   const [expandedGroups, setExpandedGroups] = useState<number[]>([])
+  const [activeGroup, setActiveGroup] = useState<number | null>(null)
+
+  // Intersection Observer for fade-in animation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fade-in-up')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    document.querySelectorAll('.timeline-group').forEach((group) => {
+      observer.observe(group)
+    })
+
+    return () => observer.disconnect()
+  }, [isOpen])
 
   const toggleGroup = (index: number) => {
     setExpandedGroups(prev =>
@@ -191,6 +214,7 @@ function Timeline() {
         ? prev.filter(i => i !== index)
         : [...prev, index]
     )
+    setActiveGroup(index)
   }
 
   // Helper function to get timespan for a group
@@ -210,7 +234,11 @@ function Timeline() {
 
   return (
     <section className="py-8 px-4 max-w-5xl mx-auto" id="timeline">
-      <div className="text-center mb-6">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-center mb-6"
+      >
         <h2 className="heading-secondary text-center mb-2">
           Professional Journey
         </h2>
@@ -218,13 +246,27 @@ function Timeline() {
           Over 20 years of experience in software development, leadership, and innovation.
         </p>
         <div className="flex justify-center">
-          <button
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             onClick={() => setIsOpen(!isOpen)}
-            className="button-primary group flex items-center justify-center gap-2 transform hover:scale-105 transition-all duration-300"
+            className={`
+              group flex items-center justify-center gap-3
+              px-6 py-3 rounded-lg transition-all duration-300
+              border border-accent/20 hover:border-accent/40
+              ${isOpen
+                ? 'bg-accent/10 text-accent hover:bg-accent/20'
+                : 'bg-white dark:bg-gray-800 hover:bg-accent/10'
+              }
+              shadow-sm hover:shadow-md backdrop-blur-sm
+            `}
           >
-            {isOpen ? 'Show Less' : 'View Timeline'}
-            <svg
-              className={`w-4 h-4 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+            <span className="font-medium text-sm">
+              {isOpen ? 'Collapse Timeline' : 'View Full Timeline'}
+            </span>
+            <motion.svg
+              animate={{ rotate: isOpen ? 180 : 0 }}
+              className="w-4 h-4 text-accent"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -235,96 +277,178 @@ function Timeline() {
                 strokeWidth="2"
                 d="M19 9l-7 7-7-7"
               />
-            </svg>
-          </button>
+            </motion.svg>
+          </motion.button>
         </div>
-      </div>
+      </motion.div>
 
-      {isOpen && (
-        <div className="relative animate-fade-in">
-          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-accent via-accent/40 to-accent/10"></div>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="relative"
+          >
+            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-accent via-accent/40 to-accent/10">
+              <div className="absolute top-0 left-0 w-full h-full animate-pulse-subtle bg-gradient-to-b from-accent/40 to-transparent" />
+            </div>
 
-          <div className="space-y-4">
-            {timelineGroups.map((group, groupIndex) => (
-              <div key={groupIndex} className="relative">
-                <div className="absolute left-8 -translate-x-1/2 w-3 h-3 bg-accent rounded-full ring-2 ring-accent/20 z-10"></div>
+            <motion.div
+              className="space-y-4"
+              variants={{
+                hidden: { opacity: 0 },
+                show: {
+                  opacity: 1,
+                  transition: { staggerChildren: 0.1 }
+                }
+              }}
+              initial="hidden"
+              animate="show"
+            >
+              {timelineGroups.map((group, groupIndex) => (
+                <motion.div
+                  key={groupIndex}
+                  className="relative timeline-group"
+                  variants={{
+                    hidden: { opacity: 0, x: -20 },
+                    show: { opacity: 1, x: 0 }
+                  }}
+                >
+                  <motion.div
+                    className="absolute left-8 -translate-x-1/2 w-3 h-3 bg-accent rounded-full ring-2 ring-accent/20 z-10"
+                    whileHover={{ scale: 1.2 }}
+                    animate={{
+                      boxShadow: expandedGroups.includes(groupIndex)
+                        ? '0 0 0 4px rgba(4, 170, 0, 0.2)'
+                        : '0 0 0 2px rgba(4, 170, 0, 0.1)'
+                    }}
+                  />
 
-                <div className="ml-14">
-                  <button
-                    onClick={() => toggleGroup(groupIndex)}
-                    className="w-full text-left group bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm
-                             rounded-lg border border-accent/20 p-3
-                             hover:border-accent/40 transition-all duration-300
-                             shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
-                  >
-                    <div className="flex justify-between items-center">
-                      <div className="flex-1">
-                        <div className="flex items-baseline gap-2">
-                          <h3 className="text-base font-bold text-accent dark:text-accent-light group-hover:text-accent-dark dark:group-hover:text-accent-light transition-colors duration-300">
-                            {group.title}
-                          </h3>
-                          <span className="text-xs text-accent/70 font-medium bg-accent/5 px-2 py-0.5 rounded-full">
-                            {getGroupTimespan(group.entries)}
-                          </span>
-                        </div>
-                        <p className="text-gray-600 dark:text-gray-400 mt-0.5 text-xs">
-                          {group.description}
-                        </p>
-                      </div>
-                      <div className="ml-3 flex-shrink-0">
-                        <svg
-                          className={`w-4 h-4 text-accent transition-all duration-300 transform
-                                    ${expandedGroups.includes(groupIndex) ? 'rotate-180' : ''}
-                                    group-hover:scale-110`}
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M19 9l-7 7-7-7"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                  </button>
-
-                  {expandedGroups.includes(groupIndex) && (
-                    <div className="mt-2 space-y-2 animate-fade-in pl-3 relative">
-                      <div className="absolute left-0 top-0 bottom-4 w-0.5 bg-gradient-to-b from-accent/30 to-accent/10"></div>
-
-                      {group.entries.map((entry, entryIndex) => (
-                        <div
-                          key={entryIndex}
-                          className="relative flex gap-2 group/entry hover:bg-accent/5 p-2 rounded-md transition-all duration-300"
-                        >
-                          <div className="absolute left-0 top-3 -translate-x-1/2 w-1.5 h-1.5 bg-accent rounded-full ring-1 ring-accent/20 group-hover/entry:ring-accent/30 transition-all duration-300"></div>
-
-                          <div className="ml-3 pb-2">
-                            <div className="flex flex-wrap gap-2 items-baseline">
-                              <span className="text-xs text-accent font-semibold bg-accent/10 px-1.5 py-0.5 rounded-full">
-                                {entry.period}
-                              </span>
-                              <h4 className="text-sm font-semibold text-gray-900 dark:text-white group-hover/entry:text-accent transition-colors duration-300">
-                                {entry.title}
-                              </h4>
-                            </div>
-                            <p className="text-xs text-gray-600 dark:text-gray-400 mt-0.5">
-                              {entry.description}
-                            </p>
+                  <div className="ml-14">
+                    <motion.button
+                      onClick={() => toggleGroup(groupIndex)}
+                      className={`w-full text-left group bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm
+                               rounded-lg border border-accent/20 p-3
+                               hover:border-accent/40 transition-all duration-300
+                               shadow-sm hover:shadow-md
+                               ${expandedGroups.includes(groupIndex) ? 'rounded-b-none border-b-0' : ''}`}
+                      whileHover={{ y: -2 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <div className="flex justify-between items-center">
+                        <div className="flex-1">
+                          <div className="flex items-baseline gap-2">
+                            <h3 className="text-base font-bold text-accent dark:text-accent-light group-hover:text-accent-dark dark:group-hover:text-accent-light transition-colors duration-300">
+                              {group.title}
+                            </h3>
+                            <span className="text-xs text-accent/70 font-medium bg-accent/5 px-2 py-0.5 rounded-full">
+                              {getGroupTimespan(group.entries)}
+                            </span>
                           </div>
+                          <p className="text-gray-600 dark:text-gray-400 mt-0.5 text-xs">
+                            {group.description}
+                          </p>
                         </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+                        <div className="ml-3 flex-shrink-0">
+                          <svg
+                            className={`w-4 h-4 text-accent transition-all duration-300 transform
+                                      ${expandedGroups.includes(groupIndex) ? 'rotate-180' : ''}
+                                      group-hover:scale-110`}
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M19 9l-7 7-7-7"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </motion.button>
+
+                    <AnimatePresence>
+                      {expandedGroups.includes(groupIndex) && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          className="relative overflow-hidden
+                                   border border-accent/20 border-t-0
+                                   rounded-b-lg bg-white/30 dark:bg-gray-800/30"
+                        >
+                          <div className="p-3 space-y-2">
+                            <div className="absolute left-0 top-0 bottom-4 w-0.5 bg-gradient-to-b from-accent/30 to-accent/10" />
+
+                            {group.entries.map((entry, entryIndex) => (
+                              <motion.div
+                                key={entryIndex}
+                                initial={{ opacity: 0, x: -10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: entryIndex * 0.1 }}
+                                className="relative flex gap-2 group/entry hover:bg-accent/5 p-2 rounded-md"
+                              >
+                                <motion.div
+                                  className="absolute left-0 top-3 -translate-x-1/2 w-1.5 h-1.5 bg-accent rounded-full ring-1 ring-accent/20"
+                                  whileHover={{ scale: 1.5 }}
+                                  animate={{
+                                    boxShadow: '0 0 0 2px rgba(4, 170, 0, 0.1)'
+                                  }}
+                                />
+
+                                <div className="ml-3 pb-2">
+                                  <div className="flex flex-wrap gap-2 items-baseline">
+                                    <span className="text-xs text-accent font-semibold bg-accent/10 px-1.5 py-0.5 rounded-full">
+                                      {entry.period}
+                                    </span>
+                                    <h4 className="text-sm font-semibold text-gray-900 dark:text-white group-hover/entry:text-accent transition-colors duration-300">
+                                      {entry.title}
+                                    </h4>
+                                  </div>
+                                  <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                                    {entry.description}
+                                  </p>
+                                </div>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <style>{`
+        @keyframes pulse-subtle {
+          0% { opacity: 0.3; }
+          50% { opacity: 0.7; }
+          100% { opacity: 0.3; }
+        }
+        .animate-pulse-subtle {
+          animation: pulse-subtle 3s infinite;
+        }
+        @keyframes fade-in-up {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-fade-in-up {
+          animation: fade-in-up 0.6s ease-out forwards;
+        }
+      `}</style>
     </section>
   )
 }

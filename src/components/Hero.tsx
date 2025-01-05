@@ -36,7 +36,7 @@ export default function Hero() {
             {/* Main Heading */}
             <div className="pt-4">
               <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl mx-auto">
-                I'm a tech leader and AI enthusiast with a PhD in Distributed Artificial Intelligence,
+                I'm a tech leader and AI enthusiast with a PhD from the Distributed Artificial Intelligence Laboratory at the Technical University of Berlin,
                 offering consulting and full-stack development for startups and enterprises of all sizes.
                 From building generative AI tools for publishers to creating next-level digital products,
                 I help teams innovate, scale, and deliver real impact.
