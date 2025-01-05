@@ -11,8 +11,28 @@ permissions:
   id-token: write
 
 jobs:
-  build:
+  create-release:
     runs-on: ubuntu-latest
+    name: Create Release
+    permissions:
+      contents: write
+    steps:
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: release-v${{ github.run_number }}
+          release_name: Release ${{ github.sha }}
+          draft: false
+          prerelease: false
+
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    name: GitHub Pages - Build and Deploy
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
@@ -41,48 +61,32 @@ jobs:
         with:
           path: './dist'
 
-
-  create-release:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Create Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: release-v${{ github.run_number }}
-          release_name: Release ${{ github.sha }}
-          draft: false
-          prerelease: false
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
 
   ftp-deploy:
-    needs: build
     runs-on: ubuntu-latest
+    name: FTP - Build and Deploy
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
         with:
-          name: github-pages
-          path: artifact
+          version: 8
 
-      - name: Extract artifact
-        run: tar -xf artifact/artifact.tar -C artifact
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build for FTP
+        run: pnpm build --base=/
 
       - name: Deploy to FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
@@ -90,5 +94,4 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: artifact/
-          protocol: ftps
+          local-dir: dist/
