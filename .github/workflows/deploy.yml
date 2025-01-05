@@ -91,7 +91,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: artifact/
-          server-dir: /
           protocol: ftps
-          port: 21
-          security: strict # Enforces strict security
