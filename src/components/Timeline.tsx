@@ -1,147 +1,14 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import {
-  GraduationCap,
-  Rocket,
-  HeartHandshake,
-  Laptop,
-  Film,
-  ChevronDown,
-} from 'lucide-react'
-
-interface TimelineEntry {
-  period: string
-  title: string
-  description: string
-}
-
-interface TimelineGroup {
-  title: string
-  description: string
-  entries: TimelineEntry[]
-  icon: JSX.Element
-}
-
-const timelineGroups: TimelineGroup[] = [
-  {
-    title: 'Academic Career',
-    description:
-      'Academic journey and research leadership in human-computer interaction at Distributed Artifical Intelligence Lab (DAI-Labor) at TU-Berlin.',
-    icon: <GraduationCap className="text-accent" strokeWidth={1.5} />,
-    entries: [
-      {
-        period: '1999 – 2005',
-        title: 'Early Career & Education',
-        description:
-          'Started with early web development roles, followed by student research at TU-Berlin and internship at Sun Microsystems.'
-      },
-      {
-        period: '2005 – 2009',
-        title: 'PhD Student, Researcher & Project Manager @ TU-Berlin',
-        description:
-          'Led the Human-Computer Interaction workgroup, managed public/private research projects, and completed PhD thesis on "Multimodal Interaction in Smart Environments: A Model-based Runtime System for Ubiquitous User Interfaces".'
-      },
-      {
-        period: '2009 – 2010',
-        title: 'Co-Director, Competence Center Next Generation Services @ TU-Berlin',
-        description:
-          'Advised 13 PhD students, shaped the center\'s research direction, headed the Human-Computer Interaction workgroup.'
-      }
-    ]
-  },
-  {
-    title: 'Startup Leadership',
-    description:
-      'Leading roles in innovative startups, focusing on smart home and energy management solutions.',
-    icon: <Rocket className="text-accent" strokeWidth={1.5} />,
-    entries: [
-      {
-        period: '2010 – 2012',
-        title: 'Independent Web-Developer & Volunteer',
-        description:
-          'Traveled across Asia, Australia, New Zealand, volunteering in sustainability projects, teaching English, and freelancing in web development.'
-      },
-      {
-        period: '2012 – 2013',
-        title: 'Chief Developer @ yetu AG',
-        description:
-          'Built up the smart home development department from 2 to 18 developers across multiple teams.'
-      },
-      {
-        period: '2014 – 2017',
-        title: 'CTO @ smartB Energy Management GmbH',
-        description:
-          'Led the dev team, raised funding, built a high-performance IoT system to reduce energy consumption in commercial buildings.'
-      }
-    ]
-  },
-  {
-    title: 'Non-Profit Engagement',
-    description:
-      'Leadership roles in sustainability-focused organizations and community building.',
-    icon: <HeartHandshake className="text-accent" strokeWidth={1.5} />,
-    entries: [
-      {
-        period: '2014 – 2015',
-        title: 'Founder & Organizer @ Sustainability Drinks Berlin',
-        description:
-          'Established a regular event series to connect sustainability professionals in Berlin (later integrated into GreenBuzz Berlin e.V.).'
-      },
-      {
-        period: '2014 – 2017',
-        title: 'Vice President @ GreenBuzz Global',
-        description:
-          'Helped found a global network of sustainability professionals, expanding the "Buzz" to various cities.'
-      },
-      {
-        period: '2015 – Present',
-        title: 'Co-Founder & Vice President @ GreenBuzz Berlin e.V.',
-        description:
-          'Building and expanding a Berlin-based network for sustainability professionals, running events, and community outreach.'
-      }
-    ]
-  },
-  {
-    title: 'Freelance & Interim CTO',
-    description:
-      'Strategic consulting and technical leadership for various startups and established companies.',
-    icon: <Laptop className="text-accent" strokeWidth={1.5} />,
-    entries: [
-      {
-        period: '2017 – 2023',
-        title: 'CTO / Fullstack Developer / Consultant @ blumendorf.info',
-        description:
-          'Led multiple high-impact projects as freelance CTO and consultant: Built web- and mobile apps, led engineering teams for various startups, provided technical leadership and React coaching for established companies, and offered strategic advisory services for sustainability and IoT initiatives. Specialized in Typescript, React, React Native, Node.js, and cloud infrastructure.'
-      }
-    ]
-  },
-  {
-    title: 'CHAPTR',
-    description:
-      'Leading AI-driven innovation in the media and entertainment sector.',
-    icon: <Film className="text-accent" strokeWidth={1.5} />,
-    entries: [
-      {
-        period: '2023 – 2023',
-        title: 'Senior Software Engineer @ CHAPTR',
-        description:
-          'Created AI-centric solutions for the media industry, focusing on React, React Native, Node.js, GCP, and Terraform.'
-      },
-      {
-        period: '2023 – Present',
-        title: 'Director of Software Engineering @ CHAPTR',
-        description:
-          'Leading teams building AI-enhanced B2B and B2C digital experiences for the Media & Entertainment sector.'
-      }
-    ]
-  }
-]
+import { ChevronDown } from 'lucide-react'
+import { timelineGroups } from '../data/timeline'
+import { TimelineEntry } from './TimelineEntry'
+import { TimelineEntry as TimelineEntryType } from '../data/timeline'
 
 function Timeline() {
   const [isOpen, setIsOpen] = useState(false)
   const [expandedGroups, setExpandedGroups] = useState<number[]>([])
 
-  // Intersection Observer for fade-in animation
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -170,8 +37,7 @@ function Timeline() {
     )
   }
 
-  // Helper function to get timespan for a group
-  const getGroupTimespan = (entries: TimelineEntry[]) => {
+  const getGroupTimespan = (entries: TimelineEntryType[]) => {
     const years = entries
       .map((entry) => {
         const [start] = entry.period.split('–')
@@ -190,6 +56,7 @@ function Timeline() {
 
   return (
     <section className="py-24 px-4 max-w-5xl mx-auto" id="timeline">
+      {/* Header section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -221,14 +88,12 @@ function Timeline() {
             <span className="font-medium text-sm">
               {isOpen ? 'Collapse Timeline' : 'View Full Timeline'}
             </span>
-            <ChevronDown
-              className="w-4 h-4 text-accent"
-              strokeWidth={1.5}
-            />
+            <ChevronDown className="w-4 h-4 text-accent" strokeWidth={1.5} />
           </motion.button>
         </div>
       </motion.div>
 
+      {/* Timeline content */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -238,10 +103,8 @@ function Timeline() {
             className="relative"
           >
             {/* Vertical line behind timeline cards */}
-            <div className="absolute left-8 top-[0.85rem] bottom-0 w-0.5
-              bg-gradient-to-b from-accent via-accent/30 to-accent/10">
-              <div className="absolute top-0 left-0 w-full h-full
-                animate-pulse-subtle bg-gradient-to-b from-accent/30 to-transparent" />
+            <div className="absolute left-8 top-[0.85rem] bottom-0 w-0.5 bg-gradient-to-b from-accent via-accent/30 to-accent/10">
+              <div className="absolute top-0 left-0 w-full h-full animate-pulse-subtle bg-gradient-to-b from-accent/30 to-transparent" />
             </div>
 
             <motion.div
@@ -339,39 +202,11 @@ function Timeline() {
                               bg-gradient-to-b from-accent/20 to-accent/5" />
 
                             {group.entries.map((entry, entryIndex) => (
-                              <motion.div
+                              <TimelineEntry
                                 key={entryIndex}
-                                initial={{ opacity: 0, x: -10 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: entryIndex * 0.1 }}
-                                className="relative flex gap-2 group/entry
-                                  hover:bg-accent/5 dark:hover:bg-accent/10
-                                  p-1.5 rounded-md"
-                              >
-                                <motion.div
-                                  className="absolute left-0 top-3 -translate-x-1/2 w-1 h-1
-                                    bg-accent rounded-full ring-1 ring-white dark:ring-gray-800"
-                                  whileHover={{ scale: 1.5 }}
-                                  animate={{
-                                    boxShadow: '0 0 0 2px rgba(4, 170, 0, 0.1)'
-                                  }}
-                                />
-                                <div className="ml-3 pb-0.5">
-                                  <div className="flex flex-wrap gap-2 items-baseline">
-                                    <span className="text-xs text-accent font-medium
-                                      bg-accent/5 px-1.5 py-0.5 rounded-full">
-                                      {entry.period}
-                                    </span>
-                                    <h4 className="text-sm font-medium text-gray-900 dark:text-white
-                                      group-hover/entry:text-accent transition-colors duration-300">
-                                      {entry.title}
-                                    </h4>
-                                  </div>
-                                  <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
-                                    {entry.description}
-                                  </p>
-                                </div>
-                              </motion.div>
+                                entry={entry}
+                                entryIndex={entryIndex}
+                              />
                             ))}
                           </div>
                         </motion.div>
@@ -385,7 +220,7 @@ function Timeline() {
         )}
       </AnimatePresence>
 
-      {/* Custom animations */}
+      {/* Styles */}
       <style>{`
         @keyframes pulse-subtle {
           0% { opacity: 0.3; }
@@ -408,37 +243,6 @@ function Timeline() {
         .animate-fade-in-up {
           animation: fade-in-up 0.6s ease-out forwards;
         }
-        .text-accent {
-          color: #04AA00;
-        }
-        .dark .text-accent {
-          color: #05c800;
-        }
-        .bg-accent/5 {
-          background-color: rgba(4, 170, 0, 0.05);
-        }
-        .dark .bg-accent/5 {
-          background-color: rgba(5, 200, 0, 0.05);
-        }
-        .border-accent/20 {
-          border-color: rgba(4, 170, 0, 0.2);
-        }
-        .dark .border-accent/20 {
-          border-color: rgba(5, 200, 0, 0.2);
-        }
-        .border-accent/40 {
-          border-color: rgba(4, 170, 0, 0.4);
-        }
-        .dark .border-accent/40 {
-          border-color: rgba(5, 200, 0, 0.4);
-        }
-        /* Dark mode background colors */
-        .dark .bg-blue-950\/30 { background-color: rgba(23, 37, 84, 0.3); }
-        .dark .bg-green-950\/30 { background-color: rgba(5, 46, 22, 0.3); }
-        .dark .bg-yellow-950\/30 { background-color: rgba(66, 32, 6, 0.3); }
-        .dark .bg-pink-950\/30 { background-color: rgba(80, 7, 36, 0.3); }
-        .dark .bg-purple-950\/30 { background-color: rgba(59, 7, 100, 0.3); }
-        .dark .bg-red-950\/30 { background-color: rgba(69, 10, 10, 0.3); }
       `}</style>
     </section>
   )

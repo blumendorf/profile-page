@@ -47,3 +47,35 @@
 .animate-fade-in {
   animation: fadeIn 1s ease-out forwards;
 }
+
+.text-accent {
+  color: #04AA00;
+}
+
+.dark .text-accent {
+  color: #05c800;
+}
+
+.bg-accent\/5 {
+  background-color: rgba(4, 170, 0, 0.05);
+}
+
+.dark .bg-accent\/5 {
+  background-color: rgba(5, 200, 0, 0.05);
+}
+
+.border-accent\/20 {
+  border-color: rgba(4, 170, 0, 0.2);
+}
+
+.dark .border-accent\/20 {
+  border-color: rgba(5, 200, 0, 0.2);
+}
+
+.border-accent\/40 {
+  border-color: rgba(4, 170, 0, 0.4);
+}
+
+.dark .border-accent\/40 {
+  border-color: rgba(5, 200, 0, 0.4);
+}
