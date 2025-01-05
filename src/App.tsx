@@ -5,6 +5,7 @@ import Services from './components/Services'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import TechStack from './components/TechStack'
+import Timeline from './components/Timeline'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Hero />
         <About />
         <TechStack />
+        <Timeline />
         <Services />
         <Contact />
       </main>
