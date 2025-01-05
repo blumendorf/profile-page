@@ -67,12 +67,18 @@ function Timeline() {
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-6"
       >
-        <h2 className="heading-secondary text-center mb-2">
+        <h2 className="heading-secondary text-center mb-16">
           Professional Journey
         </h2>
-        <p className="text-gray-600 dark:text-gray-400 mb-4 max-w-2xl mx-auto text-sm">
-          Over 20 years of experience in software development, leadership, and innovation.
-        </p>
+        <div className="max-w-3xl mx-auto">
+        <p className="text-lg text-gray-600 dark:text-gray-300 space-y-6 mb-8 text-justify">
+          Over 20 years of expertise in software development, leadership, and innovation — from academic
+          research in distributed AI and human-computer interaction to leading roles in startups,
+          sustainability-focused non-profits, and AI-driven business transformation. A proven track
+          record of building high-performing teams, driving product innovation, and delivering impactful
+          solutions across industries like smart home, energy, and publishing.
+          </p>
+        </div>
         <div className="flex justify-center">
           <motion.button
             whileHover={{ scale: 1.02 }}
