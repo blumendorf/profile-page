@@ -92,3 +92,4 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: artifact/
           protocol: ftps
+          log-level: verbose
