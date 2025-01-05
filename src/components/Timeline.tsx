@@ -1,5 +1,13 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import {
+  GraduationCap,
+  Rocket,
+  HeartHandshake,
+  Laptop,
+  Film,
+  ChevronDown,
+} from 'lucide-react'
 
 interface TimelineEntry {
   period: string
@@ -11,172 +19,119 @@ interface TimelineGroup {
   title: string
   description: string
   entries: TimelineEntry[]
+  icon: JSX.Element
 }
 
 const timelineGroups: TimelineGroup[] = [
   {
-    title: "Education",
-    description: "Academic foundation and early professional experience in computer science and web development.",
+    title: 'Academic Career',
+    description:
+      'Academic journey and research leadership in human-computer interaction at Distributed Artifical Intelligence Lab (DAI-Labor) at TU-Berlin.',
+    icon: <GraduationCap className="text-accent" strokeWidth={1.5} />,
     entries: [
       {
-        period: "July 1999 – September 1999",
-        title: "Technical Support @ Schroedel",
-        description: "Developed internal and external web pages and web-based applications."
+        period: '1999 – 2005',
+        title: 'Early Career & Education',
+        description:
+          'Started with early web development roles, followed by student research at TU-Berlin and internship at Sun Microsystems.'
       },
       {
-        period: "June 2001 – September 2002",
-        title: "Technical Consultant @ Continental AG",
-        description: "Introduced an e-procurement system at the Aachen plant."
+        period: '2005 – 2009',
+        title: 'PhD Student, Researcher & Project Manager @ TU-Berlin',
+        description:
+          'Led the Human-Computer Interaction workgroup, managed public/private research projects, and completed PhD thesis on "Multimodal Interaction in Smart Environments: A Model-based Runtime System for Ubiquitous User Interfaces".'
       },
       {
-        period: "January 2003 – September 2005",
-        title: "Student Researcher @ TU-Berlin, DAI-Labor",
-        description: "Focus on human-computer interaction research, web-based and multimodal interaction, agent-oriented technologies."
-      },
-      {
-        period: "October 2004 – July 2005",
-        title: "Intern/Developer @ Sun Microsystems",
-        description: "Developed mobile applications; wrote diploma thesis in collaboration with Sun and TU Berlin."
+        period: '2009 – 2010',
+        title: 'Co-Director, Competence Center Next Generation Services @ TU-Berlin',
+        description:
+          'Advised 13 PhD students, shaped the center\'s research direction, headed the Human-Computer Interaction workgroup.'
       }
     ]
   },
   {
-    title: "PhD Research",
-    description: "Advanced research in human-computer interaction and leadership of academic projects at TU-Berlin.",
+    title: 'Startup Leadership',
+    description:
+      'Leading roles in innovative startups, focusing on smart home and energy management solutions.',
+    icon: <Rocket className="text-accent" strokeWidth={1.5} />,
     entries: [
       {
-        period: "September 2005 – July 2009",
-        title: "Researcher & Technical Project Manager @ TU-Berlin, DAI-Labor",
-        description: "Led the human-computer interaction workgroup, managed public/private research projects, published and reviewed scientific papers."
+        period: '2010 – 2012',
+        title: 'Independent Web-Developer & Volunteer',
+        description:
+          'Traveled across Asia, Australia, New Zealand, volunteering in sustainability projects, teaching English, and freelancing in web development.'
       },
       {
-        period: "March 2009 – July 2010",
-        title: "Smart Senior Project Coordinator @ TU-Berlin, DAI-Labor",
-        description: "Coordinated TU-Berlin's contribution (5 institutes, ~20 researchers) for the Smart Senior project (intelligent services for seniors)."
+        period: '2012 – 2013',
+        title: 'Chief Developer @ yetu AG',
+        description:
+          'Built up the smart home development department from 2 to 18 developers across multiple teams.'
       },
       {
-        period: "August 2009 – July 2010",
-        title: "Co-Director, Competence Center Next Generation Services @ TU-Berlin, DAI-Labor",
-        description: "Advised 13 PhD students, shaped the center's research direction, headed the Human-Computer Interaction workgroup."
-      },
-      {
-        period: "September 2009 – August 2010",
-        title: "(IZ) Connected Living",
-        description: "Conducted smart home research and coordinated project proposals with industry partners in the Connected Living Association."
+        period: '2014 – 2017',
+        title: 'CTO @ smartB Energy Management GmbH',
+        description:
+          'Led the dev team, raised funding, built a high-performance IoT system to reduce energy consumption in commercial buildings.'
       }
     ]
   },
   {
-    title: "Startup Leadership",
-    description: "Leading roles in innovative startups, focusing on smart home and energy management solutions.",
+    title: 'Non-Profit Engagement',
+    description:
+      'Leadership roles in sustainability-focused organizations and community building.',
+    icon: <HeartHandshake className="text-accent" strokeWidth={1.5} />,
     entries: [
       {
-        period: "September 2010 – July 2012",
-        title: "Independent Web-Developer & Volunteer",
-        description: "Traveled across Asia, Australia, New Zealand, volunteering in sustainability projects, teaching English, and freelancing in web development."
+        period: '2014 – 2015',
+        title: 'Founder & Organizer @ Sustainability Drinks Berlin',
+        description:
+          'Established a regular event series to connect sustainability professionals in Berlin (later integrated into GreenBuzz Berlin e.V.).'
       },
       {
-        period: "September 2012 – December 2013",
-        title: "Chief Developer @ yetu AG",
-        description: "Built up the smart home development department from 2 to 18 developers across multiple teams."
+        period: '2014 – 2017',
+        title: 'Vice President @ GreenBuzz Global',
+        description:
+          'Helped found a global network of sustainability professionals, expanding the "Buzz" to various cities.'
       },
       {
-        period: "January 2014 – April 2017",
-        title: "CTO @ smartB Energy Management GmbH",
-        description: "Led the dev team, raised funding, built a high-performance IoT system to reduce energy consumption in commercial buildings."
+        period: '2015 – Present',
+        title: 'Co-Founder & Vice President @ GreenBuzz Berlin e.V.',
+        description:
+          'Building and expanding a Berlin-based network for sustainability professionals, running events, and community outreach.'
       }
     ]
   },
   {
-    title: "Non-Profit Engagement",
-    description: "Leadership roles in sustainability-focused organizations and community building.",
+    title: 'Freelance & Interim CTO',
+    description:
+      'Strategic consulting and technical leadership for various startups and established companies.',
+    icon: <Laptop className="text-accent" strokeWidth={1.5} />,
     entries: [
       {
-        period: "January 2014 – March 2015",
-        title: "Founder & Organizer @ Sustainability Drinks Berlin",
-        description: "Established a regular event series to connect sustainability professionals in Berlin (later integrated into GreenBuzz Berlin e.V.)."
-      },
-      {
-        period: "July 2014 – July 2017",
-        title: "Vice President @ GreenBuzz Global",
-        description: "Helped found a global network of sustainability professionals, expanding the \"Buzz\" to various cities."
-      },
-      {
-        period: "March 2015 – Present",
-        title: "Co-Founder & Vice President @ GreenBuzz Berlin e.V.",
-        description: "Building and expanding a Berlin-based network for sustainability professionals, running events, and community outreach."
+        period: '2017 – 2023',
+        title: 'CTO / Fullstack Developer / Consultant @ blumendorf.info',
+        description:
+          'Led multiple high-impact projects as freelance CTO and consultant: Built web- and mobile apps, led engineering teams for various startups, provided technical leadership and React coaching for established companies, and offered strategic advisory services for sustainability and IoT initiatives. Specialized in Typescript, React, React Native, Node.js, and cloud infrastructure.'
       }
     ]
   },
   {
-    title: "Freelance CTO & Development",
-    description: "Strategic consulting and technical leadership for various startups and established companies.",
+    title: 'CHAPTR',
+    description:
+      'Leading AI-driven innovation in the media and entertainment sector.',
+    icon: <Film className="text-accent" strokeWidth={1.5} />,
     entries: [
       {
-        period: "May 2017 – Present",
-        title: "CTO / Fullstack Developer / Consultant @ blumendorf.info (Freelance)",
-        description: "Working at the intersection of sustainability and IT, co-founding startups, launching apps, and supporting Berlin's tech scene."
+        period: '2023 – 2023',
+        title: 'Senior Software Engineer @ CHAPTR',
+        description:
+          'Created AI-centric solutions for the media industry, focusing on React, React Native, Node.js, GCP, and Terraform.'
       },
       {
-        period: "September 2017 – March 2018",
-        title: "CTO (Interim) @ iamsmart (RWE Startup)",
-        description: "Led the development team for a smart home solution financed by RWE."
-      },
-      {
-        period: "August 2018 – September 2018",
-        title: "ReactJS Coach @ Uelzener Versicherungen",
-        description: "Provided React training and coaching sessions to in-house developers."
-      },
-      {
-        period: "August 2018 – July 2020",
-        title: "Strategic Advisor @ Spreaducation (Freelance)",
-        description: "Offered business planning, coaching, and operations management advice."
-      },
-      {
-        period: "November 2018 – April 2019",
-        title: "Frontend & Mobile Team Lead / Consultant @ Chattyco GmbH (Freelance)",
-        description: "Built the first MVP of Chattyco's React Native app and a React web prototype to secure funding."
-      },
-      {
-        period: "April 2019 – December 2020",
-        title: "CTO @ QiLABS (Freelance)",
-        description: "Full-stack development for the QiTime App, leading a remote engineering team, building the first product."
-      },
-      {
-        period: "August 2019 – July 2020",
-        title: "Strategic Advisor @ IOLITE GmbH (Freelance)",
-        description: "Provided business planning, coaching, and operations management support."
-      },
-      {
-        period: "January 2020 – December 2020",
-        title: "CTO @ Mello App (SitEinander, Techstars '20)",
-        description: "Re-developed the React Native app, supported the Techstars program, led a remote dev team."
-      },
-      {
-        period: "May 2020 – April 2021",
-        title: "Interims CTO / Mentor @ assetbird GmbH (Freelance)",
-        description: "Built the MVP, set up infrastructure and processes, and mentored a remote engineering team."
-      },
-      {
-        period: "September 2020 – March 2023",
-        title: "Freelance Software Engineer & Consultant @ Kieback&Peter",
-        description: "Developed an IoT platform for building management (GraphQL, .NET, Node.js, React, Azure)."
-      }
-    ]
-  },
-  {
-    title: "CHAPTR",
-    description: "Leading AI-driven innovation in the media and entertainment sector.",
-    entries: [
-      {
-        period: "August 2023 – November 2023",
-        title: "Senior Software Engineer @ CHAPTR",
-        description: "Created AI-centric solutions for the media industry, focusing on React/React Native, Node.js, GCP, and Terraform."
-      },
-      {
-        period: "November 2023 – Present",
-        title: "Director of Software Engineering @ CHAPTR",
-        description: "Leading teams building AI-enhanced B2B and B2C digital experiences for the Media & Entertainment sector."
+        period: '2023 – Present',
+        title: 'Director of Software Engineering @ CHAPTR',
+        description:
+          'Leading teams building AI-enhanced B2B and B2C digital experiences for the Media & Entertainment sector.'
       }
     ]
   }
@@ -185,13 +140,12 @@ const timelineGroups: TimelineGroup[] = [
 function Timeline() {
   const [isOpen, setIsOpen] = useState(false)
   const [expandedGroups, setExpandedGroups] = useState<number[]>([])
-  const [activeGroup, setActiveGroup] = useState<number | null>(null)
 
   // Intersection Observer for fade-in animation
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach(entry => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('animate-fade-in-up')
             observer.unobserve(entry.target)
@@ -209,31 +163,33 @@ function Timeline() {
   }, [isOpen])
 
   const toggleGroup = (index: number) => {
-    setExpandedGroups(prev =>
+    setExpandedGroups((prev) =>
       prev.includes(index)
-        ? prev.filter(i => i !== index)
+        ? prev.filter((i) => i !== index)
         : [...prev, index]
     )
-    setActiveGroup(index)
   }
 
   // Helper function to get timespan for a group
   const getGroupTimespan = (entries: TimelineEntry[]) => {
-    const dates = entries.map(entry => {
-      const [start] = entry.period.split('–').map(d => d.trim())
-      return new Date(start)
-    }).filter(date => !isNaN(date.getTime()))
+    const years = entries
+      .map((entry) => {
+        const [start] = entry.period.split('–')
+        return parseInt(start.trim())
+      })
+      .filter(Boolean)
 
-    if (dates.length === 0) return ''
+    if (years.length === 0) return ''
+    const earliestYear = Math.min(...years)
+    const latestYear = Math.max(...years)
 
-    const earliestYear = Math.min(...dates.map(d => d.getFullYear()))
-    const latestYear = Math.max(...dates.map(d => d.getFullYear()))
-
-    return `${earliestYear} – ${latestYear}`
+    return earliestYear !== latestYear
+      ? `${earliestYear} – ${latestYear}`
+      : `${earliestYear}`
   }
 
   return (
-    <section className="py-8 px-4 max-w-5xl mx-auto" id="timeline">
+    <section className="py-24 px-4 max-w-5xl mx-auto" id="timeline">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -254,9 +210,10 @@ function Timeline() {
               group flex items-center justify-center gap-3
               px-6 py-3 rounded-lg transition-all duration-300
               border border-accent/20 hover:border-accent/40
+              text-accent
               ${isOpen
-                ? 'bg-accent/10 text-accent hover:bg-accent/20'
-                : 'bg-white dark:bg-gray-800 hover:bg-accent/10'
+                ? 'bg-accent/10 dark:bg-accent/20 hover:bg-accent/20 dark:hover:bg-accent/30'
+                : 'bg-white dark:bg-gray-800 hover:bg-accent/10 dark:hover:bg-accent/20'
               }
               shadow-sm hover:shadow-md backdrop-blur-sm
             `}
@@ -264,20 +221,10 @@ function Timeline() {
             <span className="font-medium text-sm">
               {isOpen ? 'Collapse Timeline' : 'View Full Timeline'}
             </span>
-            <motion.svg
-              animate={{ rotate: isOpen ? 180 : 0 }}
+            <ChevronDown
               className="w-4 h-4 text-accent"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M19 9l-7 7-7-7"
-              />
-            </motion.svg>
+              strokeWidth={1.5}
+            />
           </motion.button>
         </div>
       </motion.div>
@@ -290,12 +237,15 @@ function Timeline() {
             exit={{ opacity: 0, height: 0 }}
             className="relative"
           >
-            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-accent via-accent/40 to-accent/10">
-              <div className="absolute top-0 left-0 w-full h-full animate-pulse-subtle bg-gradient-to-b from-accent/40 to-transparent" />
+            {/* Vertical line behind timeline cards */}
+            <div className="absolute left-8 top-[0.85rem] bottom-0 w-0.5
+              bg-gradient-to-b from-accent via-accent/30 to-accent/10">
+              <div className="absolute top-0 left-0 w-full h-full
+                animate-pulse-subtle bg-gradient-to-b from-accent/30 to-transparent" />
             </div>
 
             <motion.div
-              className="space-y-4"
+              className="space-y-1"
               variants={{
                 hidden: { opacity: 0 },
                 show: {
@@ -309,12 +259,13 @@ function Timeline() {
               {timelineGroups.map((group, groupIndex) => (
                 <motion.div
                   key={groupIndex}
-                  className="relative timeline-group"
+                  className="relative timeline-group p-2"
                   variants={{
                     hidden: { opacity: 0, x: -20 },
                     show: { opacity: 1, x: 0 }
                   }}
                 >
+                  {/* The timeline dot */}
                   <motion.div
                     className="absolute left-8 -translate-x-1/2 w-3 h-3 bg-accent rounded-full ring-2 ring-accent/20 z-10"
                     whileHover={{ scale: 1.2 }}
@@ -325,51 +276,53 @@ function Timeline() {
                     }}
                   />
 
-                  <div className="ml-14">
+                  {/* Group accordion header */}
+                  <div className="ml-16">
                     <motion.button
                       onClick={() => toggleGroup(groupIndex)}
-                      className={`w-full text-left group bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm
-                               rounded-lg border border-accent/20 p-3
-                               hover:border-accent/40 transition-all duration-300
-                               shadow-sm hover:shadow-md
-                               ${expandedGroups.includes(groupIndex) ? 'rounded-b-none border-b-0' : ''}`}
-                      whileHover={{ y: -2 }}
-                      whileTap={{ scale: 0.98 }}
+                      className={`w-full text-left group
+                        bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm
+                        rounded-lg border border-accent/10
+                        hover:border-accent/30 transition-all duration-300
+                        ${expandedGroups.includes(groupIndex)
+                          ? 'rounded-b-none border-b-0'
+                          : ''
+                        }`}
+                      whileHover={{ y: -1 }}
+                      whileTap={{ scale: 0.99 }}
                     >
-                      <div className="flex justify-between items-center">
-                        <div className="flex-1">
-                          <div className="flex items-baseline gap-2">
-                            <h3 className="text-base font-bold text-accent dark:text-accent-light group-hover:text-accent-dark dark:group-hover:text-accent-light transition-colors duration-300">
-                              {group.title}
-                            </h3>
-                            <span className="text-xs text-accent/70 font-medium bg-accent/5 px-2 py-0.5 rounded-full">
-                              {getGroupTimespan(group.entries)}
-                            </span>
+                      <div className="flex justify-between items-center p-2">
+                        <div className="flex-1 flex items-center gap-2">
+                          <div className="text-lg">{group.icon}</div>
+                          <div>
+                            <div className="flex items-baseline gap-2">
+                              <h3 className="text-sm font-bold text-accent dark:text-accent-light
+                                group-hover:text-accent-dark dark:group-hover:text-accent-light
+                                transition-colors duration-300">
+                                {group.title}
+                              </h3>
+                              <span className="text-xs text-accent/70 font-medium
+                                bg-accent/5 px-1.5 py-0.5 rounded-full">
+                                {getGroupTimespan(group.entries)}
+                              </span>
+                            </div>
+                            <p className="text-xs text-gray-600 dark:text-gray-400 mt-0.5 line-clamp-1">
+                              {group.description}
+                            </p>
                           </div>
-                          <p className="text-gray-600 dark:text-gray-400 mt-0.5 text-xs">
-                            {group.description}
-                          </p>
                         </div>
-                        <div className="ml-3 flex-shrink-0">
-                          <svg
+                        <div className="ml-2 flex-shrink-0">
+                          <ChevronDown
                             className={`w-4 h-4 text-accent transition-all duration-300 transform
-                                      ${expandedGroups.includes(groupIndex) ? 'rotate-180' : ''}
-                                      group-hover:scale-110`}
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M19 9l-7 7-7-7"
-                            />
-                          </svg>
+                              ${expandedGroups.includes(groupIndex) ? 'rotate-180' : ''}
+                              group-hover:scale-110`}
+                            strokeWidth={1.5}
+                          />
                         </div>
                       </div>
                     </motion.button>
 
+                    {/* Entries inside each group */}
                     <AnimatePresence>
                       {expandedGroups.includes(groupIndex) && (
                         <motion.div
@@ -377,11 +330,13 @@ function Timeline() {
                           animate={{ opacity: 1, height: 'auto' }}
                           exit={{ opacity: 0, height: 0 }}
                           className="relative overflow-hidden
-                                   border border-accent/20 border-t-0
-                                   rounded-b-lg bg-white/30 dark:bg-gray-800/30"
+                            border border-accent/10 border-t-0
+                            rounded-b-lg bg-white/30 dark:bg-gray-800/30"
                         >
-                          <div className="p-3 space-y-2">
-                            <div className="absolute left-0 top-0 bottom-4 w-0.5 bg-gradient-to-b from-accent/30 to-accent/10" />
+                          <div className="p-2 space-y-1.5">
+                            {/* Thin line to connect entries inside group */}
+                            <div className="absolute left-0 top-[0.85rem] bottom-4 w-0.5
+                              bg-gradient-to-b from-accent/20 to-accent/5" />
 
                             {group.entries.map((entry, entryIndex) => (
                               <motion.div
@@ -389,22 +344,26 @@ function Timeline() {
                                 initial={{ opacity: 0, x: -10 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: entryIndex * 0.1 }}
-                                className="relative flex gap-2 group/entry hover:bg-accent/5 p-2 rounded-md"
+                                className="relative flex gap-2 group/entry
+                                  hover:bg-accent/5 dark:hover:bg-accent/10
+                                  p-1.5 rounded-md"
                               >
                                 <motion.div
-                                  className="absolute left-0 top-3 -translate-x-1/2 w-1.5 h-1.5 bg-accent rounded-full ring-1 ring-accent/20"
+                                  className="absolute left-0 top-3 -translate-x-1/2 w-1 h-1
+                                    bg-accent rounded-full ring-1 ring-white dark:ring-gray-800"
                                   whileHover={{ scale: 1.5 }}
                                   animate={{
                                     boxShadow: '0 0 0 2px rgba(4, 170, 0, 0.1)'
                                   }}
                                 />
-
-                                <div className="ml-3 pb-2">
+                                <div className="ml-3 pb-0.5">
                                   <div className="flex flex-wrap gap-2 items-baseline">
-                                    <span className="text-xs text-accent font-semibold bg-accent/10 px-1.5 py-0.5 rounded-full">
+                                    <span className="text-xs text-accent font-medium
+                                      bg-accent/5 px-1.5 py-0.5 rounded-full">
                                       {entry.period}
                                     </span>
-                                    <h4 className="text-sm font-semibold text-gray-900 dark:text-white group-hover/entry:text-accent transition-colors duration-300">
+                                    <h4 className="text-sm font-medium text-gray-900 dark:text-white
+                                      group-hover/entry:text-accent transition-colors duration-300">
                                       {entry.title}
                                     </h4>
                                   </div>
@@ -426,6 +385,7 @@ function Timeline() {
         )}
       </AnimatePresence>
 
+      {/* Custom animations */}
       <style>{`
         @keyframes pulse-subtle {
           0% { opacity: 0.3; }
@@ -448,6 +408,37 @@ function Timeline() {
         .animate-fade-in-up {
           animation: fade-in-up 0.6s ease-out forwards;
         }
+        .text-accent {
+          color: #04AA00;
+        }
+        .dark .text-accent {
+          color: #05c800;
+        }
+        .bg-accent/5 {
+          background-color: rgba(4, 170, 0, 0.05);
+        }
+        .dark .bg-accent/5 {
+          background-color: rgba(5, 200, 0, 0.05);
+        }
+        .border-accent/20 {
+          border-color: rgba(4, 170, 0, 0.2);
+        }
+        .dark .border-accent/20 {
+          border-color: rgba(5, 200, 0, 0.2);
+        }
+        .border-accent/40 {
+          border-color: rgba(4, 170, 0, 0.4);
+        }
+        .dark .border-accent/40 {
+          border-color: rgba(5, 200, 0, 0.4);
+        }
+        /* Dark mode background colors */
+        .dark .bg-blue-950\/30 { background-color: rgba(23, 37, 84, 0.3); }
+        .dark .bg-green-950\/30 { background-color: rgba(5, 46, 22, 0.3); }
+        .dark .bg-yellow-950\/30 { background-color: rgba(66, 32, 6, 0.3); }
+        .dark .bg-pink-950\/30 { background-color: rgba(80, 7, 36, 0.3); }
+        .dark .bg-purple-950\/30 { background-color: rgba(59, 7, 100, 0.3); }
+        .dark .bg-red-950\/30 { background-color: rgba(69, 10, 10, 0.3); }
       `}</style>
     </section>
   )
