@@ -1,6 +1,6 @@
 export default function Hero() {
   return (
-    <section id="home" className="relative min-h-[700px] h-[calc(100vh-4rem)] flex items-center justify-center bg-gradient-to-br from-white via-gray-50 to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 overflow-hidden">
+    <div className="relative min-h-[700px] h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5 dark:opacity-10">
         <div className="absolute inset-0" style={{
@@ -68,6 +68,6 @@ export default function Hero() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   )
 }

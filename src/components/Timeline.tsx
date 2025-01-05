@@ -60,7 +60,7 @@ function Timeline() {
   }
 
   return (
-    <section className="py-24 px-4 max-w-5xl mx-auto" id="timeline">
+    <div className="px-4 max-w-5xl mx-auto">
       {/* Header section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -249,7 +249,7 @@ function Timeline() {
           animation: fade-in-up 0.6s ease-out forwards;
         }
       `}</style>
-    </section>
+    </div>
   )
 }
 

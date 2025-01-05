@@ -1,7 +1,10 @@
+import { Beaker, Code2, Users, CheckCircle2 } from 'lucide-react';
+
 export default function Services() {
   const services = [
     {
       title: "Tech & AI Consulting",
+      icon: <Beaker className="w-8 h-8 text-accent/60 dark:text-accent-light/60 mb-3" />,
       items: [
         "Business optimization through cutting-edge technology",
         "Strategic AI advisory (generative AI, agent-based systems)",
@@ -11,6 +14,7 @@ export default function Services() {
     },
     {
       title: "Development",
+      icon: <Code2 className="w-8 h-8 text-accent/60 dark:text-accent-light/60 mb-3" />,
       items: [
         "Full-stack engineering with React, Node.js, TypeScript",
         "Mobile development with React Native",
@@ -20,6 +24,7 @@ export default function Services() {
     },
     {
       title: "Leadership",
+      icon: <Users className="w-8 h-8 text-accent/60 dark:text-accent-light/60 mb-3" />,
       items: [
         "Interim CTO services",
         "Building and leading high-performing, innovative teams",
@@ -30,25 +35,36 @@ export default function Services() {
   ]
 
   return (
-    <section id="services" className="py-24 bg-gray-50 dark:bg-gray-900">
-      <div className="section-container">
-        <h2 className="heading-secondary text-center mb-16">Services</h2>
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-          {services.map((service, index) => (
-            <div key={index} className="bg-white dark:bg-gray-800 p-6 lg:p-8 rounded-xl shadow-lg border-l-4 border-accent hover:shadow-xl transition-shadow duration-300">
-              <h3 className="text-2xl font-bold text-accent dark:text-accent-light mb-6">{service.title}</h3>
-              <ul className="space-y-4">
-                {service.items.map((item, idx) => (
-                  <li key={idx} className="flex items-start space-x-3">
-                    <span className="text-accent mt-1">•</span>
-                    <span className="text-gray-600 dark:text-gray-300">{item}</span>
-                  </li>
-                ))}
-              </ul>
+    <div className="section-container">
+      <h2 className="heading-secondary text-center mb-16">Services</h2>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
+        {services.map((service, index) => (
+          <div
+            key={index}
+            className="group bg-white dark:bg-gray-800 p-6 lg:p-8 rounded-xl
+                        shadow-lg hover:shadow-xl transition-all duration-300
+                        border border-gray-100 dark:border-gray-700
+                        hover:-translate-y-1 hover:border-accent/30 dark:hover:border-accent-light/30"
+          >
+            <div className="flex flex-col items-center mb-6">
+              {service.icon}
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white text-center">
+                {service.title}
+              </h3>
             </div>
-          ))}
-        </div>
+            <ul className="space-y-4">
+              {service.items.map((item, idx) => (
+                <li key={idx} className="flex items-start space-x-3">
+                  <CheckCircle2
+                    className="w-4 h-4 text-accent/50 dark:text-accent-light/50 mt-1 flex-shrink-0"
+                  />
+                  <span className="text-gray-600 dark:text-gray-300">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
-    </section>
+    </div>
   )
 }

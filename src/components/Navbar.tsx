@@ -26,10 +26,19 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    // Check local storage on mount
-    const isDarkMode = localStorage.getItem('darkMode') === 'true';
-    if (isDarkMode) {
+    // Check local storage on mount, default to dark mode if not set
+    const isDarkMode = localStorage.getItem('darkMode');
+    if (isDarkMode === null) {
+      // If no preference is stored, set dark mode as default
+      localStorage.setItem('darkMode', 'true');
       document.documentElement.classList.add('dark');
+    } else {
+      // Apply stored preference
+      if (isDarkMode === 'true') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
     }
   }, []);
 
