@@ -38,16 +38,21 @@ function Timeline() {
   }
 
   const getGroupTimespan = (entries: TimelineEntryType[]) => {
-    const years = entries
-      .map((entry) => {
-        const [start] = entry.period.split('–')
-        return parseInt(start.trim())
-      })
-      .filter(Boolean)
+    const years = entries.map((entry) => {
+      const [start, end] = entry.period.split('–').map(s => s.trim())
+      return {
+        start: parseInt(start),
+        end: end?.toLowerCase().includes('present') ? 'Present' : parseInt(end),
+        isPresent: end?.toLowerCase().includes('present')
+      }
+    }).filter(year => !isNaN(year.start))
 
     if (years.length === 0) return ''
-    const earliestYear = Math.min(...years)
-    const latestYear = Math.max(...years)
+
+    const earliestYear = Math.min(...years.map(y => y.start))
+    const hasPresent = years.some(y => y.isPresent)
+    const latestNumericYear = Math.max(...years.map(y => typeof y.end === 'number' ? y.end : y.start))
+    const latestYear = hasPresent ? 'Present' : latestNumericYear
 
     return earliestYear !== latestYear
       ? `${earliestYear} – ${latestYear}`

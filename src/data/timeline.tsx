@@ -112,7 +112,7 @@ export const timelineGroups: TimelineGroup[] = [
   {
     title: 'CHAPTR',
     description:
-      'Leading AI-driven innovation in the media and entertainment sector.',
+      'Leading AI-driven innovation in the publishing industry.',
     icon: <Film className="text-accent" strokeWidth = { 1.5} />,
     entries: [
       {
@@ -125,7 +125,7 @@ export const timelineGroups: TimelineGroup[] = [
         period: '2023 – Present',
         title: 'Director of Software Engineering @ CHAPTR',
         description:
-          'Leading teams building AI-enhanced B2B and B2C digital experiences for the Media & Entertainment sector.'
+          'Leading teams building AI-enhanced B2B and B2C digital experiences for the publishing industry.'
       }
     ]
   }
