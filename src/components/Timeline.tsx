@@ -193,13 +193,28 @@ function Timeline() {
     )
   }
 
+  // Helper function to get timespan for a group
+  const getGroupTimespan = (entries: TimelineEntry[]) => {
+    const dates = entries.map(entry => {
+      const [start] = entry.period.split('–').map(d => d.trim())
+      return new Date(start)
+    }).filter(date => !isNaN(date.getTime()))
+
+    if (dates.length === 0) return ''
+
+    const earliestYear = Math.min(...dates.map(d => d.getFullYear()))
+    const latestYear = Math.max(...dates.map(d => d.getFullYear()))
+
+    return `${earliestYear} – ${latestYear}`
+  }
+
   return (
-    <section className="py-12 px-4 max-w-5xl mx-auto" id="timeline">
-      <div className="text-center mb-8">
-        <h2 className="heading-secondary text-center mb-3">
+    <section className="py-8 px-4 max-w-5xl mx-auto" id="timeline">
+      <div className="text-center mb-6">
+        <h2 className="heading-secondary text-center mb-2">
           Professional Journey
         </h2>
-        <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-2xl mx-auto text-sm">
+        <p className="text-gray-600 dark:text-gray-400 mb-4 max-w-2xl mx-auto text-sm">
           Over 20 years of experience in software development, leadership, and innovation.
         </p>
         <div className="flex justify-center">
@@ -226,77 +241,88 @@ function Timeline() {
       </div>
 
       {isOpen && (
-        <div className="space-y-4 animate-fade-in">
-          {timelineGroups.map((group, groupIndex) => (
-            <div
-              key={groupIndex}
-              className="border border-accent/20 rounded-lg p-4 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm
-                       hover:border-accent/40 transition-all duration-300 shadow-sm hover:shadow-md
-                       transform hover:-translate-y-0.5"
-            >
-              <button
-                onClick={() => toggleGroup(groupIndex)}
-                className="w-full text-left group"
-              >
-                <div className="flex justify-between items-center">
-                  <div className="flex-1">
-                    <h3 className="text-lg font-bold text-accent dark:text-accent-light group-hover:text-accent-dark dark:group-hover:text-accent-light transition-colors duration-300">
-                      {group.title}
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-400 mt-0.5 text-sm">
-                      {group.description}
-                    </p>
-                  </div>
-                  <div className="ml-4 flex-shrink-0">
-                    <svg
-                      className={`w-5 h-5 text-accent transition-all duration-300 transform
-                                ${expandedGroups.includes(groupIndex) ? 'rotate-180' : ''}
-                                group-hover:scale-110`}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
-                  </div>
-                </div>
-              </button>
+        <div className="relative animate-fade-in">
+          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-accent via-accent/40 to-accent/10"></div>
 
-              {expandedGroups.includes(groupIndex) && (
-                <div className="mt-4 space-y-4 animate-fade-in">
-                  {group.entries.map((entry, entryIndex) => (
-                    <div
-                      key={entryIndex}
-                      className="flex gap-3 group/entry hover:bg-accent/5 p-2 rounded-md transition-all duration-300 -mx-2"
-                    >
-                      <div className="flex flex-col items-center">
-                        <div className="w-2 h-2 bg-accent rounded-full ring-2 ring-accent/20 group-hover/entry:ring-accent/30 transition-all duration-300"></div>
-                        <div className="w-0.5 flex-grow bg-gradient-to-b from-accent/40 to-accent/10"></div>
-                      </div>
-                      <div className="pb-4">
-                        <div className="flex flex-wrap gap-2 items-baseline">
-                          <span className="text-xs text-accent font-semibold bg-accent/10 px-2 py-0.5 rounded-full">
-                            {entry.period}
+          <div className="space-y-4">
+            {timelineGroups.map((group, groupIndex) => (
+              <div key={groupIndex} className="relative">
+                <div className="absolute left-8 -translate-x-1/2 w-3 h-3 bg-accent rounded-full ring-2 ring-accent/20 z-10"></div>
+
+                <div className="ml-14">
+                  <button
+                    onClick={() => toggleGroup(groupIndex)}
+                    className="w-full text-left group bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm
+                             rounded-lg border border-accent/20 p-3
+                             hover:border-accent/40 transition-all duration-300
+                             shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
+                  >
+                    <div className="flex justify-between items-center">
+                      <div className="flex-1">
+                        <div className="flex items-baseline gap-2">
+                          <h3 className="text-base font-bold text-accent dark:text-accent-light group-hover:text-accent-dark dark:group-hover:text-accent-light transition-colors duration-300">
+                            {group.title}
+                          </h3>
+                          <span className="text-xs text-accent/70 font-medium bg-accent/5 px-2 py-0.5 rounded-full">
+                            {getGroupTimespan(group.entries)}
                           </span>
-                          <h4 className="text-base font-semibold text-gray-900 dark:text-white group-hover/entry:text-accent transition-colors duration-300">
-                            {entry.title}
-                          </h4>
                         </div>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                          {entry.description}
+                        <p className="text-gray-600 dark:text-gray-400 mt-0.5 text-xs">
+                          {group.description}
                         </p>
                       </div>
+                      <div className="ml-3 flex-shrink-0">
+                        <svg
+                          className={`w-4 h-4 text-accent transition-all duration-300 transform
+                                    ${expandedGroups.includes(groupIndex) ? 'rotate-180' : ''}
+                                    group-hover:scale-110`}
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M19 9l-7 7-7-7"
+                          />
+                        </svg>
+                      </div>
                     </div>
-                  ))}
+                  </button>
+
+                  {expandedGroups.includes(groupIndex) && (
+                    <div className="mt-2 space-y-2 animate-fade-in pl-3 relative">
+                      <div className="absolute left-0 top-0 bottom-4 w-0.5 bg-gradient-to-b from-accent/30 to-accent/10"></div>
+
+                      {group.entries.map((entry, entryIndex) => (
+                        <div
+                          key={entryIndex}
+                          className="relative flex gap-2 group/entry hover:bg-accent/5 p-2 rounded-md transition-all duration-300"
+                        >
+                          <div className="absolute left-0 top-3 -translate-x-1/2 w-1.5 h-1.5 bg-accent rounded-full ring-1 ring-accent/20 group-hover/entry:ring-accent/30 transition-all duration-300"></div>
+
+                          <div className="ml-3 pb-2">
+                            <div className="flex flex-wrap gap-2 items-baseline">
+                              <span className="text-xs text-accent font-semibold bg-accent/10 px-1.5 py-0.5 rounded-full">
+                                {entry.period}
+                              </span>
+                              <h4 className="text-sm font-semibold text-gray-900 dark:text-white group-hover/entry:text-accent transition-colors duration-300">
+                                {entry.title}
+                              </h4>
+                            </div>
+                            <p className="text-xs text-gray-600 dark:text-gray-400 mt-0.5">
+                              {entry.description}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-          ))}
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </section>
