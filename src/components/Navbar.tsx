@@ -67,37 +67,24 @@ export default function Navbar() {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const scrollToSection = (sectionId: string) => {
-    if (location.pathname !== '/') {
-      window.location.href = `/${sectionId}`;
-      return;
-    }
-
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMenuOpen(false);
-    }
-  };
-
   return (
     <nav className="bg-white/90 backdrop-blur-sm dark:bg-gray-800/90 shadow-sm fixed w-full z-20 top-0">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link to="/" className="text-xl font-bold text-accent dark:text-accent-light">
+            <Link to="/#home" className="text-xl font-bold text-accent dark:text-accent-light">
               Dr Marco Blumendorf
             </Link>
           </div>
 
           {/* Desktop Menu */}
           <div className="hidden lg:flex items-center space-x-8" aria-label="Desktop navigation">
-            <button onClick={() => scrollToSection('home')} className="text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">Home</button>
-            <button onClick={() => scrollToSection('about')} className="text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">About</button>
-            <button onClick={() => scrollToSection('expertise')} className="text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">Expertise</button>
-            <button onClick={() => scrollToSection('tech-stack')} className="text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">Tech Stack</button>
-            <button onClick={() => scrollToSection('timeline')} className="text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">Timeline</button>
-            <button onClick={() => scrollToSection('contact')} className="text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">Contact</button>
+            <Link to="/#home" className="text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">Home</Link>
+            <Link to="/#about" className="text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">About</Link>
+            <Link to="/#expertise" className="text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">Expertise</Link>
+            <Link to="/#tech-stack" className="text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">Tech Stack</Link>
+            <Link to="/#timeline" className="text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">Timeline</Link>
+            <Link to="/#contact" className="text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">Contact</Link>
             <button
               onClick={toggleDarkMode}
               className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
@@ -145,12 +132,12 @@ export default function Navbar() {
         aria-label="Mobile navigation"
       >
         <div className="px-2 pt-2 pb-3 space-y-1 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-lg min-h-screen">
-          <button onClick={() => scrollToSection('home')} className="block w-full text-left px-3 py-2 text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">Home</button>
-          <button onClick={() => scrollToSection('about')} className="block w-full text-left px-3 py-2 text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">About</button>
-          <button onClick={() => scrollToSection('expertise')} className="block w-full text-left px-3 py-2 text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">Expertise</button>
-          <button onClick={() => scrollToSection('tech-stack')} className="block w-full text-left px-3 py-2 text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">Tech Stack</button>
-          <button onClick={() => scrollToSection('timeline')} className="block w-full text-left px-3 py-2 text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">Timeline</button>
-          <button onClick={() => scrollToSection('contact')} className="block w-full text-left px-3 py-2 text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">Contact</button>
+          <Link to="/#home" className="block w-full text-left px-3 py-2 text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Home</Link>
+          <Link to="/#about" className="block w-full text-left px-3 py-2 text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>About</Link>
+          <Link to="/#expertise" className="block w-full text-left px-3 py-2 text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Expertise</Link>
+          <Link to="/#tech-stack" className="block w-full text-left px-3 py-2 text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Tech Stack</Link>
+          <Link to="/#timeline" className="block w-full text-left px-3 py-2 text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Timeline</Link>
+          <Link to="/#contact" className="block w-full text-left px-3 py-2 text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Contact</Link>
           <button
             onClick={toggleDarkMode}
             className="w-full flex items-center px-3 py-2 text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200"

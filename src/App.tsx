@@ -1,5 +1,5 @@
 import React from 'react'
-import { HashRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter, Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -22,6 +22,20 @@ type SectionConfig = {
 };
 
 function MainContent() {
+  const location = useLocation();
+
+  // Handle scroll when hash changes
+  React.useEffect(() => {
+    // Get the hash without the '#' symbol
+    const hash = location.hash.replace('#', '');
+    if (hash) {
+      const element = document.getElementById(hash);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [location]);
+
   // Define sections with explicit IDs
   const mainSections: SectionConfig[] = [
     { id: 'home', Component: Hero },

@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export default function Hero() {
   return (
     <div className="relative min-h-[700px] h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden">
@@ -47,13 +49,8 @@ export default function Hero() {
 
             {/* CTA Button */}
             <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
-              <button
-                onClick={() => {
-                  const element = document.getElementById('contact');
-                  if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
+              <Link
+                to="/#contact"
                 className="button-primary group flex items-center justify-center gap-2"
               >
                 Let's Work Together
@@ -70,7 +67,7 @@ export default function Hero() {
                     d="M13 7l5 5m0 0l-5 5m5-5H6"
                   />
                 </svg>
-              </button>
+              </Link>
             </div>
           </div>
         </div>

@@ -1,11 +1,15 @@
 import { fireEvent, render, screen, within } from '@testing-library/react'
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import App from './App'
-import './test/setup'
 
 // Mock the tracking initialization
 vi.mock('./utils/initializeTracking', () => ({
   initializeTracking: vi.fn()
+}))
+
+// Add this mock at the top with other mocks
+vi.mock('./components/ParticleBackground', () => ({
+  default: () => null
 }))
 
 describe('App', () => {
@@ -13,320 +17,383 @@ describe('App', () => {
     // Reset any mocks and localStorage before each test
     vi.clearAllMocks()
     localStorage.clear()
+
+    // reset the window.location
+    window.location.hash = ''
   })
+  describe('redering', () => {
+    it('renders without crashing', () => {
+      render(<App />)
+      const mainContent = screen.getByRole('main')
+      expect(mainContent).toBeInTheDocument()
+    })
 
-  it('renders without crashing', () => {
-    render(<App />)
-    const mainContent = screen.getByRole('main')
-    expect(mainContent).toBeInTheDocument()
-  })
+    it('renders all main sections', () => {
+      render(<App />)
 
-  it('renders all main sections', () => {
-    render(<App />)
+      // Check if all main sections are present by their headings
+      const sections = [
+        'About Me',
+        'Expertise',
+        'Tech Stack Favorites',
+        'Professional Journey',
+        'Get in Touch'
+      ]
 
-    // Check if all main sections are present by their headings
-    const sections = [
-      'About Me',
-      'Expertise',
-      'Tech Stack Favorites',
-      'Professional Journey',
-      'Get in Touch'
-    ]
+      sections.forEach(section => {
+        const sectionElement = screen.getByRole('heading', { name: section })
+        expect(sectionElement).toBeInTheDocument()
+      })
+    })
 
-    sections.forEach(section => {
-      const sectionElement = screen.getByRole('heading', { name: section })
-      expect(sectionElement).toBeInTheDocument()
+    it('renders navigation links correctly', () => {
+      render(<App />)
+
+      // Check if all navigation links are present
+      const navLinks = screen.getAllByRole('link', { name: /^(Home|About|Expertise|Tech Stack|Timeline|Contact)$/ })
+      const expectedLinks = ['Home', 'About', 'Expertise', 'Tech Stack', 'Timeline', 'Contact']
+
+      expectedLinks.forEach(linkText => {
+        const link = navLinks.find(l => l.textContent === linkText)
+        expect(link).toBeInTheDocument()
+      })
+    })
+
+    it('renders footer and cookie banner', () => {
+      render(<App />)
+
+      const footer = screen.getByRole('contentinfo')
+      expect(footer).toBeInTheDocument()
+      // check the footer details
+      const footerDetails = screen.getByText('© 2025 Dr Marco Blumendorf. All rights reserved.')
+      expect(footerDetails).toBeInTheDocument()
+      // privacy policy link
+      const privacyPolicyLink = screen.getByRole('link', { name: 'Privacy Policy' })
+      expect(privacyPolicyLink).toBeInTheDocument()
+      // impressum link
+      const impressumLink = screen.getByRole('link', { name: 'Impressum' })
+      expect(impressumLink).toBeVisible()
+
+      // Check if the cookie banner is present
+      const cookieBanner = screen.getByRole('dialog', { name: 'Cookie banner' })
+      expect(cookieBanner).toBeVisible()
+      // check cookie banner details
+      const cookieBannerText = screen.getByText('We respect your privacy and are committed to transparency. We use cookies to enhance your experience and analyze site traffic.')
+      expect(cookieBannerText).toBeVisible()
+      // check cookie banner buttons
+      const cookieBannerButton = screen.getByRole('button', { name: 'Accept All' })
+      expect(cookieBannerButton).toBeVisible()
+      const cookieBannerButtonDecline = screen.getByRole('button', { name: 'Decline All' })
+      expect(cookieBannerButtonDecline).toBeVisible()
+      const cookieBannerButtonCustomize = screen.getByRole('button', { name: 'Customize' })
+      expect(cookieBannerButtonCustomize).toBeVisible()
+
+      expect(cookieBanner).toBeInTheDocument()
     })
   })
+  describe('Cookie Banner', () => {
+    it('accepts all cookies', () => {
+      render(<App />)
+      const cookieBanner = screen.getByRole('dialog', { name: 'Cookie banner' })
+      expect(cookieBanner).toBeVisible()
 
-  it('renders navigation links correctly', () => {
-    render(<App />)
+      // click the accept all button
+      const cookieBannerButton = screen.getByRole('button', { name: 'Accept All' })
+      fireEvent.click(cookieBannerButton)
 
-    // Check if all navigation buttons are present
-    const navButtons = screen.getAllByRole('button')
-    const expectedButtons = ['Home', 'About', 'Expertise', 'Tech Stack', 'Timeline', 'Contact']
+      // check if the cookie banner is not visible
+      expect(cookieBanner).not.toBeVisible()
 
-    expectedButtons.forEach(buttonText => {
-      const button = navButtons.find(btn => btn.textContent === buttonText)
-      expect(button).toBeInTheDocument()
+      // check if the consent was stored in localStorage
+      expect(localStorage.getItem('cookieConsent')).toBe('true')
+      expect(localStorage.getItem('analyticsConsent')).toBe('true')
+    })
+
+    it('rejects all cookies', () => {
+      render(<App />)
+      const cookieBanner = screen.getByRole('dialog', { name: 'Cookie banner' })
+      expect(cookieBanner).toBeVisible()
+
+      // click the decline all button
+      const cookieBannerButton = screen.getByRole('button', { name: 'Decline All' })
+      fireEvent.click(cookieBannerButton)
+
+      // check if the cookie banner is not visible
+      expect(cookieBanner).not.toBeVisible()
+
+      // check if the consent was stored in localStorage
+      expect(localStorage.getItem('cookieConsent')).toBe('true')
+      expect(localStorage.getItem('analyticsConsent')).toBe('false')
+    })
+
+    it('customizes cookies - disabled analytics', () => {
+      render(<App />)
+      const cookieBanner = screen.getByRole('dialog', { name: 'Cookie banner' })
+      expect(cookieBanner).toBeVisible()
+
+      // click the customize button
+      const cookieBannerButton = screen.getByRole('button', { name: 'Customize' })
+      fireEvent.click(cookieBannerButton)
+
+      // check if customize details are visible
+      const cookieBannerDetails = screen.getByText('Essential Cookies')
+      expect(cookieBannerDetails).toBeVisible()
+      // check if analytics cookies are visible
+      const cookieBannerDetailsAnalytics = screen.getByText('Analytics Cookies')
+      expect(cookieBannerDetailsAnalytics).toBeVisible()
+
+      // check if essential cookies checkbox is checked and disabled
+      const essentialCheckbox = screen.getByRole('checkbox', { name: /Essential Cookies/ })
+      expect(essentialCheckbox).toBeChecked()
+      expect(essentialCheckbox).toBeDisabled()
+
+      // check if analytics cookies are unchecked by default
+      const analyticsCheckbox = screen.getByRole('checkbox', { name: /Analytics Cookies/ })
+      expect(analyticsCheckbox).not.toBeChecked()
+      expect(analyticsCheckbox).toBeEnabled()
+
+      // click Save Preferences
+      const cookieBannerButtonSave = screen.getByRole('button', { name: 'Save Preferences' })
+      fireEvent.click(cookieBannerButtonSave)
+
+      // check if the cookie banner is not visible
+      expect(cookieBanner).not.toBeVisible()
+
+      // check if the consent was stored in localStorage
+      expect(localStorage.getItem('cookieConsent')).toBe('true')
+      expect(localStorage.getItem('analyticsConsent')).toBe('false')
+    })
+
+    it('customizes cookies - disabled analytics', () => {
+      render(<App />)
+      const cookieBanner = screen.getByRole('dialog', { name: 'Cookie banner' })
+      expect(cookieBanner).toBeVisible()
+
+      // click the customize button
+      const cookieBannerButton = screen.getByRole('button', { name: 'Customize' })
+      fireEvent.click(cookieBannerButton)
+
+      // check analytics checkbox
+      const analyticsCheckbox = screen.getByRole('checkbox', { name: /Analytics Cookies/ })
+      fireEvent.click(analyticsCheckbox)
+      expect(analyticsCheckbox).toBeChecked()
+
+      // click Save Preferences
+      const cookieBannerButtonSave = screen.getByRole('button', { name: 'Save Preferences' })
+      fireEvent.click(cookieBannerButtonSave)
+
+      // check if the cookie banner is not visible
+      expect(cookieBanner).not.toBeVisible()
+
+      // check if the consent was stored in localStorage
+      expect(localStorage.getItem('cookieConsent')).toBe('true')
+      expect(localStorage.getItem('analyticsConsent')).toBe('true')
     })
   })
+  describe('CTA buttons', () => {
+    it('clicks the CTA buttons to scroll to contact section', () => {
+      render(<App />)
 
-  it('renders footer and cookie banner', () => {
-    render(<App />)
+      // Get the contact section element
+      const contactSection = screen.getByRole('heading', { name: 'Get in Touch' }).closest('section')
+      expect(contactSection).toHaveAttribute('id', 'contact')
 
-    const footer = screen.getByRole('contentinfo')
-    expect(footer).toBeInTheDocument()
-    // check the footer details
-    const footerDetails = screen.getByText('© 2025 Dr Marco Blumendorf. All rights reserved.')
-    expect(footerDetails).toBeInTheDocument()
-    // privacy policy link
-    const privacyPolicyLink = screen.getByRole('link', { name: 'Privacy Policy' })
-    expect(privacyPolicyLink).toBeInTheDocument()
-    // impressum link
-    const impressumLink = screen.getByRole('link', { name: 'Impressum' })
-    expect(impressumLink).toBeVisible()
-
-    // Check if the cookie banner is present
-    const cookieBanner = screen.getByRole('dialog', { name: 'Cookie banner' })
-    expect(cookieBanner).toBeVisible()
-    // check cookie banner details
-    const cookieBannerText = screen.getByText('We respect your privacy and are committed to transparency. We use cookies to enhance your experience and analyze site traffic.')
-    expect(cookieBannerText).toBeVisible()
-    // check cookie banner buttons
-    const cookieBannerButton = screen.getByRole('button', { name: 'Accept All' })
-    expect(cookieBannerButton).toBeVisible()
-    const cookieBannerButtonDecline = screen.getByRole('button', { name: 'Decline All' })
-    expect(cookieBannerButtonDecline).toBeVisible()
-    const cookieBannerButtonCustomize = screen.getByRole('button', { name: 'Customize' })
-    expect(cookieBannerButtonCustomize).toBeVisible()
-
-    expect(cookieBanner).toBeInTheDocument()
-  })
-
-  it('accepts all cookies', () => {
-    render(<App />)
-    const cookieBanner = screen.getByRole('dialog', { name: 'Cookie banner' })
-    expect(cookieBanner).toBeVisible()
-
-    // click the accept all button
-    const cookieBannerButton = screen.getByRole('button', { name: 'Accept All' })
-    fireEvent.click(cookieBannerButton)
-
-    // check if the cookie banner is not visible
-    expect(cookieBanner).not.toBeVisible()
-
-    // check if the consent was stored in localStorage
-    expect(localStorage.getItem('cookieConsent')).toBe('true')
-    expect(localStorage.getItem('analyticsConsent')).toBe('true')
-  })
-
-  it('rejects all cookies', () => {
-    render(<App />)
-    const cookieBanner = screen.getByRole('dialog', { name: 'Cookie banner' })
-    expect(cookieBanner).toBeVisible()
-
-    // click the decline all button
-    const cookieBannerButton = screen.getByRole('button', { name: 'Decline All' })
-    fireEvent.click(cookieBannerButton)
-
-    // check if the cookie banner is not visible
-    expect(cookieBanner).not.toBeVisible()
-
-    // check if the consent was stored in localStorage
-    expect(localStorage.getItem('cookieConsent')).toBe('true')
-    expect(localStorage.getItem('analyticsConsent')).toBe('false')
-  })
-
-  it('customizes cookies - disabled analytics', () => {
-    render(<App />)
-    const cookieBanner = screen.getByRole('dialog', { name: 'Cookie banner' })
-    expect(cookieBanner).toBeVisible()
-
-    // click the customize button
-    const cookieBannerButton = screen.getByRole('button', { name: 'Customize' })
-    fireEvent.click(cookieBannerButton)
-
-    // check if customize details are visible
-    const cookieBannerDetails = screen.getByText('Essential Cookies')
-    expect(cookieBannerDetails).toBeVisible()
-    // check if analytics cookies are visible
-    const cookieBannerDetailsAnalytics = screen.getByText('Analytics Cookies')
-    expect(cookieBannerDetailsAnalytics).toBeVisible()
-
-    // check if essential cookies checkbox is checked and disabled
-    const essentialCheckbox = screen.getByRole('checkbox', { name: /Essential Cookies/ })
-    expect(essentialCheckbox).toBeChecked()
-    expect(essentialCheckbox).toBeDisabled()
-
-    // check if analytics cookies are unchecked by default
-    const analyticsCheckbox = screen.getByRole('checkbox', { name: /Analytics Cookies/ })
-    expect(analyticsCheckbox).not.toBeChecked()
-    expect(analyticsCheckbox).toBeEnabled()
-
-    // click Save Preferences
-    const cookieBannerButtonSave = screen.getByRole('button', { name: 'Save Preferences' })
-    fireEvent.click(cookieBannerButtonSave)
-
-    // check if the cookie banner is not visible
-    expect(cookieBanner).not.toBeVisible()
-
-    // check if the consent was stored in localStorage
-    expect(localStorage.getItem('cookieConsent')).toBe('true')
-    expect(localStorage.getItem('analyticsConsent')).toBe('false')
-  })
-  it('customizes cookies - disabled analytics', () => {
-    render(<App />)
-    const cookieBanner = screen.getByRole('dialog', { name: 'Cookie banner' })
-    expect(cookieBanner).toBeVisible()
-
-    // click the customize button
-    const cookieBannerButton = screen.getByRole('button', { name: 'Customize' })
-    fireEvent.click(cookieBannerButton)
-
-    // check analytics checkbox
-    const analyticsCheckbox = screen.getByRole('checkbox', { name: /Analytics Cookies/ })
-    fireEvent.click(analyticsCheckbox)
-    expect(analyticsCheckbox).toBeChecked()
-
-    // click Save Preferences
-    const cookieBannerButtonSave = screen.getByRole('button', { name: 'Save Preferences' })
-    fireEvent.click(cookieBannerButtonSave)
-
-    // check if the cookie banner is not visible
-    expect(cookieBanner).not.toBeVisible()
-
-    // check if the consent was stored in localStorage
-    expect(localStorage.getItem('cookieConsent')).toBe('true')
-    expect(localStorage.getItem('analyticsConsent')).toBe('true')
-  })
-
-  it('clicks the cta buttons to scroll to contact section', () => {
-    render(<App />)
-
-    // Get the contact section element
-    const contactSection = screen.getByRole('heading', { name: 'Get in Touch' }).closest('section')
-    expect(contactSection).toHaveAttribute('id', 'contact')
-
-    // Mock getElementById to return our contact section
-    const getElementByIdSpy = vi.spyOn(document, 'getElementById')
-    getElementByIdSpy.mockReturnValue(contactSection)
-
-    // Mock scrollIntoView
-    const scrollIntoViewMock = vi.fn()
-    window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock
-
-    // Click the hero CTA button
-    const heroCtaButton = screen.getByRole('button', {
-      name: 'Let\'s Work Together'
-    })
-    fireEvent.click(heroCtaButton)
-    expect(getElementByIdSpy).toHaveBeenCalledWith('contact')
-    expect(scrollIntoViewMock).toHaveBeenCalledWith({ behavior: 'smooth' })
-
-    // Click the expertise CTA button
-    const expertiseCtaButton = screen.getByRole('button', {
-      name: 'Need Help With Your Project?'
-    })
-    fireEvent.click(expertiseCtaButton)
-    expect(getElementByIdSpy).toHaveBeenCalledWith('contact')
-    expect(scrollIntoViewMock).toHaveBeenCalledWith({ behavior: 'smooth' })
-
-    // Verify getElementById was called with 'contact'
-    expect(getElementByIdSpy).toHaveBeenCalledTimes(2)
-
-    // Clean up
-    getElementByIdSpy.mockRestore()
-  })
-
-  it('clicks the desktop navigation buttons to scroll to the correct section', () => {
-    render(<App />)
-
-    // Mock scrollIntoView
-    const scrollIntoViewMock = vi.fn()
-    window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock
-
-    // Define all navigation items with their button text and corresponding section heading
-    const navItems = [
-      { buttonText: 'Home', sectionId: 'home' },
-      { buttonText: 'About', sectionHeading: 'About Me', sectionId: 'about' },
-      { buttonText: 'Expertise', sectionHeading: 'Expertise', sectionId: 'expertise' },
-      { buttonText: 'Tech Stack', sectionHeading: 'Tech Stack Favorites', sectionId: 'tech-stack' },
-      { buttonText: 'Timeline', sectionHeading: 'Professional Journey', sectionId: 'timeline' },
-      { buttonText: 'Contact', sectionHeading: 'Get in Touch', sectionId: 'contact' }
-    ]
-
-    // Test desktop navigation buttons
-    const desktopNav = screen.getByLabelText('Desktop navigation')
-    navItems.forEach(({ buttonText, sectionHeading, sectionId }) => {
-      // Reset mock counts
-      scrollIntoViewMock.mockClear()
-
-      // Get the button from desktop navigation
-      const button = within(desktopNav).getByRole('button', { name: buttonText })
-      expect(button).toBeInTheDocument()
-
-      // Get the section if it has a heading
-      let section
-      if (sectionHeading) {
-        section = screen.getByRole('heading', { name: sectionHeading }).closest('section')
-      } else {
-        section = document.getElementById(sectionId)
-      }
-      expect(section).toHaveAttribute('id', sectionId)
-
-      // Mock getElementById for this section
+      // Mock getElementById to return our contact section
       const getElementByIdSpy = vi.spyOn(document, 'getElementById')
-      getElementByIdSpy.mockReturnValue(section)
+      getElementByIdSpy.mockReturnValue(contactSection)
 
-      // Click the button
-      fireEvent.click(button)
+      // Mock scrollIntoView
+      const scrollIntoViewMock = vi.fn()
+      window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock
 
-      // Verify the correct section was targeted
-      expect(getElementByIdSpy).toHaveBeenCalledWith(sectionId)
+      // Click the hero CTA link
+      const heroCtaLink = screen.getByRole('link', {
+        name: 'Let\'s Work Together'
+      })
+      fireEvent.click(heroCtaLink)
+      expect(getElementByIdSpy).toHaveBeenCalledWith('contact')
       expect(scrollIntoViewMock).toHaveBeenCalledWith({ behavior: 'smooth' })
 
-      // Clean up spy for next iteration
+      // Click the expertise CTA link
+      const expertiseCtaLink = screen.getByRole('link', {
+        name: 'Need Help With Your Project?'
+      })
+      fireEvent.click(expertiseCtaLink)
+      expect(getElementByIdSpy).toHaveBeenCalledWith('contact')
+      expect(scrollIntoViewMock).toHaveBeenCalledWith({ behavior: 'smooth' })
+
+      // Clean up
       getElementByIdSpy.mockRestore()
     })
   })
 
-  it('clicks the mobile navigation buttons to scroll to the correct section', () => {
-    render(<App />)
+  describe('Navigation', () => {
+    it('clicks the desktop navigation buttons to scroll to the correct section', () => {
+      render(<App />)
 
-    // Mock scrollIntoView
-    const scrollIntoViewMock = vi.fn()
-    window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock
+      // Mock scrollIntoView
+      const scrollIntoViewMock = vi.fn()
+      window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock
 
-    // Define all navigation items with their button text and corresponding section heading
-    const navItems = [
-      { buttonText: 'Home', sectionId: 'home' },
-      { buttonText: 'About', sectionHeading: 'About Me', sectionId: 'about' },
-      { buttonText: 'Expertise', sectionHeading: 'Expertise', sectionId: 'expertise' },
-      { buttonText: 'Tech Stack', sectionHeading: 'Tech Stack Favorites', sectionId: 'tech-stack' },
-      { buttonText: 'Timeline', sectionHeading: 'Professional Journey', sectionId: 'timeline' },
-      { buttonText: 'Contact', sectionHeading: 'Get in Touch', sectionId: 'contact' }
-    ]
+      // Define all navigation items with their link text and corresponding section heading
+      const navItems = [
+        { linkText: 'Home', sectionId: 'home' },
+        { linkText: 'About', sectionHeading: 'About Me', sectionId: 'about' },
+        { linkText: 'Expertise', sectionHeading: 'Expertise', sectionId: 'expertise' },
+        { linkText: 'Tech Stack', sectionHeading: 'Tech Stack Favorites', sectionId: 'tech-stack' },
+        { linkText: 'Timeline', sectionHeading: 'Professional Journey', sectionId: 'timeline' },
+        { linkText: 'Contact', sectionHeading: 'Get in Touch', sectionId: 'contact' }
+      ]
 
-    // Open mobile menu
-    const mobileMenuButton = screen.getByRole('button', { name: 'Toggle mobile menu' })
-    fireEvent.click(mobileMenuButton)
+      // Test desktop navigation links
+      const desktopNav = screen.getByLabelText('Desktop navigation')
+      navItems.forEach(({ linkText, sectionHeading, sectionId }) => {
+        // Reset mock counts
+        scrollIntoViewMock.mockClear()
 
-    // Test mobile navigation buttons
-    const mobileNav = screen.getByLabelText('Mobile navigation')
-    navItems.forEach(({ buttonText, sectionHeading, sectionId }) => {
-      // Reset mock counts
-      scrollIntoViewMock.mockClear()
+        // Get the link from desktop navigation
+        const link = within(desktopNav).getByRole('link', { name: linkText })
+        expect(link).toBeInTheDocument()
 
-      // Get the button from mobile navigation
-      const button = within(mobileNav).getByRole('button', { name: buttonText })
-      expect(button).toBeInTheDocument()
+        // Get the section if it has a heading
+        let section
+        if (sectionHeading) {
+          section = screen.getByRole('heading', { name: sectionHeading }).closest('section')
+        } else {
+          section = document.getElementById(sectionId)
+        }
+        expect(section).toHaveAttribute('id', sectionId)
 
-      // Get the section if it has a heading
-      let section
-      if (sectionHeading) {
-        section = screen.getByRole('heading', { name: sectionHeading }).closest('section')
-      } else {
-        section = document.getElementById(sectionId)
-      }
-      expect(section).toHaveAttribute('id', sectionId)
+        // Mock getElementById for this section
+        const getElementByIdSpy = vi.spyOn(document, 'getElementById')
+        getElementByIdSpy.mockReturnValue(section)
 
-      // Mock getElementById for this section
-      const getElementByIdSpy = vi.spyOn(document, 'getElementById')
-      getElementByIdSpy.mockReturnValue(section)
+        // Click the link
+        fireEvent.click(link)
 
-      // Click the button
-      fireEvent.click(button)
+        // Verify the correct section was targeted
+        expect(getElementByIdSpy).toHaveBeenCalledWith(sectionId)
+        expect(scrollIntoViewMock).toHaveBeenCalledWith({ behavior: 'smooth' })
 
-      // Verify the correct section was targeted
-      expect(getElementByIdSpy).toHaveBeenCalledWith(sectionId)
-      expect(scrollIntoViewMock).toHaveBeenCalledWith({ behavior: 'smooth' })
+        // Clean up spy for next iteration
+        getElementByIdSpy.mockRestore()
+      })
+    })
 
-      // Verify mobile menu is closed after clicking
-      expect(mobileNav.classList.contains('hidden')).toBe(true)
+    it('clicks the mobile navigation buttons to scroll to the correct section', () => {
+      render(<App />)
 
-      // Clean up spy for next iteration
-      getElementByIdSpy.mockRestore()
+      // Mock scrollIntoView
+      const scrollIntoViewMock = vi.fn()
+      window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock
+
+      // Define all navigation items with their link text and corresponding section heading
+      const navItems = [
+        { linkText: 'Home', sectionId: 'home' },
+        { linkText: 'About', sectionHeading: 'About Me', sectionId: 'about' },
+        { linkText: 'Expertise', sectionHeading: 'Expertise', sectionId: 'expertise' },
+        { linkText: 'Tech Stack', sectionHeading: 'Tech Stack Favorites', sectionId: 'tech-stack' },
+        { linkText: 'Timeline', sectionHeading: 'Professional Journey', sectionId: 'timeline' },
+        { linkText: 'Contact', sectionHeading: 'Get in Touch', sectionId: 'contact' }
+      ]
+
+      // Open mobile menu
+      const mobileMenuButton = screen.getByRole('button', { name: 'Toggle mobile menu' })
+      fireEvent.click(mobileMenuButton)
+
+      // Test mobile navigation links
+      const mobileNav = screen.getByLabelText('Mobile navigation')
+      navItems.forEach(({ linkText, sectionHeading, sectionId }) => {
+        // Reset mock counts
+        scrollIntoViewMock.mockClear()
+
+        // Get the link from mobile navigation
+        const link = within(mobileNav).getByRole('link', { name: linkText })
+        expect(link).toBeInTheDocument()
+
+        // Get the section if it has a heading
+        let section
+        if (sectionHeading) {
+          section = screen.getByRole('heading', { name: sectionHeading }).closest('section')
+        } else {
+          section = document.getElementById(sectionId)
+        }
+        expect(section).toHaveAttribute('id', sectionId)
+
+        // Mock getElementById for this section
+        const getElementByIdSpy = vi.spyOn(document, 'getElementById')
+        getElementByIdSpy.mockReturnValue(section)
+
+        // Click the link
+        fireEvent.click(link)
+
+        // Verify the correct section was targeted
+        expect(getElementByIdSpy).toHaveBeenCalledWith(sectionId)
+        expect(scrollIntoViewMock).toHaveBeenCalledWith({ behavior: 'smooth' })
+
+        // Verify mobile menu is closed after clicking
+        expect(mobileNav.classList.contains('hidden')).toBe(true)
+
+        // Clean up spy for next iteration
+        getElementByIdSpy.mockRestore()
+      })
+    })
+
+    it('opens the impressum', () => {
+      render(<App />)
+
+      const impressumLink = screen.getByRole('link', { name: 'Impressum' })
+      fireEvent.click(impressumLink)
+
+      // Instead of checking pathname, check the hash
+      expect(window.location.hash).toBe('#/impressum')
+    })
+
+    it('opens the privacy policy', () => {
+      render(<App />)
+
+      const privacyPolicyLink = screen.getByRole('link', { name: 'Privacy Policy' })
+      fireEvent.click(privacyPolicyLink)
+
+      // Instead of checking pathname, check the hash
+      expect(window.location.hash).toBe('#/privacy-policy')
+    })
+  })
+
+  describe('Contact Buttons', () => {
+    beforeEach(() => {
+      // Mock atob function
+      vi.spyOn(window, 'atob')
+    })
+
+    afterEach(() => {
+      vi.clearAllMocks()
+    })
+
+    it('opens email link', () => {
+      render(<App />)
+
+      const emailLink = screen.getByRole('link', { name: 'Contact via Email' })
+      screen.debug(emailLink)
+      expect(emailLink).toHaveAttribute('href', '#')
+      fireEvent.click(emailLink)
+      // expect atob to be called with the encoded email
+      expect(atob).toHaveBeenCalled()
+    })
+
+    it('has correct hrefs for contact links', () => {
+      render(<App />)
+
+      const linkedInLink = screen.getByRole('link', { name: /Connect on LinkedIn/i })
+      expect(linkedInLink).toHaveAttribute('href', 'https://linkedin.com/in/marcoblu')
+      expect(linkedInLink).toHaveAttribute('target', '_blank')
+      expect(linkedInLink).toHaveAttribute('rel', 'noopener noreferrer')
+
+      const githubLink = screen.getByRole('link', { name: /github\.com\/blumendorf/i })
+      expect(githubLink).toHaveAttribute('href', 'https://github.com/blumendorf')
+      expect(githubLink).toHaveAttribute('target', '_blank')
+      expect(githubLink).toHaveAttribute('rel', 'noopener noreferrer')
     })
   })
 })
+
