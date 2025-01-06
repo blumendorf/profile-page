@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const DarkModeIcon = () => (
   <svg
@@ -25,7 +25,6 @@ const DarkModeIcon = () => (
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const location = useLocation();
 
   useEffect(() => {
     // Check local storage on mount, default to dark mode if not set
