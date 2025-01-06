@@ -17,7 +17,7 @@ export default function Hero() {
               <div className="relative inline-block">
                 <div className="w-40 h-40 mx-auto rounded-full overflow-hidden shadow-xl border-4 border-white dark:border-gray-800 ring-4 ring-accent/10">
                   <img
-                    src={import.meta.env.DEPLOY_TARGET === 'gh-pages' ? '/profile-page/marco-small.jpg' : '/marco-small.jpg'}
+                    src={`${import.meta.env.BASE_URL}marco-small.jpg`}
                     alt="Dr Marco Blumendorf - Tech Leader and AI Expert"
                     className="w-full h-full object-cover object-center"
                     role="img"
