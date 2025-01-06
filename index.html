@@ -9,6 +9,7 @@
   <link rel="icon"
     href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='white'/><text x='50' y='65' font-family='Arial' font-size='45' font-weight='bold' text-anchor='middle' fill='%2304aa00'>MB</text></svg>"
     media="(prefers-color-scheme: dark)" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dr Marco Blumendorf | Tech Leadership & AI</title>
 
@@ -36,6 +37,16 @@
   <!-- Additional SEO -->
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://blumendorf.info/">
+
+  <!-- Additional Search Features -->
+  <meta name="format-detection" content="telephone=no">
+  <meta name="theme-color" content="#04aa00">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- Google Search Console Verification -->
+  <meta name="google-site-verification" content="[Your verification code]" />
 </head>
 
 <body class="bg-gray-50 dark:bg-gray-900">
@@ -48,9 +59,18 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Dr Marco Blumendorf",
+      "givenName": "Marco",
+      "familyName": "Blumendorf",
+      "honorificPrefix": "Dr",
       "url": "https://blumendorf.info",
-      "jobTitle": "Tech Leader",
+      "image": "https://blumendorf.info/profile-page/marco-small.jpg",
+      "jobTitle": ["Tech Leader", "AI Consultant", "Software Architect"],
       "description": "Tech leader and AI expert with extensive experience in software development, team leadership, and artificial intelligence.",
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "Technical University of Berlin",
+        "department": "Distributed Artificial Intelligence Laboratory"
+      },
       "sameAs": [
         "https://github.com/blumendorf",
         "https://www.linkedin.com/in/marcoblumendorf/"
@@ -61,7 +81,49 @@
         "Software Development",
         "Team Management",
         "Technology Strategy"
-      ]
+      ],
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "Technology Leader",
+        "occupationLocation": {
+          "@type": "City",
+          "name": "Berlin"
+        },
+        "skills": [
+          "AI Implementation",
+          "Team Leadership",
+          "Software Architecture",
+          "Full-Stack Development",
+          "Cloud Computing",
+          "Agile Methodologies"
+        ]
+      },
+      "workLocation": {
+        "@type": "Place",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "Germany",
+          "addressLocality": "Berlin"
+        }
+      },
+      "offers": {
+        "@type": "Offer",
+        "itemOffered": [{
+          "@type": "Service",
+          "name": "Tech & AI Consulting",
+          "description": "Strategic AI advisory and implementation services"
+        },
+        {
+          "@type": "Service",
+          "name": "Software Development",
+          "description": "Full-stack development and cloud architecture"
+        },
+        {
+          "@type": "Service",
+          "name": "Tech Leadership",
+          "description": "Interim CTO services and team leadership"
+        }]
+      }
     }
   </script>
 </body>

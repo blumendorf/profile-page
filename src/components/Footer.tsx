@@ -1,34 +1,23 @@
-export default function Footer() {
-  const encodedEmail = 'bWFyY29AYmx1bWVuZG9yZi5pbmZv';
+import { Link } from 'react-router-dom';
 
-  const handleEmailClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    const decodedEmail = atob(encodedEmail);
-    window.location.href = `mailto:${decodedEmail}`;
-  };
+export default function Footer() {
+  const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gray-900 text-gray-300 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <div className="flex space-x-4 items-center">
-            <a href="#" onClick={handleEmailClick} className="hover:text-accent">
-              Contact
-            </a>
-            <span>|</span>
-            <a href="https://linkedin.com/in/marcoblu" target="_blank" rel="noopener noreferrer" className="hover:text-accent">
-              LinkedIn
-            </a>
-            <span>|</span>
-            <a href="https://github.com/blumendorf" target="_blank" rel="noopener noreferrer" className="hover:text-accent">
-              GitHub
-            </a>
-          </div>
-          <p className="text-sm">
-            © {new Date().getFullYear()} Dr Marco Blumendorf
-          </p>
+    <footer className="w-full py-6 mt-12 bg-gray-100 dark:bg-gray-800">
+      <div className="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div className="text-sm text-gray-600 dark:text-gray-300">
+          © {currentYear} Dr Marco Blumendorf. All rights reserved.
+        </div>
+        <div className="flex gap-4 text-sm text-gray-600 dark:text-gray-300">
+          <Link to="/privacy-policy" className="hover:text-gray-800 dark:hover:text-white">
+            Privacy Policy
+          </Link>
+          <Link to="/impressum" className="hover:text-gray-800 dark:hover:text-white">
+            Impressum
+          </Link>
         </div>
       </div>
     </footer>
-  )
+  );
 }

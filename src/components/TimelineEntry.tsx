@@ -27,7 +27,7 @@ export function TimelineEntry({ entry, entryIndex }: TimelineEntryProps) {
         <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
           {entry.description}
         </p>
-        {entry.url && (
+        {entry.url !== undefined && entry.url !== '' && (
           <a
             href={entry.url}
             target="_blank"
