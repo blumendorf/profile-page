@@ -21,9 +21,17 @@ export default function Contact() {
           href="#"
           onClick={handleEmailClick}
           className="group flex items-center p-4 bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-xl transition-all duration-300"
+          aria-label="Contact via Email"
         >
           <div className="p-3 bg-accent/10 rounded-lg group-hover:bg-accent/20 transition-colors duration-300">
-            <svg className="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg
+              className="w-6 h-6 text-accent"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              role="img"
+              aria-hidden="true"
+            >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                 d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
@@ -34,8 +42,14 @@ export default function Contact() {
               Contact via Email
             </p>
           </div>
-          <svg className="w-5 h-5 text-gray-400 group-hover:text-accent transition-colors duration-300"
-            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg
+            className="w-5 h-5 text-gray-400 group-hover:text-accent transition-colors duration-300"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            role="img"
+            aria-hidden="true"
+          >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
           </svg>
         </a>
@@ -46,9 +60,16 @@ export default function Contact() {
           target="_blank"
           rel="noopener noreferrer"
           className="group flex items-center p-4 bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-xl transition-all duration-300"
+          aria-label="Connect on LinkedIn"
         >
           <div className="p-3 bg-accent/10 rounded-lg group-hover:bg-accent/20 transition-colors duration-300">
-            <svg className="w-6 h-6 text-accent" fill="currentColor" viewBox="0 0 24 24">
+            <svg
+              className="w-6 h-6 text-accent"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              role="img"
+              aria-hidden="true"
+            >
               <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
             </svg>
           </div>

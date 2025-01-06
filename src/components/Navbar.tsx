@@ -86,6 +86,8 @@ export default function Navbar() {
             <button
               onClick={toggleDarkMode}
               className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+              aria-label="Toggle dark mode"
+              title="Toggle dark mode"
             >
               <DarkModeIcon />
             </button>
@@ -96,6 +98,9 @@ export default function Navbar() {
             <button
               onClick={toggleMenu}
               className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+              aria-label="Toggle mobile menu"
+              aria-expanded={isMenuOpen}
+              title="Toggle menu"
             >
               <svg
                 className="w-6 h-6 text-gray-600 dark:text-gray-300"
@@ -105,6 +110,8 @@ export default function Navbar() {
                 strokeWidth="2"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
+                role="img"
+                aria-hidden="true"
               >
                 {isMenuOpen ? (
                   <path d="M6 18L18 6M6 6l12 12" />

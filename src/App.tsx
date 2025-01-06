@@ -71,9 +71,9 @@ Source code: https://github.com/blumendorf/profile-page
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900" lang="en">
       <Navbar />
-      <main className="pt-16">
+      <main className="pt-16" role="main" aria-label="Main content">
         {mainSections.map(({ id, Component }, index) => (
           <Section
             key={id}
