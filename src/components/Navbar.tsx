@@ -91,7 +91,7 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-8" aria-label="Desktop navigation">
             <button onClick={() => scrollToSection('home')} className="text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">Home</button>
             <button onClick={() => scrollToSection('about')} className="text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">About</button>
             <button onClick={() => scrollToSection('expertise')} className="text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">Expertise</button>
@@ -140,13 +140,16 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`lg:hidden fixed left-0 right-0 top-16 z-30 ${isMenuOpen ? 'block' : 'hidden'}`}>
+      <div
+        className={`lg:hidden fixed left-0 right-0 top-16 z-30 ${isMenuOpen ? 'block' : 'hidden'}`}
+        aria-label="Mobile navigation"
+      >
         <div className="px-2 pt-2 pb-3 space-y-1 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-lg min-h-screen">
           <button onClick={() => scrollToSection('home')} className="block w-full text-left px-3 py-2 text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">Home</button>
           <button onClick={() => scrollToSection('about')} className="block w-full text-left px-3 py-2 text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">About</button>
+          <button onClick={() => scrollToSection('expertise')} className="block w-full text-left px-3 py-2 text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">Expertise</button>
           <button onClick={() => scrollToSection('tech-stack')} className="block w-full text-left px-3 py-2 text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">Tech Stack</button>
           <button onClick={() => scrollToSection('timeline')} className="block w-full text-left px-3 py-2 text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">Timeline</button>
-          <button onClick={() => scrollToSection('services')} className="block w-full text-left px-3 py-2 text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">Services</button>
           <button onClick={() => scrollToSection('contact')} className="block w-full text-left px-3 py-2 text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">Contact</button>
           <button
             onClick={toggleDarkMode}

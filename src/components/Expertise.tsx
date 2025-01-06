@@ -67,8 +67,13 @@ export default function Expertise() {
       </div>
 
       <div className="flex justify-center mt-12">
-        <a
-          href="#contact"
+        <button
+          onClick={() => {
+            const element = document.getElementById('contact');
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth' });
+            }
+          }}
           className="button-primary group flex items-center justify-center gap-2"
         >
           Need Help With Your Project?
@@ -85,7 +90,7 @@ export default function Expertise() {
               d="M13 7l5 5m0 0l-5 5m5-5H6"
             />
           </svg>
-        </a>
+        </button>
       </div>
     </div>
   )
