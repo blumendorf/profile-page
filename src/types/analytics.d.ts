@@ -8,16 +8,14 @@ interface GtagParams {
   anonymize_ip?: boolean;
 }
 
-interface DataLayerEvent {
-  event: string;
-  category?: string;
-  action?: string;
-  label?: string;
-  value?: number;
-}
+type DataLayerArg = [
+  command: 'event' | 'config' | 'js' | 'consent',
+  action: string,
+  params?: GtagParams | { [key: string]: string | boolean }
+];
 
 interface Window {
-  dataLayer: DataLayerEvent[];
+  dataLayer: (DataLayerArg | unknown[])[];
   gtag: (
     command: 'event' | 'config' | 'js' | 'consent',
     action: string,

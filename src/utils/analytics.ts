@@ -3,15 +3,13 @@ if (!window.dataLayer) {
   window.dataLayer = [];
 }
 
+// Google Analytics Measurement ID
+const GA_MEASUREMENT_ID = 'G-MG5LDT8GT6';
+
 // Create dummy gtag function if not loaded
 if (!window.gtag) {
-  window.gtag = function (command: Parameters<Window['gtag']>[0], action: string, params?: Parameters<Window['gtag']>[2]) {
-    const event: DataLayerEvent = {
-      event: command,
-      action: action,
-      ...params
-    };
-    window.dataLayer.push(event);
+  window.gtag = function (...args: Parameters<Window['gtag']>) {
+    window.dataLayer.push(args);
   };
 }
 
@@ -19,15 +17,13 @@ if (!window.gtag) {
 export function initializeGoogleAnalytics(): void {
   const script = document.createElement('script');
   script.async = true;
-  script.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX';
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
   document.head.appendChild(script);
 
   script.onload = function () {
-    if (!window.dataLayer) {
-      window.dataLayer = [];
-    }
+    window.dataLayer = window.dataLayer || [];
     window.gtag('js', new Date().toISOString());
-    window.gtag('config', 'G-XXXXXXXXXX', {
+    window.gtag('config', GA_MEASUREMENT_ID, {
       'anonymize_ip': true // IP anonymization for GDPR
     });
   };
