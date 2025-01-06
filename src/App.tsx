@@ -1,4 +1,5 @@
 import React from 'react'
+import { HashRouter, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -9,6 +10,8 @@ import TechStack from './components/TechStack'
 import Timeline from './components/Timeline'
 import Section from './components/Section'
 import CookieBanner from './components/CookieBanner'
+import PrivacyPolicy from './components/PrivacyPolicy'
+import Impressum from './components/Impressum'
 import { useDevMessage } from './hooks/useDevMessage'
 import { initializeTracking } from './utils/initializeTracking'
 
@@ -45,7 +48,7 @@ function MainContent() {
   );
 }
 
-function App() {
+function MainLayout() {
   // Initialize tracking
   React.useEffect(() => {
     initializeTracking();
@@ -61,6 +64,18 @@ function App() {
       <Footer />
       <CookieBanner />
     </div>
+  )
+}
+
+function App() {
+  return (
+    <HashRouter>
+      <Routes>
+        <Route path="/" element={<MainLayout />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/impressum" element={<Impressum />} />
+      </Routes>
+    </HashRouter>
   )
 }
 

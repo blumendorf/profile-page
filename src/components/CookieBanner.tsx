@@ -43,7 +43,7 @@ export default function CookieBanner() {
   if (!isVisible) return null;
 
   return (
-    <div id="cookie-banner">
+    <div id="cookie-banner" role="dialog" aria-label="Cookie banner">
       <div className="max-w-4xl mx-auto flex flex-col gap-4 p-4">
         <div className="text-sm text-gray-600 dark:text-gray-300">
           <p className="mb-2">
@@ -52,22 +52,34 @@ export default function CookieBanner() {
           </p>
           <div className={showDetails ? 'mt-4 space-y-4' : 'hidden mt-4 space-y-4'}>
             <div>
-              <h4 className="font-semibold mb-1">Essential Cookies</h4>
-              <p className="text-xs">Required for the website to function properly. Always active.</p>
+              <div className="flex items-center gap-2">
+                <input
+                  id="essential-cookies"
+                  type="checkbox"
+                  checked={true}
+                  disabled
+                  className="rounded text-accent cursor-not-allowed opacity-50"
+                />
+                <label htmlFor="essential-cookies">
+                  <h4 className="font-semibold">Essential Cookies</h4>
+                  <p className="text-xs">Required for the website to function properly. Always active.</p>
+                </label>
+              </div>
             </div>
             <div>
-              <label className="flex items-center gap-2">
+              <div className="flex items-center gap-2">
                 <input
+                  id="analytics-cookies"
                   type="checkbox"
                   checked={analyticsEnabled}
                   onChange={(e) => setAnalyticsEnabled(e.target.checked)}
                   className="rounded text-accent"
                 />
-                <div>
+                <label htmlFor="analytics-cookies">
                   <h4 className="font-semibold">Analytics Cookies</h4>
                   <p className="text-xs">Help us understand how visitors interact with our website.</p>
-                </div>
-              </label>
+                </label>
+              </div>
             </div>
           </div>
         </div>
