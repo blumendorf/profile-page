@@ -2,12 +2,18 @@ import React from 'react'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
-import Services from './components/Services'
+import Expertise from './components/Expertise'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import TechStack from './components/TechStack'
 import Timeline from './components/Timeline'
 import Section from './components/Section'
+
+// Add type for section configuration
+type SectionConfig = {
+  id: string;
+  Component: React.ComponentType;
+};
 
 function App() {
   // Add console message about the development process
@@ -54,24 +60,24 @@ Source code: https://github.com/blumendorf/profile-page
     `);
   }, []);
 
-  // Define main content components in order
-  const mainSections = [
-    Hero,
-    About,
-    TechStack,
-    Timeline,
-    Services,
-    Contact,
+  // Define sections with explicit IDs
+  const mainSections: SectionConfig[] = [
+    { id: 'home', Component: Hero },
+    { id: 'about', Component: About },
+    { id: 'expertise', Component: Expertise },
+    { id: 'tech-stack', Component: TechStack },
+    { id: 'timeline', Component: Timeline },
+    { id: 'contact', Component: Contact },
   ];
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <Navbar />
       <main className="pt-16">
-        {mainSections.map((Component, index) => (
+        {mainSections.map(({ id, Component }, index) => (
           <Section
-            key={Component.name}
-            id={Component.name.toLowerCase()}
+            key={id}
+            id={id}
             index={index}
             totalSections={mainSections.length}
           >

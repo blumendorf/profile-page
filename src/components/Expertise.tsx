@@ -1,7 +1,7 @@
 import { Beaker, Code2, Users, CheckCircle2 } from 'lucide-react';
 
-export default function Services() {
-  const services = [
+export default function Expertise() {
+  const capabilities = [
     {
       title: "Tech & AI Consulting",
       icon: <Beaker className="w-8 h-8 text-accent/60 dark:text-accent-light/60 mb-3" />,
@@ -36,9 +36,9 @@ export default function Services() {
 
   return (
     <div className="section-container">
-      <h2 className="heading-secondary text-center mb-16">Services</h2>
+      <h2 className="heading-secondary text-center mb-16">Expertise</h2>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
-        {services.map((service, index) => (
+        {capabilities.map((capability, index) => (
           <div
             key={index}
             className="group bg-white dark:bg-gray-800 p-6 lg:p-8 rounded-xl
@@ -47,13 +47,13 @@ export default function Services() {
                         hover:-translate-y-1 hover:border-accent/30 dark:hover:border-accent-light/30"
           >
             <div className="flex flex-col items-center mb-6">
-              {service.icon}
+              {capability.icon}
               <h3 className="text-xl font-bold text-gray-900 dark:text-white text-center">
-                {service.title}
+                {capability.title}
               </h3>
             </div>
             <ul className="space-y-4">
-              {service.items.map((item, idx) => (
+              {capability.items.map((item, idx) => (
                 <li key={idx} className="flex items-start space-x-3">
                   <CheckCircle2
                     className="w-4 h-4 text-accent/50 dark:text-accent-light/50 mt-1 flex-shrink-0"
@@ -64,6 +64,28 @@ export default function Services() {
             </ul>
           </div>
         ))}
+      </div>
+
+      <div className="flex justify-center mt-12">
+        <a
+          href="#contact"
+          className="button-primary group flex items-center justify-center gap-2"
+        >
+          Need Help With Your Project?
+          <svg
+            className="w-4 h-4 transition-transform group-hover:translate-x-1"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M13 7l5 5m0 0l-5 5m5-5H6"
+            />
+          </svg>
+        </a>
       </div>
     </div>
   )

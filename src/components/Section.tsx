@@ -16,7 +16,6 @@ const Section: React.FC<SectionProps> = ({ children, id, index, totalSections })
     if (position < 0.9) return 'bg-gradient-to-b from-gray-100 to-white dark:from-gray-900 dark:to-gray-800';
     return 'bg-gradient-to-b from-white to-gray-100 dark:from-gray-800 dark:to-gray-900';
   };
-
   return (
     <section
       id={id}
