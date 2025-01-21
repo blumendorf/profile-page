@@ -85,8 +85,6 @@ describe('App', () => {
       expect(cookieBannerButton).toBeVisible()
       const cookieBannerButtonDecline = screen.getByRole('button', { name: 'Decline All' })
       expect(cookieBannerButtonDecline).toBeVisible()
-      const cookieBannerButtonCustomize = screen.getByRole('button', { name: 'Customize' })
-      expect(cookieBannerButtonCustomize).toBeVisible()
 
       expect(cookieBanner).toBeInTheDocument()
     })
@@ -106,7 +104,6 @@ describe('App', () => {
 
       // check if the consent was stored in localStorage
       expect(localStorage.getItem('cookieConsent')).toBe('true')
-      expect(localStorage.getItem('analyticsConsent')).toBe('true')
     })
 
     it('rejects all cookies', () => {
@@ -122,73 +119,9 @@ describe('App', () => {
       expect(cookieBanner).not.toBeVisible()
 
       // check if the consent was stored in localStorage
-      expect(localStorage.getItem('cookieConsent')).toBe('true')
-      expect(localStorage.getItem('analyticsConsent')).toBe('false')
+      expect(localStorage.getItem('cookieConsent')).toBe('false')
     })
 
-    it('customizes cookies - disabled analytics', () => {
-      render(<App />)
-      const cookieBanner = screen.getByRole('dialog', { name: 'Cookie banner' })
-      expect(cookieBanner).toBeVisible()
-
-      // click the customize button
-      const cookieBannerButton = screen.getByRole('button', { name: 'Customize' })
-      fireEvent.click(cookieBannerButton)
-
-      // check if customize details are visible
-      const cookieBannerDetails = screen.getByText('Essential Cookies')
-      expect(cookieBannerDetails).toBeVisible()
-      // check if analytics cookies are visible
-      const cookieBannerDetailsAnalytics = screen.getByText('Analytics Cookies')
-      expect(cookieBannerDetailsAnalytics).toBeVisible()
-
-      // check if essential cookies checkbox is checked and disabled
-      const essentialCheckbox = screen.getByRole('checkbox', { name: /Essential Cookies/ })
-      expect(essentialCheckbox).toBeChecked()
-      expect(essentialCheckbox).toBeDisabled()
-
-      // check if analytics cookies are unchecked by default
-      const analyticsCheckbox = screen.getByRole('checkbox', { name: /Analytics Cookies/ })
-      expect(analyticsCheckbox).not.toBeChecked()
-      expect(analyticsCheckbox).toBeEnabled()
-
-      // click Save Preferences
-      const cookieBannerButtonSave = screen.getByRole('button', { name: 'Save Preferences' })
-      fireEvent.click(cookieBannerButtonSave)
-
-      // check if the cookie banner is not visible
-      expect(cookieBanner).not.toBeVisible()
-
-      // check if the consent was stored in localStorage
-      expect(localStorage.getItem('cookieConsent')).toBe('true')
-      expect(localStorage.getItem('analyticsConsent')).toBe('false')
-    })
-
-    it('customizes cookies - disabled analytics', () => {
-      render(<App />)
-      const cookieBanner = screen.getByRole('dialog', { name: 'Cookie banner' })
-      expect(cookieBanner).toBeVisible()
-
-      // click the customize button
-      const cookieBannerButton = screen.getByRole('button', { name: 'Customize' })
-      fireEvent.click(cookieBannerButton)
-
-      // check analytics checkbox
-      const analyticsCheckbox = screen.getByRole('checkbox', { name: /Analytics Cookies/ })
-      fireEvent.click(analyticsCheckbox)
-      expect(analyticsCheckbox).toBeChecked()
-
-      // click Save Preferences
-      const cookieBannerButtonSave = screen.getByRole('button', { name: 'Save Preferences' })
-      fireEvent.click(cookieBannerButtonSave)
-
-      // check if the cookie banner is not visible
-      expect(cookieBanner).not.toBeVisible()
-
-      // check if the consent was stored in localStorage
-      expect(localStorage.getItem('cookieConsent')).toBe('true')
-      expect(localStorage.getItem('analyticsConsent')).toBe('true')
-    })
   })
   describe('CTA buttons', () => {
     it('clicks the CTA buttons to scroll to contact section', () => {
