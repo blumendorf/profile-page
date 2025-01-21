@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom';
-
 export default function Hero() {
   return (
     <div className="relative min-h-[700px] h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden">
@@ -13,7 +11,7 @@ export default function Hero() {
 
       <div className="section-container relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="space-y-8 animate-fade-in">
+          <div className="animate-fade-in">
             {/* Profile Image with Name */}
             <div className="space-y-4">
               <div className="relative inline-block">
@@ -45,29 +43,6 @@ export default function Hero() {
                 From building generative AI tools for publishers to creating next-level digital products,
                 I help teams innovate, scale, and deliver real impact.
               </p>
-            </div>
-
-            {/* CTA Button */}
-            <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
-              <Link
-                to="/#contact"
-                className="button-primary group flex items-center justify-center gap-2"
-              >
-                Let's Work Together
-                <svg
-                  className="w-4 h-4 transition-transform group-hover:translate-x-1"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M13 7l5 5m0 0l-5 5m5-5H6"
-                  />
-                </svg>
-              </Link>
             </div>
           </div>
         </div>

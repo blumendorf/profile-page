@@ -1,5 +1,4 @@
 import { Beaker, Code2, Users, CheckCircle2 } from 'lucide-react';
-import { Link } from 'react-router-dom';
 
 export default function Expertise() {
   const capabilities = [
@@ -65,28 +64,6 @@ export default function Expertise() {
             </ul>
           </div>
         ))}
-      </div>
-
-      <div className="flex justify-center mt-12">
-        <Link
-          to="/#contact"
-          className="button-primary group flex items-center justify-center gap-2"
-        >
-          Need Help With Your Project?
-          <svg
-            className="w-4 h-4 transition-transform group-hover:translate-x-1"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M13 7l5 5m0 0l-5 5m5-5H6"
-            />
-          </svg>
-        </Link>
       </div>
     </div>
   )
