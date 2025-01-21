@@ -5,7 +5,7 @@ export default function CookieBanner() {
   const [isVisible, setIsVisible] = useState(false);
 
   const hasConsent = localStorage.getItem('cookieConsent');
-  console.log('hasConsent', hasConsent);
+
 
   const updateConsent = (consent: boolean) => {
     localStorage.setItem('cookieConsent', consent.toString());

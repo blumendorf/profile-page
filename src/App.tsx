@@ -67,7 +67,7 @@ function MainLayout() {
   useDevMessage();
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900" lang="en">
+    <div className="min-h-[calc(var(--vh,1vh)*100)] bg-gray-50 dark:bg-gray-900" lang="en">
       <Navbar />
       <MainContent />
       <Footer />
