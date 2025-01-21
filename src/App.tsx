@@ -13,7 +13,7 @@ import CookieBanner from './components/CookieBanner'
 import PrivacyPolicy from './components/PrivacyPolicy'
 import Impressum from './components/Impressum'
 import { useDevMessage } from './hooks/useDevMessage'
-import { initializeTracking } from './utils/initializeTracking'
+import { initializeGoogleAnalytics } from './utils/analytics'
 
 // Add type for section configuration
 type SectionConfig = {
@@ -63,11 +63,6 @@ function MainContent() {
 }
 
 function MainLayout() {
-  // Initialize tracking
-  React.useEffect(() => {
-    initializeTracking();
-  }, []);
-
   // Show development process message
   useDevMessage();
 
@@ -82,6 +77,9 @@ function MainLayout() {
 }
 
 function App() {
+  // Initialize Google Analytics with your measurement ID
+  initializeGoogleAnalytics('G-MG5LDT8GT6');
+
   return (
     <HashRouter>
       <Routes>
