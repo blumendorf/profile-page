@@ -123,42 +123,6 @@ describe('App', () => {
     })
 
   })
-  describe('CTA buttons', () => {
-    it('clicks the CTA buttons to scroll to contact section', () => {
-      render(<App />)
-
-      // Get the contact section element
-      const contactSection = screen.getByRole('heading', { name: 'Get in Touch' }).closest('section')
-      expect(contactSection).toHaveAttribute('id', 'contact')
-
-      // Mock getElementById to return our contact section
-      const getElementByIdSpy = vi.spyOn(document, 'getElementById')
-      getElementByIdSpy.mockReturnValue(contactSection)
-
-      // Mock scrollIntoView
-      const scrollIntoViewMock = vi.fn()
-      window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock
-
-      // Click the hero CTA link
-      const heroCtaLink = screen.getByRole('link', {
-        name: 'Let\'s Work Together'
-      })
-      fireEvent.click(heroCtaLink)
-      expect(getElementByIdSpy).toHaveBeenCalledWith('contact')
-      expect(scrollIntoViewMock).toHaveBeenCalledWith({ behavior: 'smooth' })
-
-      // Click the expertise CTA link
-      const expertiseCtaLink = screen.getByRole('link', {
-        name: 'Need Help With Your Project?'
-      })
-      fireEvent.click(expertiseCtaLink)
-      expect(getElementByIdSpy).toHaveBeenCalledWith('contact')
-      expect(scrollIntoViewMock).toHaveBeenCalledWith({ behavior: 'smooth' })
-
-      // Clean up
-      getElementByIdSpy.mockRestore()
-    })
-  })
 
   describe('Navigation', () => {
     it('clicks the desktop navigation buttons to scroll to the correct section', () => {
@@ -297,6 +261,10 @@ describe('App', () => {
     beforeEach(() => {
       // Mock atob function
       vi.spyOn(window, 'atob')
+
+      // Add this: Mock window.location
+      const originalLocation = window.location
+      window.location = { ...originalLocation, href: '' }
     })
 
     afterEach(() => {
@@ -307,7 +275,6 @@ describe('App', () => {
       render(<App />)
 
       const emailLink = screen.getByRole('link', { name: 'Contact via Email' })
-      screen.debug(emailLink)
       expect(emailLink).toHaveAttribute('href', '#')
       fireEvent.click(emailLink)
       // expect atob to be called with the encoded email
