@@ -261,6 +261,10 @@ describe('App', () => {
     beforeEach(() => {
       // Mock atob function
       vi.spyOn(window, 'atob')
+
+      // Add this: Mock window.location
+      const originalLocation = window.location
+      window.location = { ...originalLocation, href: '' }
     })
 
     afterEach(() => {
@@ -271,7 +275,6 @@ describe('App', () => {
       render(<App />)
 
       const emailLink = screen.getByRole('link', { name: 'Contact via Email' })
-      screen.debug(emailLink)
       expect(emailLink).toHaveAttribute('href', '#')
       fireEvent.click(emailLink)
       // expect atob to be called with the encoded email
