@@ -7,15 +7,17 @@ import TechStack from './components/TechStack';
 import Timeline from './components/Timeline';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import NetworkBackground from './components/ui/NetworkBackground';
 
 function App() {
   // Show development process message in console
   useDevMessage();
 
   return (
-    <div className="min-h-screen" lang="en">
+    <div className="min-h-screen relative" lang="en">
+      <NetworkBackground />
       <Navbar />
-      <main role="main" aria-label="Main content">
+      <main role="main" aria-label="Main content" className="relative z-10">
         <Hero />
         <About />
         <Expertise />

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -15,6 +15,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDark, setIsDark] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -36,20 +37,68 @@ const Navbar = () => {
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
   }, [isDark]);
 
+  // Calculate active section based on scroll position
+  const calculateActiveSection = useCallback(() => {
+    const scrollY = window.scrollY;
+    const windowHeight = window.innerHeight;
+
+    // Check if at bottom of page first (for Contact)
+    const bottomThreshold = 100;
+    const isAtBottom = windowHeight + scrollY >= document.body.offsetHeight - bottomThreshold;
+
+    if (isAtBottom) {
+      return 'contact';
+    }
+
+    // The "trigger line" - a section is active when its top crosses this point
+    // Using 30% from the top of the viewport
+    const triggerPoint = scrollY + windowHeight * 0.3;
+
+    // Go through sections in reverse order (bottom to top)
+    // Find the first section whose top is above the trigger point
+    const sectionIds = navItems.map(item => item.href.replace('#', ''));
+
+    for (let i = sectionIds.length - 1; i >= 0; i--) {
+      const id = sectionIds[i];
+      const element = document.getElementById(id);
+
+      if (element) {
+        const rect = element.getBoundingClientRect();
+        const sectionTop = rect.top + scrollY;
+
+        // If this section's top is above the trigger point, it's the active one
+        if (sectionTop <= triggerPoint) {
+          return id;
+        }
+      }
+    }
+
+    // Default to first section
+    return 'home';
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+      setActiveSection(calculateActiveSection());
     };
-    window.addEventListener('scroll', handleScroll);
+
+    // Calculate on mount
+    handleScroll();
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [calculateActiveSection]);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     const targetId = href.replace('#', '');
     const element = document.getElementById(targetId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      // Offset for fixed header
+      const yOffset = -80;
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
     }
     setIsOpen(false);
   };
@@ -58,38 +107,52 @@ const Navbar = () => {
     setIsDark(!isDark);
   };
 
+  const isAtHero = activeSection === 'home';
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-page/95 backdrop-blur-sm border-b border-border-subtle py-3'
+          ? 'bg-page/80 backdrop-blur-xl border-b border-border-subtle py-3'
           : 'bg-transparent py-5'
       }`}
       aria-label="Main navigation"
     >
-      <div className="max-w-3xl mx-auto px-6 sm:px-8">
+      <div className="max-w-4xl mx-auto px-6 sm:px-8">
         <div className="flex items-center justify-between">
-          {/* Logo */}
+          {/* Logo - hidden when at hero section */}
           <a
             href="#home"
             onClick={(e) => handleNavClick(e, '#home')}
-            className="font-mono font-semibold text-lg text-text-primary hover:text-accent transition-colors"
+            className={`font-mono font-semibold text-base sm:text-lg truncate max-w-[200px] sm:max-w-none text-text-primary hover:text-accent transition-all duration-300 ${
+              isAtHero ? 'opacity-0 -translate-x-4 pointer-events-none' : 'opacity-100 translate-x-0'
+            }`}
+            tabIndex={isAtHero ? -1 : 0}
+            aria-hidden={isAtHero}
           >
-            marco<span className="text-accent">.</span>
+            Dr Marco Blumendorf<span className="text-accent">.</span>
           </a>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1" aria-label="Desktop navigation">
-            {navItems.slice(1).map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                onClick={(e) => handleNavClick(e, item.href)}
-                className="px-3 py-1.5 text-sm font-medium text-text-muted hover:text-text-primary transition-colors"
-              >
-                {item.label}
-              </a>
-            ))}
+            {navItems.slice(1).map((item) => {
+              const isActive = activeSection === item.href.replace('#', '');
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={(e) => handleNavClick(e, item.href)}
+                  className={`px-3 py-1.5 text-sm font-medium transition-colors ${
+                    isActive
+                      ? 'text-accent'
+                      : 'text-text-muted hover:text-text-primary'
+                  }`}
+                  aria-current={isActive ? 'page' : undefined}
+                >
+                  {item.label}
+                </a>
+              );
+            })}
             <div className="w-px h-4 bg-border-subtle mx-2" />
             <button
               onClick={toggleTheme}
@@ -132,16 +195,24 @@ const Navbar = () => {
             aria-label="Mobile navigation"
           >
             <div className="px-6 py-4 space-y-1">
-              {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={(e) => handleNavClick(e, item.href)}
-                  className="block px-3 py-2.5 text-base font-medium text-text-muted hover:text-text-primary hover:bg-surface rounded-md transition-colors"
-                >
-                  {item.label}
-                </a>
-              ))}
+              {navItems.map((item) => {
+                const isActive = activeSection === item.href.replace('#', '');
+                return (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={(e) => handleNavClick(e, item.href)}
+                    className={`block px-3 py-2.5 text-base font-medium rounded-md transition-colors ${
+                      isActive
+                        ? 'text-accent bg-surface/50'
+                        : 'text-text-muted hover:text-text-primary hover:bg-surface'
+                    }`}
+                    aria-current={isActive ? 'page' : undefined}
+                  >
+                    {item.label}
+                  </a>
+                );
+              })}
             </div>
           </motion.div>
         )}
