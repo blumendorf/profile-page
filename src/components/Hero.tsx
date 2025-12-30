@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
+import { siteData } from '../data/siteData';
 
 const Hero = () => {
   const [isHovering, setIsHovering] = useState(false);
@@ -83,7 +84,7 @@ const Hero = () => {
             <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-full overflow-hidden border-2 border-border-subtle pointer-events-none">
               <img
                 src={`${import.meta.env.BASE_URL}marco-small.jpg`}
-                alt="Dr Marco Blumendorf"
+                alt={siteData.profile.name}
                 className="w-full h-full object-cover object-center"
               />
             </div>
@@ -98,23 +99,22 @@ const Hero = () => {
             className="text-center md:text-left"
           >
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight mb-4">
-              Dr Marco Blumendorf
+              {siteData.profile.name}
             </h1>
 
             <p className="text-xl sm:text-2xl text-accent font-mono font-medium mb-6">
-              Director of Software Engineering
+              {siteData.profile.title}
             </p>
 
             <p className="text-body max-w-lg mb-8 text-balance">
-              I spent a decade at TU Berlin researching adaptive UI and distributed AI.
-              Now I lead engineering teams, rethinking how we build software alongside AI.
+              {siteData.profile.headline}
             </p>
 
             {/* Quick info tags */}
             <div className="flex flex-wrap gap-2 justify-center md:justify-start mb-8">
-              <span className="badge">Engineering</span>
-              <span className="badge">Leadership</span>
-              <span className="badge">AI first</span>
+              {siteData.profile.tags.map((tag) => (
+                <span key={tag} className="badge">{tag}</span>
+              ))}
             </div>
 
             <button

@@ -1,37 +1,6 @@
 import { motion } from 'framer-motion';
 import Section from './Section';
-
-type TechCategory = {
-  name: string;
-  items: string[];
-};
-
-const techCategories: TechCategory[] = [
-  {
-    name: 'Frontend',
-    items: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'TanStack Query'],
-  },
-  {
-    name: 'Backend',
-    items: ['Python', 'Firebase Functions', 'Pydantic', 'GCP Cloud Functions'],
-  },
-  {
-    name: 'Data & Search',
-    items: ['Firestore', 'BigQuery', 'Typesense', 'Elasticsearch', 'PostgreSQL'],
-  },
-  {
-    name: 'AI & ML',
-    items: ['OpenAI', 'Anthropic Claude', 'LangChain', 'Cohere', 'Google GenAI'],
-  },
-  {
-    name: 'Infrastructure',
-    items: ['GCP', 'Terraform', 'Cloud Tasks', 'Pub/Sub', 'Firebase Auth'],
-  },
-  {
-    name: 'Practices',
-    items: ['Vitest', 'Playwright', 'Cypress', 'CI/CD', 'Feature Flags'],
-  },
-];
+import { siteData } from '../data/siteData';
 
 const TechStack = () => {
   return (
@@ -53,7 +22,7 @@ const TechStack = () => {
         transition={{ delay: 0.1 }}
         className="heading-lg mb-4"
       >
-        Technical Foundation
+        {siteData.techStack.heading}
       </motion.h2>
 
       <motion.p
@@ -63,11 +32,11 @@ const TechStack = () => {
         transition={{ delay: 0.2 }}
         className="text-muted mb-10"
       >
-        Tools I work with daily.
+        {siteData.techStack.subheading}
       </motion.p>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {techCategories.map((category, categoryIndex) => (
+        {siteData.techStack.categories.map((category, categoryIndex) => (
           <motion.div
             key={category.name}
             initial={{ opacity: 0 }}

@@ -1,0 +1,149 @@
+{
+  "profile": {
+    "name": "Dr Marco Blumendorf",
+    "title": "Director of Software Engineering",
+    "headline": "I spent a decade at TU Berlin researching adaptive UI and distributed AI. Now I lead engineering teams, rethinking how we build software alongside AI.",
+    "tags": ["Engineering", "Leadership", "AI first"],
+    "social": {
+      "linkedin": "https://linkedin.com/in/marcoblu",
+      "github": "https://github.com/blumendorf",
+      "email": "bWFyY29AYmx1bWVuZG9yZi5pbmZv"
+    }
+  },
+  "about": {
+    "heading": "About Me",
+    "paragraphs": [
+      "I spent over a decade at TU-Berlin researching how to build adaptive user interfaces—systems that work across phones, tablets, smart homes, and respond to voice, touch, gestures. We called it multimodal interaction. Today, it's closer to what people mean by generative UI.",
+      "After my PhD, I spent two years traveling, then moved into startups. I built engineering teams from scratch, scaled a smart home company, raised funding as CTO of an IoT energy platform, and worked as a freelance consultant across sustainability and tech. I've always preferred greenfield projects—building something new from nothing.",
+      "Now I'm Director of Software Engineering at CHAPTR, a startup within the Holtzbrinck Publishing Group. We're Holtzbrinck's AI strategy. I work mainly on reedy.ai, a platform that uses AI to improve book metadata, optimize discoverability, and make large catalogs semantically searchable."
+    ],
+    "quote": "Your job hasn't changed: deliver code that you've proven works. What's changed is how you get there.",
+    "pillars": [
+      {
+        "icon": "Code",
+        "title": "Code that AI can reason about",
+        "description": "Simple architecture, clear patterns, documentation about the why—not just the what."
+      },
+      {
+        "icon": "Users",
+        "title": "Engineers using AI as a multiplier",
+        "description": "Working alongside a fast junior developer who's read everything but knows nothing about your product."
+      },
+      {
+        "icon": "TestTube",
+        "title": "Tests as the ultimate lifeline",
+        "description": "The one thing that still proves your code works, whether you wrote it or AI did."
+      }
+    ]
+  },
+  "expertise": {
+    "heading": "Areas of Focus",
+    "subheading": "What I spend my time on.",
+    "areas": [
+      {
+        "icon": "Cpu",
+        "title": "Developer Experience",
+        "description": "Ensuring the team can deliver their best work by structuring codebases for quality and AI-compatibility, integrating AI tools into daily workflows, and building development environments that scale."
+      },
+      {
+        "icon": "Users",
+        "title": "Team & Culture",
+        "description": "Building environments where engineers grow, adapting processes as tooling evolves, mentoring career development, and maintaining quality as velocity increases."
+      },
+      {
+        "icon": "Briefcase",
+        "title": "Technical Leadership",
+        "description": "Collaborating with product on roadmaps, making architecture decisions for new systems, managing delivery and timelines, and keeping technical debt under control."
+      }
+    ]
+  },
+  "techStack": {
+    "heading": "Technical Foundation",
+    "subheading": "Tools I work with daily.",
+    "categories": [
+      {
+        "name": "Frontend",
+        "items": ["React", "TypeScript", "Vite", "Tailwind CSS", "TanStack Query"]
+      },
+      {
+        "name": "Backend",
+        "items": ["Python", "Firebase Functions", "Pydantic", "GCP Cloud Functions"]
+      },
+      {
+        "name": "Data & Search",
+        "items": ["Firestore", "BigQuery", "Typesense", "Elasticsearch", "PostgreSQL"]
+      },
+      {
+        "name": "AI & ML",
+        "items": ["OpenAI", "Anthropic Claude", "LangChain", "Cohere", "Google GenAI"]
+      },
+      {
+        "name": "Infrastructure",
+        "items": ["GCP", "Terraform", "Cloud Tasks", "Pub/Sub", "Firebase Auth"]
+      },
+      {
+        "name": "Practices",
+        "items": ["Vitest", "Playwright", "Cypress", "CI/CD", "Feature Flags"]
+      }
+    ]
+  },
+  "journey": {
+    "heading": "Professional Journey",
+    "phases": [
+      {
+        "period": "2023–Present",
+        "title": "CHAPTR — AI in Publishing",
+        "description": "Senior Engineer → Director of Software Engineering. CHAPTR is the AI strategy of Holtzbrinck Publishing Group. I lead the team building reedy.ai—AI-powered metadata optimization, discoverability, and semantic search for publishers.",
+        "isCurrent": true
+      },
+      {
+        "period": "2014–2025",
+        "title": "GreenBuzz Berlin",
+        "description": "Co-founded as Sustainability Drinks at yetu in 2014. Became GreenBuzz Berlin in 2015, part of a global network for sustainability professionals."
+      },
+      {
+        "period": "2017–2023",
+        "title": "Independent Practice",
+        "description": "Freelance CTO and consultant. Led engineering for startups in sustainability and IoT. Technical leadership, React coaching, strategic advisory. Lots of greenfield projects."
+      },
+      {
+        "period": "2010–2017",
+        "title": "Startup Building",
+        "description": "Built engineering teams from scratch. Scaled yetu AG's smart home development. Led smartB as CTO—raised funding, built an IoT platform for commercial energy management."
+      },
+      {
+        "period": "1999–2010",
+        "title": "Academic Foundations",
+        "description": "PhD at TU-Berlin's DAI-Labor, researching adaptive user interfaces across devices and modalities—voice, touch, gestures, smart environments. Led the Human-Computer Interaction workgroup. What we worked on then is now called generative UI."
+      }
+    ]
+  },
+  "contact": {
+    "heading": "Get in Touch",
+    "intro": "I enjoy conversations about where software engineering is headed—especially the intersection of AI tooling, team culture, and building products that matter.",
+    "topics": [
+      "How AI is changing engineering",
+      "Building developer experience that scales",
+      "Greenfield projects and when to start fresh",
+      "The publishing industry meets AI"
+    ],
+    "channels": [
+      {
+        "type": "email",
+        "label": "Email",
+        "description": "Best for longer conversations"
+      },
+      {
+        "type": "linkedin",
+        "label": "LinkedIn",
+        "description": "Let's connect professionally"
+      },
+      {
+        "type": "github",
+        "label": "GitHub",
+        "description": "See what I'm building"
+      }
+    ]
+  }
+}
+
