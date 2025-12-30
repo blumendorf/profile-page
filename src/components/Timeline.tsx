@@ -32,18 +32,18 @@ const phases: TimelinePhase[] = [
       'Freelance CTO and consultant. Led engineering for startups in sustainability and IoT. Technical leadership, React coaching, strategic advisory. Lots of greenfield projects.',
   },
   {
-    icon: Sparkles,
-    period: '2023–Present',
-    title: 'CHAPTR — AI in Publishing',
-    description:
-      'Senior Engineer → Director of Software Engineering. CHAPTR is the AI strategy of Holtzbrinck Publishing Group. I lead the team building reedy.ai—AI-powered metadata optimization, discoverability, and semantic search for publishers.',
-  },
-  {
     icon: Heart,
     period: '2014–2025',
     title: 'GreenBuzz Berlin',
     description:
       'Co-founded as Sustainability Drinks at yetu in 2014. Became GreenBuzz Berlin in 2015, part of a global network for sustainability professionals.',
+  },
+  {
+    icon: Sparkles,
+    period: '2023–Present',
+    title: 'CHAPTR — AI in Publishing',
+    description:
+      'Senior Engineer → Director of Software Engineering. CHAPTR is the AI strategy of Holtzbrinck Publishing Group. I lead the team building reedy.ai—AI-powered metadata optimization, discoverability, and semantic search for publishers.',
   },
 ];
 
