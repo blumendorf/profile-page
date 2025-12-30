@@ -14,7 +14,7 @@
 1. **Clear & Scannable:** Single-column focus, generous whitespace, obvious hierarchy
 2. **Technical:** Monospace accents, terminal-inspired elements, code-like structures
 3. **Playful:** Warm colors, personality peeks through, not corporate stiff
-4. **One Fancy Highlight:** Terminal typing animation in the hero
+4. **Interactive Highlights:** Mouse-responsive elements (hero ring, contact shine borders)
 
 ---
 
@@ -133,11 +133,16 @@ export default {
 
 **Layout:**
 - Full viewport height
-- Terminal block centered
-- Name/title above terminal (or integrated into terminal content)
+- Profile image on left, name/title/description on right
+- Circular profile image with interactive animated ring
 - Subtle scroll indicator at bottom
 
-**No photo** — the terminal IS the visual interest. (Or small photo in corner if desired)
+**Profile Image Ring:**
+- Outer ring with amber conic gradient (`transparent → accent → transparent`)
+- Default: Auto-spins with 8-second duration
+- On hover: Animation stops, gradient position follows mouse cursor
+- On leave: Animation resumes from current position (seamless transition)
+- Creates an engaging, interactive focal point
 
 ### 4.3 About Section
 
@@ -197,13 +202,15 @@ export default {
 **Heading:** `// connect`
 
 **Layout:**
-- Centered text
-- Three buttons: Email, LinkedIn, GitHub
-- Simple, clear CTAs
+- Two-column grid (text left, buttons right on desktop)
+- "Things I like talking about" list with accent border
+- Three contact cards: Email, LinkedIn, GitHub
 
 **Style:**
-- Primary button (Email) in amber
-- Secondary buttons outlined
+- All three cards have consistent icon styling (muted → accent on hover)
+- Yellow shine border effect on hover using `useShineEffect` hook
+- Shine follows mouse position around the card border
+- Subtle amber border color transition on hover
 
 ### 4.8 Footer
 
@@ -239,6 +246,25 @@ export default {
 - Falls back to static angle when pointer leaves
 - Supports `corner-shape: squircle` for modern browsers
 - Light/dark mode variants with appropriate shadow intensity
+
+**useShineEffect Hook:**
+- Reusable hook for mouse-tracking shine effects
+- Calculates angle from element center to pointer position
+- Updates `--shine-angle` CSS variable in real-time
+- Used by contact cards for yellow shine border effect
+
+**Yellow Shine Border (`.shine-border-yellow`):**
+- CSS class for amber/yellow shine border on hover
+- Uses inset box-shadow with `hsl(45 100% 50%)` (golden yellow)
+- Masked gradient creates the moving shine sweep
+- Opacity transitions from 0 to 1 on hover
+- Circular variant (`.shine-border-yellow-circle`) for round elements
+
+**Hero Ring Interaction:**
+- Conic gradient ring around profile image
+- Uses `--ring-angle` CSS variable for position
+- Toggles between CSS animation and mouse-tracked position
+- Saves angle on leave to resume animation seamlessly
 
 **Reduce Motion:**
 - Respect `prefers-reduced-motion`
@@ -280,11 +306,12 @@ export default {
 | Old Design | New Design |
 |------------|------------|
 | Cold cyan/blue tech aesthetic | Warm amber/stone palette |
-| Spotlight cards with mouse tracking | Clean cards with subtle hover |
+| Spotlight cards with mouse tracking | Clean cards with subtle hover + shine borders |
 | Corporate "Director" feel | Personal "builder/engineer" feel |
-| Generic hero layout | Unique terminal typing animation |
+| Generic hero layout | Interactive profile ring + clean layout |
 | Heavy glassmorphism | Minimal, paper-like texture |
 | Dense information | Generous breathing room |
+| Static decorative elements | Mouse-responsive interactions (ring, shine borders) |
 
 ---
 

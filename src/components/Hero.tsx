@@ -1,7 +1,42 @@
+import { useState, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
 
 const Hero = () => {
+  const [isHovering, setIsHovering] = useState(false);
+  const [baseAngle, setBaseAngle] = useState(0);
+  const ringRef = useRef<HTMLDivElement>(null);
+  const currentAngleRef = useRef(0);
+
+  const handlePointerMove = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    if (!ringRef.current) return;
+
+    const rect = ringRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    const deltaX = event.clientX - centerX;
+    const deltaY = event.clientY - centerY;
+    const angleRadians = Math.atan2(deltaY, deltaX);
+
+    // Convert to degrees and adjust for conic-gradient (0° is at top)
+    let angleDegrees = (angleRadians * 180) / Math.PI + 90;
+    angleDegrees = (angleDegrees + 360) % 360;
+
+    currentAngleRef.current = angleDegrees;
+    ringRef.current.style.setProperty('--ring-angle', `${angleDegrees.toFixed(2)}deg`);
+  }, []);
+
+  const handlePointerEnter = useCallback(() => {
+    setIsHovering(true);
+  }, []);
+
+  const handlePointerLeave = useCallback(() => {
+    // Save the current angle as the new base for the animation
+    setBaseAngle(currentAngleRef.current);
+    setIsHovering(false);
+  }, []);
+
   const handleScrollToAbout = () => {
     const element = document.getElementById('about');
     if (element) {
@@ -24,11 +59,20 @@ const Hero = () => {
             className="relative flex-shrink-0"
           >
             {/* Animated ring - the fancy highlight */}
-            <div className="absolute -inset-3 rounded-full">
+            <div
+              ref={ringRef}
+              className="absolute -inset-3 rounded-full"
+              onPointerMove={handlePointerMove}
+              onPointerEnter={handlePointerEnter}
+              onPointerLeave={handlePointerLeave}
+              style={{ '--ring-angle': '0deg' } as React.CSSProperties}
+            >
               <div
-                className="absolute inset-0 rounded-full animate-spin-slow"
+                className={`absolute inset-0 rounded-full ${isHovering ? '' : 'animate-spin-slow'}`}
                 style={{
-                  background: 'conic-gradient(from 0deg, transparent, var(--accent-primary), transparent)',
+                  background: isHovering
+                    ? 'conic-gradient(from var(--ring-angle), transparent, var(--accent-primary), transparent)'
+                    : `conic-gradient(from ${baseAngle}deg, transparent, var(--accent-primary), transparent)`,
                   animationDuration: '8s',
                 }}
               />
@@ -36,7 +80,7 @@ const Hero = () => {
             </div>
 
             {/* Image container */}
-            <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-full overflow-hidden border-2 border-border-subtle">
+            <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-full overflow-hidden border-2 border-border-subtle pointer-events-none">
               <img
                 src={`${import.meta.env.BASE_URL}marco-small.jpg`}
                 alt="Dr Marco Blumendorf"
