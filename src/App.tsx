@@ -1,7 +1,6 @@
 import { useDevMessage } from './hooks/useDevMessage';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import TheShift from './components/TheShift';
 import About from './components/About';
 import Expertise from './components/Expertise';
 import TechStack from './components/TechStack';
@@ -18,7 +17,6 @@ function App() {
       <Navbar />
       <main role="main" aria-label="Main content">
         <Hero />
-        <TheShift />
         <About />
         <Expertise />
         <TechStack />

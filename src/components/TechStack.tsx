@@ -8,24 +8,28 @@ type TechCategory = {
 
 const techCategories: TechCategory[] = [
   {
-    name: 'Front End',
-    items: ['React', 'React Native', 'TypeScript', 'Context/Redux', 'REST', 'GraphQL', 'Firebase'],
+    name: 'Frontend',
+    items: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'TanStack Query', 'Radix UI'],
   },
   {
-    name: 'Back End',
-    items: ['Node.js', 'TypeScript', 'Firebase', 'HAPI', 'Event-driven architectures'],
+    name: 'Backend',
+    items: ['Python', 'Firebase Functions', 'Flask', 'Pydantic', 'GCP Cloud Functions'],
   },
   {
-    name: 'Cloud & Infrastructure',
-    items: ['AWS', 'GCP', 'Azure', 'Terraform', 'Sentry', 'LaunchDarkly'],
+    name: 'Data & Search',
+    items: ['Firestore', 'BigQuery', 'Typesense', 'Elasticsearch', 'PostgreSQL'],
   },
   {
-    name: 'Data & AI',
-    items: ['PostgreSQL', 'Firestore', 'Pinecone', 'Typesense', 'OpenAI', 'Langchain', 'CrewAI', 'Hugging Face'],
+    name: 'AI & ML',
+    items: ['OpenAI', 'Anthropic Claude', 'LangChain', 'Cohere', 'Google GenAI'],
   },
   {
-    name: 'Development Practice',
-    items: ['Scrum', 'Kanban', 'CI/CD', 'TDD', 'AI-assisted workflows'],
+    name: 'Infrastructure',
+    items: ['GCP', 'Terraform', 'Cloud Tasks', 'Pub/Sub', 'Firebase Auth'],
+  },
+  {
+    name: 'Practices',
+    items: ['Vitest', 'Playwright', 'Cypress', 'CI/CD', 'Feature Flags (LaunchDarkly)'],
   },
 ];
 
@@ -42,7 +46,7 @@ const TechStack = () => {
         >
           <h2 className="heading-lg mb-4">Technical Foundation</h2>
           <p className="text-muted max-w-2xl mx-auto">
-            The tools I work with daily—chosen for productivity, AI-compatibility, and proven reliability.
+            Tools I work with daily.
           </p>
         </motion.div>
 

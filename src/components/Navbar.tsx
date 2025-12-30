@@ -129,6 +129,7 @@ const Navbar = () => {
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
             className="md:hidden glass-strong border-b border-border-subtle overflow-hidden"
+            aria-label="Mobile navigation"
           >
             <div className="px-4 py-6 space-y-2">
               {navItems.map((item) => (

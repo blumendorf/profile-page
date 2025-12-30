@@ -2,8 +2,8 @@ import { motion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
 
 const Hero = () => {
-  const handleScrollToShift = () => {
-    const element = document.getElementById('the-shift');
+  const handleScrollToAbout = () => {
+    const element = document.getElementById('about');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
@@ -82,8 +82,8 @@ const Hero = () => {
             className="mt-8"
           >
             <p className="text-body max-w-2xl mx-auto text-balance">
-              Leading engineering teams through the AI transformation. Building AI-ready codebases.
-              Enabling engineers to thrive in the new era of software development.
+              I spent a decade researching adaptive user interfaces and distributed AI.
+              Now I lead engineering teams building AI-powered products for publishers.
             </p>
           </motion.div>
 
@@ -95,11 +95,11 @@ const Hero = () => {
             className="mt-12 flex justify-center gap-4"
           >
             <button
-              onClick={handleScrollToShift}
+              onClick={handleScrollToAbout}
               className="btn-primary group"
               aria-label="Scroll to learn more"
             >
-              <span>Explore The Shift</span>
+              <span>Learn More</span>
               <ArrowDown size={18} className="group-hover:translate-y-1 transition-transform" />
             </button>
           </motion.div>

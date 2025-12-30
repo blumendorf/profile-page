@@ -15,35 +15,35 @@ const phases: TimelinePhase[] = [
     period: '1999–2010',
     title: 'Academic Foundations',
     description:
-      'Research and PhD at TU-Berlin\'s Distributed AI Lab. Led the Human-Computer Interaction workgroup. Advised 13 PhD students. Published thesis on multimodal interaction in smart environments.',
+      'PhD at TU-Berlin\'s DAI-Labor, researching adaptive user interfaces across devices and modalities—voice, touch, gestures, smart environments. Led the Human-Computer Interaction workgroup. Advised PhD students. What we worked on then is now called generative UI.',
   },
   {
     icon: Rocket,
     period: '2010–2017',
     title: 'Startup Building',
     description:
-      'Built engineering teams from scratch. Scaled yetu AG\'s smart home development from 2 to 18 engineers. Led smartB as CTO—raised funding, built IoT platform for commercial energy management.',
+      'Built engineering teams from scratch. Scaled yetu AG\'s smart home development. Led smartB as CTO—raised funding, built an IoT platform for commercial energy management.',
   },
   {
     icon: Briefcase,
     period: '2017–2023',
     title: 'Independent Practice',
     description:
-      'Freelance CTO and consultant. Led engineering for multiple startups. Technical leadership, React coaching, and strategic advisory across sustainability and IoT sectors.',
+      'Freelance CTO and consultant. Led engineering for startups in sustainability and IoT. Technical leadership, React coaching, strategic advisory. Lots of greenfield projects.',
   },
   {
     icon: Sparkles,
     period: '2023–Present',
     title: 'CHAPTR — AI in Publishing',
     description:
-      'Senior Engineer → Director of Software Engineering. Building AI-powered products for the publishing industry. Leading teams through the AI transformation in practice.',
+      'Senior Engineer → Director of Software Engineering. CHAPTR is the AI strategy of Holtzbrinck Publishing Group. I lead the team building reedy.ai—AI-powered metadata optimization, discoverability, and semantic search for publishers.',
   },
   {
     icon: Heart,
-    period: 'Ongoing',
-    title: 'Non-Profit Engagement',
+    period: '2014–2025',
+    title: 'GreenBuzz Berlin',
     description:
-      'Co-founder and Vice President of GreenBuzz Berlin. Building networks for sustainability professionals. Technology in service of impact.',
+      'Co-founded as Sustainability Drinks at yetu in 2014. Became GreenBuzz Berlin in 2015, part of a global network for sustainability professionals.',
   },
 ];
 

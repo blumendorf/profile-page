@@ -1,0 +1,395 @@
+# Website Content — Source of Truth
+
+This file contains the target text for each section of blumendorf.info. Keep this file aligned with the actual implementation. When updating content, update here first, then sync to components.
+
+**Last synced:** December 30, 2024 (merged The Shift + About sections)
+
+---
+
+## Meta & SEO
+
+> **Component:** `index.html`
+> **Context:** Used in meta tags, OpenGraph, Twitter cards, and structured data.
+
+### Page Title
+```
+Dr Marco Blumendorf | Director of Software Engineering
+```
+
+### Meta Description (155 characters max)
+```
+Director of Software Engineering at CHAPTR. PhD in Distributed AI. 20+ years building software, from academic research to AI-powered publishing products.
+```
+
+### Keywords
+```
+Software Engineering, Engineering Leadership, AI Development, CHAPTR, Holtzbrinck, reedy.ai, React, TypeScript, Python, GCP
+```
+
+### Structured Data Notes
+- Job title: Director of Software Engineering
+- Organization: CHAPTR (part of Holtzbrinck Publishing Group)
+- Alumni: Technische Universität Berlin, DAI-Labor
+- Location: Germany
+
+---
+
+## Hero Section
+
+> **Component:** `src/components/Hero.tsx`
+> **Voice:** Direct introduction. No marketing speak.
+
+### Name & Title
+```
+Dr Marco Blumendorf
+Director of Software Engineering
+```
+
+### Headline
+```
+I spent a decade researching adaptive user interfaces and distributed AI. Now I lead engineering teams building AI-powered products for publishers.
+```
+
+> **Why this works:** Connects PhD research to current work. Specific about the domain (publishers). No buzzwords.
+
+### Supporting Text (optional, currently not shown)
+```
+At CHAPTR, part of Holtzbrinck's AI strategy, we build tools that help publishers manage and optimize their catalogs at scale.
+```
+
+### CTA Button
+```
+The Shift
+```
+
+---
+
+## The Shift Section
+
+> **Component:** `src/components/TheShift.tsx`
+> **Voice:** Marco's "abstraction levels" thesis. This is his unique take—not generic AI commentary.
+
+### Heading
+```
+The Engineering Profession Is Changing
+```
+
+### Opening Paragraphs
+```
+Software development has always been about raising the level of abstraction. We went from punch cards to assembler, then to higher-level languages, then to frameworks and libraries. Along the way, we got comfortable trusting code we didn't write. Most of us don't read the source of every npm package we install—we trust GitHub stars, recent commits, audit tools.
+
+Now we're at the next level: AI generating code from our instructions. We can still read the output. But once we build trust, will we?
+```
+
+> **Source:** Interview Q1 — Marco's core thesis about abstraction levels
+
+### The Three Pillars
+
+**Pillar 1**
+```
+Title: Code that AI can reason about
+Description: Simple architecture, clear patterns, documentation about the why—not just the what
+```
+
+**Pillar 2**
+```
+Title: Engineers using AI as a multiplier
+Description: Working alongside a fast junior developer who's read a lot of code but knows nothing about your product, your users, or your roadmap
+```
+
+**Pillar 3**
+```
+Title: Tests as the ultimate lifeline
+Description: The one thing that still proves your code works, whether you wrote it or AI did
+```
+
+> **Source:** Interview Q1 — "cherish and nurture your tests, they are your ultimate lifeline"
+
+### Closing Statement
+```
+Your job hasn't changed: deliver code that you've proven works. What's changed is how you get there.
+```
+
+---
+
+## About Section
+
+> **Component:** `src/components/About.tsx`
+> **Voice:** Personal background. First person. Conversational but professional.
+
+### Heading
+```
+About Me
+```
+
+### Main Text
+```
+I spent over a decade at TU-Berlin researching how to build adaptive user interfaces—systems that work across phones, tablets, smart homes, and respond to voice, touch, gestures. We called it multimodal interaction. Today, it's closer to what people mean by generative UI.
+
+After my PhD, I spent two years traveling, then moved into startups. I built engineering teams from scratch, scaled a smart home company, raised funding as CTO of an IoT energy platform, and worked as a freelance consultant across sustainability and tech. I've always preferred greenfield projects—building something new from nothing.
+
+Now I'm Director of Software Engineering at CHAPTR, a startup within the Holtzbrinck Publishing Group. We're Holtzbrinck's AI strategy. I work mainly on reedy.ai, a platform that uses AI to improve book metadata, optimize discoverability, and make large catalogs semantically searchable.
+```
+
+### Focus Areas
+```
+• Developer experience—making sure the team can do their best work
+• Structuring codebases so AI tools can actually help
+• Bridging product and engineering
+```
+
+---
+
+## Expertise Section
+
+> **Component:** `src/components/Expertise.tsx`
+> **Voice:** What he actually does, not what sounds impressive. Ordered by daily relevance.
+
+### Heading
+```
+Areas of Focus
+```
+
+### Intro
+```
+What I spend my time on.
+```
+
+### Area 1: Developer Experience
+```
+Title: Developer Experience
+Items:
+- Ensuring the team can deliver their best work
+- Structuring codebases for quality and AI-compatibility
+- Integrating AI tools into daily workflows
+- Building development environments that scale
+```
+
+### Area 2: Team & Culture
+```
+Title: Team & Culture
+Items:
+- Building environments where engineers grow
+- Adapting processes as tooling evolves
+- Mentoring and career development
+- Maintaining quality as velocity increases
+```
+
+### Area 3: Technical Leadership
+```
+Title: Technical Leadership
+Items:
+- Collaborating with product on roadmaps
+- Architecture decisions for new systems
+- Managing delivery and timelines
+- Keeping technical debt under control
+```
+
+---
+
+## Tech Stack Section
+
+> **Component:** `src/components/TechStack.tsx`
+> **Context:** Based on actual stack at CHAPTR (see tech-stack.md). Shows breadth and depth.
+
+### Heading
+```
+Technical Foundation
+```
+
+### Intro
+```
+Tools I work with daily.
+```
+
+### Categories
+
+**Frontend**
+```
+React, TypeScript, Vite, Tailwind CSS, TanStack Query, Radix UI
+```
+
+**Backend**
+```
+Python, Firebase Functions, Flask, Pydantic, GCP Cloud Functions
+```
+
+**Data & Search**
+```
+Firestore, BigQuery, Typesense, Elasticsearch, PostgreSQL
+```
+
+**AI & ML**
+```
+OpenAI, Anthropic Claude, LangChain, Cohere, Google GenAI
+```
+
+**Infrastructure**
+```
+GCP, Terraform, Cloud Tasks, Pub/Sub, Firebase Auth
+```
+
+**Practices**
+```
+Vitest, Playwright, Cypress, CI/CD, Feature Flags (LaunchDarkly)
+```
+
+> **Note:** This is the actual production stack, not aspirational. See tech-stack.md for full details.
+
+---
+
+## Timeline Section
+
+> **Component:** `src/components/Timeline.tsx`
+> **Voice:** Career story with specifics. Numbers and names add credibility.
+
+### Heading
+```
+Professional Journey
+```
+
+### Academic Foundations (1999–2010)
+```
+Period: 1999–2010
+Title: Academic Foundations
+Description: PhD at TU-Berlin's DAI-Labor, researching adaptive user interfaces across devices and modalities—voice, touch, gestures, smart environments. Led the Human-Computer Interaction workgroup. Advised PhD students. What we worked on then is now called generative UI.
+```
+
+> **Personal element:** After PhD, spent two years traveling the world. (Could add if desired, but may be too casual for main timeline.)
+
+### Startup Building (2010–2017)
+```
+Period: 2010–2017
+Title: Startup Building
+Description: Built engineering teams from scratch. Scaled yetu AG's smart home development. Led smartB as CTO—raised funding, built an IoT platform for commercial energy management.
+```
+
+### Independent Practice (2017–2023)
+```
+Period: 2017–2023
+Title: Independent Practice
+Description: Freelance CTO and consultant. Led engineering for startups in sustainability and IoT. Technical leadership, React coaching, strategic advisory. Lots of greenfield projects.
+```
+
+### CHAPTR (2023–Present)
+```
+Period: 2023–Present
+Title: CHAPTR — AI in Publishing
+Description: Senior Engineer → Director of Software Engineering. CHAPTR is the AI strategy of Holtzbrinck Publishing Group. I lead the team building reedy.ai—AI-powered metadata optimization, discoverability, and semantic search for publishers.
+```
+
+### GreenBuzz Berlin (2014–2025)
+```
+Period: 2014–2025
+Title: GreenBuzz Berlin
+Description: Co-founded as Sustainability Drinks at yetu in 2014. Became GreenBuzz Berlin in 2015, part of a global network for sustainability professionals.
+```
+
+---
+
+## Contact Section
+
+> **Component:** `src/components/Contact.tsx`
+> **Voice:** Direct. No elaborate pitch.
+
+### Heading
+```
+Get in Touch
+```
+
+### Text
+```
+Interested in AI-powered development, engineering leadership, or where software is headed? Let's talk.
+```
+
+### Links
+- **Email:** marco@blumendorf.info (obfuscated in implementation)
+- **LinkedIn:** linkedin.com/in/marcoblu
+- **GitHub:** github.com/blumendorf
+
+---
+
+## Footer
+
+> **Component:** `src/components/Footer.tsx`
+
+```
+© 2025 Dr Marco Blumendorf
+```
+
+---
+
+## Content NOT on Site (Reference Only)
+
+Personal details from interview. Use sparingly or not at all—depends on desired tone.
+
+### Location
+- Lives in a village near Neuruppin, Brandenburg (moved out of Berlin)
+- Has chickens
+
+### Hobbies
+- Skiing (certified instructor)
+- Mountain biking
+- Climbing
+
+### Post-PhD
+- Traveled the world for 2 years after completing PhD
+
+> **Recommendation:** The greenfield preference and world travel could work in the About section to add personality. The chickens and skiing are fun but probably don't add professional value unless going for a more personal blog-style page.
+
+---
+
+## Voice & Tone Guidelines
+
+### Marco's Core Framing
+AI is the next level of abstraction in software development's long history:
+1. Punch cards → Assembler
+2. Higher-level languages
+3. Frameworks and libraries (open source)
+4. **Generative AI** ← we are here
+
+### Phrases That Sound Like Marco
+- "AI is like a junior developer who's read a lot of code but knows nothing about your product"
+- "Tests are your ultimate lifeline"
+- "Your job hasn't changed: deliver code that you've proven works"
+- "We trusted code we didn't write. Now we're trusting code we didn't even ask for."
+
+### Things to Avoid
+- Generic "AI transformation" language without specifics
+- "Thrive," "leverage," "unlock potential"
+- Fear-mongering about job replacement
+- Making it sound like consulting services
+
+### Authenticity Markers
+- Specific numbers: "13 PhD students," "2 to 18 engineers"
+- Named products: reedy.ai, not "AI products"
+- Named companies: yetu AG, smartB, CHAPTR, Holtzbrinck
+- Actual tech stack, not aspirational lists
+
+---
+
+## Sync Checklist
+
+When updating content:
+
+- [ ] Update this file first
+- [ ] Sync Hero.tsx
+- [ ] Sync TheShift.tsx
+- [ ] Sync About.tsx
+- [ ] Sync Expertise.tsx
+- [ ] Sync TechStack.tsx
+- [ ] Sync Timeline.tsx
+- [ ] Sync Contact.tsx
+- [ ] Update index.html meta tags if needed
+- [ ] Run tests
+- [ ] Update "Last synced" date
+
+---
+
+## Change Log
+
+| Date | Changes |
+|------|---------|
+| Dec 2024 | Initial draft based on concept.md |
+| Dec 2024 | Revised with interview answers |
+| Dec 2024 | **Full revision** incorporating interview-questions.md, background.md, tech-stack.md |

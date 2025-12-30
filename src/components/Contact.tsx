@@ -33,8 +33,7 @@ const Contact = () => {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="text-body mb-10"
         >
-          Want to talk about engineering leadership in the AI era? Building AI-ready systems?
-          Or just curious where software development is headed? Let's connect.
+          Interested in AI-powered development, engineering leadership, or where software is headed? Let's talk.
         </motion.p>
 
         <motion.div

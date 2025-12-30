@@ -21,7 +21,6 @@ describe('App', () => {
       // Check if all main sections are present by their headings
       const sections = [
         'The Engineering Profession Is Changing',
-        'About Me',
         'Areas of Focus',
         'Technical Foundation',
         'Professional Journey',
@@ -32,6 +31,10 @@ describe('App', () => {
         const sectionElement = screen.getByRole('heading', { name: section })
         expect(sectionElement).toBeInTheDocument()
       })
+
+      // About Me is now a subheading (h3) within the merged section
+      const aboutHeading = screen.getByRole('heading', { name: 'About Me', level: 3 })
+      expect(aboutHeading).toBeInTheDocument()
     })
 
     it('renders navigation links correctly', () => {

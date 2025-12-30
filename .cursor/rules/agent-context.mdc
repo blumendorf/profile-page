@@ -1,0 +1,29 @@
+---
+description: Always check and update agent-context files (content, design, background) when modifying implementation.
+globs: ["src/**/*", "agent-context/**/*"]
+---
+# Agent Context & Source of Truth
+
+The `agent-context/` directory contains the source of truth for this project's content, design, and background.
+
+- `agent-context/content.md`: Contains the exact text content for the website.
+- `agent-context/design.md`: Contains the design philosophy, UX goals, visual identity, and specifications.
+- `agent-context/background/`: Contains background information (interview questions, overview, tech stack details).
+
+## Rules
+
+1. **Read First**: Before starting any significant task, check `agent-context/content.md` and `agent-context/design.md` to ensure alignment with the established source of truth.
+2. **Sync Content**: If you modify text in the codebase (`src/`), you MUST update `agent-context/content.md` to match, or verify it already matches. The markdown file is the master copy.
+3. **Sync Design**: If you change design tokens, layout, or visual patterns in `src/`, update `agent-context/design.md` to reflect these changes.
+4. **Consult Background**: When making decisions about tone, voice, or technical strategy, refer to `agent-context/background/` for context on the user's preferences and history.
+5. **Update Timestamp**: When updating `agent-context/content.md`, update the "Last synced" date and the Change Log at the bottom.
+
+## Workflow
+
+- **When implementing content:** Copy from `content.md` -> `src/`.
+- **When refining content:** Update `content.md` -> Then update `src/`.
+- **When changing design:** Update `design.md` -> Then implement in `src/`.
+
+## Important
+
+- If you are updating the content, you MUST update the `content.md` file to keep it in sync.
