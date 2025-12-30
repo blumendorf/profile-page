@@ -42,7 +42,7 @@ const TechStack = () => {
         viewport={{ once: true }}
         className="section-label block"
       >
-        // technical-foundation
+        // tech stack
       </motion.span>
 
       <motion.h2
