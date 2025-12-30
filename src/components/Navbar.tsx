@@ -38,7 +38,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -60,44 +60,43 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'glass-strong border-border-subtle/50 py-2'
-          : 'bg-transparent border-transparent py-4'
+          ? 'bg-page/95 backdrop-blur-sm border-b border-border-subtle py-3'
+          : 'bg-transparent py-5'
       }`}
       aria-label="Main navigation"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto px-6 sm:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <a
             href="#home"
             onClick={(e) => handleNavClick(e, '#home')}
-            className="font-mono font-bold text-xl text-text-primary tracking-tighter hover:text-accent transition-colors relative group"
+            className="font-mono font-semibold text-lg text-text-primary hover:text-accent transition-colors"
           >
-            <span className="relative z-10">MB</span>
-            <span className="absolute -inset-2 bg-accent/10 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300 -z-0"></span>
+            marco<span className="text-accent">.</span>
           </a>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1" aria-label="Desktop navigation">
-            {navItems.map((item) => (
+            {navItems.slice(1).map((item) => (
               <a
                 key={item.href}
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item.href)}
-                className="px-4 py-2 text-sm font-medium text-text-secondary hover:text-text-primary transition-all rounded-full hover:bg-surface relative group"
+                className="px-3 py-1.5 text-sm font-medium text-text-muted hover:text-text-primary transition-colors"
               >
-                <span className="relative z-10">{item.label}</span>
+                {item.label}
               </a>
             ))}
-            <div className="w-px h-6 bg-border-active mx-2"></div>
+            <div className="w-px h-4 bg-border-subtle mx-2" />
             <button
               onClick={toggleTheme}
-              className="p-2 text-text-secondary hover:text-accent hover:bg-accent/10 rounded-full transition-all focus-ring"
+              className="p-2 text-text-muted hover:text-accent rounded-md transition-colors focus-ring"
               aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
             >
-              {isDark ? <Sun size={18} /> : <Moon size={18} />}
+              {isDark ? <Sun size={16} /> : <Moon size={16} />}
             </button>
           </div>
 
@@ -105,13 +104,14 @@ const Navbar = () => {
           <div className="flex items-center gap-2 md:hidden">
             <button
               onClick={toggleTheme}
-              className="p-2 text-text-secondary hover:text-primary rounded-lg transition-colors"
+              className="p-2 text-text-muted hover:text-accent rounded-md transition-colors"
+              aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
             >
-              {isDark ? <Sun size={18} /> : <Moon size={18} />}
+              {isDark ? <Sun size={16} /> : <Moon size={16} />}
             </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-text-secondary hover:text-primary rounded-lg transition-colors"
+              className="p-2 text-text-muted hover:text-text-primary rounded-md transition-colors"
               aria-label="Toggle mobile menu"
             >
               {isOpen ? <X size={20} /> : <Menu size={20} />}
@@ -127,17 +127,17 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="md:hidden glass-strong border-b border-border-subtle overflow-hidden"
+            transition={{ duration: 0.2 }}
+            className="md:hidden bg-page border-b border-border-subtle overflow-hidden"
             aria-label="Mobile navigation"
           >
-            <div className="px-4 py-6 space-y-2">
+            <div className="px-6 py-4 space-y-1">
               {navItems.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
-                  className="block px-4 py-3 text-lg font-medium text-text-secondary hover:text-text-primary hover:bg-surface rounded-lg transition-colors"
+                  className="block px-3 py-2.5 text-base font-medium text-text-muted hover:text-text-primary hover:bg-surface rounded-md transition-colors"
                 >
                   {item.label}
                 </a>

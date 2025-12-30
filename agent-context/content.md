@@ -2,7 +2,7 @@
 
 This file contains the target text for each section of blumendorf.info. Keep this file aligned with the actual implementation. When updating content, update here first, then sync to components.
 
-**Last synced:** December 30, 2024 (merged sections, updated GreenBuzz, aligned Expertise)
+**Last synced:** December 30, 2024 (restructured About section - personal story first)
 
 ---
 
@@ -47,7 +47,7 @@ Director of Software Engineering
 
 ### Headline
 ```
-I spent a decade researching adaptive user interfaces and distributed AI. Now I lead engineering teams building AI-powered products for publishers.
+I spent a decade at TU Berlin researching adaptive UI and distributed AI. Now I lead engineering teams, rethinking how we build software alongside AI.
 ```
 
 > **Why this works:** Connects PhD research to current work. Specific about the domain (publishers). No buzzwords.
@@ -67,55 +67,14 @@ Learn More
 ## About Section
 
 > **Component:** `src/components/About.tsx`
-> **Voice:** Combines Marco's "abstraction levels" thesis with personal background. First person. Conversational but professional.
+> **Voice:** Personal background. First person. Conversational but professional.
 
-### Main Heading
-```
-The Engineering Profession Is Changing
-```
-
-### Opening Paragraphs (The Shift)
-```
-Software development has always been about raising the level of abstraction. We went from punch cards to assembler, then to higher-level languages, then to frameworks and libraries. Along the way, we got comfortable trusting code we didn't write. Most of us don't read the source of every npm package we install—we trust GitHub stars, recent commits, audit tools.
-
-Now we're at the next level: AI generating code from our instructions. We can still read the output. But once we build trust, will we?
-```
-
-> **Source:** Interview Q1 — Marco's core thesis about abstraction levels
-
-### The Three Pillars
-
-**Pillar 1**
-```
-Title: Code that AI can reason about
-Description: Simple architecture, clear patterns, documentation about the why—not just the what
-```
-
-**Pillar 2**
-```
-Title: Engineers using AI as a multiplier
-Description: Working alongside a fast junior developer who's read a lot of code but knows nothing about your product, your users, or your roadmap
-```
-
-**Pillar 3**
-```
-Title: Tests as the ultimate lifeline
-Description: The one thing that still proves your code works, whether you wrote it or AI did
-```
-
-> **Source:** Interview Q1 — "cherish and nurture your tests, they are your ultimate lifeline"
-
-### Closing Statement
-```
-Your job hasn't changed: deliver code that you've proven works. What's changed is how you get there.
-```
-
-### Subheading
+### Heading
 ```
 About Me
 ```
 
-### Main Text
+### Personal Background
 ```
 I spent over a decade at TU-Berlin researching how to build adaptive user interfaces—systems that work across phones, tablets, smart homes, and respond to voice, touch, gestures. We called it multimodal interaction. Today, it's closer to what people mean by generative UI.
 
@@ -124,11 +83,29 @@ After my PhD, I spent two years traveling, then moved into startups. I built eng
 Now I'm Director of Software Engineering at CHAPTR, a startup within the Holtzbrinck Publishing Group. We're Holtzbrinck's AI strategy. I work mainly on reedy.ai, a platform that uses AI to improve book metadata, optimize discoverability, and make large catalogs semantically searchable.
 ```
 
-### Focus Areas
+### Quote
 ```
-• Developer experience—making sure the team can do their best work
-• Structuring codebases so AI tools can actually help
-• Bridging product and engineering
+Your job hasn't changed: deliver code that you've proven works. What's changed is how you get there.
+```
+
+### Pillars (no heading, displayed as cards)
+
+**Pillar 1**
+```
+Title: Code that AI can reason about
+Description: Simple architecture, clear patterns, documentation about the why—not just the what.
+```
+
+**Pillar 2**
+```
+Title: Engineers using AI as a multiplier
+Description: Working alongside a fast junior developer who's read everything but knows nothing about your product.
+```
+
+**Pillar 3**
+```
+Title: Tests as the ultimate lifeline
+Description: The one thing that still proves your code works, whether you wrote it or AI did.
 ```
 
 ---
@@ -252,18 +229,18 @@ Title: Independent Practice
 Description: Freelance CTO and consultant. Led engineering for startups in sustainability and IoT. Technical leadership, React coaching, strategic advisory. Lots of greenfield projects.
 ```
 
-### CHAPTR (2023–Present)
-```
-Period: 2023–Present
-Title: CHAPTR — AI in Publishing
-Description: Senior Engineer → Director of Software Engineering. CHAPTR is the AI strategy of Holtzbrinck Publishing Group. I lead the team building reedy.ai—AI-powered metadata optimization, discoverability, and semantic search for publishers.
-```
-
 ### GreenBuzz Berlin (2014–2025)
 ```
 Period: 2014–2025
 Title: GreenBuzz Berlin
 Description: Co-founded as Sustainability Drinks at yetu in 2014. Became GreenBuzz Berlin in 2015, part of a global network for sustainability professionals.
+```
+
+### CHAPTR (2023–Present)
+```
+Period: 2023–Present
+Title: CHAPTR — AI in Publishing
+Description: Senior Engineer → Director of Software Engineering. CHAPTR is the AI strategy of Holtzbrinck Publishing Group. I lead the team building reedy.ai—AI-powered metadata optimization, discoverability, and semantic search for publishers.
 ```
 
 ---
@@ -374,3 +351,4 @@ When updating content:
 | Dec 2024 | Revised with interview answers |
 | Dec 2024 | **Full revision** incorporating interview-questions.md, background.md, tech-stack.md |
 | Dec 2024 | Merged The Shift + About sections, updated GreenBuzz (2014–2025), Expertise now uses full sentences, CTA changed to "Learn More" |
+| Dec 2024 | Restructured About: personal story first, then "What I've Learned" (thesis), then "What I Focus On" (pillars) |

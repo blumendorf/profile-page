@@ -20,7 +20,7 @@ describe('App', () => {
 
       // Check if all main sections are present by their headings
       const sections = [
-        'The Engineering Profession Is Changing',
+        'About Me',
         'Areas of Focus',
         'Technical Foundation',
         'Professional Journey',
@@ -32,16 +32,17 @@ describe('App', () => {
         expect(sectionElement).toBeInTheDocument()
       })
 
-      // About Me is now a subheading (h3) within the merged section
-      const aboutHeading = screen.getByRole('heading', { name: 'About Me', level: 3 })
-      expect(aboutHeading).toBeInTheDocument()
+      // Verify the About section has content (pillar card headings are h4, not h3)
+      const aboutSection = document.getElementById('about')
+      expect(aboutSection).toBeInTheDocument()
     })
 
     it('renders navigation links correctly', () => {
       render(<App />)
 
       const desktopNav = screen.getByLabelText('Desktop navigation')
-      const expectedLinks = ['Home', 'About', 'Expertise', 'Tech Stack', 'Journey', 'Contact']
+      // Home link is now the logo, not in the nav items
+      const expectedLinks = ['About', 'Expertise', 'Tech Stack', 'Journey', 'Contact']
 
       expectedLinks.forEach(linkText => {
         const link = within(desktopNav).getByRole('link', { name: linkText })
@@ -68,8 +69,8 @@ describe('App', () => {
       const scrollIntoViewMock = vi.fn()
       window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock
 
+      // Home link is now the logo, test it separately
       const navItems = [
-        { linkText: 'Home', sectionId: 'home' },
         { linkText: 'About', sectionId: 'about' },
         { linkText: 'Expertise', sectionId: 'expertise' },
         { linkText: 'Tech Stack', sectionId: 'tech-stack' },

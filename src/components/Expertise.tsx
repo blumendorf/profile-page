@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { Cpu, Users, Briefcase } from 'lucide-react';
 import Section from './Section';
-import SpotlightCard from './ui/SpotlightCard';
 
 const expertiseAreas = [
   {
@@ -24,40 +23,55 @@ const expertiseAreas = [
 const Expertise = () => {
   return (
     <Section id="expertise">
-      <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <h2 className="heading-lg mb-4">Areas of Focus</h2>
-          <p className="text-body max-w-2xl mx-auto">
-            What I spend my time on.
-          </p>
-        </motion.div>
+      <motion.span
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        className="section-label block"
+      >
+        // expertise
+      </motion.span>
 
-        <div className="grid gap-6 md:grid-cols-3">
-          {expertiseAreas.map((area, index) => (
-            <motion.div
-              key={area.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="h-full"
-            >
-              <SpotlightCard className="h-full p-6 group">
-                <div className="p-3 rounded-lg bg-accent/5 text-accent group-hover:bg-accent/10 group-hover:scale-110 transition-all duration-300 ring-1 ring-accent/10 w-fit mb-4">
-                  <area.icon className="w-6 h-6" />
-                </div>
-                <h3 className="heading-md mb-2 text-lg">{area.title}</h3>
-                <p className="text-muted">{area.description}</p>
-              </SpotlightCard>
-            </motion.div>
-          ))}
-        </div>
+      <motion.h2
+        id="expertise-heading"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.1 }}
+        className="heading-lg mb-4"
+      >
+        Areas of Focus
+      </motion.h2>
+
+      <motion.p
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.2 }}
+        className="text-muted mb-10"
+      >
+        What I spend my time on.
+      </motion.p>
+
+      <div className="grid gap-4 md:grid-cols-3">
+        {expertiseAreas.map((area, index) => (
+          <motion.div
+            key={area.title}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 + index * 0.1 }}
+            className="card group"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-2 rounded-md bg-surface group-hover:bg-accent/10 transition-colors">
+                <area.icon className="w-5 h-5 text-accent" />
+              </div>
+            </div>
+            <h3 className="heading-md mb-3">{area.title}</h3>
+            <p className="text-muted leading-relaxed">{area.description}</p>
+          </motion.div>
+        ))}
       </div>
     </Section>
   );

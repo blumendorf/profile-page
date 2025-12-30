@@ -5,10 +5,10 @@ type SectionProps = {
   id: string;
   children: ReactNode;
   className?: string;
-  containerClassName?: string;
+  wide?: boolean;
 };
 
-const Section = ({ id, children, className = '', containerClassName = '' }: SectionProps) => {
+const Section = ({ id, children, className = '', wide = false }: SectionProps) => {
   return (
     <section
       id={id}
@@ -16,11 +16,11 @@ const Section = ({ id, children, className = '', containerClassName = '' }: Sect
       aria-labelledby={`${id}-heading`}
     >
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
         viewport={{ once: true, margin: '-100px' }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
-        className={`section-container ${containerClassName}`}
+        className={wide ? 'section-container-wide' : 'section-container'}
       >
         {children}
       </motion.div>
@@ -29,4 +29,3 @@ const Section = ({ id, children, className = '', containerClassName = '' }: Sect
 };
 
 export default Section;
-

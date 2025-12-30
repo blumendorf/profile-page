@@ -14,34 +14,43 @@ const Contact = () => {
 
   return (
     <Section id="contact">
-      <div className="max-w-3xl mx-auto text-center">
+      <div className="text-center">
+        <motion.span
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="section-label block"
+        >
+          // connect
+        </motion.span>
+
         <motion.h2
           id="contact-heading"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ delay: 0.1 }}
           className="heading-lg mb-6"
         >
           Get in Touch
         </motion.h2>
 
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-body mb-10"
+          transition={{ delay: 0.2 }}
+          className="text-body mb-10 max-w-lg mx-auto"
         >
           Interested in AI-powered development, engineering leadership, or where software is headed? Let's talk.
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          transition={{ delay: 0.3 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-3"
         >
           <a
             href="#"
@@ -81,4 +90,3 @@ const Contact = () => {
 };
 
 export default Contact;
-

@@ -1,125 +1,287 @@
-# Design Concept & UX Strategy
+# Design Concept — "The Engineer's Notebook"
 
 ## 1. Design Philosophy
-**"The Shift" — Engineering in the AI Era**
 
-The design must reflect the core thesis of the profile: **Software engineering is transforming.** The aesthetic should not be a standard "corporate portfolio" nor a "flashy creative agency" site. It must strike a balance:
-- **Authoritative & Experienced:** Grounded, substantial, credible (Director level).
-- **Forward-Looking:** Modern, clean, utilizing current web standards (AI-ready).
-- **Engineering-First:** Function over form, high information density without clutter, respect for system preferences (Dark Mode).
+**Core Concept:** A warm, personal, slightly playful design that feels like looking at an engineer's well-organized workspace. Not corporate tech. Not startup hype. An individual who builds things.
 
-## 2. Target Audience & UX Goals
-**Primary Audience:** Engineering Leaders (CTOs, VPs), Senior Engineers, Tech Recruiters.
+**Personality Traits to Reflect:**
+- **Grounded:** PhD → startups → village life with chickens
+- **Adventurous:** World traveler, ski instructor, mountain biker
+- **Pragmatic:** "AI is like a junior developer who reads a lot but knows nothing about your product"
+- **Builder:** Thrives in greenfield projects, prefers creating over maintaining
 
-**User Persona Traits:**
-- Values efficiency and clarity.
-- Skeptical of marketing fluff.
-- Appreciates technical craftsmanship (performance, accessibility, clean code).
-- Likely browsing in Dark Mode.
+**Design Principles:**
+1. **Clear & Scannable:** Single-column focus, generous whitespace, obvious hierarchy
+2. **Technical:** Monospace accents, terminal-inspired elements, code-like structures
+3. **Playful:** Warm colors, personality peeks through, not corporate stiff
+4. **One Fancy Highlight:** Terminal typing animation in the hero
 
-**UX Goals:**
-1.  **Immediate Credibility:** The Hero section must instantly establish "Director of Software Engineering" + "AI Expertise."
-2.  **Scannability:** Use clear hierarchy, lists, and visual groupings. Engineers scan before they read.
-3.  **Linear Storytelling:** Guide the user from the "Who" (Hero) to the "Why" (The Shift) to the "What" (Expertise/Stack) and "How" (Journey).
+---
 
-## 3. Visual Identity
+## 2. Visual Identity
 
-### Color System
-*Based on Tailwind CSS v4 variables*
-- **Theme:** Primary Dark Mode (System preference supported).
-- **Backgrounds:** Deep, rich darks (Slate/Zinc 950) rather than pure black, providing depth.
-- **Surface:** Slightly lighter layers (Slate 900/800) to distinguish cards and sections.
-- **Typography:** High contrast text (Slate 50/100) for readability. Muted text (Slate 400) for metadata.
-- **Accents:** Subtle, professional usage of Indigo or Emerald to denote "Tech/AI" without looking generic sci-fi.
-  - *Avoid:* Neon matrix green or cyber-punk aesthetic. Keep it clean and editorial.
+### Color Palette
+
+**Theme:** Warm earth tones + amber accent. Feels like a coffee-stained notebook, not a sterile SaaS dashboard.
+
+```css
+/* Dark Mode (Default) */
+--bg-page: #1a1814;        /* Warm charcoal */
+--bg-card: #242019;        /* Lighter charcoal */
+--bg-surface: #2e2a24;     /* Surface for cards */
+
+--accent-primary: #f59e0b; /* Amber - warm, inviting */
+--accent-secondary: #78716c; /* Stone gray */
+
+--text-primary: #fafaf9;   /* Stone 50 */
+--text-secondary: #d6d3d1; /* Stone 300 */
+--text-muted: #a8a29e;     /* Stone 400 */
+
+--border-subtle: #44403c;  /* Stone 700 */
+--border-active: #57534e;  /* Stone 600 */
+
+/* Light Mode */
+--bg-page: #fafaf9;        /* Stone 50 */
+--bg-card: #ffffff;
+--bg-surface: #f5f5f4;     /* Stone 100 */
+
+--text-primary: #1c1917;   /* Stone 900 */
+--text-secondary: #44403c; /* Stone 700 */
+--text-muted: #78716c;     /* Stone 500 */
+```
 
 ### Typography
-- **Headings:** Sans-serif, bold, tight tracking. Modern and digital. (e.g., Inter, Plus Jakarta Sans).
-- **Body:** Highly readable sans-serif with good line height (1.6+).
-- **Monospace:** Use sparingly for technical terms, file paths, or "code" concepts to reinforce the engineering identity.
 
-### Layout & Spacing
-- **Container:** Centered, max-width (e.g., `max-w-4xl`) for optimal reading length.
-- **Vertical Rhythm:** Generous padding between sections (`py-20` or `py-24`) to give content room to breathe.
-- **Grid Systems:** Use CSS Grid for the Tech Stack and Expertise cards to ensure responsiveness.
+**Font Stack:**
+- **Headings:** `JetBrains Mono` or similar monospace — technical, distinctive
+- **Body:** System sans-serif (Inter fallback) — readable, clean
+- **Code/Accents:** `JetBrains Mono` — consistency with headings
 
-## 4. Section Design Specifications
-*Content source: `concept/content.md`*
+**Hierarchy:**
+- Hero name: Large, monospace, bold
+- Section headings: Monospace, uppercase tracking
+- Body: Sans-serif, comfortable reading size
+- Labels/Metadata: Small monospace
 
-### 1. Hero Section
-- **Goal:** Impact & Introduction.
-- **Layout:**
-  - **Desktop:** Split layout or centered with max-width.
-  - **Mobile:** Vertically stacked. Image first (or top of text), followed by Name, Title, and CTA.
-- **Elements:**
-  - Professional Headshot (Circle or Rounded Rect).
-  - Name & Title (H1).
-  - "The Shift" Hook (Subtext).
-  - CTA: "Read about The Shift" (Scroll anchor) — *min-height 44px for touch targets*.
-- **Vibe:** Clean, focused. No background video or distractions.
+### Layout
 
-### 2. "The Shift" (Concept Section)
-- **Goal:** Thought Leadership. This is the differentiator.
-- **Design:** Editorial style.
-- **Typography:** Larger body text.
-  - **Mobile:** Ensure readable line length and font size (min 16px).
-- **Visuals:** Use icons or simple diagrams to illustrate the "3 Pillars" (Code, Engineers, Tests).
-  - **Mobile:** Stack pillars vertically.
+**Structure:**
+- Max-width: 720px for text-heavy sections (optimal reading)
+- Full-width: Hero only
+- Generous vertical rhythm: `py-24` between sections
+- Mobile-first, single column
 
-### 3. About & Expertise
-- **Goal:** Personal Context & Professional Focus.
-- **Layout:**
-  - **About:** Text block with "Focus Areas" as bullet points.
-  - **Expertise:** Grid of cards.
-    - **Desktop:** 2 or 3 columns.
-    - **Mobile:** Single column grid. Cards take full width.
-- **Component:** `SpotlightCard` for Expertise areas. Subtle lighting effect on hover (desktop) / active state (mobile).
+---
 
-### 4. Technical Foundation (Tech Stack)
-- **Goal:** Show breadth and depth.
-- **Design:** Categorized lists or tags.
-- **Interaction:**
-  - Categories (Frontend, Backend, AI, etc.) clearly separated.
-  - **Mobile:** Categories stack vertically. Consider simple accordions if content length is excessive, otherwise keep expanded for scannability.
-  - Tags/Badges for individual technologies (wrap naturally).
+## 3. The Fancy Highlight: Terminal Hero
 
-### 5. Professional Journey (Timeline)
-- **Goal:** Career narrative.
-- **Design:** Vertical timeline with connecting line.
-- **Layout:**
-  - **Desktop:** Alternating left/right or consistent left-aligned content with timeline on left.
-  - **Mobile:** Content strictly on one side of the line (or remove line and use simple vertical list with clear headers) to maximize horizontal space for text.
-- **Visuals:**
-  - Distinct markers for different eras.
+The hero features an **animated terminal/code block** that types out a "config file" about Marco. This is:
+- **Technical:** Looks like actual code
+- **Playful:** Reveals personality in an unexpected way
+- **Memorable:** Different from typical portfolio heroes
 
-### 6. Footer & Contact
-- **Goal:** Connection.
-- **Design:** Minimalist.
-- **Elements:**
-  - Social Links.
-  - Copyright.
-  - **Mobile:** Stack links vertically or use a large touch-friendly horizontal row. Ensure >48px spacing between tap targets.
+### Terminal Content
 
-## 5. Interaction & Motion Strategy
-*Library: Framer Motion*
+```typescript
+// marco.config.ts
+export default {
+  name: "Marco Blumendorf",
+  title: "Director of Software Engineering",
+  location: "Village near Neuruppin 🐔",
 
-- **Entrance Animations:** Sections fade in and slide up (`y: 20 -> 0`, `opacity: 0 -> 1`) as user scrolls. Stagger children for lists/grids.
-  - **Mobile:** Reduce motion distance or disable complex staggers if they impact performance or scroll feel.
-- **Micro-interactions:**
-  - Buttons: Scale down slightly on click (`0.95`).
-  - Links: Underline expansion or color shift.
-  - Cards: `Spotlight` effect (mouse tracking gradient).
-    - **Mobile:** Fallback to simple border highlight or subtle background tint on tap.
-- **Scroll:** Smooth scroll behavior for navigation links.
+  current: {
+    company: "CHAPTR",
+    product: "reedy.ai",
+    focus: ["AI in Publishing", "Developer Experience"]
+  },
 
-## 6. Implementation Notes
-- **Tech Stack:** Vite + React + TypeScript + Tailwind v4.
-- **Accessibility (A11y):**
-  - Semantic HTML (`<section>`, `<article>`, `<nav>`).
-  - Focus rings visible for keyboard navigation.
-  - ARIA labels for icon-only buttons (social links, theme toggle).
-  - **Mobile:** Ensure no horizontal scrolling (overflow-x: hidden).
-- **Responsive:** Mobile-first approach.
-  - **Navigation:** Hamburger menu opening a slide-out drawer or full-screen overlay for mobile.
-  - **Spacing:** Adjust section padding: `py-20` (Desktop) -> `py-12` (Mobile).
-  - **Typography:** Fluid typography (clamp) or adjusted font sizes for headings to prevent wrapping/orphans on small screens.
+  background: {
+    phd: "Adaptive UI & Distributed AI",
+    experience: "20+ years",
+    superpower: "Greenfield projects"
+  },
+
+  philosophy: "AI is like a junior developer who reads a lot but knows nothing about your product."
+}
+```
+
+**Animation:**
+- Types character by character with realistic timing
+- Slight randomness in typing speed
+- Cursor blinks at end
+- Optional: syntax highlighting (amber for strings, muted for structure)
+
+---
+
+## 4. Section Specifications
+
+### 4.1 Navbar
+
+**Approach:** Minimal, almost invisible. Let the content speak.
+
+**Elements:**
+- Logo: `marco.` in monospace (or just `M.`)
+- Links: Text only, horizontal on desktop, hamburger on mobile
+- Theme toggle: Simple sun/moon icon
+
+**Behavior:**
+- Transparent by default
+- Subtle background blur on scroll
+- No heavy borders
+
+### 4.2 Hero Section
+
+**Layout:**
+- Full viewport height
+- Terminal block centered
+- Name/title above terminal (or integrated into terminal content)
+- Subtle scroll indicator at bottom
+
+**No photo** — the terminal IS the visual interest. (Or small photo in corner if desired)
+
+### 4.3 About Section
+
+**Heading:** "The Shift" (no change in topic, cleaner presentation)
+
+**Layout:**
+- Two paragraphs of thesis text
+- Three pillars as simple cards (no heavy effects)
+- Closing quote with left border accent
+- Personal background below with clear separator
+
+**Style:**
+- Cards have very subtle borders, amber accent on hover
+- Pull quote styled differently (larger, italic, border-left)
+
+### 4.4 Expertise Section
+
+**Heading:** Simple, left-aligned
+
+**Layout:**
+- Three cards in a row (stack on mobile)
+- Icon + title + description
+- Hover: subtle amber glow
+
+**Style:**
+- No heavy spotlight effects
+- Clean, scannable
+
+### 4.5 Tech Stack Section
+
+**Heading:** `// technical-foundation`
+
+**Layout:**
+- Categories as collapsible sections or simple grid
+- Tags/pills for technologies
+- Monospace category labels
+
+**Style:**
+- Minimal borders
+- Tags: outlined style, amber fill on hover
+
+### 4.6 Timeline Section
+
+**Heading:** `// journey`
+
+**Layout:**
+- Simple vertical list (no alternating left/right on desktop)
+- Year on left, content on right
+- Connecting line between entries
+
+**Style:**
+- Clean, easy to scan
+- Current role (CHAPTR) highlighted with amber accent
+
+### 4.7 Contact Section
+
+**Heading:** `// connect`
+
+**Layout:**
+- Centered text
+- Three buttons: Email, LinkedIn, GitHub
+- Simple, clear CTAs
+
+**Style:**
+- Primary button (Email) in amber
+- Secondary buttons outlined
+
+### 4.8 Footer
+
+**Minimal:**
+- Copyright text only
+- Optional: Privacy link
+
+---
+
+## 5. Motion Strategy
+
+**Philosophy:** Subtle, purposeful. Not distracting.
+
+**Hero Terminal:**
+- Character-by-character typing animation
+- Cursor blink effect
+- This is the ONE showy animation
+
+**Sections:**
+- Fade in on scroll (opacity only, minimal y-movement)
+- Stagger children slightly
+
+**Interactions:**
+- Buttons: scale(0.98) on click
+- Links: underline expansion
+- Cards: subtle border color change on hover
+
+**Reduce Motion:**
+- Respect `prefers-reduced-motion`
+- Static terminal for accessibility
+
+---
+
+## 6. Accessibility
+
+- Semantic HTML throughout
+- Focus rings on all interactive elements
+- Sufficient color contrast (test amber on both themes)
+- Keyboard navigable
+- Screen reader friendly (terminal has aria-label describing content)
+
+---
+
+## 7. Implementation Notes
+
+### Dependencies
+- Keep Motion library for animations
+- Add `JetBrains Mono` via Google Fonts or self-host
+- Consider `react-type-animation` or custom hook for terminal effect
+
+### Performance
+- Terminal animation should not block interaction
+- Lazy load sections below the fold
+- No heavy background effects
+
+### Mobile
+- Terminal scales down nicely
+- Single column throughout
+- Touch-friendly tap targets
+
+---
+
+## 8. What Makes This Design Different
+
+| Old Design | New Design |
+|------------|------------|
+| Cold cyan/blue tech aesthetic | Warm amber/stone palette |
+| Spotlight cards with mouse tracking | Clean cards with subtle hover |
+| Corporate "Director" feel | Personal "builder/engineer" feel |
+| Generic hero layout | Unique terminal typing animation |
+| Heavy glassmorphism | Minimal, paper-like texture |
+| Dense information | Generous breathing room |
+
+---
+
+## 9. Mood References
+
+- **Raycast** — Clean, dark, monospace headings
+- **Linear** — Generous spacing, purposeful motion
+- **Stripe docs** — Readable, well-organized
+- **Personal blogs of senior engineers** — Authentic, not polished to death

@@ -14,7 +14,6 @@ export default {
         'surface': 'var(--bg-surface)',
         'accent': {
           DEFAULT: 'var(--accent-primary)',
-          glow: 'var(--accent-glow)',
           secondary: 'var(--accent-secondary)',
         },
         'text': {
@@ -28,7 +27,7 @@ export default {
         },
       },
       fontFamily: {
-        mono: ['Space Grotesk', 'monospace'],
+        mono: ['"JetBrains Mono"', 'monospace'],
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       letterSpacing: {
