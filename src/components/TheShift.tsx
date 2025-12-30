@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Cpu, Users, GitBranch } from 'lucide-react';
 import Section from './Section';
+import SpotlightCard from './ui/SpotlightCard';
 
 const pillars = [
   {
@@ -63,11 +64,13 @@ const TheShift = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
-              className="card-interactive"
+              className="h-full"
             >
-              <pillar.icon className="w-8 h-8 text-accent mb-4" />
-              <h3 className="heading-md mb-2 text-lg">{pillar.title}</h3>
-              <p className="text-muted">{pillar.description}</p>
+              <SpotlightCard className="h-full p-6">
+                <pillar.icon className="w-8 h-8 text-accent mb-4" />
+                <h3 className="heading-md mb-2 text-lg">{pillar.title}</h3>
+                <p className="text-muted">{pillar.description}</p>
+              </SpotlightCard>
             </motion.div>
           ))}
         </div>
@@ -91,4 +94,3 @@ const TheShift = () => {
 };
 
 export default TheShift;
-

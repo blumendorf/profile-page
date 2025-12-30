@@ -17,7 +17,6 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    // Check system preference on mount
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const savedTheme = localStorage.getItem('theme');
 
@@ -29,7 +28,6 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    // Apply theme to document
     if (isDark) {
       document.documentElement.classList.add('dark');
     } else {
@@ -62,20 +60,23 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'glass-strong' : 'bg-transparent'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${
+        isScrolled
+          ? 'glass-strong border-border-subtle/50 py-2'
+          : 'bg-transparent border-transparent py-4'
       }`}
       aria-label="Main navigation"
     >
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between">
           {/* Logo */}
           <a
             href="#home"
             onClick={(e) => handleNavClick(e, '#home')}
-            className="font-mono font-bold text-xl text-text-primary hover:text-accent transition-colors"
+            className="font-mono font-bold text-xl text-text-primary tracking-tighter hover:text-accent transition-colors relative group"
           >
-            MB
+            <span className="relative z-10">MB</span>
+            <span className="absolute -inset-2 bg-accent/10 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300 -z-0"></span>
           </a>
 
           {/* Desktop Navigation */}
@@ -85,14 +86,15 @@ const Navbar = () => {
                 key={item.href}
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item.href)}
-                className="px-3 py-2 text-sm text-text-secondary hover:text-text-primary transition-colors rounded-lg hover:bg-surface"
+                className="px-4 py-2 text-sm font-medium text-text-secondary hover:text-text-primary transition-all rounded-full hover:bg-surface relative group"
               >
-                {item.label}
+                <span className="relative z-10">{item.label}</span>
               </a>
             ))}
+            <div className="w-px h-6 bg-border-active mx-2"></div>
             <button
               onClick={toggleTheme}
-              className="ml-2 p-2 text-text-secondary hover:text-text-primary rounded-lg hover:bg-surface transition-colors focus-ring"
+              className="p-2 text-text-secondary hover:text-accent hover:bg-accent/10 rounded-full transition-all focus-ring"
               aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
             >
               {isDark ? <Sun size={18} /> : <Moon size={18} />}
@@ -103,16 +105,14 @@ const Navbar = () => {
           <div className="flex items-center gap-2 md:hidden">
             <button
               onClick={toggleTheme}
-              className="p-2 text-text-secondary hover:text-text-primary rounded-lg hover:bg-surface transition-colors focus-ring"
-              aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+              className="p-2 text-text-secondary hover:text-primary rounded-lg transition-colors"
             >
               {isDark ? <Sun size={18} /> : <Moon size={18} />}
             </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-text-secondary hover:text-text-primary rounded-lg hover:bg-surface transition-colors focus-ring"
+              className="p-2 text-text-secondary hover:text-primary rounded-lg transition-colors"
               aria-label="Toggle mobile menu"
-              aria-expanded={isOpen}
             >
               {isOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -127,17 +127,16 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden glass-strong border-t border-border-subtle"
-            aria-label="Mobile navigation"
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            className="md:hidden glass-strong border-b border-border-subtle overflow-hidden"
           >
-            <div className="px-4 py-4 space-y-1">
+            <div className="px-4 py-6 space-y-2">
               {navItems.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
-                  className="block px-3 py-2 text-text-secondary hover:text-text-primary hover:bg-surface rounded-lg transition-colors"
+                  className="block px-4 py-3 text-lg font-medium text-text-secondary hover:text-text-primary hover:bg-surface rounded-lg transition-colors"
                 >
                   {item.label}
                 </a>
@@ -151,4 +150,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

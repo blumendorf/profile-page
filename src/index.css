@@ -53,6 +53,20 @@
     line-height: 1.6;
   }
 
+  /* Noise texture overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+
   h1, h2, h3, h4, h5, h6 {
     @apply font-mono font-bold;
     color: var(--text-primary);
@@ -69,16 +83,16 @@
 
 @layer components {
   .section-container {
-    @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24;
+    @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32;
   }
 
   .heading-xl {
-    @apply text-4xl sm:text-5xl md:text-6xl font-bold;
+    @apply text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight;
     color: var(--text-primary);
   }
 
   .heading-lg {
-    @apply text-3xl sm:text-4xl font-bold;
+    @apply text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight;
     color: var(--text-primary);
   }
 
@@ -99,34 +113,32 @@
 
   /* Glassmorphism */
   .glass {
-    background-color: color-mix(in srgb, var(--bg-card) 80%, transparent);
+    background-color: color-mix(in srgb, var(--bg-card) 60%, transparent);
     @apply backdrop-blur-md;
     border: 1px solid var(--border-subtle);
   }
 
   .glass-strong {
-    background-color: color-mix(in srgb, var(--bg-card) 95%, transparent);
-    @apply backdrop-blur-lg;
-    border: 1px solid var(--border-active);
+    background-color: color-mix(in srgb, var(--bg-card) 90%, transparent);
+    @apply backdrop-blur-xl;
+    border-bottom: 1px solid var(--border-subtle);
   }
 
   /* Cards */
   .card {
     background-color: var(--bg-card);
     border: 1px solid var(--border-subtle);
-    @apply rounded-xl p-6;
+    @apply rounded-xl p-8;
     @apply transition-all duration-300 ease-out;
   }
 
-  .card-interactive {
-    @apply card cursor-pointer;
-    @apply hover:-translate-y-1;
-    @apply hover:shadow-lg;
-  }
-
-  .card-interactive:hover {
-    border-color: var(--border-active);
-    box-shadow: 0 10px 15px -3px rgba(6, 182, 212, 0.1), 0 4px 6px -4px rgba(6, 182, 212, 0.1);
+  /* Spotlight effect logic is handled in React component, but base styles here */
+  .spotlight-card {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    @apply rounded-xl p-8;
   }
 
   /* Buttons */
@@ -134,17 +146,31 @@
     @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-medium;
     @apply transition-all duration-200 ease-out;
     @apply active:scale-95;
+    position: relative;
+    overflow: hidden;
   }
 
   .btn-primary {
     @apply btn;
     background-color: var(--accent-primary);
     color: var(--bg-page);
-    @apply hover:shadow-lg;
+    @apply hover:shadow-lg hover:shadow-cyan-500/20;
   }
 
-  .btn-primary:hover {
-    background-color: var(--accent-glow);
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(255,255,255,0.2), transparent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .btn-primary:hover::after {
+    opacity: 1;
   }
 
   .btn-secondary {
@@ -155,7 +181,7 @@
 
   .btn-secondary:hover {
     background-color: var(--bg-surface);
-    border-color: var(--accent-primary);
+    border-color: var(--text-secondary);
   }
 
   .btn-ghost {
@@ -175,29 +201,20 @@
     @apply underline decoration-cyan-500/30 hover:decoration-cyan-500 underline-offset-4;
   }
 
-  .link:hover {
-    color: var(--accent-glow);
-  }
-
   /* Badges/Pills */
-  .badge {
-    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
-    background-color: var(--bg-surface);
-    color: var(--text-secondary);
-    border: 1px solid var(--border-subtle);
-    @apply transition-all duration-200;
-  }
-
   .badge-accent {
-    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
-    background-color: rgba(6, 182, 212, 0.1);
+    @apply inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium;
+    background-color: rgba(6, 182, 212, 0.05);
     color: var(--accent-primary);
     border: 1px solid rgba(6, 182, 212, 0.2);
-    @apply transition-all duration-200;
+    @apply transition-all duration-300;
   }
 
   .badge-accent:hover {
-    background-color: rgba(6, 182, 212, 0.2);
+    background-color: rgba(6, 182, 212, 0.15);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.15);
+    transform: translateY(-1px);
   }
 
   /* Focus states for accessibility */
@@ -205,61 +222,54 @@
     @apply focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2;
   }
 
-  /* Gradient backgrounds */
-  .gradient-radial {
-    background: radial-gradient(ellipse at top, var(--bg-card) 0%, var(--bg-page) 70%);
+  /* Animations */
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
   }
 
-  .gradient-mesh {
-    background:
-      radial-gradient(at 40% 20%, rgba(6, 182, 212, 0.08) 0px, transparent 50%),
-      radial-gradient(at 80% 0%, rgba(59, 130, 246, 0.06) 0px, transparent 50%),
-      radial-gradient(at 0% 50%, rgba(6, 182, 212, 0.05) 0px, transparent 50%),
-      var(--bg-page);
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
   }
 
-  /* Light mode gradient mesh */
-  html:not(.dark) .gradient-mesh {
-    background:
-      radial-gradient(at 40% 20%, rgba(6, 182, 212, 0.08) 0px, transparent 50%),
-      radial-gradient(at 80% 0%, rgba(59, 130, 246, 0.06) 0px, transparent 50%),
-      radial-gradient(at 0% 50%, rgba(6, 182, 212, 0.05) 0px, transparent 50%),
-      #f8fafc;
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.05); }
   }
 
-  /* Glow effects */
-  .glow-accent {
-    box-shadow: 0 0 40px rgba(6, 182, 212, 0.15);
+  .animate-pulse-glow {
+    animation: pulse-glow 3s ease-in-out infinite;
   }
 
-  .glow-text {
-    text-shadow: 0 0 30px rgba(6, 182, 212, 0.5);
+  /* Shimmer effect */
+  @keyframes shimmer {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: -200% 0;
+    }
   }
 
-  /* Light mode glow adjustments */
-  html:not(.dark) .glow-accent {
-    box-shadow: 0 0 40px rgba(6, 182, 212, 0.2);
+  .shimmer-bg {
+    background: linear-gradient(to right, transparent 0%, rgba(255,255,255,0.05) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite linear;
   }
 }
 
 @layer utilities {
   /* Custom scrollbar */
-  .scrollbar-thin {
-    scrollbar-width: thin;
-    scrollbar-color: var(--border-active) transparent;
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 
-  .scrollbar-thin::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-
-  .scrollbar-thin::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .scrollbar-thin::-webkit-scrollbar-thumb {
-    background-color: var(--border-active);
-    border-radius: 3px;
+  .text-balance {
+    text-wrap: balance;
   }
 }

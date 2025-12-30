@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Cpu, Users, Briefcase } from 'lucide-react';
 import Section from './Section';
+import SpotlightCard from './ui/SpotlightCard';
 
 const expertiseAreas = [
   {
@@ -37,61 +38,50 @@ const expertiseAreas = [
 
 const Expertise = () => {
   return (
-    <Section id="expertise" className="bg-card/30">
-      <div className="max-w-5xl mx-auto">
-        <motion.h2
-          id="expertise-heading"
+    <Section id="expertise">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="heading-lg mb-4 text-center"
+          className="text-center mb-16"
         >
-          Expertise
-        </motion.h2>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-body text-center max-w-2xl mx-auto mb-12"
-        >
-          Areas of Focus
-        </motion.p>
+          <h2 className="heading-lg mb-4">Expertise</h2>
+          <p className="text-body max-w-2xl mx-auto">
+            My focus is on three interconnected pillars that drive engineering success in the modern era.
+          </p>
+        </motion.div>
 
         <div className="grid gap-6 md:grid-cols-3">
           {expertiseAreas.map((area, index) => (
             <motion.div
               key={area.title}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
-              className="card group"
+              transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 rounded-lg bg-accent/10 text-accent group-hover:bg-accent/20 transition-colors">
-                  <area.icon className="w-6 h-6" />
+              <SpotlightCard className="h-full group">
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="p-3 rounded-lg bg-accent/5 text-accent group-hover:bg-accent/10 group-hover:scale-110 transition-all duration-300 ring-1 ring-accent/10">
+                    <area.icon className="w-6 h-6" />
+                  </div>
+                  <h3 className="heading-md text-lg">{area.title}</h3>
                 </div>
-                <h3 className="heading-md text-lg">{area.title}</h3>
-              </div>
 
-              <ul className="space-y-3">
-                {area.items.map((item, itemIndex) => (
-                  <motion.li
-                    key={item}
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: 0.4 + index * 0.1 + itemIndex * 0.05 }}
-                    className="flex items-start gap-2 text-text-secondary text-sm"
-                  >
-                    <span className="text-accent/60 mt-1">—</span>
-                    <span>{item}</span>
-                  </motion.li>
-                ))}
-              </ul>
+                <ul className="space-y-4">
+                  {area.items.map((item, itemIndex) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-3 text-text-secondary text-sm group/item"
+                    >
+                      <span className="text-accent/40 mt-1.5 w-1.5 h-1.5 rounded-full bg-accent/40 group-hover/item:bg-accent group-hover/item:scale-125 transition-all" />
+                      <span className="group-hover/item:text-text-primary transition-colors duration-300">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </SpotlightCard>
             </motion.div>
           ))}
         </div>
@@ -101,4 +91,3 @@ const Expertise = () => {
 };
 
 export default Expertise;
-

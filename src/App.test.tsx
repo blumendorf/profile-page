@@ -22,8 +22,8 @@ describe('App', () => {
       const sections = [
         'The Engineering Profession Is Changing',
         'About Me',
-        'Expertise',
-        'Tech Stack Favorites',
+        'Areas of Focus',
+        'Technical Foundation',
         'Professional Journey',
         'Get in Touch'
       ]

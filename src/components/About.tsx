@@ -2,9 +2,9 @@ import { motion } from 'framer-motion';
 import Section from './Section';
 
 const focusAreas = [
-  'Facilitating the personal development of engineers as AI reshapes their craft',
+  'Helping engineers develop as AI reshapes what we do',
   'Evolving codebases from legacy patterns to AI-ready architectures',
-  'Building team cultures that embrace continuous adaptation',
+  'Building team cultures that adapt fast',
 ];
 
 const About = () => {
@@ -30,11 +30,11 @@ const About = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-body"
           >
-            I've spent 20+ years at the intersection of AI research and hands-on software development.
-            My PhD in Distributed Artificial Intelligence at TU-Berlin gave me deep foundations.
-            Building and scaling engineering teams at startups taught me what actually ships.
-            Now, as Director of Software Engineering at CHAPTR, I apply both to leading teams
-            building AI-powered products.
+            I've spent 20+ years at the intersection of AI research and software development.
+            My PhD in Distributed AI at TU-Berlin gave me theoretical foundations.
+            Building and scaling engineering teams at startups taught me what works in the real world.
+            Now, as Director of Software Engineering at CHAPTR, I combine both—leading teams
+            that build AI-powered products.
           </motion.p>
 
           <motion.div
@@ -44,9 +44,8 @@ const About = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <p className="text-body mb-4">
-              My focus has shifted to what I believe is the most important challenge in engineering
-              leadership today: <span className="text-accent font-medium">preparing teams and codebases
-              for AI-driven development</span>. This means:
+              These days, I focus on what I think is the biggest challenge in engineering leadership:
+              <span className="text-accent font-medium"> getting teams and codebases ready for AI-driven development</span>. That means:
             </p>
 
             <ul className="space-y-3 ml-1">
@@ -57,7 +56,7 @@ const About = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: 0.3 + index * 0.1 }}
-                  className="flex items-start gap-3 text-text-secondary"
+                  className="flex items-start gap-3 text-text-secondary text-base"
                 >
                   <span className="text-accent mt-1.5">•</span>
                   <span>{area}</span>
@@ -65,19 +64,6 @@ const About = () => {
               ))}
             </ul>
           </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            className="text-body"
-          >
-            I've led teams through major transitions before—from monoliths to microservices,
-            from on-prem to cloud, from waterfall to agile. The AI transformation is bigger
-            than all of them combined. But the principles remain: start with people,
-            iterate relentlessly, and never stop shipping.
-          </motion.p>
         </div>
       </div>
     </Section>

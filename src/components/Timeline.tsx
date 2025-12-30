@@ -49,55 +49,57 @@ const phases: TimelinePhase[] = [
 
 const Timeline = () => {
   return (
-    <Section id="journey" className="bg-card/30">
+    <Section id="journey">
       <div className="max-w-4xl mx-auto">
-        <motion.h2
-          id="journey-heading"
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="heading-lg mb-12 text-center"
+          className="text-center mb-16"
         >
-          Professional Journey
-        </motion.h2>
+          <h2 className="heading-lg mb-4">Professional Journey</h2>
+        </motion.div>
 
         <div className="relative">
-          {/* Vertical line */}
-          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-border-subtle md:-translate-x-px" />
+          {/* Vertical line with gradient */}
+          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px md:-translate-x-px bg-gradient-to-b from-transparent via-border-active to-transparent" />
 
           {phases.map((phase, index) => (
             <motion.div
               key={phase.title}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`relative flex items-start gap-6 pb-12 last:pb-0 ${
+              className={`relative flex items-start gap-8 pb-16 last:pb-0 ${
                 index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
               }`}
             >
               {/* Connector dot */}
               <div
-                className={`absolute left-0 md:left-1/2 w-3 h-3 rounded-full bg-accent border-4 border-page md:-translate-x-1.5 z-10`}
-              />
+                className={`absolute left-0 md:left-1/2 w-4 h-4 rounded-full bg-page border-2 border-accent md:-translate-x-2 z-10 shadow-[0_0_10px_rgba(6,182,212,0.5)]`}
+              >
+                <div className="absolute inset-0 rounded-full bg-accent animate-ping opacity-20"></div>
+              </div>
 
               {/* Content */}
               <div
-                className={`ml-8 md:ml-0 md:w-1/2 ${
-                  index % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'
+                className={`ml-10 md:ml-0 md:w-1/2 ${
+                  index % 2 === 0 ? 'md:pr-16 md:text-right' : 'md:pl-16'
                 }`}
               >
                 <div
-                  className={`inline-flex items-center gap-2 mb-2 ${
-                    index % 2 === 0 ? 'md:flex-row-reverse' : ''
+                  className={`inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-full bg-surface/50 border border-border-subtle w-fit ${
+                    index % 2 === 0 ? 'md:ml-auto md:flex-row-reverse' : ''
                   }`}
                 >
-                  <phase.icon className="w-5 h-5 text-accent" />
-                  <span className="text-sm font-mono text-text-muted">{phase.period}</span>
+                  <phase.icon className="w-4 h-4 text-accent" />
+                  <span className="text-xs font-mono font-medium text-text-secondary">{phase.period}</span>
                 </div>
-                <h3 className="heading-md mb-2">{phase.title}</h3>
-                <p className="text-text-secondary">{phase.description}</p>
+
+                <h3 className="heading-md mb-3 text-lg">{phase.title}</h3>
+                <p className="text-body text-base leading-relaxed">{phase.description}</p>
               </div>
 
               {/* Spacer for alternating layout */}
@@ -111,4 +113,3 @@ const Timeline = () => {
 };
 
 export default Timeline;
-
