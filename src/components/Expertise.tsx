@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Cpu, Users, Briefcase } from 'lucide-react';
 import Section from './Section';
+import ShineCard from './ui/ShineCard';
 
 const expertiseAreas = [
   {
@@ -61,15 +62,16 @@ const Expertise = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 + index * 0.1 }}
-            className="card group"
           >
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-2 rounded-md bg-surface group-hover:bg-accent/10 transition-colors">
-                <area.icon className="w-5 h-5 text-accent" />
+            <ShineCard className="h-full group">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 rounded-md bg-surface group-hover:bg-accent/10 transition-colors">
+                  <area.icon className="w-5 h-5 text-accent" />
+                </div>
               </div>
-            </div>
-            <h3 className="heading-md mb-3">{area.title}</h3>
-            <p className="text-muted leading-relaxed">{area.description}</p>
+              <h3 className="heading-md mb-3">{area.title}</h3>
+              <p className="text-muted leading-relaxed">{area.description}</p>
+            </ShineCard>
           </motion.div>
         ))}
       </div>

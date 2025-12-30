@@ -235,6 +235,74 @@
     border-color: var(--accent-primary);
     box-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
   }
+
+  /* Shine Card - Card with animated shine border effect */
+  .shine-card {
+    --shine-angle: 315deg;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    @apply rounded-xl p-6 relative;
+    @apply transition-colors duration-200;
+  }
+
+  .shine-card:hover {
+    border-color: var(--border-active);
+  }
+
+  /* The shine border pseudo-element */
+  .shine-card::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow:
+      0 0 2px 1px hsl(0 0% 100% / 0.6) inset,
+      0 0 8px 0 hsl(0 0% 100% / 0.15) inset;
+    mask: linear-gradient(
+      var(--shine-angle),
+      hsl(0 0% 100% / 0.7),
+      hsl(0 0% 100% / 0.2) 25%,
+      hsl(0 0% 100% / 0.05) 50%,
+      transparent 60%
+    );
+    -webkit-mask: linear-gradient(
+      var(--shine-angle),
+      hsl(0 0% 100% / 0.7),
+      hsl(0 0% 100% / 0.2) 25%,
+      hsl(0 0% 100% / 0.05) 50%,
+      transparent 60%
+    );
+    transition: mask 0.15s ease-out, -webkit-mask 0.15s ease-out;
+  }
+
+  /* Optional squircle shape for modern browsers */
+  @supports (corner-shape: squircle) {
+    .shine-card,
+    .shine-card::after {
+      border-radius: 16px;
+      corner-shape: squircle;
+    }
+  }
+
+  /* Light mode adjustment - softer shine */
+  html:not(.dark) .shine-card::after {
+    box-shadow:
+      0 0 2px 1px hsl(0 0% 0% / 0.08) inset,
+      0 0 6px 0 hsl(0 0% 0% / 0.04) inset;
+    mask: linear-gradient(
+      var(--shine-angle),
+      hsl(0 0% 0% / 0.15),
+      hsl(0 0% 0% / 0.05) 30%,
+      transparent 50%
+    );
+    -webkit-mask: linear-gradient(
+      var(--shine-angle),
+      hsl(0 0% 0% / 0.15),
+      hsl(0 0% 0% / 0.05) 30%,
+      transparent 50%
+    );
+  }
 }
 
 @layer utilities {

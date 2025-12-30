@@ -231,6 +231,15 @@ export default {
 - Links: underline expansion
 - Cards: subtle border color change on hover
 
+**ShineCard Component:**
+- Reusable card with animated "shine" border effect
+- Uses CSS pseudo-element with inset box-shadow
+- Masked at an angle with linear-gradient for subtle highlight
+- Pointer tracking rotates the shine angle based on mouse position
+- Falls back to static angle when pointer leaves
+- Supports `corner-shape: squircle` for modern browsers
+- Light/dark mode variants with appropriate shadow intensity
+
 **Reduce Motion:**
 - Respect `prefers-reduced-motion`
 - Static terminal for accessibility

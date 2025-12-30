@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Code, Users, TestTube } from 'lucide-react';
 import Section from './Section';
+import ShineCard from './ui/ShineCard';
 
 const pillars = [
   {
@@ -92,17 +93,18 @@ const About = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.5 + index * 0.1 }}
-                className="card group"
               >
-                <div className="flex items-center gap-3 mb-3">
-                  <pillar.icon className="w-5 h-5 text-accent" />
-                  <h4 className="font-mono text-sm font-medium text-text-primary">
-                    {pillar.title}
-                  </h4>
-                </div>
-                <p className="text-muted leading-relaxed">
-                  {pillar.description}
-                </p>
+                <ShineCard className="h-full group">
+                  <div className="flex items-center gap-3 mb-3">
+                    <pillar.icon className="w-5 h-5 text-accent" />
+                    <h4 className="font-mono text-sm font-medium text-text-primary">
+                      {pillar.title}
+                    </h4>
+                  </div>
+                  <p className="text-muted leading-relaxed">
+                    {pillar.description}
+                  </p>
+                </ShineCard>
               </motion.div>
             ))}
           </div>
