@@ -2,7 +2,7 @@
 
 This file contains the target text for each section of blumendorf.info. Keep this file aligned with the actual implementation. When updating content, update here first, then sync to components.
 
-**Last synced:** December 30, 2024 (merged The Shift + About sections)
+**Last synced:** December 30, 2024 (merged sections, updated GreenBuzz, aligned Expertise)
 
 ---
 
@@ -59,22 +59,22 @@ At CHAPTR, part of Holtzbrinck's AI strategy, we build tools that help publisher
 
 ### CTA Button
 ```
-The Shift
+Learn More
 ```
 
 ---
 
-## The Shift Section
+## About Section
 
-> **Component:** `src/components/TheShift.tsx`
-> **Voice:** Marco's "abstraction levels" thesis. This is his unique take—not generic AI commentary.
+> **Component:** `src/components/About.tsx`
+> **Voice:** Combines Marco's "abstraction levels" thesis with personal background. First person. Conversational but professional.
 
-### Heading
+### Main Heading
 ```
 The Engineering Profession Is Changing
 ```
 
-### Opening Paragraphs
+### Opening Paragraphs (The Shift)
 ```
 Software development has always been about raising the level of abstraction. We went from punch cards to assembler, then to higher-level languages, then to frameworks and libraries. Along the way, we got comfortable trusting code we didn't write. Most of us don't read the source of every npm package we install—we trust GitHub stars, recent commits, audit tools.
 
@@ -110,14 +110,7 @@ Description: The one thing that still proves your code works, whether you wrote 
 Your job hasn't changed: deliver code that you've proven works. What's changed is how you get there.
 ```
 
----
-
-## About Section
-
-> **Component:** `src/components/About.tsx`
-> **Voice:** Personal background. First person. Conversational but professional.
-
-### Heading
+### Subheading
 ```
 About Me
 ```
@@ -158,31 +151,19 @@ What I spend my time on.
 ### Area 1: Developer Experience
 ```
 Title: Developer Experience
-Items:
-- Ensuring the team can deliver their best work
-- Structuring codebases for quality and AI-compatibility
-- Integrating AI tools into daily workflows
-- Building development environments that scale
+Description: Ensuring the team can deliver their best work by structuring codebases for quality and AI-compatibility, integrating AI tools into daily workflows, and building development environments that scale.
 ```
 
 ### Area 2: Team & Culture
 ```
 Title: Team & Culture
-Items:
-- Building environments where engineers grow
-- Adapting processes as tooling evolves
-- Mentoring and career development
-- Maintaining quality as velocity increases
+Description: Building environments where engineers grow, adapting processes as tooling evolves, mentoring career development, and maintaining quality as velocity increases.
 ```
 
 ### Area 3: Technical Leadership
 ```
 Title: Technical Leadership
-Items:
-- Collaborating with product on roadmaps
-- Architecture decisions for new systems
-- Managing delivery and timelines
-- Keeping technical debt under control
+Description: Collaborating with product on roadmaps, making architecture decisions for new systems, managing delivery and timelines, and keeping technical debt under control.
 ```
 
 ---
@@ -374,8 +355,7 @@ When updating content:
 
 - [ ] Update this file first
 - [ ] Sync Hero.tsx
-- [ ] Sync TheShift.tsx
-- [ ] Sync About.tsx
+- [ ] Sync About.tsx (contains merged The Shift + About Me content)
 - [ ] Sync Expertise.tsx
 - [ ] Sync TechStack.tsx
 - [ ] Sync Timeline.tsx
@@ -393,3 +373,4 @@ When updating content:
 | Dec 2024 | Initial draft based on concept.md |
 | Dec 2024 | Revised with interview answers |
 | Dec 2024 | **Full revision** incorporating interview-questions.md, background.md, tech-stack.md |
+| Dec 2024 | Merged The Shift + About sections, updated GreenBuzz (2014–2025), Expertise now uses full sentences, CTA changed to "Learn More" |
