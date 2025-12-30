@@ -1,262 +1,114 @@
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown } from 'lucide-react'
-import { timelineGroups } from '../data/timeline'
-import { TimelineEntry } from './TimelineEntry'
-import { TimelineEntry as TimelineEntryType } from '../data/timeline'
+import { motion } from 'framer-motion';
+import { GraduationCap, Rocket, Briefcase, Sparkles, Heart } from 'lucide-react';
+import Section from './Section';
 
-function Timeline() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [expandedGroups, setExpandedGroups] = useState<number[]>([])
+type TimelinePhase = {
+  icon: typeof GraduationCap;
+  period: string;
+  title: string;
+  description: string;
+};
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-in-up')
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      { threshold: 0.1 }
-    )
+const phases: TimelinePhase[] = [
+  {
+    icon: GraduationCap,
+    period: '1999–2010',
+    title: 'Academic Foundations',
+    description:
+      'Research and PhD at TU-Berlin\'s Distributed AI Lab. Led the Human-Computer Interaction workgroup. Advised 13 PhD students. Published thesis on multimodal interaction in smart environments.',
+  },
+  {
+    icon: Rocket,
+    period: '2010–2017',
+    title: 'Startup Building',
+    description:
+      'Built engineering teams from scratch. Scaled yetu AG\'s smart home development from 2 to 18 engineers. Led smartB as CTO—raised funding, built IoT platform for commercial energy management.',
+  },
+  {
+    icon: Briefcase,
+    period: '2017–2023',
+    title: 'Independent Practice',
+    description:
+      'Freelance CTO and consultant. Led engineering for multiple startups. Technical leadership, React coaching, and strategic advisory across sustainability and IoT sectors.',
+  },
+  {
+    icon: Sparkles,
+    period: '2023–Present',
+    title: 'CHAPTR — AI in Publishing',
+    description:
+      'Senior Engineer → Director of Software Engineering. Building AI-powered products for the publishing industry. Leading teams through the AI transformation in practice.',
+  },
+  {
+    icon: Heart,
+    period: 'Ongoing',
+    title: 'Non-Profit Engagement',
+    description:
+      'Co-founder and Vice President of GreenBuzz Berlin. Building networks for sustainability professionals. Technology in service of impact.',
+  },
+];
 
-    document.querySelectorAll('.timeline-group').forEach((group) => {
-      observer.observe(group)
-    })
-
-    return () => observer.disconnect()
-  }, [isOpen])
-
-  const toggleGroup = (index: number) => {
-    setExpandedGroups((prev) =>
-      prev.includes(index)
-        ? prev.filter((i) => i !== index)
-        : [...prev, index]
-    )
-  }
-
-  const getGroupTimespan = (entries: TimelineEntryType[]) => {
-    const years = entries.map((entry) => {
-      const [start, end] = entry.period.split('–').map(s => s.trim())
-      return {
-        start: parseInt(start),
-        end: end?.toLowerCase().includes('present') ? 'Present' : parseInt(end),
-        isPresent: end?.toLowerCase().includes('present')
-      }
-    }).filter(year => !isNaN(year.start))
-
-    if (years.length === 0) return ''
-
-    const earliestYear = Math.min(...years.map(y => y.start))
-    const hasPresent = years.some(y => y.isPresent)
-    const latestNumericYear = Math.max(...years.map(y => typeof y.end === 'number' ? y.end : y.start))
-    const latestYear = hasPresent ? 'Present' : latestNumericYear
-
-    return earliestYear !== latestYear
-      ? `${earliestYear} – ${latestYear}`
-      : `${earliestYear}`
-  }
-
+const Timeline = () => {
   return (
-    <div className="px-4 max-w-5xl mx-auto">
-      {/* Header section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center mb-6"
-      >
-        <h2 className="heading-secondary text-center mb-16">
+    <Section id="journey" className="bg-card/30">
+      <div className="max-w-4xl mx-auto">
+        <motion.h2
+          id="journey-heading"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="heading-lg mb-12 text-center"
+        >
           Professional Journey
-        </h2>
-        <div className="max-w-3xl mx-auto">
-        <p className="text-lg text-gray-600 dark:text-gray-300 space-y-6 mb-8 text-justify">
-          Over 20 years of expertise in software development, leadership, and innovation — from academic
-          research in distributed AI and human-computer interaction to leading roles in startups,
-          sustainability-focused non-profits, and AI-driven business transformation. A proven track
-          record of building high-performing teams, driving product innovation, and delivering impactful
-          solutions across industries like smart home, energy, and publishing.
-          </p>
-        </div>
-        <div className="flex justify-center">
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => setIsOpen(!isOpen)}
-            className={`
-              group flex items-center justify-center gap-3
-              px-6 py-3 rounded-lg transition-all duration-300
-              border border-accent/20 hover:border-accent/40
-              text-accent
-              ${isOpen
-                ? 'bg-accent/10 dark:bg-accent/20 hover:bg-accent/20 dark:hover:bg-accent/30'
-                : 'bg-white dark:bg-gray-800 hover:bg-accent/10 dark:hover:bg-accent/20'
-              }
-              shadow-sm hover:shadow-md backdrop-blur-sm
-            `}
-          >
-            <span className="font-medium text-sm">
-              {isOpen ? 'Collapse Timeline' : 'View Full Timeline'}
-            </span>
-            <ChevronDown className="w-4 h-4 text-accent" strokeWidth={1.5} />
-          </motion.button>
-        </div>
-      </motion.div>
+        </motion.h2>
 
-      {/* Timeline content */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="relative"
-          >
-            {/* Vertical line behind timeline cards */}
-            <div className="absolute left-8 top-[0.85rem] bottom-0 w-0.5 bg-gradient-to-b from-accent via-accent/30 to-accent/10">
-              <div className="absolute top-0 left-0 w-full h-full animate-pulse-subtle bg-gradient-to-b from-accent/30 to-transparent" />
-            </div>
+        <div className="relative">
+          {/* Vertical line */}
+          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-border-subtle md:-translate-x-px" />
 
+          {phases.map((phase, index) => (
             <motion.div
-              className="space-y-1"
-              variants={{
-                hidden: { opacity: 0 },
-                show: {
-                  opacity: 1,
-                  transition: { staggerChildren: 0.1 }
-                }
-              }}
-              initial="hidden"
-              animate="show"
+              key={phase.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className={`relative flex items-start gap-6 pb-12 last:pb-0 ${
+                index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+              }`}
             >
-              {timelineGroups.map((group, groupIndex) => (
-                <motion.div
-                  key={groupIndex}
-                  className="relative timeline-group p-2"
-                  variants={{
-                    hidden: { opacity: 0, x: -20 },
-                    show: { opacity: 1, x: 0 }
-                  }}
+              {/* Connector dot */}
+              <div
+                className={`absolute left-0 md:left-1/2 w-3 h-3 rounded-full bg-accent border-4 border-page md:-translate-x-1.5 z-10`}
+              />
+
+              {/* Content */}
+              <div
+                className={`ml-8 md:ml-0 md:w-1/2 ${
+                  index % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'
+                }`}
+              >
+                <div
+                  className={`inline-flex items-center gap-2 mb-2 ${
+                    index % 2 === 0 ? 'md:flex-row-reverse' : ''
+                  }`}
                 >
-                  {/* The timeline dot */}
-                  <motion.div
-                    className="absolute left-8 -translate-x-1/2 w-3 h-3 bg-accent rounded-full ring-2 ring-accent/20 z-10"
-                    whileHover={{ scale: 1.2 }}
-                    animate={{
-                      boxShadow: expandedGroups.includes(groupIndex)
-                        ? '0 0 0 4px rgba(4, 170, 0, 0.2)'
-                        : '0 0 0 2px rgba(4, 170, 0, 0.1)'
-                    }}
-                  />
+                  <phase.icon className="w-5 h-5 text-accent" />
+                  <span className="text-sm font-mono text-text-muted">{phase.period}</span>
+                </div>
+                <h3 className="heading-md mb-2">{phase.title}</h3>
+                <p className="text-text-secondary">{phase.description}</p>
+              </div>
 
-                  {/* Group accordion header */}
-                  <div className="ml-16">
-                    <motion.button
-                      onClick={() => toggleGroup(groupIndex)}
-                      className={`w-full text-left group
-                        bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm
-                        rounded-lg border border-accent/10
-                        hover:border-accent/30 transition-all duration-300
-                        ${expandedGroups.includes(groupIndex)
-                          ? 'rounded-b-none border-b-0'
-                          : ''
-                        }`}
-                      whileHover={{ y: -1 }}
-                      whileTap={{ scale: 0.99 }}
-                    >
-                      <div className="flex justify-between items-center p-2">
-                        <div className="flex-1 flex items-center gap-2">
-                          <div className="text-lg">{group.icon}</div>
-                          <div>
-                            <div className="flex items-baseline gap-2">
-                              <h3 className="text-sm font-bold text-accent dark:text-accent-light
-                                group-hover:text-accent-dark dark:group-hover:text-accent-light
-                                transition-colors duration-300">
-                                {group.title}
-                              </h3>
-                              <span className="text-xs text-accent/70 font-medium
-                                bg-accent/5 px-1.5 py-0.5 rounded-full">
-                                {getGroupTimespan(group.entries)}
-                              </span>
-                            </div>
-                            <p className="text-xs text-gray-600 dark:text-gray-400 mt-0.5 line-clamp-1">
-                              {group.description}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="ml-2 flex-shrink-0">
-                          <ChevronDown
-                            className={`w-4 h-4 text-accent transition-all duration-300 transform
-                              ${expandedGroups.includes(groupIndex) ? 'rotate-180' : ''}
-                              group-hover:scale-110`}
-                            strokeWidth={1.5}
-                          />
-                        </div>
-                      </div>
-                    </motion.button>
-
-                    {/* Entries inside each group */}
-                    <AnimatePresence>
-                      {expandedGroups.includes(groupIndex) && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: 'auto' }}
-                          exit={{ opacity: 0, height: 0 }}
-                          className="relative overflow-hidden
-                            border border-accent/10 border-t-0
-                            rounded-b-lg bg-white/30 dark:bg-gray-800/30"
-                        >
-                          <div className="p-2 space-y-1.5">
-                            {/* Thin line to connect entries inside group */}
-                            <div className="absolute left-0 top-[0.85rem] bottom-4 w-0.5
-                              bg-gradient-to-b from-accent/20 to-accent/5" />
-
-                            {group.entries.map((entry, entryIndex) => (
-                              <TimelineEntry
-                                key={entryIndex}
-                                entry={entry}
-                                entryIndex={entryIndex}
-                              />
-                            ))}
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                </motion.div>
-              ))}
+              {/* Spacer for alternating layout */}
+              <div className="hidden md:block md:w-1/2" />
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          ))}
+        </div>
+      </div>
+    </Section>
+  );
+};
 
-      {/* Styles */}
-      <style>{`
-        @keyframes pulse-subtle {
-          0% { opacity: 0.3; }
-          50% { opacity: 0.7; }
-          100% { opacity: 0.3; }
-        }
-        .animate-pulse-subtle {
-          animation: pulse-subtle 3s infinite;
-        }
-        @keyframes fade-in-up {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .animate-fade-in-up {
-          animation: fade-in-up 0.6s ease-out forwards;
-        }
-      `}</style>
-    </div>
-  )
-}
+export default Timeline;
 
-export default Timeline

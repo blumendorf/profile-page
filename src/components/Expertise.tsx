@@ -1,70 +1,104 @@
-import { Beaker, Code2, Users, CheckCircle2 } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Cpu, Users, Briefcase } from 'lucide-react';
+import Section from './Section';
 
-export default function Expertise() {
-  const capabilities = [
-    {
-      title: "Tech & AI Consulting",
-      icon: <Beaker className="w-8 h-8 text-accent/60 dark:text-accent-light/60 mb-3" />,
-      items: [
-        "Business optimization through cutting-edge technology",
-        "Strategic AI advisory (generative AI, agent-based systems)",
-        "Industry expertise in media, publishing, and IoT",
-        "Executive and startup consulting",
-      ]
-    },
-    {
-      title: "Development",
-      icon: <Code2 className="w-8 h-8 text-accent/60 dark:text-accent-light/60 mb-3" />,
-      items: [
-        "Full-stack engineering with React, Node.js, TypeScript",
-        "Mobile development with React Native",
-        "Seamless AI integration within cloud-based architectures",
-        "Infrastructure as code (Terraform) on AWS, GCP, or Azure"
-      ]
-    },
-    {
-      title: "Leadership",
-      icon: <Users className="w-8 h-8 text-accent/60 dark:text-accent-light/60 mb-3" />,
-      items: [
-        "Interim CTO services",
-        "Building and leading high-performing, innovative teams",
-        "Scaling remote engineering organizations",
-        "Implementing agile processes for rapid product delivery"
-      ]
-    }
-  ]
+const expertiseAreas = [
+  {
+    icon: Cpu,
+    title: 'AI-Ready Engineering',
+    items: [
+      'Codebase architecture that AI tools can understand and extend',
+      'Development workflows optimized for human-AI collaboration',
+      'Quality and review processes for AI-assisted development',
+      'Measuring and improving AI-augmented productivity',
+    ],
+  },
+  {
+    icon: Users,
+    title: 'Engineering Team Development',
+    items: [
+      'Growing engineers who thrive alongside AI tools',
+      'Building learning cultures that adapt to rapid change',
+      'Career pathing in the age of AI-assisted development',
+      'Maintaining craft and quality as tooling evolves',
+    ],
+  },
+  {
+    icon: Briefcase,
+    title: 'Technical Leadership',
+    items: [
+      'Scaling engineering organizations through transformation',
+      'Greenfield architecture with AI-readiness built in',
+      'Research-to-production AI implementation',
+      'Building high-performing remote engineering teams',
+    ],
+  },
+];
 
+const Expertise = () => {
   return (
-    <div className="section-container">
-      <h2 className="heading-secondary text-center mb-16">Expertise</h2>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
-        {capabilities.map((capability, index) => (
-          <div
-            key={index}
-            className="group bg-white dark:bg-gray-800 p-6 lg:p-8 rounded-xl
-                        shadow-lg hover:shadow-xl transition-all duration-300
-                        border border-gray-100 dark:border-gray-700
-                        hover:-translate-y-1 hover:border-accent/30 dark:hover:border-accent-light/30"
-          >
-            <div className="flex flex-col items-center mb-6">
-              {capability.icon}
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white text-center">
-                {capability.title}
-              </h3>
-            </div>
-            <ul className="space-y-4">
-              {capability.items.map((item, idx) => (
-                <li key={idx} className="flex items-start space-x-3">
-                  <CheckCircle2
-                    className="w-4 h-4 text-accent/50 dark:text-accent-light/50 mt-1 flex-shrink-0"
-                  />
-                  <span className="text-gray-600 dark:text-gray-300">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+    <Section id="expertise" className="bg-card/30">
+      <div className="max-w-5xl mx-auto">
+        <motion.h2
+          id="expertise-heading"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="heading-lg mb-4 text-center"
+        >
+          Expertise
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="text-body text-center max-w-2xl mx-auto mb-12"
+        >
+          Areas of Focus
+        </motion.p>
+
+        <div className="grid gap-6 md:grid-cols-3">
+          {expertiseAreas.map((area, index) => (
+            <motion.div
+              key={area.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+              className="card group"
+            >
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2 rounded-lg bg-accent/10 text-accent group-hover:bg-accent/20 transition-colors">
+                  <area.icon className="w-6 h-6" />
+                </div>
+                <h3 className="heading-md text-lg">{area.title}</h3>
+              </div>
+
+              <ul className="space-y-3">
+                {area.items.map((item, itemIndex) => (
+                  <motion.li
+                    key={item}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: 0.4 + index * 0.1 + itemIndex * 0.05 }}
+                    className="flex items-start gap-2 text-text-secondary text-sm"
+                  >
+                    <span className="text-accent/60 mt-1">—</span>
+                    <span>{item}</span>
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
+        </div>
       </div>
-    </div>
-  )
-}
+    </Section>
+  );
+};
+
+export default Expertise;
+

@@ -1,150 +1,154 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Menu, X, Sun, Moon } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-const DarkModeIcon = () => (
-  <svg
-    className="w-6 h-6 text-gray-600 dark:text-gray-300"
-    fill="currentColor"
-    viewBox="0 0 24 24"
-  >
-    <path
-      className="hidden dark:block"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      stroke="currentColor"
-      fill="none"
-      d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-    />
-    <path
-      className="block dark:hidden"
-      d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-    />
-  </svg>
-);
+const navItems = [
+  { label: 'Home', href: '#home' },
+  { label: 'About', href: '#about' },
+  { label: 'Expertise', href: '#expertise' },
+  { label: 'Tech Stack', href: '#tech-stack' },
+  { label: 'Journey', href: '#journey' },
+  { label: 'Contact', href: '#contact' },
+];
 
-export default function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isDark, setIsDark] = useState(true);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    // Check local storage on mount, default to dark mode if not set
-    const isDarkMode = localStorage.getItem('darkMode');
-    if (isDarkMode === null) {
-      // If no preference is stored, set dark mode as default
-      localStorage.setItem('darkMode', 'true');
-      document.documentElement.classList.add('dark');
+    // Check system preference on mount
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = localStorage.getItem('theme');
+
+    if (savedTheme) {
+      setIsDark(savedTheme === 'dark');
     } else {
-      // Apply stored preference
-      if (isDarkMode === 'true') {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
+      setIsDark(prefersDark);
     }
   }, []);
 
   useEffect(() => {
-    // Prevent scrolling when menu is open
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
+    // Apply theme to document
+    if (isDark) {
+      document.documentElement.classList.add('dark');
     } else {
-      document.body.style.overflow = 'unset';
+      document.documentElement.classList.remove('dark');
     }
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  }, [isDark]);
 
-    // Cleanup when component unmounts
-    return () => {
-      document.body.style.overflow = 'unset';
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
     };
-  }, [isMenuOpen]);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-  const toggleDarkMode = () => {
-    const isDarkMode = document.documentElement.classList.toggle('dark');
-    localStorage.setItem('darkMode', isDarkMode.toString());
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const targetId = href.replace('#', '');
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    setIsOpen(false);
   };
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+  const toggleTheme = () => {
+    setIsDark(!isDark);
   };
 
   return (
-    <nav className="bg-white/90 backdrop-blur-sm dark:bg-gray-800/90 shadow-sm fixed w-full z-20 top-0">
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'glass-strong' : 'bg-transparent'
+      }`}
+      aria-label="Main navigation"
+    >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex items-center">
-            <Link to="/#home" className="text-xl font-bold text-accent dark:text-accent-light">
-              Dr Marco Blumendorf
-            </Link>
-          </div>
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <a
+            href="#home"
+            onClick={(e) => handleNavClick(e, '#home')}
+            className="font-mono font-bold text-xl text-text-primary hover:text-accent transition-colors"
+          >
+            MB
+          </a>
 
-          {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center space-x-8" aria-label="Desktop navigation">
-            <Link to="/#home" className="text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">Home</Link>
-            <Link to="/#about" className="text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">About</Link>
-            <Link to="/#expertise" className="text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">Expertise</Link>
-            <Link to="/#tech-stack" className="text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">Tech Stack</Link>
-            <Link to="/#timeline" className="text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">Timeline</Link>
-            <Link to="/#contact" className="text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200">Contact</Link>
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-1" aria-label="Desktop navigation">
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={(e) => handleNavClick(e, item.href)}
+                className="px-3 py-2 text-sm text-text-secondary hover:text-text-primary transition-colors rounded-lg hover:bg-surface"
+              >
+                {item.label}
+              </a>
+            ))}
             <button
-              onClick={toggleDarkMode}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
-              aria-label="Toggle dark mode"
-              title="Toggle dark mode"
+              onClick={toggleTheme}
+              className="ml-2 p-2 text-text-secondary hover:text-text-primary rounded-lg hover:bg-surface transition-colors focus-ring"
+              aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
             >
-              <DarkModeIcon />
+              {isDark ? <Sun size={18} /> : <Moon size={18} />}
             </button>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="lg:hidden flex items-center z-40 relative">
+          <div className="flex items-center gap-2 md:hidden">
             <button
-              onClick={toggleMenu}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
-              aria-label="Toggle mobile menu"
-              aria-expanded={isMenuOpen}
-              title="Toggle menu"
+              onClick={toggleTheme}
+              className="p-2 text-text-secondary hover:text-text-primary rounded-lg hover:bg-surface transition-colors focus-ring"
+              aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
             >
-              <svg
-                className="w-6 h-6 text-gray-600 dark:text-gray-300"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                role="img"
-                aria-hidden="true"
-              >
-                {isMenuOpen ? (
-                  <path d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
+              {isDark ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-2 text-text-secondary hover:text-text-primary rounded-lg hover:bg-surface transition-colors focus-ring"
+              aria-label="Toggle mobile menu"
+              aria-expanded={isOpen}
+            >
+              {isOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      <div
-        className={`lg:hidden fixed left-0 right-0 top-16 z-30 ${isMenuOpen ? 'block' : 'hidden'}`}
-        aria-label="Mobile navigation"
-      >
-        <div className="px-2 pt-2 pb-3 space-y-1 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-lg min-h-screen">
-          <Link to="/#home" className="block w-full text-left px-3 py-2 text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Home</Link>
-          <Link to="/#about" className="block w-full text-left px-3 py-2 text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>About</Link>
-          <Link to="/#expertise" className="block w-full text-left px-3 py-2 text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Expertise</Link>
-          <Link to="/#tech-stack" className="block w-full text-left px-3 py-2 text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Tech Stack</Link>
-          <Link to="/#timeline" className="block w-full text-left px-3 py-2 text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Timeline</Link>
-          <Link to="/#contact" className="block w-full text-left px-3 py-2 text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Contact</Link>
-          <button
-            onClick={toggleDarkMode}
-            className="w-full flex items-center px-3 py-2 text-gray-600 hover:text-accent dark:text-gray-300 dark:hover:text-accent-light transition-colors duration-200"
+      {/* Mobile Navigation */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden glass-strong border-t border-border-subtle"
+            aria-label="Mobile navigation"
           >
-            <DarkModeIcon />
-          </button>
-        </div>
-      </div>
+            <div className="px-4 py-4 space-y-1">
+              {navItems.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={(e) => handleNavClick(e, item.href)}
+                  className="block px-3 py-2 text-text-secondary hover:text-text-primary hover:bg-surface rounded-lg transition-colors"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
-}
+};
+
+export default Navbar;
+

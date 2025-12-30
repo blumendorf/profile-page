@@ -1,102 +1,95 @@
-import {
-  Code2,
-  Server,
-  Cloud,
-  Database,
-  Cpu,
-  Rocket
-} from 'lucide-react';
+import { motion } from 'framer-motion';
+import Section from './Section';
+
+type TechCategory = {
+  name: string;
+  items: string[];
+};
+
+const techCategories: TechCategory[] = [
+  {
+    name: 'Front End',
+    items: ['React', 'React Native', 'TypeScript', 'Context/Redux', 'REST', 'GraphQL', 'Firebase'],
+  },
+  {
+    name: 'Back End',
+    items: ['Node.js', 'TypeScript', 'Firebase', 'HAPI', 'Event-driven architectures'],
+  },
+  {
+    name: 'Cloud & Infrastructure',
+    items: ['AWS', 'GCP', 'Azure', 'Terraform', 'Sentry', 'LaunchDarkly'],
+  },
+  {
+    name: 'Data & AI',
+    items: ['PostgreSQL', 'Firestore', 'Pinecone', 'Typesense', 'OpenAI', 'Langchain', 'CrewAI', 'Hugging Face'],
+  },
+  {
+    name: 'Development Practice',
+    items: ['Scrum', 'Kanban', 'CI/CD', 'TDD', 'AI-assisted workflows'],
+  },
+];
 
 const TechStack = () => {
-  const technologies = {
-    "Front End": {
-      items: ["React & React Native", "TypeScript", "Context or Redux", "Firebase, REST or GraphQL"],
-      icon: <Code2 className="w-6 h-6" />,
-    },
-    "Back End": {
-      items: ["Node.js", "Typescript", "Firebase", "HAPI"],
-      icon: <Server className="w-6 h-6" />,
-    },
-    "Cloud & DevOps": {
-      items: ["AWS / GCP / Azure", "Terraform", "Sentry", "LaunchDarkly"],
-      icon: <Cloud className="w-6 h-6" />,
-    },
-    "Databases": {
-      items: ["PostgreSQL", "Firestore", "Typesense", "Pinecone"],
-      icon: <Database className="w-6 h-6" />,
-    },
-    "AI & Machine Learning": {
-      items: ["Open AI", "Langchain", "Crew AI", "Hugging Face"],
-      icon: <Cpu className="w-6 h-6" />,
-    },
-    "Agile": {
-      items: ["JIRA, Linear, Notion", "Scrum/Kanban", "CI/CD", "Test-Driven Development"],
-      icon: <Rocket className="w-6 h-6" />,
-    }
-  };
-
   return (
-    <div className="section-container">
-      <h2 className="heading-secondary text-center mb-16">Tech Stack Favorites</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {Object.entries(technologies).map(([category, { items, icon }]) => (
-          <div
-            key={category}
-            className="relative group bg-white dark:bg-gray-800 p-6 rounded-xl
-                       shadow-sm hover:shadow-xl transition-all duration-300 ease-in-out
-                       border border-gray-100 dark:border-gray-700
-                       hover:-translate-y-1 hover:border-accent/30 dark:hover:border-accent-light/30"
-          >
-            {/* Category Icon Background */}
-            <div className="absolute -top-5 left-4 bg-accent/10 dark:bg-accent/20
-                            rounded-xl p-2 group-hover:scale-110 group-hover:bg-accent/20
-                            dark:group-hover:bg-accent/30 transition-all duration-300">
-              <svg
-                className="w-6 h-6 text-accent dark:text-accent-light"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                {icon}
-              </svg>
-            </div>
+    <Section id="tech-stack">
+      <div className="max-w-5xl mx-auto">
+        <motion.h2
+          id="tech-stack-heading"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="heading-lg mb-4 text-center"
+        >
+          Tech Stack Favorites
+        </motion.h2>
 
-            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 mt-2">
-              {category}
-            </h3>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="text-muted text-center max-w-2xl mx-auto mb-12"
+        >
+          The tools I work with daily—chosen for productivity, AI-compatibility, and proven reliability.
+        </motion.p>
 
-            <ul className="space-y-2.5">
-              {items.map((tech) => (
-                <li
-                  key={tech}
-                  className="flex items-center space-x-3 group/item
-                             text-gray-600 hover:text-accent dark:text-gray-300
-                             dark:hover:text-accent-light transition-all duration-200"
-                >
-                  <svg
-                    className="w-3.5 h-3.5 text-accent/70 dark:text-accent-light/70"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+        <div className="space-y-8">
+          {techCategories.map((category, categoryIndex) => (
+            <motion.div
+              key={category.name}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 + categoryIndex * 0.1 }}
+            >
+              <h3 className="text-sm font-mono font-medium text-text-muted uppercase tracking-wider mb-4">
+                {category.name}
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {category.items.map((item, itemIndex) => (
+                  <motion.span
+                    key={item}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      duration: 0.2,
+                      delay: 0.2 + categoryIndex * 0.1 + itemIndex * 0.03,
+                    }}
+                    className="badge-accent"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 12l2 2 4-4"
-                    />
-                  </svg>
-                  <span className="text-gray-600 dark:text-gray-300 text-sm">
-                    {tech}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+                    {item}
+                  </motion.span>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
-    </div>
+    </Section>
   );
 };
 
 export default TechStack;
+
