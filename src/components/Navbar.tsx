@@ -11,12 +11,33 @@ const navItems = [
   { label: 'Contact', href: '#contact' },
 ];
 
+// Map nav section IDs to JSON keys (bidirectional)
+const sectionToJsonKey: Record<string, string> = {
+  'home': 'profile',
+  'about': 'about',
+  'expertise': 'expertise',
+  'tech-stack': 'techStack',
+  'journey': 'journey',
+  'contact': 'contact',
+};
+
+const jsonKeyToSection: Record<string, string> = {
+  'profile': 'home',
+  'about': 'about',
+  'expertise': 'expertise',
+  'techStack': 'tech-stack',
+  'journey': 'journey',
+  'contact': 'contact',
+};
+
 interface NavbarProps {
-  isLLMMode: boolean;
-  onToggleLLMMode: () => void;
+  isJsonMode: boolean;
+  onToggleJsonMode: () => void;
+  onNavigateInJsonMode: (section: string | null) => void;
+  focusedJsonSection: string | null;
 }
 
-const Navbar = ({ isLLMMode, onToggleLLMMode }: NavbarProps) => {
+const Navbar = ({ isJsonMode, onToggleJsonMode, onNavigateInJsonMode, focusedJsonSection }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDark, setIsDark] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -98,12 +119,21 @@ const Navbar = ({ isLLMMode, onToggleLLMMode }: NavbarProps) => {
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     const targetId = href.replace('#', '');
-    const element = document.getElementById(targetId);
-    if (element) {
-      // Offset for fixed header
-      const yOffset = -80;
-      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: 'smooth' });
+
+    // If in JSON mode, focus that section in JSON view
+    if (isJsonMode) {
+      const jsonKey = sectionToJsonKey[targetId];
+      onNavigateInJsonMode(jsonKey || null);
+      // Scroll to top to see the focused section
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      const element = document.getElementById(targetId);
+      if (element) {
+        // Offset for fixed header
+        const yOffset = -80;
+        const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
     }
     setIsOpen(false);
   };
@@ -112,7 +142,17 @@ const Navbar = ({ isLLMMode, onToggleLLMMode }: NavbarProps) => {
     setIsDark(!isDark);
   };
 
-  const isAtHero = activeSection === 'home';
+  const isAtHero = activeSection === 'home' && !isJsonMode;
+
+  // Determine which section is "active" for nav highlighting
+  const getActiveSection = () => {
+    if (isJsonMode && focusedJsonSection) {
+      return jsonKeyToSection[focusedJsonSection] || null;
+    }
+    return activeSection;
+  };
+
+  const currentActiveSection = getActiveSection();
 
   return (
     <nav
@@ -141,7 +181,8 @@ const Navbar = ({ isLLMMode, onToggleLLMMode }: NavbarProps) => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1" aria-label="Desktop navigation">
             {navItems.slice(1).map((item) => {
-              const isActive = activeSection === item.href.replace('#', '');
+              const sectionId = item.href.replace('#', '');
+              const isActive = currentActiveSection === sectionId;
               return (
                 <a
                   key={item.href}
@@ -160,15 +201,15 @@ const Navbar = ({ isLLMMode, onToggleLLMMode }: NavbarProps) => {
             })}
             <div className="w-px h-4 bg-border-subtle mx-2" />
             <button
-              onClick={onToggleLLMMode}
+              onClick={onToggleJsonMode}
               className={`px-2 py-1 text-xs font-mono font-bold rounded border transition-colors ${
-                isLLMMode
+                isJsonMode
                   ? 'bg-accent text-bg-page border-accent hover:bg-accent/90'
                   : 'bg-transparent text-text-muted border-text-muted hover:text-text-primary hover:border-text-primary'
               }`}
-              aria-label={isLLMMode ? 'Switch to Human mode' : 'Switch to LLM mode'}
+              aria-label={isJsonMode ? 'Switch to Human view' : 'Switch to JSON view'}
             >
-              {isLLMMode ? '{JSON}' : 'JSON'}
+              {isJsonMode ? '{JSON}' : 'JSON'}
             </button>
             <div className="w-px h-4 bg-border-subtle mx-2" />
             <button
@@ -183,9 +224,9 @@ const Navbar = ({ isLLMMode, onToggleLLMMode }: NavbarProps) => {
           {/* Mobile Menu Button */}
           <div className="flex items-center gap-2 md:hidden">
             <button
-              onClick={onToggleLLMMode}
+              onClick={onToggleJsonMode}
               className={`px-2 py-1 text-xs font-mono font-bold rounded border transition-colors ${
-                isLLMMode
+                isJsonMode
                   ? 'bg-accent text-bg-page border-accent'
                   : 'bg-transparent text-text-muted border-text-muted'
               }`}
@@ -223,7 +264,8 @@ const Navbar = ({ isLLMMode, onToggleLLMMode }: NavbarProps) => {
           >
             <div className="px-6 py-4 space-y-1">
               {navItems.map((item) => {
-                const isActive = activeSection === item.href.replace('#', '');
+                const sectionId = item.href.replace('#', '');
+                const isActive = currentActiveSection === sectionId;
                 return (
                   <a
                     key={item.href}

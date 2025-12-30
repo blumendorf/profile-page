@@ -14,15 +14,26 @@ import JsonView from './components/ui/JsonView';
 function App() {
   // Show development process message in console
   useDevMessage();
-  const [isLLMMode, setIsLLMMode] = useState(false);
+  const [isJsonMode, setIsJsonMode] = useState(false);
+  const [focusedJsonSection, setFocusedJsonSection] = useState<string | null>(null);
+
+  const handleToggleJsonMode = () => {
+    setIsJsonMode(!isJsonMode);
+    setFocusedJsonSection(null); // Reset focus when toggling
+  };
 
   return (
     <div className="min-h-screen relative" lang="en">
-      {!isLLMMode && <NetworkBackground />}
-      <Navbar isLLMMode={isLLMMode} onToggleLLMMode={() => setIsLLMMode(!isLLMMode)} />
+      {!isJsonMode && <NetworkBackground />}
+      <Navbar
+        isJsonMode={isJsonMode}
+        onToggleJsonMode={handleToggleJsonMode}
+        onNavigateInJsonMode={setFocusedJsonSection}
+        focusedJsonSection={focusedJsonSection}
+      />
 
-      {isLLMMode ? (
-        <JsonView />
+      {isJsonMode ? (
+        <JsonView focusedSection={focusedJsonSection} />
       ) : (
         <main role="main" aria-label="Main content" className="relative z-10">
           <Hero />
@@ -34,7 +45,7 @@ function App() {
         </main>
       )}
 
-      {!isLLMMode && <Footer />}
+      {!isJsonMode && <Footer />}
     </div>
   );
 }
