@@ -206,12 +206,12 @@ Tools I work with daily.
 
 **Frontend**
 ```
-React, TypeScript, Vite, Tailwind CSS, TanStack Query, Radix UI
+React, TypeScript, Vite, Tailwind CSS, TanStack Query
 ```
 
 **Backend**
 ```
-Python, Firebase Functions, Flask, Pydantic, GCP Cloud Functions
+Python, Firebase Functions, Pydantic, GCP Cloud Functions
 ```
 
 **Data & Search**
@@ -231,7 +231,7 @@ GCP, Terraform, Cloud Tasks, Pub/Sub, Firebase Auth
 
 **Practices**
 ```
-Vitest, Playwright, Cypress, CI/CD, Feature Flags (LaunchDarkly)
+Vitest, Playwright, Cypress, CI/CD, Feature Flags
 ```
 
 > **Note:** This is the actual production stack, not aspirational. See tech-stack.md for full details.

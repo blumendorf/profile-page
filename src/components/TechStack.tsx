@@ -9,11 +9,11 @@ type TechCategory = {
 const techCategories: TechCategory[] = [
   {
     name: 'Frontend',
-    items: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'TanStack Query', 'Radix UI'],
+    items: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'TanStack Query'],
   },
   {
     name: 'Backend',
-    items: ['Python', 'Firebase Functions', 'Flask', 'Pydantic', 'GCP Cloud Functions'],
+    items: ['Python', 'Firebase Functions', 'Pydantic', 'GCP Cloud Functions'],
   },
   {
     name: 'Data & Search',
@@ -29,7 +29,7 @@ const techCategories: TechCategory[] = [
   },
   {
     name: 'Practices',
-    items: ['Vitest', 'Playwright', 'Cypress', 'CI/CD', 'Feature Flags (LaunchDarkly)'],
+    items: ['Vitest', 'Playwright', 'Cypress', 'CI/CD', 'Feature Flags'],
   },
 ];
 
