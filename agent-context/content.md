@@ -248,22 +248,31 @@ Description: Senior Engineer → Director of Software Engineering. CHAPTR is the
 ## Contact Section
 
 > **Component:** `src/components/Contact.tsx`
-> **Voice:** Direct. No elaborate pitch.
+> **Voice:** Direct but personal. Shows what conversations are welcome.
 
 ### Heading
 ```
 Get in Touch
 ```
 
-### Text
+### Intro Text
 ```
-Interested in AI-powered development, engineering leadership, or where software is headed? Let's talk.
+I enjoy conversations about where software engineering is headed—especially the intersection of AI tooling, team culture, and building products that matter.
 ```
 
-### Links
-- **Email:** marco@blumendorf.info (obfuscated in implementation)
-- **LinkedIn:** linkedin.com/in/marcoblu
-- **GitHub:** github.com/blumendorf
+### Things I Like Talking About
+```
+- How AI is changing engineering
+- Building developer experience that scales
+- Greenfield projects and when to start fresh
+- The publishing industry meets AI
+```
+
+### Contact Options
+- **Email:** marco@blumendorf.info (obfuscated in implementation) — "Best for longer conversations"
+- **LinkedIn:** linkedin.com/in/marcoblu — "Let's connect professionally"
+- **GitHub:** github.com/blumendorf — "See what I'm building"
+
 
 ---
 
