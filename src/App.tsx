@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDevMessage } from './hooks/useDevMessage';
+import { PersonaProvider } from './contexts/PersonaContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -23,30 +24,32 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen relative" lang="en">
-      {!isJsonMode && <NetworkBackground />}
-      <Navbar
-        isJsonMode={isJsonMode}
-        onToggleJsonMode={handleToggleJsonMode}
-        onNavigateInJsonMode={setFocusedJsonSection}
-        focusedJsonSection={focusedJsonSection}
-      />
+    <PersonaProvider>
+      <div className="min-h-screen relative" lang="en">
+        {!isJsonMode && <NetworkBackground />}
+        <Navbar
+          isJsonMode={isJsonMode}
+          onToggleJsonMode={handleToggleJsonMode}
+          onNavigateInJsonMode={setFocusedJsonSection}
+          focusedJsonSection={focusedJsonSection}
+        />
 
-      {isJsonMode ? (
-        <JsonView focusedSection={focusedJsonSection} />
-      ) : (
-        <main role="main" aria-label="Main content" className="relative z-10">
-          <Hero />
-          <About />
-          <Expertise />
-          <TechStack />
-          <Timeline />
-          <Contact />
-        </main>
-      )}
+        {isJsonMode ? (
+          <JsonView focusedSection={focusedJsonSection} />
+        ) : (
+          <main role="main" aria-label="Main content" className="relative z-10">
+            <Hero />
+            <About />
+            <Expertise />
+            <TechStack />
+            <Timeline />
+            <Contact />
+          </main>
+        )}
 
-      {!isJsonMode && <Footer />}
-    </div>
+        {!isJsonMode && <Footer />}
+      </div>
+    </PersonaProvider>
   );
 }
 

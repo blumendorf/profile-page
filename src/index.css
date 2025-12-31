@@ -310,6 +310,15 @@
     text-wrap: balance;
   }
 
+  /* Persona accent overrides */
+  .persona-engineer {
+    --accent-primary: #06b6d4; /* cyan-500 */
+  }
+
+  .persona-recruiter {
+    --accent-primary: #f59e0b; /* amber-500 */
+  }
+
   /* Slow spin for hero ring */
   @keyframes spin-slow {
     from { transform: rotate(0deg); }

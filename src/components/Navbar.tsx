@@ -163,7 +163,7 @@ const Navbar = ({ isJsonMode, onToggleJsonMode, onNavigateInJsonMode, focusedJso
       }`}
       aria-label="Main navigation"
     >
-      <div className="max-w-4xl mx-auto px-6 sm:px-8">
+<div className="max-w-4xl mx-auto px-6 sm:px-8">
         <div className="flex items-center justify-between">
           {/* Logo - hidden when at hero section */}
           <a
@@ -199,7 +199,7 @@ const Navbar = ({ isJsonMode, onToggleJsonMode, onNavigateInJsonMode, focusedJso
                 </a>
               );
             })}
-            <div className="w-px h-4 bg-border-subtle mx-2" />
+<div className="w-px h-4 bg-border-subtle mx-2" />
             <button
               onClick={onToggleJsonMode}
               className={`px-2 py-1 text-xs font-mono font-bold rounded border transition-colors ${
