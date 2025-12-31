@@ -1,6 +1,5 @@
 ---
-description: Always check and update agent-context files (content, design, background) when modifying implementation.
-globs: ["src/**/*", "agent-context/**/*"]
+alwaysApply: true
 ---
 # Agent Context & Source of Truth
 

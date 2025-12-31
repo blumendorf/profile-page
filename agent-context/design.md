@@ -73,43 +73,38 @@
 
 ---
 
-## 3. The Fancy Highlight: Terminal Hero
+## 3. The Fancy Highlight: Interactive Profile Ring
 
-The hero features an **animated terminal/code block** that types out a "config file" about Marco. This is:
-- **Technical:** Looks like actual code
-- **Playful:** Reveals personality in an unexpected way
-- **Memorable:** Different from typical portfolio heroes
+The hero features an **interactive animated ring** around the profile image. This is:
+- **Technical:** Uses conic gradients and pointer tracking
+- **Playful:** Responds to mouse movement in a satisfying way
+- **Memorable:** Creates an engaging focal point without being overwhelming
 
-### Terminal Content
+### Ring Behavior
 
-```typescript
-// marco.config.ts
-export default {
-  name: "Marco Blumendorf",
-  title: "Director of Software Engineering",
-  location: "Village near Neuruppin 🐔",
+**Default State:**
+- Conic gradient ring (`transparent → amber → transparent`)
+- Auto-rotates with 8-second CSS animation (`animate-spin-slow`)
+- Creates subtle ambient movement
 
-  current: {
-    company: "CHAPTR",
-    product: "reedy.ai",
-    focus: ["AI in Publishing", "Developer Experience"]
-  },
+**On Hover:**
+- Animation pauses
+- Gradient position follows mouse cursor around the ring
+- Uses `atan2` to calculate angle from center to pointer
+- Updates `--ring-angle` CSS variable in real-time
 
-  background: {
-    phd: "Adaptive UI & Distributed AI",
-    experience: "20+ years",
-    superpower: "Greenfield projects"
-  },
+**On Leave:**
+- Saves current angle as base for animation
+- Animation resumes from saved position (seamless transition)
+- No jarring reset to 0°
 
-  philosophy: "AI is like a junior developer who reads a lot but knows nothing about your product."
-}
-```
+### Implementation Notes
 
-**Animation:**
-- Types character by character with realistic timing
-- Slight randomness in typing speed
-- Cursor blinks at end
-- Optional: syntax highlighting (amber for strings, muted for structure)
+- Uses `useRef` to track current angle between states
+- Pointer events on outer container, image has `pointer-events-none`
+- Ring is composed of two layers:
+  1. Outer div with conic-gradient
+  2. Inner div with `bg-page` to create the ring shape
 
 ---
 
@@ -120,33 +115,44 @@ export default {
 **Approach:** Minimal, almost invisible. Let the content speak.
 
 **Elements:**
-- Logo: `marco.` in monospace (or just `M.`)
+- Logo: `Dr Marco Blumendorf.` in monospace (amber accent on period)
 - Links: Text only, horizontal on desktop, hamburger on mobile
+- JSON Mode toggle: `JSON` / `{JSON}` button to switch views
 - Theme toggle: Simple sun/moon icon
 
 **Behavior:**
 - Transparent by default
 - Subtle background blur on scroll
 - No heavy borders
+- Logo hidden when at hero section (slides out with opacity)
+- Active section highlighted with accent color
+- In JSON mode, nav links focus the corresponding section in JSON view
 
 ### 4.2 Hero Section
 
 **Layout:**
-- Full viewport height
-- Profile image on left, name/title/description on right
-- Circular profile image with interactive animated ring
-- Subtle scroll indicator at bottom
+- Full viewport min-height (centers content)
+- Column layout on mobile, row on desktop (md breakpoint)
+- Profile image with interactive ring on left/top
+- Name, title, headline, tags, CTA on right/bottom
+- Subtle scroll indicator line at bottom
+
+**Elements:**
+- **Profile Image:** 40x48 (sm) circular, border-subtle
+- **Name:** Large heading (4xl → 6xl), semibold tracking-tight
+- **Title:** Amber monospace, font-medium
+- **Headline:** Body text, max-w-lg, text-balance
+- **Tags:** Badge pills (`Engineering`, `Leadership`, `AI first`)
+- **CTA:** "Learn more" button with ArrowDown icon
 
 **Profile Image Ring:**
-- Outer ring with amber conic gradient (`transparent → accent → transparent`)
-- Default: Auto-spins with 8-second duration
-- On hover: Animation stops, gradient position follows mouse cursor
-- On leave: Animation resumes from current position (seamless transition)
-- Creates an engaging, interactive focal point
+- See Section 3 for detailed behavior
+- Outer ring with amber conic gradient
+- Auto-spins, pauses on hover, tracks pointer
 
 ### 4.3 About Section
 
-**Heading:** "The Shift" (no change in topic, cleaner presentation)
+**Heading:** "About Me"
 
 **Layout:**
 - Two paragraphs of thesis text
@@ -218,16 +224,67 @@ export default {
 - Copyright text only
 - Optional: Privacy link
 
+### 4.9 JSON View (Developer Easter Egg)
+
+**Purpose:** A playful, developer-friendly alternative view that exposes the site's data structure as an interactive JSON API response. Reflects the "engineer's notebook" theme—showing that this is a site built by someone who thinks in data structures.
+
+**Toggle:**
+- `JSON` button in navbar (both desktop and mobile)
+- Button text changes to `{JSON}` when active (amber background)
+- Toggles between "Human" view and JSON view
+- Footer hidden in JSON mode
+
+**Layout:**
+- Full dark IDE-style background (`#1e1e1e`)
+- Mimics API response viewer
+- Header shows: HTTP method (GET), endpoint path, status code, content-type
+- Action bar with copy buttons (curl, URL, JSON)
+- Interactive JSON tree below
+
+**JSON Tree Features:**
+- Collapsible/expandable objects and arrays
+- Click to toggle expansion
+- Chevron icons indicate expand/collapse state
+- Syntax highlighting:
+  - Keys: stone-300 (light gray)
+  - Strings: amber-300 (warm yellow)
+  - Numbers: blue-400
+  - Booleans: purple-400
+  - Null: stone-500 (muted)
+- Hover state shows subtle white/5 background
+- Preview text for collapsed objects (`{name, title, ...}`)
+- Preview text for collapsed arrays (`[3 items]`)
+
+**Section Focus:**
+- Nav links in JSON mode focus corresponding JSON section
+- Focused section highlighted with amber left border
+- Other top-level sections collapse when one is focused
+- Focused section key displayed in amber badge in action bar
+- Focus clears when toggling JSON mode off
+
+**API Endpoint:**
+- Profile data exposed at `/api/v1/profile.json`
+- Copy buttons provide:
+  - Full curl command
+  - Direct URL
+  - Raw JSON content
+
+**Style:**
+- Monospace font throughout (`font-mono`)
+- Dark terminal aesthetic
+- Rounded container with stone-800 border
+- Help text at bottom: "Click on objects to expand/collapse"
+
 ---
 
 ## 5. Motion Strategy
 
 **Philosophy:** Subtle, purposeful. Not distracting.
 
-**Hero Terminal:**
-- Character-by-character typing animation
-- Cursor blink effect
-- This is the ONE showy animation
+**Hero Ring:**
+- Conic gradient rotation animation (8s duration)
+- Pointer-tracking on hover (seamless angle transitions)
+- This is the ONE showy interaction
 
 **Sections:**
 - Fade in on scroll (opacity only, minimal y-movement)
@@ -266,9 +323,19 @@ export default {
 - Toggles between CSS animation and mouse-tracked position
 - Saves angle on leave to resume animation seamlessly
 
+**NetworkBackground:**
+- Canvas-based animated constellation/network effect
+- Fixed position, behind all content (`z-0`, `pointer-events-none`)
+- Nodes drift slowly with velocity-based movement
+- Lines connect nearby nodes (within `connectionDistance`)
+- Mouse proximity creates amber highlight connections
+- Nodes gently repelled when mouse is very close
+- Theme-aware: adjusts colors for light/dark mode
+- Hidden in JSON mode (performance optimization)
+
 **Reduce Motion:**
 - Respect `prefers-reduced-motion`
-- Static terminal for accessibility
+- Disable ring animation and background for accessibility
 
 ---
 
@@ -278,26 +345,36 @@ export default {
 - Focus rings on all interactive elements
 - Sufficient color contrast (test amber on both themes)
 - Keyboard navigable
-- Screen reader friendly (terminal has aria-label describing content)
+- Screen reader friendly (ARIA labels on interactive elements)
+- JSON view is keyboard-navigable (collapsible nodes)
+- NetworkBackground has `aria-hidden="true"`
 
 ---
 
 ## 7. Implementation Notes
 
 ### Dependencies
-- Keep Motion library for animations
-- Add `JetBrains Mono` via Google Fonts or self-host
-- Consider `react-type-animation` or custom hook for terminal effect
+- Motion library (framer-motion) for animations
+- `JetBrains Mono` via Google Fonts
+- Lucide React for icons
 
 ### Performance
-- Terminal animation should not block interaction
-- Lazy load sections below the fold
+- JSON view is a simple toggle, no heavy re-renders
+- Profile data loaded from local JSON (no API calls)
 - No heavy background effects
+- NetworkBackground component for ambient visual interest
 
 ### Mobile
-- Terminal scales down nicely
 - Single column throughout
 - Touch-friendly tap targets
+- JSON mode button accessible in mobile nav
+- JSON tree fully scrollable and interactive
+
+### Data Architecture
+- Site data centralized in `src/data/profile.json`
+- Same data exposed at `/api/v1/profile.json` (public)
+- TypeScript types inferred from JSON structure
+- `siteData` export used throughout components
 
 ---
 
@@ -312,6 +389,7 @@ export default {
 | Heavy glassmorphism | Minimal, paper-like texture |
 | Dense information | Generous breathing room |
 | Static decorative elements | Mouse-responsive interactions (ring, shine borders) |
+| Single view mode | Dual view: Human + JSON API mode |
 
 ---
 
