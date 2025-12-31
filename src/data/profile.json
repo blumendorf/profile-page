@@ -168,6 +168,10 @@
       }
     ]
   },
+  "lab": {
+    "heading": "The Lab",
+    "intro": "A place for experiments and writeups—things I'm tinkering with, exploring, or just curious about. Some ideas turn into real projects, others stay as notes on what I've learned along the way."
+  },
   "contact": {
     "heading": "Get in Touch",
     "intro": "I enjoy conversations about where software engineering is headed—especially the intersection of AI tooling, team culture, and building products that matter.",

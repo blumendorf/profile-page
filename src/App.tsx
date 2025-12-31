@@ -7,6 +7,7 @@ import About from './components/About';
 import Expertise from './components/Expertise';
 import TechStack from './components/TechStack';
 import Timeline from './components/Timeline';
+import Lab from './components/Lab';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import NetworkBackground from './components/ui/NetworkBackground';
@@ -43,6 +44,7 @@ function App() {
             <Expertise />
             <TechStack />
             <Timeline />
+            <Lab />
             <Contact />
           </main>
         )}

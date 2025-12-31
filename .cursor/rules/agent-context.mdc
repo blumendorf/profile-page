@@ -26,3 +26,4 @@ The `agent-context/` directory contains the source of truth for this project's c
 ## Important
 
 - If you are updating the content, you MUST update the `content.md` file to keep it in sync.
+- If you are modifying `src/pages/lab/**`, you MUST update `src/pages/lab/lab.md` to reflect the changes.

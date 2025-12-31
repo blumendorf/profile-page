@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Config Generator Schema",
+  "description": "Simplified profile configuration for the Config Generator experiment",
+  "type": "object",
+  "properties": {
+    "hero": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "default": "Dr Marco Blumendorf" },
+        "title": { "type": "string", "default": "Director of Software Engineering" },
+        "headline": { "type": "string" },
+        "headlineVariant": {
+          "type": "string",
+          "enum": ["default", "technical", "nonTechnical"],
+          "default": "default"
+        },
+        "showTags": { "type": "boolean", "default": true },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": ["Engineering", "Leadership", "AI first"]
+        }
+      }
+    },
+    "contact": {
+      "type": "object",
+      "properties": {
+        "heading": { "type": "string", "default": "Get in Touch" },
+        "intro": { "type": "string" },
+        "prominent": { "type": "boolean", "default": false },
+        "channels": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": { "type": "string", "enum": ["email", "linkedin", "github"] },
+              "label": { "type": "string" },
+              "description": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "theme": {
+      "type": "object",
+      "properties": {
+        "variant": {
+          "type": "string",
+          "enum": ["default", "terminal", "warm", "minimal"],
+          "default": "default",
+          "description": "terminal=dark+mono, warm=cream bg, minimal=clean, default=standard"
+        },
+        "accentColor": {
+          "type": "string",
+          "enum": ["amber", "cyan", "emerald", "rose"],
+          "default": "amber"
+        },
+        "fontStyle": {
+          "type": "string",
+          "enum": ["sans", "mono", "mixed"],
+          "default": "mixed"
+        }
+      }
+    }
+  }
+}
+

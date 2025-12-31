@@ -8,6 +8,7 @@ const navItems = [
   { label: 'Expertise', href: '#expertise' },
   { label: 'Tech Stack', href: '#tech-stack' },
   { label: 'Journey', href: '#journey' },
+  { label: 'Lab', href: '#lab' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -18,6 +19,7 @@ const sectionToJsonKey: Record<string, string> = {
   'expertise': 'expertise',
   'tech-stack': 'techStack',
   'journey': 'journey',
+  'lab': 'lab',
   'contact': 'contact',
 };
 
@@ -27,6 +29,7 @@ const jsonKeyToSection: Record<string, string> = {
   'expertise': 'expertise',
   'techStack': 'tech-stack',
   'journey': 'journey',
+  'lab': 'lab',
   'contact': 'contact',
 };
 
@@ -120,22 +123,32 @@ const Navbar = ({ isJsonMode, onToggleJsonMode, onNavigateInJsonMode, focusedJso
     e.preventDefault();
     const targetId = href.replace('#', '');
 
-    // If in JSON mode, focus that section in JSON view
-    if (isJsonMode) {
-      const jsonKey = sectionToJsonKey[targetId];
-      onNavigateInJsonMode(jsonKey || null);
-      // Scroll to top to see the focused section
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      const element = document.getElementById(targetId);
-      if (element) {
-        // Offset for fixed header
-        const yOffset = -80;
-        const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-        window.scrollTo({ top: y, behavior: 'smooth' });
-      }
-    }
+    // Close mobile menu first
+    const wasOpen = isOpen;
     setIsOpen(false);
+
+    // Scroll function
+    const scrollToSection = () => {
+      if (isJsonMode) {
+        const jsonKey = sectionToJsonKey[targetId];
+        onNavigateInJsonMode(jsonKey || null);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        const element = document.getElementById(targetId);
+        if (element) {
+          const yOffset = -80;
+          const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }
+    };
+
+    // If mobile menu was open, delay scroll until after menu animation (200ms)
+    if (wasOpen) {
+      setTimeout(scrollToSection, 250);
+    } else {
+      scrollToSection();
+    }
   };
 
   const toggleTheme = () => {
@@ -179,7 +192,7 @@ const Navbar = ({ isJsonMode, onToggleJsonMode, onNavigateInJsonMode, focusedJso
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-1" aria-label="Desktop navigation">
+          <div className="hidden lg:flex items-center gap-1" aria-label="Desktop navigation">
             {navItems.slice(1).map((item) => {
               const sectionId = item.href.replace('#', '');
               const isActive = currentActiveSection === sectionId;
@@ -188,7 +201,7 @@ const Navbar = ({ isJsonMode, onToggleJsonMode, onNavigateInJsonMode, focusedJso
                   key={item.href}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
-                  className={`px-3 py-1.5 text-sm font-medium transition-colors ${
+                  className={`px-3 py-1.5 text-sm font-medium whitespace-nowrap transition-colors ${
                     isActive
                       ? 'text-accent'
                       : 'text-text-muted hover:text-text-primary'
@@ -222,7 +235,7 @@ const Navbar = ({ isJsonMode, onToggleJsonMode, onNavigateInJsonMode, focusedJso
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex items-center gap-2 md:hidden">
+          <div className="flex items-center gap-2 lg:hidden">
             <button
               onClick={onToggleJsonMode}
               className={`px-2 py-1 text-xs font-mono font-bold rounded border transition-colors ${
@@ -259,7 +272,7 @@ const Navbar = ({ isJsonMode, onToggleJsonMode, onNavigateInJsonMode, focusedJso
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden bg-page border-b border-border-subtle overflow-hidden"
+            className="lg:hidden bg-page border-b border-border-subtle overflow-hidden"
             aria-label="Mobile navigation"
           >
             <div className="px-6 py-4 space-y-1">

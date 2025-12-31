@@ -2,7 +2,7 @@
 
 This file contains the target text for each section of blumendorf.info. Keep this file aligned with the actual implementation. When updating content, update here first, then sync to components.
 
-**Last synced:** December 30, 2024 (restructured About section - personal story first)
+**Last synced:** December 31, 2024 (added Lab section)
 
 ---
 
@@ -245,6 +245,25 @@ Description: Senior Engineer → Director of Software Engineering. CHAPTR is the
 
 ---
 
+## Lab Section
+
+> **Component:** `src/components/Lab.tsx`
+> **Voice:** Inviting. Shows curiosity and willingness to share.
+
+### Heading
+```
+The Lab
+```
+
+### Intro Text
+```
+A place for experiments and writeups—things I'm tinkering with, exploring, or just curious about. Some ideas turn into real projects, others stay as notes on what I've learned along the way.
+```
+
+> **Note:** The Lab is a general-purpose space, not themed around any specific topic. See `src/pages/lab/lab.md` for structure and details.
+
+---
+
 ## Contact Section
 
 > **Component:** `src/components/Contact.tsx`
@@ -345,6 +364,7 @@ When updating content:
 - [ ] Sync Expertise.tsx
 - [ ] Sync TechStack.tsx
 - [ ] Sync Timeline.tsx
+- [ ] Sync Lab.tsx
 - [ ] Sync Contact.tsx
 - [ ] Update index.html meta tags if needed
 - [ ] Run tests
@@ -361,3 +381,4 @@ When updating content:
 | Dec 2024 | **Full revision** incorporating interview-questions.md, background.md, tech-stack.md |
 | Dec 2024 | Merged The Shift + About sections, updated GreenBuzz (2014–2025), Expertise now uses full sentences, CTA changed to "Learn More" |
 | Dec 2024 | Restructured About: personal story first, then "What I've Learned" (thesis), then "What I Focus On" (pillars) |
+| Dec 31, 2024 | Added Lab section above Contact |
