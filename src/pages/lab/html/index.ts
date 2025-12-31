@@ -1,3 +1,4 @@
 export { default as HTMLLanding } from './HTMLLanding';
 export { default as HTMLPlayground } from './HTMLPlayground';
-export { generateHTML, DEFAULT_HTML } from './html-generator';
+export { generateHTMLWithEngine, buildHTML, DEFAULT_HTML, type GenerationResult } from './html-generator';
+export { LogPanel, createLogEntry, type LogEntry } from './LogPanel';

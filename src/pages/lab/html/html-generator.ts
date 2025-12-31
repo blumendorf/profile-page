@@ -1,4 +1,4 @@
-import { webllmEngine } from '../shared';
+import type { LLMEngine, TokenCallback } from '../shared';
 
 // Profile data
 const PROFILE_DATA = {
@@ -42,7 +42,7 @@ Now generate CSS for:`;
 /**
  * Build HTML with injected CSS
  */
-function buildHTML(css: string): string {
+export function buildHTML(css: string): string {
   // Clean up CSS
   let cleanCss = css.trim();
 
@@ -113,43 +113,53 @@ function buildHTML(css: string): string {
 </html>`;
 }
 
-// Style presets as fallback
-const STYLE_PRESETS: Record<string, string> = {
-  'terminal': 'body{background:#000;color:#0f0;font-family:monospace}h1{font-size:2.5rem}.title{color:#0f0}.tag{border:1px solid #0f0;color:#0f0;padding:0.5rem 1rem;border-radius:999px}.contact a{color:#0f0;border:1px solid #0f0;padding:0.5rem 1rem}',
-  'hacker': 'body{background:#000;color:#0f0;font-family:monospace}h1{font-size:2.5rem}.title{color:#0f0}.tag{border:1px solid #0f0;color:#0f0;padding:0.5rem 1rem;border-radius:999px}.contact a{color:#0f0;border:1px solid #0f0;padding:0.5rem 1rem}',
-  'dark': 'body{background:#0a0a0a;color:#e5e5e5;font-family:system-ui}h1{font-size:2.5rem}.title{color:#f59e0b}.tag{border:1px solid #f59e0b;color:#f59e0b;padding:0.5rem 1rem;border-radius:999px}.contact a{color:#e5e5e5;border:1px solid #333;padding:0.5rem 1rem}',
-  'minimal': 'body{background:#fff;color:#111;font-family:system-ui}h1{font-size:2.5rem;font-weight:600}.title{color:#0066cc}.tag{border:1px solid #0066cc;color:#0066cc;padding:0.5rem 1rem;border-radius:999px}.contact a{color:#111;border:1px solid #ccc;padding:0.5rem 1rem}',
-  'clean': 'body{background:#fff;color:#111;font-family:system-ui}h1{font-size:2.5rem;font-weight:600}.title{color:#0066cc}.tag{border:1px solid #0066cc;color:#0066cc;padding:0.5rem 1rem;border-radius:999px}.contact a{color:#111;border:1px solid #ccc;padding:0.5rem 1rem}',
-  'professional': 'body{background:#f8fafc;color:#0f172a;font-family:system-ui}h1{font-size:2.5rem;font-weight:700}.title{color:#3b82f6}.tag{border:1px solid #3b82f6;color:#3b82f6;padding:0.5rem 1rem;border-radius:999px}.contact a{color:#0f172a;border:1px solid #e2e8f0;padding:0.5rem 1rem}',
-  'warm': 'body{background:#fef3e2;color:#422006;font-family:Georgia,serif}h1{font-size:2.5rem}.title{color:#ea580c}.tag{border:1px solid #ea580c;color:#ea580c;padding:0.5rem 1rem;border-radius:999px}.contact a{color:#422006;border:1px solid #422006;padding:0.5rem 1rem}',
-  'friendly': 'body{background:#fef3e2;color:#422006;font-family:Georgia,serif}h1{font-size:2.5rem}.title{color:#ea580c}.tag{border:1px solid #ea580c;color:#ea580c;padding:0.5rem 1rem;border-radius:999px}.contact a{color:#422006;border:1px solid #422006;padding:0.5rem 1rem}',
-  'brutalist': 'body{background:#ff0;color:#000;font-family:Impact,sans-serif}h1{font-size:3rem;text-transform:uppercase}.title{color:#f00}.tag{border:3px solid #000;color:#000;padding:0.5rem 1rem}.contact a{color:#000;border:3px solid #000;padding:0.5rem 1rem;background:#fff}',
-  'bold': 'body{background:#000;color:#fff;font-family:Impact,sans-serif}h1{font-size:3rem}.title{color:#f00}.tag{border:2px solid #f00;color:#f00;padding:0.5rem 1rem}.contact a{color:#fff;border:2px solid #fff;padding:0.5rem 1rem}',
-};
-
-const DEFAULT_CSS = STYLE_PRESETS['dark'];
+// Default CSS for initial state
+const DEFAULT_CSS = 'body{background:#0a0a0a;color:#e5e5e5;font-family:system-ui}h1{font-size:2.5rem}.title{color:#f59e0b}.tag{border:1px solid #f59e0b;color:#f59e0b;padding:0.5rem 1rem;border-radius:999px}.contact a{color:#e5e5e5;border:1px solid #333;padding:0.5rem 1rem}';
 export const DEFAULT_HTML = buildHTML(DEFAULT_CSS);
 
-export async function generateHTML(userIntent: string): Promise<string> {
+/**
+ * Result of HTML generation
+ */
+export interface GenerationResult {
+  /** Raw model output (CSS) */
+  rawOutput: string;
+  /** Final processed HTML */
+  html: string;
+  /** Whether the output was valid CSS */
+  isValid: boolean;
+  /** Generation time in milliseconds */
+  generationTimeMs: number;
+  /** Approximate token count */
+  tokenCount: number;
+}
+
+/**
+ * Generate HTML with streaming support
+ * @param userIntent - User's style description
+ * @param engine - LLM engine to use for generation
+ * @param onToken - Optional callback for streaming tokens
+ */
+export async function generateHTMLWithEngine(
+  userIntent: string,
+  engine: LLMEngine,
+  onToken?: TokenCallback
+): Promise<GenerationResult> {
   console.log('═══════════════════════════════════════════════════════════');
-  console.log('[html-generator] generateHTML() called');
+  console.log('[html-generator] generateHTMLWithEngine() called');
   console.log('[html-generator] User Intent:', userIntent);
-
-  const intentLower = userIntent.toLowerCase();
-
-  // Check presets first for reliable results
-  for (const [keyword, css] of Object.entries(STYLE_PRESETS)) {
-    if (intentLower.includes(keyword)) {
-      console.log(`[html-generator] ✓ PRESET MATCH: "${keyword}"`);
-      console.log('[html-generator] Using preset CSS (instant)');
-      console.log('═══════════════════════════════════════════════════════════');
-      return buildHTML(css);
-    }
-  }
-
-  console.log('[html-generator] No preset match, using AI generation...');
+  console.log('[html-generator] Model:', engine.getModelId());
 
   const prompt = `${SYSTEM_PROMPT} "${userIntent}"`;
+  const startTime = Date.now();
+  let tokenCount = 0;
+
+  // Wrap the token callback to count tokens
+  const wrappedOnToken: TokenCallback | undefined = onToken
+    ? (token: string) => {
+        tokenCount++;
+        onToken(token);
+      }
+    : undefined;
 
   console.log('[html-generator] ════════════════════════════════════════');
   console.log('[html-generator] MODEL INPUT (Prompt):');
@@ -158,10 +168,9 @@ export async function generateHTML(userIntent: string): Promise<string> {
   console.log('────────────────────────────────────────');
 
   try {
-    const startTime = Date.now();
-    console.log('[html-generator] Calling webllmEngine.generate()...');
+    console.log('[html-generator] Calling engine.generate()...');
 
-    const response = await webllmEngine.generate(prompt, 400);
+    const response = await engine.generate(prompt, 400, wrappedOnToken);
 
     const duration = Date.now() - startTime;
     console.log('[html-generator] ════════════════════════════════════════');
@@ -172,21 +181,36 @@ export async function generateHTML(userIntent: string): Promise<string> {
     console.log(`[html-generator] Generation took ${duration}ms`);
 
     // Validate CSS output has body selector
-    if (response.includes('body') && response.includes('{')) {
-      const html = buildHTML(response);
+    const isValid = response.includes('body') && response.includes('{');
+    const html = isValid ? buildHTML(response) : DEFAULT_HTML;
+
+    if (isValid) {
       console.log('[html-generator] ✓ HTML built with AI-generated CSS');
-      console.log('═══════════════════════════════════════════════════════════');
-      return html;
     } else {
       console.log('[html-generator] ✗ Invalid CSS output, using default');
-      console.log('═══════════════════════════════════════════════════════════');
-      return DEFAULT_HTML;
     }
-  } catch (error) {
-    console.error('[html-generator] ❌ Generation failed:', error);
-    console.log('[html-generator] Returning DEFAULT_HTML');
     console.log('═══════════════════════════════════════════════════════════');
-    return DEFAULT_HTML;
+
+    return {
+      rawOutput: response,
+      html,
+      isValid,
+      generationTimeMs: duration,
+      tokenCount: tokenCount || Math.ceil(response.length / 4), // Rough estimate if not streaming
+    };
+  } catch (error) {
+    const duration = Date.now() - startTime;
+    console.error('[html-generator] ❌ Generation failed:', error);
+    console.log('═══════════════════════════════════════════════════════════');
+
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+
+    return {
+      rawOutput: `Error: ${errorMessage}`,
+      html: DEFAULT_HTML,
+      isValid: false,
+      generationTimeMs: duration,
+      tokenCount: 0,
+    };
   }
 }
-

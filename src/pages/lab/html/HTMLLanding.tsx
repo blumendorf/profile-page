@@ -1,11 +1,21 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { checkCompatibility, type CompatibilityResult } from '../shared';
-import { AlertTriangle, CheckCircle, Download, Zap, ArrowLeft, Code2 } from 'lucide-react';
+import {
+  checkCompatibility,
+  type CompatibilityResult,
+  ModelSelector,
+  getSavedModelId,
+  saveModelId,
+  getModelConfig,
+} from '../shared';
+import { AlertTriangle, CheckCircle, Download, Zap, ArrowLeft, Code2, Info } from 'lucide-react';
 
 export default function HTMLLanding() {
   const [compat, setCompat] = useState<CompatibilityResult | null>(null);
   const [checking, setChecking] = useState(true);
+  const [selectedModelId, setSelectedModelId] = useState(getSavedModelId);
+
+  const selectedModel = getModelConfig(selectedModelId);
 
   useEffect(() => {
     checkCompatibility().then((result) => {
@@ -13,6 +23,13 @@ export default function HTMLLanding() {
       setChecking(false);
     });
   }, []);
+
+  const handleModelChange = (modelId: string) => {
+    setSelectedModelId(modelId);
+    saveModelId(modelId);
+  };
+
+  const canStart = compat?.canRun;
 
   return (
     <div className="min-h-screen bg-page flex items-center justify-center p-8">
@@ -57,26 +74,24 @@ export default function HTMLLanding() {
           </div>
         </div>
 
-        {/* Difference from Config experiment */}
-        <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-lg p-6 mb-8">
-          <h3 className="font-semibold text-cyan-500 mb-2">What's different?</h3>
-          <p className="text-sm text-text-muted">
-            The <strong>Config Generator</strong> creates JSON that React interprets.
-            This experiment generates <strong>actual HTML/CSS/JS code</strong> that
-            runs directly—the model writes the UI itself, not a config for it.
-          </p>
+        {/* Model Selection */}
+        <div className="mb-8">
+          <ModelSelector
+            selectedModelId={selectedModelId}
+            onModelChange={handleModelChange}
+          />
         </div>
 
-        {/* Warning Box */}
+        {/* Warning Box - Dynamic based on selected model */}
         <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-6 mb-8">
           <div className="flex items-start gap-4">
             <Download className="w-6 h-6 text-amber-500 flex-shrink-0 mt-1" />
             <div>
               <h3 className="font-semibold text-amber-500 mb-2">Model Download Required</h3>
               <ul className="text-sm text-text-muted space-y-1">
-                <li>• <strong>~500 MB</strong> model download (cached after first load)</li>
+                <li>• <strong>{selectedModel.downloadSize}</strong> model download (cached after first load)</li>
                 <li>• Requires <strong>WebGPU</strong> (Chrome 113+, Edge 113+, Safari 18+)</li>
-                <li>• Needs <strong>4GB+ available memory</strong></li>
+                <li>• Recommended: <strong>{selectedModel.memoryRequired}GB+ available memory</strong></li>
                 <li>• Generation may take longer (more output tokens)</li>
               </ul>
             </div>
@@ -110,18 +125,13 @@ export default function HTMLLanding() {
                 <span className="text-text-primary">Browser: {compat.browser}</span>
               </div>
 
-              {compat.estimatedMemory && (
-                <div className="flex items-center gap-3">
-                  {compat.estimatedMemory >= 4 ? (
-                    <CheckCircle className="w-5 h-5 text-emerald-500" />
-                  ) : (
-                    <AlertTriangle className="w-5 h-5 text-amber-500" />
-                  )}
-                  <span className="text-text-primary">
-                    Memory: ~{compat.estimatedMemory}GB available
-                  </span>
-                </div>
-              )}
+              {/* General memory info */}
+              <div className="flex items-start gap-3 mt-2 pt-2 border-t border-border-subtle">
+                <Info className="w-4 h-4 text-text-muted flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-text-muted">
+                  Larger models need more memory. If you experience issues, try a smaller model.
+                </span>
+              </div>
 
               {!compat.canRun && compat.reason && (
                 <div className="text-red-400 text-sm mt-2 p-3 bg-red-500/10 rounded">
@@ -134,10 +144,10 @@ export default function HTMLLanding() {
 
         {/* Actions */}
         <Link
-          to={compat?.canRun ? "/lab/html/playground" : "#"}
-          onClick={(e) => !compat?.canRun && e.preventDefault()}
+          to={canStart ? "/lab/html/playground" : "#"}
+          onClick={(e) => !canStart && e.preventDefault()}
           className={`w-full py-4 px-6 rounded-lg font-semibold flex items-center justify-center gap-3 transition-colors
-            ${compat?.canRun
+            ${canStart
               ? 'bg-cyan-500 text-bg-page hover:bg-cyan-400'
               : 'bg-text-muted/20 text-text-muted cursor-not-allowed'
             }`}

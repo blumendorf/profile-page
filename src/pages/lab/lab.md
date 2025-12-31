@@ -26,9 +26,17 @@ src/pages/lab/
 ├── LabIndex.tsx        # Hub listing all experiments
 ├── index.ts            # Exports
 ├── shared/             # Shared infrastructure for all experiments
-│   ├── engine.ts       # WebLLM singleton (model lifecycle)
-│   ├── compatibility.ts # WebGPU detection
-│   ├── DownloadProgress.tsx # Model download UI
+│   ├── models/         # Multi-model abstraction layer
+│   │   ├── engine-interface.ts  # LLMEngine interface
+│   │   ├── config.ts            # Model registry & metadata
+│   │   ├── webllm-engine.ts     # WebLLM (MLC) implementation
+│   │   ├── transformers-engine.ts # Transformers.js implementation
+│   │   ├── factory.ts           # createEngine() factory
+│   │   └── index.ts
+│   ├── engine.ts           # Backward-compatible default engine
+│   ├── compatibility.ts    # WebGPU detection
+│   ├── DownloadProgress.tsx # Model download UI (dynamic size)
+│   ├── ModelSelector.tsx   # Model selection dropdown
 │   └── index.ts
 ├── config/             # Config Generator experiment (self-contained)
 │   ├── ConfigLanding.tsx
@@ -40,8 +48,8 @@ src/pages/lab/
 │   ├── ui-config.ts
 │   └── index.ts
 └── html/               # HTML Generator experiment (self-contained)
-    ├── HTMLLanding.tsx
-    ├── HTMLPlayground.tsx
+    ├── HTMLLanding.tsx     # Landing with model selection
+    ├── HTMLPlayground.tsx  # Main experiment (uses selected model)
     ├── HTMLPreview.tsx
     ├── html-generator.ts
     └── index.ts
@@ -56,7 +64,7 @@ src/pages/lab/
 **Status:** Active
 **Approach:** React-based profile with AI-generated JSON configuration
 
-The AI model (SmolLM 360M, ~500MB) runs in-browser via WebGPU and generates a JSON config that controls:
+The AI model runs in-browser via WebGPU and generates a JSON config that controls:
 - Theme (terminal, warm, minimal, default)
 - Colors (amber, cyan, emerald, rose)
 - Typography (mono, sans, mixed)
@@ -81,15 +89,20 @@ The AI model (SmolLM 360M, ~500MB) runs in-browser via WebGPU and generates a JS
 
 The AI generates CSS styles based on the user's style description. These styles are injected into a predefined HTML template and rendered in a sandboxed iframe.
 
+**Model Selection:** Users can choose from multiple models before starting:
+- WebLLM (MLC): SmolLM 360M (default), SmolLM 1.7B, Llama 3.2 1B, Phi 3.5 Mini
+- Transformers.js (ONNX): Qwen 2.5 0.5B, Gemma 3 270M/1B, Mistral 3B
+
 **How it works:**
-1. User describes a style (e.g., "dark terminal hacker aesthetic")
-2. System checks for preset matches (instant results for known keywords)
-3. If no preset match, AI generates CSS using few-shot examples
-4. CSS is injected into the HTML template
-5. Result renders live in a sandboxed iframe
+1. User selects a model on the landing page
+2. User describes a style (e.g., "dark terminal hacker aesthetic")
+3. System checks for preset matches (instant results for known keywords)
+4. If no preset match, AI generates CSS using few-shot examples
+5. CSS is injected into the HTML template
+6. Result renders live in a sandboxed iframe
 
 **Files:**
-- `html/HTMLLanding.tsx` - Experiment intro with compatibility check
+- `html/HTMLLanding.tsx` - Experiment intro with model selection & compatibility check
 - `html/HTMLPlayground.tsx` - Main experiment with iframe preview
 - `html/HTMLPreview.tsx` - Sandboxed iframe component
 - `html/html-generator.ts` - CSS generation with presets and AI fallback
@@ -100,22 +113,109 @@ The AI generates CSS styles based on the user's style description. These styles 
 
 ---
 
+## Multi-Model Abstraction (`/lab/shared/models`)
+
+The lab supports multiple LLM backends through a unified abstraction layer.
+
+### Architecture
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│                         UI Layer                              │
+│  ┌─────────────┐  ┌─────────────────┐  ┌─────────────────┐   │
+│  │ HTMLLanding │──│ ModelSelector   │  │ DownloadProgress │  │
+│  └─────────────┘  └─────────────────┘  └─────────────────┘   │
+│         │                 │                    ▲              │
+│         │                 │                    │              │
+│         ▼                 ▼                    │              │
+│  ┌─────────────┐  ┌─────────────────┐         │              │
+│  │HTMLPlayground│──│ createEngine() │─────────┘              │
+│  └─────────────┘  └─────────────────┘                        │
+└──────────────────────────────────────────────────────────────┘
+                            │
+                            ▼
+┌──────────────────────────────────────────────────────────────┐
+│                     Abstraction Layer                         │
+│  ┌─────────────────────────────────────────────────────────┐ │
+│  │                     LLMEngine Interface                  │ │
+│  │  initialize(), generate(), isReady(), dispose()          │ │
+│  └─────────────────────────────────────────────────────────┘ │
+│         ▲                                     ▲               │
+│         │                                     │               │
+│  ┌──────────────────┐              ┌──────────────────────┐  │
+│  │  WebLLMEngine    │              │  TransformersEngine  │  │
+│  │  (@mlc-ai/web-llm)│             │ (@huggingface/       │  │
+│  │                  │              │  transformers)       │  │
+│  └──────────────────┘              └──────────────────────┘  │
+└──────────────────────────────────────────────────────────────┘
+```
+
+### Available Models
+
+| ID | Name | Backend | Size | Download | Memory |
+|----|------|---------|------|----------|--------|
+| `smollm-360m` | SmolLM (360M) | webllm | 360M | ~500MB | 4GB |
+| `smollm-1.7b` | SmolLM (1.7B) | webllm | 1.7B | ~1GB | 4GB |
+| `llama-1b` | Llama 3.2 (1B) | webllm | 1B | ~700MB | 4GB |
+| `phi-3.5` | Phi 3.5 Mini | webllm | 3.8B | ~2GB | 6GB |
+| `qwen-0.5b` | Qwen 2.5 (0.5B) | transformers | 0.5B | ~300MB | 2GB |
+| `gemma-270m` | Gemma 3 (270M) | transformers | 270M | ~200MB | 2GB |
+| `gemma-1b` | Gemma 3 (1B) | transformers | 1B | ~600MB | 4GB |
+| `llama-3.2-1b-onnx` | Llama 3.2 (1B) ONNX | transformers | 1B | ~700MB | 4GB |
+
+### Usage
+
+```typescript
+import { createEngine, getSavedModelId, getModelConfig } from '../shared';
+
+// Get user's selected model from localStorage
+const modelId = getSavedModelId();
+const config = getModelConfig(modelId);
+
+// Create engine for the selected model
+const engine = createEngine(modelId);
+
+// Initialize with progress callback
+await engine.initialize((progress) => {
+  console.log(progress.stage, progress.progress, progress.text);
+});
+
+// Generate text
+const output = await engine.generate(prompt, maxTokens);
+
+// Cleanup when done
+await engine.dispose();
+```
+
+### Key Files
+
+| File | Purpose |
+|------|---------|
+| `models/engine-interface.ts` | `LLMEngine` interface all backends implement |
+| `models/config.ts` | Model registry with metadata (size, memory, etc.) |
+| `models/webllm-engine.ts` | WebLLM implementation using @mlc-ai/web-llm |
+| `models/transformers-engine.ts` | Transformers.js implementation |
+| `models/factory.ts` | `createEngine()` factory + localStorage helpers |
+
+---
+
 ## Shared Infrastructure (`/lab/shared`)
 
 | File | Purpose |
 |------|---------|
-| `engine.ts` | WebLLM singleton (model download, initialization, generation) |
+| `engine.ts` | Backward-compatible default engine singleton |
 | `compatibility.ts` | WebGPU detection and memory estimation |
-| `DownloadProgress.tsx` | Model download progress overlay UI |
+| `DownloadProgress.tsx` | Model download progress overlay UI (accepts `downloadSizeGB` prop) |
+| `ModelSelector.tsx` | Model selection dropdown with details |
 
 ---
 
 ## Technical Requirements
 
 - **WebGPU:** Chrome 113+, Edge 113+, Safari 18+
-- **Memory:** 4GB+ available
-- **Model:** SmolLM2-360M-Instruct (~500MB download, cached after first load)
-- **Generation:** ~2-4 seconds after model loaded (presets are instant)
+- **Memory:** 2-6GB+ available (depends on model)
+- **Model:** User-selected, cached after first load
+- **Generation:** ~2-10 seconds after model loaded (varies by model size)
 
 ---
 
@@ -139,11 +239,10 @@ The AI generates CSS styles based on the user's style description. These styles 
 /lab                      → LabIndex (experiments hub)
 /lab/config               → ConfigLanding
 /lab/config/adaptive      → ConfigAdaptive
-/lab/html                 → HTMLLanding
+/lab/html                 → HTMLLanding (with model selection)
 /lab/html/playground      → HTMLPlayground
 ```
 
 ---
 
 *Last updated: 2024-12-31*
-

@@ -42,33 +42,11 @@ const NetworkBackground = ({
     let lineColor = 'rgba(120, 113, 108, 0.15)';
     let highlightColor = 'rgba(245, 158, 11, 0.4)'; // Default amber
 
-    // Helper to parse color from CSS variable or hex
-    const parseColor = (colorStr: string, opacity: number = 1): string => {
-      const div = document.createElement('div');
-      div.style.color = colorStr;
-      document.body.appendChild(div);
-      const computed = getComputedStyle(div).color;
-      document.body.removeChild(div);
-
-      // computed is usually "rgb(r, g, b)"
-      if (computed.startsWith('rgb')) {
-        return computed.replace('rgb', 'rgba').replace(')', `, ${opacity})`);
-      }
-      return colorStr;
-    };
-
     const updateThemeColors = () => {
       const style = getComputedStyle(document.documentElement);
 
       // Read CSS variables
-      const muted = style.getPropertyValue('--text-muted').trim() || '#a8a29e';
       const accent = style.getPropertyValue('--accent-primary').trim() || '#f59e0b';
-
-      // We need to convert these to rgba for opacity manipulation in canvas if they aren't already
-      // For simplicity in the loop, we'll store base RGB values or use the helper
-      // But creating elements is slow, so let's just use the hex/var and rely on canvas globalAlpha or string manipulation if possible.
-      // Actually, simplest is to use hex and `globalAlpha` or just hardcode the "Stone" and "Amber" look since they are design constants.
-      // However, to support light/dark mode perfectly:
 
       const isDark = document.documentElement.classList.contains('dark');
 

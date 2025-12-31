@@ -5,7 +5,11 @@ import App from './App'
 import LabIndex from './pages/lab/LabIndex'
 import { ConfigLanding, ConfigAdaptive } from './pages/lab/config'
 import { HTMLLanding, HTMLPlayground } from './pages/lab/html'
+import { initializeTheme } from './hooks/useTheme'
 import './index.css'
+
+// Initialize theme before render to prevent flash of wrong theme
+initializeTheme();
 
 const router = createBrowserRouter([
   {

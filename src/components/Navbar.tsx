@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from '../hooks/useTheme';
 
 const navItems = [
   { label: 'Home', href: '#home' },
@@ -42,29 +43,9 @@ interface NavbarProps {
 
 const Navbar = ({ isJsonMode, onToggleJsonMode, onNavigateInJsonMode, focusedJsonSection }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isDark, setIsDark] = useState(true);
+  const { isDark, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-
-  useEffect(() => {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const savedTheme = localStorage.getItem('theme');
-
-    if (savedTheme) {
-      setIsDark(savedTheme === 'dark');
-    } else {
-      setIsDark(prefersDark);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-  }, [isDark]);
 
   // Calculate active section based on scroll position
   const calculateActiveSection = useCallback(() => {
@@ -149,10 +130,6 @@ const Navbar = ({ isJsonMode, onToggleJsonMode, onNavigateInJsonMode, focusedJso
     } else {
       scrollToSection();
     }
-  };
-
-  const toggleTheme = () => {
-    setIsDark(!isDark);
   };
 
   const isAtHero = activeSection === 'home' && !isJsonMode;

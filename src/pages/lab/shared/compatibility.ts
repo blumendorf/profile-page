@@ -1,9 +1,23 @@
 export interface CompatibilityResult {
   webgpu: boolean;
   browser: string;
-  estimatedMemory: number | null;
   canRun: boolean;
   reason?: string;
+}
+
+// WebGPU types (not in lib.dom by default)
+interface GPUAdapter {
+  requestDevice(): Promise<unknown>;
+}
+
+interface GPU {
+  requestAdapter(): Promise<GPUAdapter | null>;
+}
+
+declare global {
+  interface Navigator {
+    gpu?: GPU;
+  }
 }
 
 export async function checkCompatibility(): Promise<CompatibilityResult> {
@@ -14,7 +28,6 @@ export async function checkCompatibility(): Promise<CompatibilityResult> {
     return {
       webgpu: false,
       browser,
-      estimatedMemory: null,
       canRun: false,
       reason: 'WebGPU not available. Try Chrome 113+ or Edge 113+.',
     };
@@ -26,33 +39,20 @@ export async function checkCompatibility(): Promise<CompatibilityResult> {
       return {
         webgpu: false,
         browser,
-        estimatedMemory: null,
         canRun: false,
         reason: 'No WebGPU adapter found. Your GPU may not be supported.',
       };
     }
 
-    // Estimate available memory
-    const memoryInfo = (performance as unknown as { memory?: { jsHeapSizeLimit: number } }).memory;
-    const estimatedMemory = memoryInfo
-      ? Math.round(memoryInfo.jsHeapSizeLimit / (1024 * 1024 * 1024) * 10) / 10
-      : null;
-
-    const minMemory = 4;
-    const canRun = !estimatedMemory || estimatedMemory >= minMemory;
-
     return {
       webgpu: true,
       browser,
-      estimatedMemory,
-      canRun,
-      reason: canRun ? undefined : `Need ${minMemory}GB+ memory. Detected: ${estimatedMemory}GB`,
+      canRun: true,
     };
   } catch {
     return {
       webgpu: false,
       browser,
-      estimatedMemory: null,
       canRun: false,
       reason: 'Error checking WebGPU compatibility.',
     };
@@ -67,4 +67,3 @@ function detectBrowser(): string {
   if (ua.includes('Firefox')) return 'Firefox';
   return 'Unknown';
 }
-

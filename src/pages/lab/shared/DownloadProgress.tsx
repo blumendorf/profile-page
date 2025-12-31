@@ -5,10 +5,20 @@ interface DownloadProgressProps {
   stage: 'downloading' | 'loading' | 'ready';
   progress: number;
   text: string;
+  /** Download size in GB (default: 0.5 for backward compatibility) */
+  downloadSizeGB?: number;
+  /** Optional model name to display */
+  modelName?: string;
 }
 
-export function DownloadProgress({ stage, progress, text }: DownloadProgressProps) {
-  const sizeDownloaded = (progress / 100 * 0.5).toFixed(2);
+export function DownloadProgress({
+  stage,
+  progress,
+  text,
+  downloadSizeGB = 0.5,
+  modelName
+}: DownloadProgressProps) {
+  const sizeDownloaded = (progress / 100 * downloadSizeGB).toFixed(2);
 
   return (
     <div className="fixed inset-0 bg-page/98 backdrop-blur-sm flex items-center justify-center z-50">
@@ -30,6 +40,10 @@ export function DownloadProgress({ stage, progress, text }: DownloadProgressProp
           {stage === 'ready' && 'Ready!'}
         </h2>
 
+        {modelName && (
+          <p className="text-accent text-sm mb-2 font-mono">{modelName}</p>
+        )}
+
         <p className="text-text-muted text-sm mb-6 font-mono">{text}</p>
 
         {/* Progress bar */}
@@ -43,7 +57,7 @@ export function DownloadProgress({ stage, progress, text }: DownloadProgressProp
         </div>
 
         <div className="text-text-muted text-sm font-mono">
-          {stage === 'downloading' && `${sizeDownloaded} / 0.5 GB`}
+          {stage === 'downloading' && `${sizeDownloaded} / ${downloadSizeGB} GB`}
           {stage === 'loading' && `${progress}%`}
         </div>
 
@@ -54,4 +68,3 @@ export function DownloadProgress({ stage, progress, text }: DownloadProgressProp
     </div>
   );
 }
-

@@ -48,7 +48,7 @@ const AboutContent = ({ persona }: AboutContentProps) => {
 
       {/* Pillars */}
       <div className="grid gap-4 md:grid-cols-3">
-        {pillars.map((pillar: any, index: number) => {
+        {pillars.map((pillar: any) => {
           const Icon = iconMap[pillar.icon] || Code;
           return (
             <div key={pillar.title}>

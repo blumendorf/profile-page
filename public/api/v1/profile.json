@@ -170,21 +170,7 @@
   },
   "lab": {
     "heading": "The Lab",
-    "intro": "A playground for my experiments—things I'm exploring, building, or just curious about. This is where I tinker with ideas before they become real projects.",
-    "description": "I'll also share writeups here—notes on what I've learned, how things work, and the occasional deep dive into topics that interest me.",
-    "tags": ["Generative UI", "AI Experiments", "Writeups"],
-    "experiments": [
-      {
-        "id": "config",
-        "title": "Config Generator",
-        "description": "AI generates JSON that adapts the profile theme and content."
-      },
-      {
-        "id": "html",
-        "title": "HTML Generator",
-        "description": "AI generates complete HTML/CSS rendered live in your browser."
-      }
-    ]
+    "intro": "A place for experiments and writeups—things I'm tinkering with, exploring, or just curious about. Some ideas turn into real projects, others stay as notes on what I've learned along the way."
   },
   "contact": {
     "heading": "Get in Touch",
