@@ -1,17 +1,17 @@
 import { useState } from 'react';
-import { useDevMessage } from './hooks/useDevMessage';
-import { PersonaProvider } from './contexts/PersonaContext';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Expertise from './components/Expertise';
-import TechStack from './components/TechStack';
-import Timeline from './components/Timeline';
-import Lab from './components/Lab';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
-import NetworkBackground from './components/ui/NetworkBackground';
-import JsonView from './components/ui/JsonView';
+import { useDevMessage, PersonaProvider } from '@/features/shared';
+import {
+  Navbar,
+  Hero,
+  About,
+  Expertise,
+  TechStack,
+  Timeline,
+  Lab,
+  Contact,
+  Footer,
+} from '@/features/home';
+import { NetworkBackground, JsonView } from '@/components/ui';
 
 function App() {
   // Show development process message in console

@@ -40,14 +40,17 @@
 --border-subtle: #44403c;  /* Stone 700 */
 --border-active: #57534e;  /* Stone 600 */
 
-/* Light Mode */
---bg-page: #fafaf9;        /* Stone 50 */
---bg-card: #ffffff;
---bg-surface: #f5f5f4;     /* Stone 100 */
+/* Light Mode - warm paper/cream tones */
+--bg-page: #e8e3db;        /* Warm muted paper */
+--bg-card: #f0ebe3;        /* Soft cream card */
+--bg-surface: #ddd8d0;     /* Warm muted surface */
 
 --text-primary: #1c1917;   /* Stone 900 */
 --text-secondary: #44403c; /* Stone 700 */
 --text-muted: #78716c;     /* Stone 500 */
+
+--border-subtle: #d1ccc4;  /* Warm muted border */
+--border-active: #c2bdb5;  /* Active warm border */
 ```
 
 ### Typography

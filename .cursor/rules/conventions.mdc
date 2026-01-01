@@ -1,0 +1,136 @@
+---
+description: React project structure, coding conventions, and workflow rules
+globs: ["**/*.tsx", "**/*.ts", "**/*.css", "**/*.json"]
+alwaysApply: true
+---
+
+# React Conventions & Project Structure
+
+## Core Technology Stack
+
+### Framework & Runtime
+- **Build Tool**: Vite 6
+- **React**: React 19
+- **Language**: TypeScript 5.7+
+- **Package Manager**: pnpm
+
+### Styling
+- **CSS Framework**: Tailwind v4
+- **Component Library**: shadcn/ui
+- **Icons**: Lucide React
+
+### Animation
+- **Primary**: Motion library
+- **Simple effects**: CSS transitions
+
+### Testing
+- **Unit/Integration**: Vitest 3
+- **Component Testing**: Testing Library (React)
+
+### Deployment
+- **Platform**: GitHub Pages (static export)
+
+---
+
+## Project Structure
+
+### Folder Organization
+Organize code by **features**, not by type. Each feature is self-contained with its own components, hooks, types, and utilities.
+
+```
+src/
+├── components/ui/    # Shared UI primitives (Button, Card, etc.)
+├── features/         # Feature-based modules
+│   ├── home/         # Landing page feature
+│   ├── lab/          # Lab experiments feature
+│   └── shared/       # Cross-feature shared code
+├── lib/              # Non-UI utilities & integrations
+└── test/             # Test setup
+```
+
+### Feature Folder Structure
+Each feature should contain only what it needs:
+
+```
+features/{feature-name}/
+├── components/       # Feature-specific components
+├── hooks/            # Feature-specific hooks
+├── types.ts          # Feature types (if needed)
+├── constants.ts      # Feature constants (if needed)
+└── index.ts          # Public exports
+```
+
+### Component Hierarchy
+Follow a 3-tier component architecture:
+
+1. **Page Components** — Route entry points, minimal logic
+2. **Feature Components** — Domain logic, compose UI components
+3. **UI Components** — Reusable primitives in `components/ui/`
+
+### Where Things Go
+
+| Type | Location |
+|------|----------|
+| UI primitives (Button, Card) | `components/ui/` |
+| Feature components | `features/{name}/components/` |
+| Feature hooks | `features/{name}/hooks/` |
+| Shared hooks/contexts | `features/shared/` |
+| Utilities (cn, formatters) | `lib/utils/` |
+| Static data | `lib/data/` |
+| 3rd party integrations | `lib/{service}/` |
+
+---
+
+## Coding Conventions
+
+### TypeScript
+- Strict mode enabled
+- Explicit types for props and complex objects
+- Never use `any`
+- Co-locate types with their feature
+
+### React Components
+- Function components with arrow syntax
+- Named exports preferred
+- Destructure props in function signature
+- **Single responsibility**: each component renders one thing
+
+### Tailwind CSS v4
+- Use `@theme` in CSS for design tokens
+- Prefer utilities over custom CSS
+- Use `@layer components` for reusable patterns
+- Always use `cn()` for conditional classes
+- No hardcoded colors - use Tailwind theme tokens
+
+### Accessibility
+- Semantic HTML (`<nav>`, `<main>`, `<section>`)
+- ARIA labels on interactive elements
+- Visible focus states
+- Keyboard accessible
+
+### Dark Mode
+- Tailwind `class` strategy
+- Default to system preference
+- Persist in localStorage
+
+---
+
+## Workflow
+
+### Before Committing
+1. Update docs in `/agent-context` when modifying content/design
+2. Update `/src/features/lab/lab.md` when modifying lab features
+3. Run `pnpm test`
+4. Run `pnpm lint --fix` and fix remaining issues
+
+### Code Organization Principles
+- **Colocate related code** — Keep components, hooks, types together
+- **Single responsibility** — Each file does one thing well
+- **Explicit exports** — Use `index.ts` barrel files for public APIs
+- **Keep it simple** — Don't over-abstract; refactor when needed
+
+---
+
+## Security
+
+- Obfuscate email addresses in public-facing code

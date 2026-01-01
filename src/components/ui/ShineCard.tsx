@@ -1,5 +1,5 @@
 import { useRef, useCallback, ReactNode, HTMLAttributes } from 'react';
-import cn from '../../utils/cn';
+import { cn } from '@/lib/utils';
 
 interface ShineCardProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
@@ -76,4 +76,3 @@ const ShineCard = ({
 };
 
 export default ShineCard;
-

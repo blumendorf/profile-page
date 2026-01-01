@@ -2,10 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App'
-import LabIndex from './pages/lab/LabIndex'
-import { ConfigLanding, ConfigAdaptive } from './pages/lab/config'
-import { HTMLLanding, HTMLPlayground } from './pages/lab/html'
-import { initializeTheme } from './hooks/useTheme'
+import LabIndex from '@/features/lab/LabIndex'
+import { ConfigLanding, ConfigPlayground } from '@/features/lab/config'
+import { HTMLLanding, HTMLPlayground } from '@/features/lab/html'
+import { CanvasLanding, CanvasPlayground } from '@/features/lab/canvas'
+import { EvalPlayground } from '@/features/lab/eval/EvalPlayground'
+import { initializeTheme } from '@/features/shared'
 import './index.css'
 
 // Initialize theme before render to prevent flash of wrong theme
@@ -26,8 +28,8 @@ const router = createBrowserRouter([
     element: <ConfigLanding />,
   },
   {
-    path: '/lab/config/adaptive',
-    element: <ConfigAdaptive />,
+    path: '/lab/config/playground',
+    element: <ConfigPlayground />,
   },
   // HTML Generator experiment
   {
@@ -37,6 +39,20 @@ const router = createBrowserRouter([
   {
     path: '/lab/html/playground',
     element: <HTMLPlayground />,
+  },
+  // Living Canvas experiment
+  {
+    path: '/lab/canvas',
+    element: <CanvasLanding />,
+  },
+  {
+    path: '/lab/canvas/playground',
+    element: <CanvasPlayground />,
+  },
+  // Evaluation playground
+  {
+    path: '/lab/eval',
+    element: <EvalPlayground />,
   },
 ])
 

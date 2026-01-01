@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "sync:profile": "cp src/data/profile.json public/api/v1/profile.json",
+    "sync:profile": "cp src/lib/data/profile.json public/api/v1/profile.json",
     "dev": "pnpm sync:profile && vite",
     "build": "pnpm sync:profile && tsc -b && vite build",
     "lint": "tsc --noEmit && eslint .",
@@ -12,7 +12,8 @@
     "preview": "vite preview",
     "predeploy": "pnpm build",
     "deploy": "gh-pages -d dist",
-    "test": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {

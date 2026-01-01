@@ -32,7 +32,7 @@ const NetworkBackground = ({
     if (!ctx) return;
 
     let points: Point[] = [];
-    let mouse = { x: -1000, y: -1000 };
+    const mouse = { x: -1000, y: -1000 };
     let animationFrameId: number;
     let width = 0;
     let height = 0;

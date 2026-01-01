@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { ChevronRight, ChevronDown, Copy, Check } from 'lucide-react';
-import { siteData } from '../../data/siteData';
+import { siteData } from '@/lib/data';
 
 const API_PATH = '/api/v1/profile.json';
 
