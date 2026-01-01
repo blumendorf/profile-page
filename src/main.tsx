@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App'
 import LabIndex from '@/features/lab/LabIndex'
 import { ConfigLanding, ConfigPlayground } from '@/features/lab/config'
-import { HTMLLanding, HTMLPlayground } from '@/features/lab/html'
+import { HTMLPlayground } from '@/features/lab/html'
 import { CanvasLanding, CanvasPlayground } from '@/features/lab/canvas'
 import { EvalPlayground } from '@/features/lab/eval/EvalPlayground'
 import { initializeTheme } from '@/features/shared'
@@ -34,10 +34,6 @@ const router = createBrowserRouter([
   // HTML Generator experiment
   {
     path: '/lab/html',
-    element: <HTMLLanding />,
-  },
-  {
-    path: '/lab/html/playground',
     element: <HTMLPlayground />,
   },
   // Living Canvas experiment

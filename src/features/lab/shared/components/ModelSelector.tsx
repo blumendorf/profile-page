@@ -24,6 +24,8 @@ export interface ModelConfig {
   description: string;
   /** Mark as recommended choice */
   recommended?: boolean;
+  /** Data type for transformers.js models (default: 'q4') */
+  dtype?: 'q4' | 'q4f16' | 'fp16' | 'fp32' | 'int8';
 }
 
 interface ModelSelectorProps {

@@ -3,6 +3,7 @@ import type { LLMEngine, ProgressCallback, TokenCallback, GenerationConfig } fro
 import { DEFAULT_GENERATION_CONFIG } from "./types";
 
 type TextGenPipeline = Awaited<ReturnType<typeof pipeline<"text-generation">>>;
+type DType = 'q4' | 'q4f16' | 'fp16' | 'fp32' | 'int8';
 
 /**
  * Transformers.js engine implementation using @huggingface/transformers
@@ -10,8 +11,11 @@ type TextGenPipeline = Awaited<ReturnType<typeof pipeline<"text-generation">>>;
 export class TransformersEngine implements LLMEngine {
   private generator: TextGenPipeline | null = null;
   private initPromise: Promise<void> | null = null;
+  private dtype: DType;
 
-  constructor(private modelId: string) {}
+  constructor(private modelId: string, dtype?: DType) {
+    this.dtype = dtype || 'q4';
+  }
 
   async initialize(onProgress?: ProgressCallback): Promise<void> {
     if (this.generator) return;
@@ -25,8 +29,9 @@ export class TransformersEngine implements LLMEngine {
     onProgress?.({ stage: 'downloading', progress: 0, text: 'Starting download...' });
 
     try {
+      console.log(`[transformers-engine] Loading model with dtype: ${this.dtype}`);
       this.generator = await pipeline("text-generation", this.modelId, {
-        dtype: "q4",
+        dtype: this.dtype,
         device: "webgpu",
         progress_callback: (progressData: { status: string; progress?: number; file?: string }) => {
           if (progressData.status === 'progress' && progressData.progress !== undefined) {

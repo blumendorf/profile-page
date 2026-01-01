@@ -12,7 +12,7 @@ export function createEngine(modelId: string = DEFAULT_MODEL_ID): LLMEngine {
   console.log(`[factory] Creating engine for model: ${config.name} (${config.backend})`);
 
   if (config.backend === 'transformers') {
-    return new TransformersEngine(config.modelId);
+    return new TransformersEngine(config.modelId, config.dtype);
   }
 
   return new WebLLMEngine(config.modelId);

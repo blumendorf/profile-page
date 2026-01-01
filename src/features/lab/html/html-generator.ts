@@ -1,31 +1,27 @@
 import type { LLMEngine, TokenCallback, GenerationConfig } from './llm';
 
-/** Generation config optimized for HTML output */
-const HTML_GENERATION_CONFIG: GenerationConfig = {
-  maxTokens: 600,
-  temperature: 0.25,
+/** Default generation config optimized for HTML output */
+export const DEFAULT_HTML_GENERATION_CONFIG: Required<Omit<GenerationConfig, 'stop'>> & Pick<GenerationConfig, 'stop'> = {
+  maxTokens: 1200,
+  temperature: 0.4,
   topP: 0.9,
   repetitionPenalty: 1.1,
   stop: ['</html>'],
 };
 
-// Profile data for the card
-const PROFILE = {
-  name: "Dr Marco Blumendorf",
-  title: "Director of Software Engineering",
-  headline: "Building AI-first engineering teams",
-};
-
-// Structured prompt with explicit rules and readable examples
-const SYSTEM_PROMPT = `You are a senior web developer. Modify the provided page according to the request. CREATE VALID HTML.
+/**
+ * Build the prompt with current HTML and user request
+ */
+function buildPrompt(currentHtml: string, request: string): string {
+  return `You are a senior web developer. Modify the provided page according to the request. Output ONLY the complete HTML document, no explanations.
 
 Current page:
-// inject the current html here
+${currentHtml}
 
+Request: ${request}
 
-Request:
-// inject the request here
-`;
+Output only the modified HTML:`;
+}
 
 /**
  * Clean HTML output from the model - fix common issues and extract the HTML
@@ -66,18 +62,6 @@ export function buildHTML(rawOutput: string): string {
   return html;
 }
 
-/**
- * Check if the output looks like valid HTML (basic check)
- */
-export function isValidHTML(html: string): boolean {
-  const lower = html.toLowerCase();
-  // Just check it has the basic structure - browser will handle the rest
-  return (
-    (lower.includes('<!doctype') || lower.includes('<html')) &&
-    lower.includes('<body')
-  );
-}
-
 // Default HTML for initial state
 export const DEFAULT_HTML = `<!DOCTYPE html>
 <html lang="en">
@@ -96,22 +80,17 @@ export const DEFAULT_HTML = `<!DOCTYPE html>
       justify-content: center;
       padding: 2rem;
     }
-    .card {
-      max-width: 500px;
-      padding: 2rem;
-      border: 1px solid #333;
-      border-radius: 1rem;
+    .container {
+      text-align: center;
     }
-    h1 { font-size: 2rem; margin-bottom: 0.5rem; }
-    .title { color: #f59e0b; margin-bottom: 1rem; }
-    .headline { opacity: 0.8; line-height: 1.6; }
+    h1 { font-size: 2rem; margin-bottom: 1rem; }
+    p { opacity: 0.7; }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>${PROFILE.name}</h1>
-    <p class="title">${PROFILE.title}</p>
-    <p class="headline">${PROFILE.headline}</p>
+  <div class="container">
+    <h1>Hello World</h1>
+    <p>Describe what you want to create...</p>
   </div>
 </body>
 </html>`;
@@ -134,21 +113,32 @@ export interface GenerationResult {
 
 /**
  * Generate HTML with streaming support
- * @param userIntent - User's style description
+ * @param request - User's modification request
+ * @param currentHtml - The current HTML to modify
  * @param engine - LLM engine to use for generation
  * @param onToken - Optional callback for streaming tokens
+ * @param config - Optional generation config (uses defaults if not provided)
  */
 export async function generateHTMLWithEngine(
-  userIntent: string,
+  request: string,
+  currentHtml: string,
   engine: LLMEngine,
-  onToken?: TokenCallback
+  onToken?: TokenCallback,
+  config?: GenerationConfig
 ): Promise<GenerationResult> {
+  // Merge with defaults, ensuring stop sequence is always present
+  const finalConfig: GenerationConfig = {
+    ...DEFAULT_HTML_GENERATION_CONFIG,
+    ...config,
+    stop: config?.stop ?? DEFAULT_HTML_GENERATION_CONFIG.stop,
+  };
+
   console.log('═══════════════════════════════════════════════════════════');
   console.log('[html-generator] generateHTMLWithEngine() called');
-  console.log('[html-generator] User Intent:', userIntent);
+  console.log('[html-generator] Request:', request);
   console.log('[html-generator] Model:', engine.getModelId());
 
-  const prompt = `${SYSTEM_PROMPT} "${userIntent}"`;
+  const prompt = buildPrompt(currentHtml, request);
   const startTime = Date.now();
   let tokenCount = 0;
 
@@ -168,9 +158,9 @@ export async function generateHTMLWithEngine(
 
   try {
     console.log('[html-generator] Calling engine.generate()...');
-    console.log('[html-generator] Config:', HTML_GENERATION_CONFIG);
+    console.log('[html-generator] Config:', finalConfig);
 
-    const response = await engine.generate(prompt, HTML_GENERATION_CONFIG, wrappedOnToken);
+    const response = await engine.generate(prompt, finalConfig, wrappedOnToken);
 
     const duration = Date.now() - startTime;
     console.log('[html-generator] ════════════════════════════════════════');
@@ -180,22 +170,18 @@ export async function generateHTMLWithEngine(
     console.log('────────────────────────────────────────');
     console.log(`[html-generator] Generation took ${duration}ms`);
 
-    // Clean up and process HTML output
+    // Clean up the output (extract HTML, fix common issues)
     const html = buildHTML(response);
-    const isValid = isValidHTML(html);
 
     console.log('[html-generator] ✓ HTML processed');
-    if (!isValid) {
-      console.log('[html-generator] ⚠ HTML may be incomplete but will be shown to user');
-    }
     console.log('═══════════════════════════════════════════════════════════');
 
     return {
       rawOutput: response,
       html,
-      isValid,
+      isValid: true, // Always render whatever the model produces
       generationTimeMs: duration,
-      tokenCount: tokenCount || Math.ceil(response.length / 4), // Rough estimate if not streaming
+      tokenCount: tokenCount || Math.ceil(response.length / 4),
     };
   } catch (error) {
     const duration = Date.now() - startTime;
@@ -206,8 +192,8 @@ export async function generateHTMLWithEngine(
 
     return {
       rawOutput: `Error: ${errorMessage}`,
-      html: DEFAULT_HTML,
-      isValid: false,
+      html: currentHtml, // Keep current HTML on error
+      isValid: true,
       generationTimeMs: duration,
       tokenCount: 0,
     };

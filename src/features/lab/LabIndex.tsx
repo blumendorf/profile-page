@@ -46,19 +46,19 @@ function ExperimentCard({ title, description, icon, href, accentColor, tag }: Ex
 export default function LabIndex() {
   const experiments = [
     {
-      title: 'Browser AI: Config',
-      description: 'A local AI model generates JSON to customize a profile page. The model runs entirely in your browser—no server needed.',
-      icon: <Settings2 size={24} className="text-amber-500" />,
-      href: '/lab/config',
-      accentColor: 'bg-amber-500/20',
-      tag: 'WebGPU',
-    },
-    {
       title: 'Browser AI: HTML',
-      description: 'A local AI model generates complete HTML and CSS, rendered live in an iframe. Same model, different output format.',
+      description: 'What happens when every web-page runs an LLM in the browser to influence its appearance?A local AI model generates complete HTML and CSS, rendered live in an iframe.',
       icon: <Code2 size={24} className="text-cyan-500" />,
       href: '/lab/html',
       accentColor: 'bg-cyan-500/20',
+      tag: 'WebGPU',
+    },
+    {
+      title: 'Browser AI: Config',
+      description: 'What happens when every web-page runs an LLM in the browser to influence its appearance? A local AI model generates JSON to customize a page\'s appearance within given limitations.',
+      icon: <Settings2 size={24} className="text-amber-500" />,
+      href: '/lab/config',
+      accentColor: 'bg-amber-500/20',
       tag: 'WebGPU',
     },
     {

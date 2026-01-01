@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Cpu } from 'lucide-react';
+import { Cpu, X } from 'lucide-react';
 
 interface DownloadProgressProps {
   stage: 'downloading' | 'loading' | 'ready';
@@ -9,6 +9,8 @@ interface DownloadProgressProps {
   downloadSizeGB?: number;
   /** Optional model name to display */
   modelName?: string;
+  /** Optional callback when user cancels the download */
+  onCancel?: () => void;
 }
 
 export function DownloadProgress({
@@ -16,12 +18,13 @@ export function DownloadProgress({
   progress,
   text,
   downloadSizeGB = 0.5,
-  modelName
+  modelName,
+  onCancel,
 }: DownloadProgressProps) {
   const sizeDownloaded = (progress / 100 * downloadSizeGB).toFixed(2);
 
   return (
-    <div className="fixed inset-0 bg-page/98 backdrop-blur-sm flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-page flex items-center justify-center z-50">
       <div className="max-w-md w-full p-8 text-center">
         <div className="mb-8 relative">
           <motion.div
@@ -64,6 +67,18 @@ export function DownloadProgress({
         <p className="text-text-muted text-xs mt-8">
           This only happens once. The model is cached in your browser.
         </p>
+
+        {onCancel && stage === 'downloading' && (
+          <button
+            onClick={onCancel}
+            className="mt-6 flex items-center gap-2 mx-auto px-4 py-2 text-sm text-text-muted
+                       hover:text-red-400 border border-border-subtle rounded-lg
+                       hover:border-red-400/50 transition-colors"
+          >
+            <X size={14} />
+            Cancel Download
+          </button>
+        )}
       </div>
     </div>
   );

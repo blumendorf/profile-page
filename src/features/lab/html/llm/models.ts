@@ -20,7 +20,6 @@ export const AVAILABLE_MODELS: ModelConfig[] = [
     downloadSizeGB: 0.5,
     memoryRequired: 4,
     description: 'Fast and lightweight, good for quick tests',
-    recommended: true,
   },
   {
     id: 'smollm-1.7b',
@@ -55,6 +54,51 @@ export const AVAILABLE_MODELS: ModelConfig[] = [
     memoryRequired: 6,
     description: 'High quality, larger model',
   },
+  {
+    id: 'llama-3b',
+    name: 'Llama 3.2 (3B)',
+    backend: 'webllm',
+    modelId: 'Llama-3.2-3B-Instruct-q4f16_1-MLC',
+    size: '3B',
+    downloadSize: '~1.8GB',
+    downloadSizeGB: 1.8,
+    memoryRequired: 6,
+    description: 'Higher quality Llama model',
+  },
+  {
+    id: 'qwen-coder-3b',
+    name: 'Qwen 2.5 Coder (3B)',
+    backend: 'webllm',
+    modelId: 'Qwen2.5-Coder-3B-Instruct-q4f16_1-MLC',
+    size: '3B',
+    downloadSize: '~1.8GB',
+    downloadSizeGB: 1.8,
+    memoryRequired: 6,
+    description: 'Optimized for code generation',
+    recommended: true,
+  },
+  {
+    id: 'qwen3-1.7b',
+    name: 'Qwen 3 (1.7B)',
+    backend: 'webllm',
+    modelId: 'Qwen3-1.7B-q4f16_1-MLC',
+    size: '1.7B',
+    downloadSize: '~1GB',
+    downloadSizeGB: 1.0,
+    memoryRequired: 4,
+    description: 'Latest Qwen architecture',
+  },
+  {
+    id: 'mistral-7b',
+    name: 'Mistral 7B',
+    backend: 'webllm',
+    modelId: 'Mistral-7B-Instruct-v0.3-q4f16_1-MLC',
+    size: '7B',
+    downloadSize: '~4GB',
+    downloadSizeGB: 4.0,
+    memoryRequired: 8,
+    description: 'High quality Mistral model',
+  },
 
   // ─────────────────────────────────────────────────────────────────
   // Transformers.js (ONNX) Models
@@ -65,10 +109,11 @@ export const AVAILABLE_MODELS: ModelConfig[] = [
     backend: 'transformers',
     modelId: 'onnx-community/Qwen2.5-0.5B-Instruct',
     size: '0.5B',
-    downloadSize: '~300MB',
-    downloadSizeGB: 0.3,
+    downloadSize: '~800MB',
+    downloadSizeGB: 0.8,
     memoryRequired: 2,
-    description: 'Fast and lightweight',
+    description: 'Fast and lightweight ONNX model',
+    dtype: 'q4',
   },
   {
     id: 'gemma-270m',
@@ -76,10 +121,11 @@ export const AVAILABLE_MODELS: ModelConfig[] = [
     backend: 'transformers',
     modelId: 'onnx-community/gemma-3-270m-it-ONNX',
     size: '270M',
-    downloadSize: '~200MB',
-    downloadSizeGB: 0.2,
+    downloadSize: '~570MB',
+    downloadSizeGB: 0.6,
     memoryRequired: 2,
-    description: 'Tiny, quick experiments',
+    description: 'Tiny Gemma model (fp16)',
+    dtype: 'fp16',
   },
   {
     id: 'gemma-1b',
@@ -87,10 +133,11 @@ export const AVAILABLE_MODELS: ModelConfig[] = [
     backend: 'transformers',
     modelId: 'onnx-community/gemma-3-1b-it-ONNX-GQA',
     size: '1B',
-    downloadSize: '~600MB',
-    downloadSizeGB: 0.6,
+    downloadSize: '~2GB',
+    downloadSizeGB: 2.0,
     memoryRequired: 4,
-    description: 'Balanced performance',
+    description: 'Balanced Gemma model (fp16)',
+    dtype: 'fp16',
   },
   {
     id: 'llama-3.2-1b-onnx',
@@ -101,12 +148,13 @@ export const AVAILABLE_MODELS: ModelConfig[] = [
     downloadSize: '~2.5GB',
     downloadSizeGB: 2.5,
     memoryRequired: 4,
-    description: 'Good quality with ONNX backend',
+    description: 'Good quality ONNX Llama (fp16)',
+    dtype: 'fp16',
   },
 ];
 
 /** Default model ID */
-export const DEFAULT_MODEL_ID = 'smollm-360m';
+export const DEFAULT_MODEL_ID = 'qwen-coder-3b';
 
 /**
  * Get model config by ID
