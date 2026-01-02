@@ -3,6 +3,12 @@ alwaysApply: true
 ---
 # Agent Context & Source of Truth
 
+**CRITICAL: These rules must be kept in sync with `.claude/claude.md` at all times.**
+
+When updating this file, you MUST also update:
+- `.claude/claude.md`
+- `.cursor/rules/conventions.mdc`
+
 The `agent-context/` directory contains the source of truth for this project's content, design, and background.
 
 - `agent-context/content.md`: Contains the exact text content for the website.
@@ -27,3 +33,12 @@ The `agent-context/` directory contains the source of truth for this project's c
 
 - If you are updating the content, you MUST update the `content.md` file to keep it in sync.
 - If you are modifying `src/pages/lab/**`, you MUST update `src/pages/lab/lab.md` to reflect the changes.
+
+---
+
+## AI Agent Synchronization
+
+**CRITICAL**: Any AI agent working on this project MUST keep rule files synchronized:
+- When updating this file, update `.claude/claude.md` and `.cursor/rules/conventions.mdc`
+- When updating other rule files, update this file
+- Verify all rule files are in sync before committing

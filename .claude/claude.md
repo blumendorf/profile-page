@@ -1,16 +1,43 @@
----
-description: React project structure, coding conventions, and workflow rules
-globs: ["**/*.tsx", "**/*.ts", "**/*.css", "**/*.json"]
-alwaysApply: true
----
+# Claude Code Rules & Conventions
 
-# React Conventions & Project Structure
-
-**CRITICAL: These rules must be kept in sync with `.claude/claude.md` at all times.**
+**CRITICAL: These rules must be kept in sync with `.cursor/rules/` at all times.**
 
 When updating this file, you MUST also update:
-- `.claude/claude.md`
 - `.cursor/rules/agent-context.mdc`
+- `.cursor/rules/conventions.mdc`
+
+When updating files in `.cursor/rules/`, you MUST also update this file.
+
+---
+
+## Agent Context & Source of Truth
+
+The `agent-context/` directory contains the source of truth for this project's content, design, and background.
+
+- `agent-context/content.md`: Contains the exact text content for the website.
+- `agent-context/design.md`: Contains the design philosophy, UX goals, visual identity, and specifications.
+- `agent-context/background/`: Contains background information (interview questions, overview, tech stack details).
+
+### Rules
+
+1. **Read First**: Before starting any significant task, check `agent-context/content.md` and `agent-context/design.md` to ensure alignment with the established source of truth.
+2. **Sync Content**: If you modify text in the codebase (`src/`), you MUST update `agent-context/content.md` to match, or verify it already matches. The markdown file is the master copy.
+3. **Sync Design**: If you change design tokens, layout, or visual patterns in `src/`, update `agent-context/design.md` to reflect these changes.
+4. **Consult Background**: When making decisions about tone, voice, or technical strategy, refer to `agent-context/background/` for context on the user's preferences and history.
+5. **Update Timestamp**: When updating `agent-context/content.md`, update the "Last synced" date and the Change Log at the bottom.
+
+### Workflow
+
+- **When implementing content:** Copy from `content.md` -> `src/`.
+- **When refining content:** Update `content.md` -> Then update `src/`.
+- **When changing design:** Update `design.md` -> Then implement in `src/`.
+
+### Important
+
+- If you are updating the content, you MUST update the `content.md` file to keep it in sync.
+- If you are modifying `src/pages/lab/**`, you MUST update `src/pages/lab/lab.md` to reflect the changes.
+
+---
 
 ## Core Technology Stack
 
@@ -143,15 +170,31 @@ Follow a 3-tier component architecture:
 
 ---
 
-## AI Agent Synchronization
+## AI Agent Synchronization Rules
 
-**CRITICAL**: Any AI agent working on this project MUST keep rule files synchronized:
-- When updating this file, update `.claude/claude.md` and `.cursor/rules/agent-context.mdc`
-- When updating other rule files, update this file
-- Verify all rule files are in sync before committing
+**CRITICAL REQUIREMENT**: Any AI agent (Claude, Cursor, or other) working on this project MUST:
 
+1. **Always read these rules** before starting any significant task
+2. **Keep rules synchronized** across all locations:
+   - `.claude/claude.md` (this file)
+   - `.cursor/rules/agent-context.mdc`
+   - `.cursor/rules/conventions.mdc`
+3. **When updating rules**:
+   - Update ALL rule files simultaneously
+   - Ensure content consistency across all files
+   - Preserve the specific formatting requirements of each file (frontmatter, MDC syntax, etc.)
+4. **Before committing changes** that involve rules:
+   - Verify all rule files are in sync
+   - Include all updated rule files in the commit
+
+### Rationale
 Different AI agents may read from different rule files:
 - Claude Code reads from `.claude/claude.md`
 - Cursor IDE reads from `.cursor/rules/*.mdc`
 
-Keeping these synchronized ensures consistent behavior across all AI tools.
+Keeping these synchronized ensures consistent behavior across all AI tools working on this project.
+
+---
+
+**Last Updated**: 2026-01-01
+**Version**: 1.0.0

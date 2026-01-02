@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, FlaskConical, Settings2, Code2, ArrowRight, Sparkles, TestTube2 } from 'lucide-react';
+import { ArrowLeft, FlaskConical, Code2, ArrowRight, TestTube2 } from 'lucide-react';
 
 interface ExperimentCardProps {
   title: string;
@@ -51,22 +51,6 @@ export default function LabIndex() {
       icon: <Code2 size={24} className="text-cyan-500" />,
       href: '/lab/html',
       accentColor: 'bg-cyan-500/20',
-      tag: 'WebGPU',
-    },
-    {
-      title: 'Browser AI: Config',
-      description: 'What happens when every web-page runs an LLM in the browser to influence its appearance? A local AI model generates JSON to customize a page\'s appearance within given limitations.',
-      icon: <Settings2 size={24} className="text-amber-500" />,
-      href: '/lab/config',
-      accentColor: 'bg-amber-500/20',
-      tag: 'WebGPU',
-    },
-    {
-      title: 'Living Canvas',
-      description: 'An ambient, continuously evolving visual experience. The model generates mood phrases that smoothly transform colors, energy, and atmosphere.',
-      icon: <Sparkles size={24} className="text-purple-500" />,
-      href: '/lab/canvas',
-      accentColor: 'bg-purple-500/20',
       tag: 'WebGPU',
     },
     {
