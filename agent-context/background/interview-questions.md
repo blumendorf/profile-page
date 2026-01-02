@@ -1,6 +1,6 @@
 # Interview Questions for Profile Page
 
-Answer these questions in your own voice—ramble if you want, be specific, skip the corporate filter. The goal is to capture how you actually think and talk, so the page sounds like you.
+Answer these questions in your own voice-ramble if you want, be specific, skip the corporate filter. The goal is to capture how you actually think and talk, so the page sounds like you.
 
 ---
 
@@ -99,7 +99,7 @@ For now, make sure AI can use your code base. If you want to stay relevant, you 
 
 ## 2. The Specific Story
 
-Tell me about a specific moment when you saw an engineer on your team "get it" with AI tools—or completely resist it. What happened? What did you learn from watching that?
+Tell me about a specific moment when you saw an engineer on your team "get it" with AI tools-or completely resist it. What happened? What did you learn from watching that?
 
 > **How this affects the website:** This becomes a concrete example in "The Shift" or "About" section. Stories are memorable; abstract claims are not. One good anecdote is worth ten bullet points.
 
@@ -111,11 +111,11 @@ see 1.
 
 ## 3. Your Actual Headline
 
-The current hero says: "I lead engineering teams through the AI transformation—building codebases that work with AI tools, and helping engineers adapt without losing their craft."
+The current hero says: "I lead engineering teams through the AI transformation-building codebases that work with AI tools, and helping engineers adapt without losing their craft."
 
 If you had to introduce yourself at a conference or to a new colleague, what would you actually say? Don't overthink it.
 
-> **How this affects the website:** This directly rewrites the Hero section headline—the first thing people read. It needs to sound like you said it, not like an AI wrote it.
+> **How this affects the website:** This directly rewrites the Hero section headline-the first thing people read. It needs to sound like you said it, not like an AI wrote it.
 
 **Your answer:**
 I have been researching human-computer interaction and distributed artificial intelligence for the last 20 years. Afterwards, I have been working in various berlin-based startups and medium to large companies, building mobile apps and iot platforms. I have also been working as a freelance consultant, helping startups and companies with their technical challenges. Most recently, I have been leading the software engineering team at CHAPTR, building AI-powered products for the publishing industry. I strongly believe that AI will transform the profession of software development. It will not replace developers, but if you master the tools, you will be able to do more in less time.
@@ -151,7 +151,7 @@ I built multiple mobile apps from scratch. I thrive in greenfield projects.
 
 What makes you roll your eyes when you hear other people talk about AI and engineering leadership? What's overblown, misunderstood, or just wrong?
 
-> **How this affects the website:** This informs the overall tone—what to avoid saying. It also might become a line in "The Shift" section that signals you're not just echoing the hype.
+> **How this affects the website:** This informs the overall tone-what to avoid saying. It also might become a line in "The Shift" section that signals you're not just echoing the hype.
 
 **Your answer:**
 People are talking about AI slop. This is temporary and a lot of people do not get the bigger picture of how AI will change the profession.
@@ -228,7 +228,7 @@ I work in a startup within the holtzbrink publishing group. We are the AI strate
 
 Is there something about how you work, what you care about, or who you are that we haven't touched on? Something that should probably be on the page but isn't?
 
-> **How this affects the website:** This catches blind spots—things I can't know to ask about but that might be central to your identity.
+> **How this affects the website:** This catches blind spots-things I can't know to ask about but that might be central to your identity.
 
 **Your answer:**
 

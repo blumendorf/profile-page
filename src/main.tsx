@@ -5,6 +5,8 @@ import App from './App'
 import LabIndex from '@/features/lab/LabIndex'
 import { HTMLPlayground } from '@/features/lab/html'
 import { EvalPlayground } from '@/features/lab/eval/EvalPlayground'
+import { CompareViewsPlayground } from '@/features/lab/compare'
+import { Impressum } from '@/features/home'
 import { initializeTheme } from '@/features/shared'
 import './index.css'
 
@@ -29,6 +31,16 @@ const router = createBrowserRouter([
   {
     path: '/lab/eval',
     element: <EvalPlayground />,
+  },
+  // Compare Views experiment
+  {
+    path: '/lab/compare',
+    element: <CompareViewsPlayground />,
+  },
+  // Impressum (Legal Notice)
+  {
+    path: '/impressum',
+    element: <Impressum />,
   },
 ])
 

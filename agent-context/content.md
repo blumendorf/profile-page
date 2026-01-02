@@ -1,8 +1,8 @@
-# Website Content — Source of Truth
+# Website Content - Source of Truth
 
 This file contains the target text for each section of blumendorf.info. Keep this file aligned with the actual implementation. When updating content, update here first, then sync to components.
 
-**Last synced:** December 31, 2024 (added Lab section)
+**Last synced:** January 2, 2026 (added Impressum)
 
 ---
 
@@ -76,9 +76,9 @@ About Me
 
 ### Personal Background
 ```
-I spent over a decade at TU-Berlin researching how to build adaptive user interfaces—systems that work across phones, tablets, smart homes, and respond to voice, touch, gestures. We called it multimodal interaction. Today, it's closer to what people mean by generative UI.
+I spent over a decade at TU-Berlin researching how to build adaptive user interfaces-systems that work across phones, tablets, smart homes, and respond to voice, touch, gestures. We called it multimodal interaction. Today, it's closer to what people mean by generative UI.
 
-After my PhD, I spent two years traveling, then moved into startups. I built engineering teams from scratch, scaled a smart home company, raised funding as CTO of an IoT energy platform, and worked as a freelance consultant across sustainability and tech. I've always preferred greenfield projects—building something new from nothing.
+After my PhD, I spent two years traveling, then moved into startups. I built engineering teams from scratch, scaled a smart home company, raised funding as CTO of an IoT energy platform, and worked as a freelance consultant across sustainability and tech. I've always preferred greenfield projects-building something new from nothing.
 
 Now I'm Director of Software Engineering at CHAPTR, a startup within the Holtzbrinck Publishing Group. We're Holtzbrinck's AI strategy. I work mainly on reedy.ai, a platform that uses AI to improve book metadata, optimize discoverability, and make large catalogs semantically searchable.
 ```
@@ -93,7 +93,7 @@ Your job hasn't changed: deliver code that you've proven works. What's changed i
 **Pillar 1**
 ```
 Title: Code that AI can reason about
-Description: Simple architecture, clear patterns, documentation about the why—not just the what.
+Description: Simple architecture, clear patterns, documentation about the why-not just the what.
 ```
 
 **Pillar 2**
@@ -210,7 +210,7 @@ Professional Journey
 ```
 Period: 1999–2010
 Title: Academic Foundations
-Description: PhD at TU-Berlin's DAI-Labor, researching adaptive user interfaces across devices and modalities—voice, touch, gestures, smart environments. Led the Human-Computer Interaction workgroup. Advised PhD students. What we worked on then is now called generative UI.
+Description: PhD at TU-Berlin's DAI-Labor, researching adaptive user interfaces across devices and modalities-voice, touch, gestures, smart environments. Led the Human-Computer Interaction workgroup. Advised PhD students. What we worked on then is now called generative UI.
 ```
 
 > **Personal element:** After PhD, spent two years traveling the world. (Could add if desired, but may be too casual for main timeline.)
@@ -219,7 +219,7 @@ Description: PhD at TU-Berlin's DAI-Labor, researching adaptive user interfaces 
 ```
 Period: 2010–2017
 Title: Startup Building
-Description: Built engineering teams from scratch. Scaled yetu AG's smart home development. Led smartB as CTO—raised funding, built an IoT platform for commercial energy management.
+Description: Built engineering teams from scratch. Scaled yetu AG's smart home development. Led smartB as CTO-raised funding, built an IoT platform for commercial energy management.
 ```
 
 ### Independent Practice (2017–2023)
@@ -239,8 +239,8 @@ Description: Co-founded as Sustainability Drinks at yetu in 2014. Became GreenBu
 ### CHAPTR (2023–Present)
 ```
 Period: 2023–Present
-Title: CHAPTR — AI in Publishing
-Description: Senior Engineer → Director of Software Engineering. CHAPTR is the AI strategy of Holtzbrinck Publishing Group. I lead the team building reedy.ai—AI-powered metadata optimization, discoverability, and semantic search for publishers.
+Title: CHAPTR - AI in Publishing
+Description: Senior Engineer → Director of Software Engineering. CHAPTR is the AI strategy of Holtzbrinck Publishing Group. I lead the team building reedy.ai-AI-powered metadata optimization, discoverability, and semantic search for publishers.
 ```
 
 ---
@@ -257,7 +257,7 @@ The Lab
 
 ### Intro Text
 ```
-A place for experiments and writeups—things I'm tinkering with, exploring, or just curious about. Some ideas turn into real projects, others stay as notes on what I've learned along the way.
+A place for experiments and writeups-things I'm tinkering with, exploring, or just curious about. Some ideas turn into real projects, others stay as notes on what I've learned along the way.
 ```
 
 > **Note:** The Lab is a general-purpose space, not themed around any specific topic. See `src/pages/lab/lab.md` for structure and details.
@@ -276,7 +276,7 @@ Get in Touch
 
 ### Intro Text
 ```
-I enjoy conversations about where software engineering is headed—especially the intersection of AI tooling, team culture, and building products that matter.
+I enjoy conversations about where software engineering is headed-especially the intersection of AI tooling, team culture, and building products that matter.
 ```
 
 ### Things I Like Talking About
@@ -288,9 +288,9 @@ I enjoy conversations about where software engineering is headed—especially th
 ```
 
 ### Contact Options
-- **Email:** marco@blumendorf.info (obfuscated in implementation) — "Best for longer conversations"
-- **LinkedIn:** linkedin.com/in/marcoblu — "Let's connect professionally"
-- **GitHub:** github.com/blumendorf — "See what I'm building"
+- **Email:** marco@blumendorf.info (obfuscated in implementation) - "Best for longer conversations"
+- **LinkedIn:** linkedin.com/in/marcoblu - "Let's connect professionally"
+- **GitHub:** github.com/blumendorf - "See what I'm building"
 
 
 ---
@@ -301,13 +301,50 @@ I enjoy conversations about where software engineering is headed—especially th
 
 ```
 © 2025 Dr Marco Blumendorf
+Impressum
 ```
+
+---
+
+## Impressum (Legal Notice)
+
+> **Component:** `src/features/home/components/Impressum.tsx`
+> **Route:** `/impressum`
+> **Context:** Legally required disclosure for German websites per § 5 DDG
+
+### Legal Information
+
+```
+Angaben gemäß § 5 DDG
+
+Dr. Marco Blumendorf
+Adresse auf Anfrage
+Deutschland
+
+Kontakt:
+E-Mail: marco@blumendorf.info
+Website: https://blumendorf.info
+
+Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:
+Dr. Marco Blumendorf
+```
+
+### Sections Included
+- Legal entity information (§ 5 DDG compliance)
+- Contact details (email, website)
+- Content responsibility declaration
+- Liability disclaimer (Haftungsausschluss) for content and external links
+- Copyright notice (Urheberrecht)
+- Data protection notice (Datenschutz)
+- EU Online Dispute Resolution link (Streitbeilegung)
+
+> **Legal Note:** This Impressum complies with German legal requirements under the Digital Services Act (DDG), which replaced the Telemediengesetz (TMG) in May 2024. The Impressum is accessible within 2 clicks from any page via the footer link.
 
 ---
 
 ## Content NOT on Site (Reference Only)
 
-Personal details from interview. Use sparingly or not at all—depends on desired tone.
+Personal details from interview. Use sparingly or not at all-depends on desired tone.
 
 ### Location
 - Lives in a village near Neuruppin, Brandenburg (moved out of Berlin)
@@ -366,6 +403,8 @@ When updating content:
 - [ ] Sync Timeline.tsx
 - [ ] Sync Lab.tsx
 - [ ] Sync Contact.tsx
+- [ ] Sync Footer.tsx
+- [ ] Sync Impressum.tsx (if legal content changes)
 - [ ] Update index.html meta tags if needed
 - [ ] Run tests
 - [ ] Update "Last synced" date
@@ -382,3 +421,4 @@ When updating content:
 | Dec 2024 | Merged The Shift + About sections, updated GreenBuzz (2014–2025), Expertise now uses full sentences, CTA changed to "Learn More" |
 | Dec 2024 | Restructured About: personal story first, then "What I've Learned" (thesis), then "What I Focus On" (pillars) |
 | Dec 31, 2024 | Added Lab section above Contact |
+| Jan 2, 2026 | Added Impressum (legal notice) per German DDG requirements |

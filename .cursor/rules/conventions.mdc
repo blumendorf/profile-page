@@ -69,9 +69,9 @@ features/{feature-name}/
 ### Component Hierarchy
 Follow a 3-tier component architecture:
 
-1. **Page Components** — Route entry points, minimal logic
-2. **Feature Components** — Domain logic, compose UI components
-3. **UI Components** — Reusable primitives in `components/ui/`
+1. **Page Components** - Route entry points, minimal logic
+2. **Feature Components** - Domain logic, compose UI components
+3. **UI Components** - Reusable primitives in `components/ui/`
 
 ### Where Things Go
 
@@ -130,10 +130,10 @@ Follow a 3-tier component architecture:
 4. Run `pnpm lint --fix` and fix remaining issues
 
 ### Code Organization Principles
-- **Colocate related code** — Keep components, hooks, types together
-- **Single responsibility** — Each file does one thing well
-- **Explicit exports** — Use `index.ts` barrel files for public APIs
-- **Keep it simple** — Don't over-abstract; refactor when needed
+- **Colocate related code** - Keep components, hooks, types together
+- **Single responsibility** - Each file does one thing well
+- **Explicit exports** - Use `index.ts` barrel files for public APIs
+- **Keep it simple** - Don't over-abstract; refactor when needed
 
 ---
 

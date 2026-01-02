@@ -33,7 +33,7 @@ const Lab = () => {
         transition={{ delay: 0.2 }}
         className="text-body mb-8 max-w-2xl"
       >
-        A place for experiments and writeups—things I'm tinkering with, exploring,
+        A place for experiments and writeups-things I'm tinkering with, exploring,
         or just curious about. Some ideas turn into real projects, others stay as notes
         on what I've learned along the way.
       </motion.p>

@@ -1,4 +1,4 @@
-# Design Concept — "The Engineer's Notebook"
+# Design Concept - "The Engineer's Notebook"
 
 ## 1. Design Philosophy
 
@@ -56,9 +56,9 @@
 ### Typography
 
 **Font Stack:**
-- **Headings:** `JetBrains Mono` or similar monospace — technical, distinctive
-- **Body:** System sans-serif (Inter fallback) — readable, clean
-- **Code/Accents:** `JetBrains Mono` — consistency with headings
+- **Headings:** `JetBrains Mono` or similar monospace - technical, distinctive
+- **Body:** System sans-serif (Inter fallback) - readable, clean
+- **Code/Accents:** `JetBrains Mono` - consistency with headings
 
 **Hierarchy:**
 - Hero name: Large, monospace, bold
@@ -229,7 +229,7 @@ The hero features an **interactive animated ring** around the profile image. Thi
 
 ### 4.9 JSON View (Developer Easter Egg)
 
-**Purpose:** A playful, developer-friendly alternative view that exposes the site's data structure as an interactive JSON API response. Reflects the "engineer's notebook" theme—showing that this is a site built by someone who thinks in data structures.
+**Purpose:** A playful, developer-friendly alternative view that exposes the site's data structure as an interactive JSON API response. Reflects the "engineer's notebook" theme-showing that this is a site built by someone who thinks in data structures.
 
 **Toggle:**
 - `JSON` button in navbar (both desktop and mobile)
@@ -398,7 +398,7 @@ The hero features an **interactive animated ring** around the profile image. Thi
 
 ## 9. Mood References
 
-- **Raycast** — Clean, dark, monospace headings
-- **Linear** — Generous spacing, purposeful motion
-- **Stripe docs** — Readable, well-organized
-- **Personal blogs of senior engineers** — Authentic, not polished to death
+- **Raycast** - Clean, dark, monospace headings
+- **Linear** - Generous spacing, purposeful motion
+- **Stripe docs** - Readable, well-organized
+- **Personal blogs of senior engineers** - Authentic, not polished to death

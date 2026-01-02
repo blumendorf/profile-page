@@ -1,4 +1,4 @@
-# Generative UI & Ephemeral Interfaces — Concept for Profile Page
+# Generative UI & Ephemeral Interfaces - Concept for Profile Page
 
 **Created:** December 31, 2024
 **Reference:** [Generative UI and the Ephemeral Interface](https://rogerwong.me/2025/11/generative-ui-and-the-ephemeral-interface/) by Roger Wong
@@ -7,7 +7,7 @@
 
 ## Executive Summary
 
-This document explores how the emerging paradigm of **Generative UI** and **Ephemeral Interfaces** could be applied to Marco Blumendorf's profile page. The timing is particularly apt: Marco's PhD research at TU-Berlin focused on adaptive user interfaces across devices and modalities—what was then called "multimodal interaction" is now closer to what we call "generative UI."
+This document explores how the emerging paradigm of **Generative UI** and **Ephemeral Interfaces** could be applied to Marco Blumendorf's profile page. The timing is particularly apt: Marco's PhD research at TU-Berlin focused on adaptive user interfaces across devices and modalities-what was then called "multimodal interaction" is now closer to what we call "generative UI."
 
 The core insight from Roger Wong's analysis: the valuable application of generative UI is not changing the "chrome" (navigation, layout structure) but generating **content experiences** dynamically. For a profile page, this means creating interactive, contextual, and personalized presentations of professional information while maintaining the stable, navigable structure visitors expect.
 
@@ -33,7 +33,7 @@ Changing chrome creates usability problems (violates Nielsen's consistency heuri
 
 ### Ephemeral = Temporary, Contextual
 
-These generated interfaces are not persistent—they're created for a specific user, query, or moment. Like a New York Times interactive data visualization, they exist to communicate a specific idea, then fade away.
+These generated interfaces are not persistent-they're created for a specific user, query, or moment. Like a New York Times interactive data visualization, they exist to communicate a specific idea, then fade away.
 
 ---
 
@@ -43,9 +43,9 @@ These generated interfaces are not persistent—they're created for a specific u
 
 Marco's PhD research was literally on adaptive user interfaces:
 
-> "I spent over a decade at TU-Berlin researching how to build adaptive user interfaces—systems that work across phones, tablets, smart homes, and respond to voice, touch, gestures. We called it multimodal interaction. Today, it's closer to what people mean by generative UI."
+> "I spent over a decade at TU-Berlin researching how to build adaptive user interfaces-systems that work across phones, tablets, smart homes, and respond to voice, touch, gestures. We called it multimodal interaction. Today, it's closer to what people mean by generative UI."
 
-A profile page that demonstrates these concepts isn't just a portfolio—it's a **living proof of expertise**.
+A profile page that demonstrates these concepts isn't just a portfolio-it's a **living proof of expertise**.
 
 ### 2. Current Work Relevance
 
@@ -188,7 +188,7 @@ Different audiences need different information prioritized.
 - Interactive diagram of architecture
 - Related timeline entries
 
-**Ephemeral Nature:** Not a static page that exists—generated on demand, tailored to visitor context, not cached long-term.
+**Ephemeral Nature:** Not a static page that exists-generated on demand, tailored to visitor context, not cached long-term.
 
 ---
 
@@ -390,7 +390,7 @@ From the article:
 
 Marco's profile page could be a small but meaningful demonstration: a static site that feels alive, adapts to visitors, and demonstrates expertise not just through content but through the experience itself.
 
-The key insight is that we're not replacing the carefully designed "Engineer's Notebook" aesthetic—we're adding a layer of contextual intelligence within it. The warm amber tones, the monospace headings, the considered whitespace all remain. What changes is how deeply and in what direction the content reveals itself based on who's looking.
+The key insight is that we're not replacing the carefully designed "Engineer's Notebook" aesthetic-we're adding a layer of contextual intelligence within it. The warm amber tones, the monospace headings, the considered whitespace all remain. What changes is how deeply and in what direction the content reveals itself based on who's looking.
 
 This is what Marco's PhD research anticipated. Now we have the tools to build it.
 
@@ -398,10 +398,10 @@ This is what Marco's PhD research anticipated. Now we have the tools to build it
 
 ## References
 
-- [Generative UI and the Ephemeral Interface](https://rogerwong.me/2025/11/generative-ui-and-the-ephemeral-interface/) — Roger Wong
-- [The Future of UX: Generative UI](https://www.nngroup.com/) — Nielsen Norman Group
-- [Google Gemini Generative UI Research Paper](https://research.google/) — Google Research
-- Marco's PhD Research — Adaptive UI & Distributed AI, DAI-Labor, TU Berlin
+- [Generative UI and the Ephemeral Interface](https://rogerwong.me/2025/11/generative-ui-and-the-ephemeral-interface/) - Roger Wong
+- [The Future of UX: Generative UI](https://www.nngroup.com/) - Nielsen Norman Group
+- [Google Gemini Generative UI Research Paper](https://research.google/) - Google Research
+- Marco's PhD Research - Adaptive UI & Distributed AI, DAI-Labor, TU Berlin
 
 ---
 

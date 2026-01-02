@@ -86,9 +86,9 @@ export const SplitView = ({ nonTechnicalContent, technicalContent, className = '
         {nonTechnicalContent}
       </div>
 
-      {/* Subtle Draggable Divider */}
+      {/* Prominent Draggable Divider */}
       <motion.div
-        className="absolute top-0 bottom-0 w-6 z-50 cursor-ew-resize flex items-center justify-center"
+        className="absolute top-0 bottom-0 w-8 z-50 cursor-ew-resize flex items-center justify-center"
         style={{ left: dividerLeft }}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
@@ -97,61 +97,70 @@ export const SplitView = ({ nonTechnicalContent, technicalContent, className = '
         onPointerEnter={() => setIsHoveringDivider(true)}
         onPointerLeave={() => setIsHoveringDivider(false)}
       >
-        {/* Thin divider line */}
+        {/* Divider line with shadow */}
         <motion.div
-          className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-px"
+          className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-0.5 rounded-full shadow-lg"
           style={{
-            background: 'linear-gradient(to bottom, transparent, var(--border-active) 15%, var(--border-active) 85%, transparent)'
+            background: 'linear-gradient(to bottom, transparent, var(--accent-primary) 10%, var(--accent-primary) 90%, transparent)'
           }}
           animate={{
-            opacity: isHoveringDivider ? 1 : 0.5,
+            opacity: isHoveringDivider ? 1 : 0.8,
+            width: isHoveringDivider ? '3px' : '2px',
           }}
         />
 
-        {/* Small circular handle */}
+        {/* Circular handle with shadow */}
         <motion.div
-          className="relative w-5 h-5 rounded-full bg-page border border-border-active
-                     flex items-center justify-center"
+          className="relative w-8 h-8 rounded-full bg-page border-2 border-accent
+                     flex items-center justify-center shadow-lg"
           animate={{
-            scale: isHoveringDivider ? 1.2 : 1,
-            borderColor: isHoveringDivider ? 'var(--accent-primary)' : 'var(--border-active)',
+            scale: isHoveringDivider ? 1.15 : 1,
+            boxShadow: isHoveringDivider
+              ? '0 4px 12px rgba(var(--accent-rgb, 139, 92, 246), 0.4)'
+              : '0 2px 8px rgba(0, 0, 0, 0.2)',
           }}
-          whileTap={{ scale: 0.9 }}
+          whileTap={{ scale: 0.95 }}
         >
-          {/* Two small dots */}
+          {/* Three dots for better visibility */}
           <div className="flex gap-0.5">
             <motion.div
-              className="w-0.5 h-0.5 rounded-full"
+              className="w-1 h-1 rounded-full bg-accent"
               animate={{
-                backgroundColor: isHoveringDivider ? 'var(--accent-primary)' : 'var(--text-muted)',
+                scale: isHoveringDivider ? 1.2 : 1,
               }}
             />
             <motion.div
-              className="w-0.5 h-0.5 rounded-full"
+              className="w-1 h-1 rounded-full bg-accent"
               animate={{
-                backgroundColor: isHoveringDivider ? 'var(--accent-primary)' : 'var(--text-muted)',
+                scale: isHoveringDivider ? 1.2 : 1,
               }}
             />
           </div>
         </motion.div>
 
-{/* Labels appear on hover - positioned above the line */}
+{/* Labels - positioned on opposite sides, visible on hover only */}
         <motion.div
-          className="absolute -top-6 left-1/2 -translate-x-[calc(100%+8px)] whitespace-nowrap"
+          className="absolute -top-10 right-full mr-3 whitespace-nowrap"
           initial={{ opacity: 0 }}
-          animate={{ opacity: isHoveringDivider ? 1 : 0 }}
+          animate={{
+            opacity: isHoveringDivider ? 1 : 0,
+            y: isHoveringDivider ? -2 : 0,
+          }}
         >
-          <span className="text-[10px] font-mono text-text-muted bg-page/90 px-1.5 py-0.5 rounded">
+          <span className="text-xs font-mono text-text-primary bg-page px-2 py-1 rounded border border-border-subtle shadow-md">
             non-technical
           </span>
         </motion.div>
 
         <motion.div
-          className="absolute -top-6 left-1/2 translate-x-2 whitespace-nowrap"
+          className="absolute -top-10 left-full ml-3 whitespace-nowrap"
           initial={{ opacity: 0 }}
-          animate={{ opacity: isHoveringDivider ? 1 : 0 }}
+          animate={{
+            opacity: isHoveringDivider ? 1 : 0,
+            y: isHoveringDivider ? -2 : 0,
+          }}
         >
-          <span className="text-[10px] font-mono text-text-muted bg-page/90 px-1.5 py-0.5 rounded">
+          <span className="text-xs font-mono text-text-primary bg-page px-2 py-1 rounded border border-border-subtle shadow-md">
             technical
           </span>
         </motion.div>

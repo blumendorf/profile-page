@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, FlaskConical, Code2, ArrowRight, TestTube2 } from 'lucide-react';
+import { ArrowLeft, FlaskConical, Code2, ArrowRight, TestTube2, SplitSquareHorizontal } from 'lucide-react';
 
 interface ExperimentCardProps {
   title: string;
@@ -61,6 +61,14 @@ export default function LabIndex() {
       accentColor: 'bg-green-500/20',
       tag: 'Testing',
     },
+    {
+      title: 'Compare Views',
+      description: 'Adaptive content presentation experiment. The same content tailored for different audiences-drag the divider to compare technical vs. non-technical perspectives.',
+      icon: <SplitSquareHorizontal size={24} className="text-purple-500" />,
+      href: '/lab/compare',
+      accentColor: 'bg-purple-500/20',
+      tag: 'UX',
+    },
   ];
 
   return (
@@ -83,7 +91,7 @@ export default function LabIndex() {
           </div>
           <h1 className="text-4xl font-bold mt-2 mb-4">The Lab</h1>
           <p className="text-text-muted text-lg leading-relaxed max-w-xl mx-auto">
-            A collection of experiments and writeups—things I'm tinkering with,
+            A collection of experiments and writeups-things I'm tinkering with,
             exploring, or just documenting for future reference.
           </p>
         </div>

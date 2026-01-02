@@ -13,8 +13,8 @@
   "about": {
     "heading": "About Me",
     "paragraphs": [
-      "I spent over a decade at TU-Berlin researching how to build adaptive user interfaces—systems that work across phones, tablets, smart homes, and respond to voice, touch, gestures. We called it multimodal interaction. Today, it's closer to what people mean by generative UI.",
-      "After my PhD, I spent two years traveling, then moved into startups. I built engineering teams from scratch, scaled a smart home company, raised funding as CTO of an IoT energy platform, and worked as a freelance consultant across sustainability and tech. I've always preferred greenfield projects—building something new from nothing.",
+      "I spent over a decade at TU-Berlin researching how to build adaptive user interfaces-systems that work across phones, tablets, smart homes, and respond to voice, touch, gestures. We called it multimodal interaction. Today, it's closer to what people mean by generative UI.",
+      "After my PhD, I spent two years traveling, then moved into startups. I built engineering teams from scratch, scaled a smart home company, raised funding as CTO of an IoT energy platform, and worked as a freelance consultant across sustainability and tech. I've always preferred greenfield projects-building something new from nothing.",
       "Now I'm Director of Software Engineering at CHAPTR, a startup within the Holtzbrinck Publishing Group. We're Holtzbrinck's AI strategy. I work mainly on reedy.ai, a platform that uses AI to improve book metadata, optimize discoverability, and make large catalogs semantically searchable."
     ],
     "quote": "Your job hasn't changed: deliver code that you've proven works. What's changed is how you get there.",
@@ -22,7 +22,7 @@
       {
         "icon": "Code",
         "title": "Code that AI can reason about",
-        "description": "Simple architecture, clear patterns, documentation about the why—not just the what."
+        "description": "Simple architecture, clear patterns, documentation about the why-not just the what."
       },
       {
         "icon": "Users",
@@ -35,56 +35,6 @@
         "description": "The one thing that still proves your code works, whether you wrote it or AI did."
       }
     ]
-  },
-  "aboutVariants": {
-    "nonTechnical": {
-      "paragraphs": [
-        "20+ years in software engineering, from academic research to startup leadership to enterprise AI strategy. I've built engineering organizations from scratch and scaled them through growth phases.",
-        "Track record: Led a smart home development team from 2 to 18 engineers. Raised funding as CTO. Now directing software engineering at a Holtzbrinck Publishing Group company, leading their AI product strategy.",
-        "I focus on developer experience, team culture, and bridging the gap between product vision and technical execution. My teams ship quality code while maintaining velocity."
-      ],
-      "pillars": [
-        {
-          "icon": "Briefcase",
-          "title": "Scaled teams 2 → 18",
-          "description": "Built engineering organizations from scratch at multiple startups through growth phases."
-        },
-        {
-          "icon": "Users",
-          "title": "Bridge product & engineering",
-          "description": "Translate business needs into technical strategy and delivery milestones."
-        },
-        {
-          "icon": "TrendingUp",
-          "title": "AI strategy at enterprise scale",
-          "description": "Leading AI product development for Holtzbrinck Publishing Group."
-        }
-      ]
-    },
-    "technical": {
-      "paragraphs": [
-        "My PhD at TU-Berlin was on adaptive user interfaces—what we now call generative UI. I spent a decade building systems that work across devices and modalities: voice, touch, gestures, smart environments.",
-        "These days I'm at CHAPTR building reedy.ai. The stack is React/TypeScript frontend, Python backend, heavy LLM integration (OpenAI, Claude, Cohere). We use Firestore, BigQuery, Typesense for data and search.",
-        "My current obsession: structuring codebases so AI tools can actually help. Simple architecture, clear patterns, documentation about why—not just what. Tests are the ultimate lifeline."
-      ],
-      "pillars": [
-        {
-          "icon": "Code",
-          "title": "Code that AI can reason about",
-          "description": "Simple architecture, clear patterns, documentation about the why—not just the what."
-        },
-        {
-          "icon": "Cpu",
-          "title": "LLM-first development",
-          "description": "OpenAI, Claude, Cohere, LangChain—integrating AI into production systems daily."
-        },
-        {
-          "icon": "TestTube",
-          "title": "Tests as the ultimate lifeline",
-          "description": "The one thing that still proves your code works, whether you wrote it or AI did."
-        }
-      ]
-    }
   },
   "expertise": {
     "heading": "Areas of Focus",
@@ -142,8 +92,8 @@
     "phases": [
       {
         "period": "2023–Present",
-        "title": "CHAPTR — AI in Publishing",
-        "description": "Senior Engineer → Director of Software Engineering. CHAPTR is the AI strategy of Holtzbrinck Publishing Group. I lead the team building reedy.ai—AI-powered metadata optimization, discoverability, and semantic search for publishers.",
+        "title": "CHAPTR - AI in Publishing",
+        "description": "Senior Engineer → Director of Software Engineering. CHAPTR is the AI strategy of Holtzbrinck Publishing Group. I lead the team building reedy.ai-AI-powered metadata optimization, discoverability, and semantic search for publishers.",
         "isCurrent": true
       },
       {
@@ -159,22 +109,22 @@
       {
         "period": "2010–2017",
         "title": "Startup Building",
-        "description": "Built engineering teams from scratch. Scaled yetu AG's smart home development. Led smartB as CTO—raised funding, built an IoT platform for commercial energy management."
+        "description": "Built engineering teams from scratch. Scaled yetu AG's smart home development. Led smartB as CTO-raised funding, built an IoT platform for commercial energy management."
       },
       {
         "period": "1999–2010",
         "title": "Academic Foundations",
-        "description": "PhD at TU-Berlin's DAI-Labor, researching adaptive user interfaces across devices and modalities—voice, touch, gestures, smart environments. Led the Human-Computer Interaction workgroup. What we worked on then is now called generative UI."
+        "description": "PhD at TU-Berlin's DAI-Labor, researching adaptive user interfaces across devices and modalities-voice, touch, gestures, smart environments. Led the Human-Computer Interaction workgroup. What we worked on then is now called generative UI."
       }
     ]
   },
   "lab": {
     "heading": "The Lab",
-    "intro": "A place for experiments and writeups—things I'm tinkering with, exploring, or just curious about. Some ideas turn into real projects, others stay as notes on what I've learned along the way."
+    "intro": "A place for experiments and writeups-things I'm tinkering with, exploring, or just curious about. Some ideas turn into real projects, others stay as notes on what I've learned along the way."
   },
   "contact": {
     "heading": "Get in Touch",
-    "intro": "I enjoy conversations about where software engineering is headed—especially the intersection of AI tooling, team culture, and building products that matter.",
+    "intro": "I enjoy conversations about where software engineering is headed-especially the intersection of AI tooling, team culture, and building products that matter.",
     "topics": [
       "How AI is changing engineering",
       "Building developer experience that scales",

@@ -4,9 +4,9 @@
 
 ## Purpose
 
-The Lab is a **general-purpose space for experiments and writeups**—things I'm tinkering with, exploring, or documenting. Some ideas turn into real projects, others stay as notes on what I've learned along the way.
+The Lab is a **general-purpose space for experiments and writeups**-things I'm tinkering with, exploring, or documenting. Some ideas turn into real projects, others stay as notes on what I've learned along the way.
 
-Not tied to any specific theme—it's simply where I put things I'm working on outside of main projects.
+Not tied to any specific theme-it's simply where I put things I'm working on outside of main projects.
 
 ## Main Page Section
 
@@ -171,7 +171,7 @@ The AI generates CSS styles based on the user's style description. These styles 
 
 An ever-changing, breathing visual canvas where the AI continuously generates short atmospheric phrases. These phrases are interpreted (not executed) to control colors, animation speeds, and visual chaos.
 
-**Key Insight:** Small models excel at evocative phrases—they don't need to follow complex instructions. The system interprets their output fuzzy-matches for colors, energy levels, and moods. "Wrong" outputs become artistic surprises.
+**Key Insight:** Small models excel at evocative phrases-they don't need to follow complex instructions. The system interprets their output fuzzy-matches for colors, energy levels, and moods. "Wrong" outputs become artistic surprises.
 
 **How it works:**
 1. Model continuously generates short phrases (e.g., "warm sunset calm flowing")

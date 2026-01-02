@@ -21,9 +21,17 @@ const Footer = () => {
             <span>The Lab</span>
           </Link>
 
-          <p className="text-center text-text-muted text-sm font-mono">
-            © {currentYear} Dr Marco Blumendorf. All rights reserved.
-          </p>
+          <div className="flex flex-col items-center gap-2">
+            <p className="text-center text-text-muted text-sm font-mono">
+              © {currentYear} Dr Marco Blumendorf. All rights reserved.
+            </p>
+            <Link
+              to="/impressum"
+              className="text-text-muted text-xs hover:text-accent transition-colors"
+            >
+              Impressum
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

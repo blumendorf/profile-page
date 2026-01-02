@@ -1,4 +1,4 @@
-# Background Research — Dr. Marco Blumendorf
+# Background Research - Dr. Marco Blumendorf
 
 This file contains research gathered from public sources to inform the profile page content. Use this as reference when updating content or verifying facts.
 
@@ -51,8 +51,8 @@ This file contains research gathered from public sources to inform the profile p
 - **Research Focus:** Seamless home services, multimodal interfaces, smart environments
 
 ### Notable Publications
-1. **"Seamless Home Services"** — AmI.d 2006 Conference, Sophia Antipolis, France
-2. **"Bridging the Gap between Model and Design of User Interfaces"** — INFORMATIK 2006 Conference
+1. **"Seamless Home Services"** - AmI.d 2006 Conference, Sophia Antipolis, France
+2. **"Bridging the Gap between Model and Design of User Interfaces"** - INFORMATIK 2006 Conference
 3. Workshop: "Modellbasierte Entwicklung von Interaktionsanwendungen" (Model-based Development of Interaction Applications)
 
 ### Academic Contributions
@@ -63,11 +63,11 @@ This file contains research gathered from public sources to inform the profile p
 
 ## Startup Career (2010–2017)
 
-### yetu AG — Smart Home
+### yetu AG - Smart Home
 - **Period:** ~2010–2014
 - **Role:** Engineering leadership
 - **Achievement:** Scaled smart home development team from 2 to 18 engineers
-- **Notable:** Company had a "10% social time" policy — employees spent 10% of work time on social projects of their choice
+- **Notable:** Company had a "10% social time" policy - employees spent 10% of work time on social projects of their choice
 - **Social Project:** Started "Sustainability Drinks" (later became GreenBuzz Berlin) with Florian Weingarten
 
 ### smartB Energy Management GmbH
@@ -191,7 +191,7 @@ AI in software development is the next level of abstraction, following:
 - "We're used to trusting code we didn't write" (libraries, dependencies)
 - "Once we trust AI-generated code, will we still read it?"
 - "AI is like a junior developer who reads a lot but knows nothing about your product"
-- Tests are the "ultimate lifeline" — the one thing that proves code works
+- Tests are the "ultimate lifeline" - the one thing that proves code works
 
 ### What He Builds For
 - Codebases AI can reason about
@@ -242,7 +242,7 @@ AI in software development is the next level of abstraction, following:
 
 ### Unique Differentiators
 1. **Rare combination:** PhD in AI research + 20+ years practical engineering + current AI product work
-2. **Living the transformation:** Not theorizing about AI in engineering — actually leading teams through it
+2. **Living the transformation:** Not theorizing about AI in engineering - actually leading teams through it
 3. **Academic connection to today:** PhD research on adaptive UI is directly relevant to generative UI
 4. **Non-tech dimension:** Sustainability work through GreenBuzz (shows values beyond tech)
 
