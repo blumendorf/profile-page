@@ -11,6 +11,17 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
+  // Snapshot settings for visual regression tests
+  snapshotDir: './e2e/snapshots',
+  snapshotPathTemplate: '{snapshotDir}/{testFilePath}/{arg}{ext}',
+  expect: {
+    toHaveScreenshot: {
+      // Allow slight differences due to anti-aliasing
+      maxDiffPixelRatio: 0.01,
+      // Animations should be disabled in tests
+      animations: 'disabled',
+    },
+  },
   use: {
     baseURL: 'http://localhost:5173',
     trace: 'on-first-retry',

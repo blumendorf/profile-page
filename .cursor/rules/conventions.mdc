@@ -202,6 +202,23 @@ E2E tests are located in `e2e/` and use Playwright.
 - JSON view mode → `e2e/json-view.spec.ts`
 - Responsive layouts → `e2e/responsive.spec.ts`
 - Accessibility → `e2e/accessibility.spec.ts`
+- Visual regression → `e2e/visual-regression.spec.ts`
+
+### Visual Regression Tests
+
+Visual regression tests use Playwright's screenshot comparison to catch unintended design changes.
+
+**Snapshots location:** `e2e/snapshots/visual-regression.spec.ts/`
+
+**When to update snapshots:**
+- After intentional design changes, run: `pnpm exec playwright test e2e/visual-regression.spec.ts --update-snapshots --project=chromium`
+- Review the updated snapshots before committing to ensure changes are intentional
+
+**What's tested:**
+- Full page screenshots (desktop, tablet, mobile)
+- Individual sections (hero, about, expertise, tech-stack, contact)
+- Navigation (desktop bar, mobile closed/open states)
+- Footer
 
 ### Code Organization Principles
 - **Colocate related code** - Keep components, hooks, types together
