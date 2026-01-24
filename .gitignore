@@ -23,6 +23,3 @@ dist-ssr
 *.sln
 *.sw?
 
-# Large source images (use compressed versions instead)
-public/og-image-1.png
-public/og-image-2.png
