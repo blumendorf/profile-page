@@ -78,6 +78,7 @@ The following files provide content for LLM crawlers and must stay in sync with 
 ### Testing
 - **Unit/Integration**: Vitest 3
 - **Component Testing**: Testing Library (React)
+- **E2E Testing**: Playwright
 
 ### Deployment
 - **Platform**: GitHub Pages (static export)
@@ -174,8 +175,25 @@ Follow a 3-tier component architecture:
 2. Update `/src/features/lab/lab.md` when modifying lab features
 3. Update `public/sitemap.xml` when adding/removing/renaming pages
 4. Update `public/llms.txt` and `public/llms-full.txt` when content changes
-5. Run `pnpm test`
-6. Run `pnpm lint --fix` and fix remaining issues
+5. Run `pnpm test` (unit tests)
+6. Run `pnpm test:e2e` (E2E tests) when modifying homepage
+7. Run `pnpm lint --fix` and fix remaining issues
+
+### E2E Tests
+
+E2E tests are located in `e2e/` and use Playwright.
+
+**When modifying homepage components:**
+1. Run `pnpm test:e2e` to ensure tests pass
+2. If adding new UI elements or features, add corresponding E2E tests
+3. If removing features, remove or update related tests
+
+**Test file mapping:**
+- Homepage sections → `e2e/homepage.spec.ts`
+- Navigation behavior → `e2e/navigation.spec.ts`
+- JSON view mode → `e2e/json-view.spec.ts`
+- Responsive layouts → `e2e/responsive.spec.ts`
+- Accessibility → `e2e/accessibility.spec.ts`
 
 ### Code Organization Principles
 - **Colocate related code** - Keep components, hooks, types together
@@ -217,4 +235,4 @@ Keeping these synchronized ensures consistent behavior across all AI tools worki
 ---
 
 **Last Updated**: 2026-01-24
-**Version**: 1.1.0
+**Version**: 1.2.0

@@ -123,23 +123,6 @@ describe('App', () => {
     })
   })
 
-  describe('Theme Toggle', () => {
-    it('toggles between dark and light mode', () => {
-      renderWithRouter(<App />)
-
-      // Initially should be in dark mode (based on system preference or default)
-      const themeToggle = screen.getAllByRole('button', { name: /Switch to (light|dark) mode/i })[0]
-      expect(themeToggle).toBeInTheDocument()
-
-      // Click to toggle theme
-      fireEvent.click(themeToggle)
-
-      // Theme should have toggled (localStorage should be updated)
-      const theme = localStorage.getItem('theme')
-      expect(theme).toBeDefined()
-    })
-  })
-
   describe('Contact Buttons', () => {
     beforeEach(() => {
       vi.spyOn(window, 'atob')

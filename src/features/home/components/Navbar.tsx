@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTheme } from '@/features/shared';
 
 const navItems = [
   { label: 'Home', href: '#home' },
@@ -43,7 +42,6 @@ interface NavbarProps {
 
 const Navbar = ({ isJsonMode, onToggleJsonMode, onNavigateInJsonMode, focusedJsonSection }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { isDark, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
@@ -201,14 +199,6 @@ const Navbar = ({ isJsonMode, onToggleJsonMode, onNavigateInJsonMode, focusedJso
             >
               {isJsonMode ? '{JSON}' : 'JSON'}
             </button>
-            <div className="w-px h-4 bg-border-subtle mx-2" />
-            <button
-              onClick={toggleTheme}
-              className="p-2 text-text-muted hover:text-accent rounded-md transition-colors focus-ring"
-              aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-            >
-              {isDark ? <Sun size={16} /> : <Moon size={16} />}
-            </button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -222,13 +212,6 @@ const Navbar = ({ isJsonMode, onToggleJsonMode, onNavigateInJsonMode, focusedJso
               }`}
             >
               JSON
-            </button>
-            <button
-              onClick={toggleTheme}
-              className="p-2 text-text-muted hover:text-accent rounded-md transition-colors"
-              aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-            >
-              {isDark ? <Sun size={16} /> : <Moon size={16} />}
             </button>
             <button
               onClick={() => setIsOpen(!isOpen)}

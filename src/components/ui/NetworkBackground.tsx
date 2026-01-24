@@ -60,21 +60,12 @@ const NetworkBackground = ({
 
     const updateThemeColors = () => {
       const style = getComputedStyle(document.documentElement);
-
-      // Read CSS variables
       const accent = style.getPropertyValue('--accent-primary').trim() || '#f59e0b';
 
-      const isDark = document.documentElement.classList.contains('dark');
-
-      if (isDark) {
-        nodeColor = 'rgba(168, 162, 158, 0.3)'; // Stone 400
-        lineColor = 'rgba(168, 162, 158, 0.1)';
-      } else {
-        nodeColor = 'rgba(120, 113, 108, 0.3)'; // Stone 500
-        lineColor = 'rgba(120, 113, 108, 0.1)';
-      }
-
-      highlightColor = accent; // We'll handle opacity for this in the draw loop
+      // Dark mode colors
+      nodeColor = 'rgba(168, 162, 158, 0.3)'; // Stone 400
+      lineColor = 'rgba(168, 162, 158, 0.1)';
+      highlightColor = accent;
     };
 
     // Initialize points
@@ -190,17 +181,6 @@ const NetworkBackground = ({
       animationFrameId = requestAnimationFrame(draw);
     };
 
-    // Watch for theme changes
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-          updateThemeColors();
-        }
-      });
-    });
-
-    observer.observe(document.documentElement, { attributes: true });
-
     // Initialize
     handleResize();
     window.addEventListener('resize', handleResize);
@@ -211,7 +191,6 @@ const NetworkBackground = ({
     draw();
 
     return () => {
-      observer.disconnect();
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseout', handleMouseLeave);

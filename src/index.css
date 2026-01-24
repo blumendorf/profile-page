@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  /* Dark mode (default) - Warm charcoal palette */
+  /* Dark mode - Warm charcoal palette */
   :root {
     /* Backgrounds */
     --bg-page: #1a1814;
@@ -22,20 +22,6 @@
     /* Borders */
     --border-subtle: #44403c;
     --border-active: #57534e;
-  }
-
-  /* Light mode overrides - warm paper/cream tones */
-  html:not(.dark) {
-    --bg-page: #e8e3db;
-    --bg-card: #f0ebe3;
-    --bg-surface: #ddd8d0;
-
-    --text-primary: #1c1917;
-    --text-secondary: #44403c;
-    --text-muted: #78716c;
-
-    --border-subtle: #d1ccc4;
-    --border-active: #c2bdb5;
   }
 
   html {
@@ -290,25 +276,6 @@
       border-radius: 16px;
       corner-shape: squircle;
     }
-  }
-
-  /* Light mode adjustment - softer shine */
-  html:not(.dark) .shine-card::after {
-    box-shadow:
-      0 0 2px 1px hsl(0 0% 0% / 0.08) inset,
-      0 0 6px 0 hsl(0 0% 0% / 0.04) inset;
-    mask: linear-gradient(
-      var(--shine-angle),
-      hsl(0 0% 0% / 0.15),
-      hsl(0 0% 0% / 0.05) 30%,
-      transparent 50%
-    );
-    -webkit-mask: linear-gradient(
-      var(--shine-angle),
-      hsl(0 0% 0% / 0.15),
-      hsl(0 0% 0% / 0.05) 30%,
-      transparent 50%
-    );
   }
 }
 

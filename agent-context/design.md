@@ -22,10 +22,10 @@
 
 ### Color Palette
 
-**Theme:** Warm earth tones + amber accent. Feels like a coffee-stained notebook, not a sterile SaaS dashboard.
+**Theme:** Warm earth tones + amber accent. Dark mode only. Feels like a coffee-stained notebook, not a sterile SaaS dashboard.
 
 ```css
-/* Dark Mode (Default) */
+/* Dark Mode */
 --bg-page: #1a1814;        /* Warm charcoal */
 --bg-card: #242019;        /* Lighter charcoal */
 --bg-surface: #2e2a24;     /* Surface for cards */
@@ -39,18 +39,6 @@
 
 --border-subtle: #44403c;  /* Stone 700 */
 --border-active: #57534e;  /* Stone 600 */
-
-/* Light Mode - warm paper/cream tones */
---bg-page: #e8e3db;        /* Warm muted paper */
---bg-card: #f0ebe3;        /* Soft cream card */
---bg-surface: #ddd8d0;     /* Warm muted surface */
-
---text-primary: #1c1917;   /* Stone 900 */
---text-secondary: #44403c; /* Stone 700 */
---text-muted: #78716c;     /* Stone 500 */
-
---border-subtle: #d1ccc4;  /* Warm muted border */
---border-active: #c2bdb5;  /* Active warm border */
 ```
 
 ### Typography
@@ -121,7 +109,6 @@ The hero features an **interactive animated ring** around the profile image. Thi
 - Logo: `Dr Marco Blumendorf.` in monospace (amber accent on period)
 - Links: Text only, horizontal on desktop, hamburger on mobile
 - JSON Mode toggle: `JSON` / `{JSON}` button to switch views
-- Theme toggle: Simple sun/moon icon
 
 **Behavior:**
 - Transparent by default
@@ -305,7 +292,6 @@ The hero features an **interactive animated ring** around the profile image. Thi
 - Pointer tracking rotates the shine angle based on mouse position
 - Falls back to static angle when pointer leaves
 - Supports `corner-shape: squircle` for modern browsers
-- Light/dark mode variants with appropriate shadow intensity
 
 **useShineEffect Hook:**
 - Reusable hook for mouse-tracking shine effects
@@ -333,7 +319,7 @@ The hero features an **interactive animated ring** around the profile image. Thi
 - Lines connect nearby nodes (within `connectionDistance`)
 - Mouse proximity creates amber highlight connections
 - Nodes gently repelled when mouse is very close
-- Theme-aware: adjusts colors for light/dark mode
+- Dark mode optimized colors
 - Hidden in JSON mode (performance optimization)
 
 **Reduce Motion:**
@@ -346,7 +332,7 @@ The hero features an **interactive animated ring** around the profile image. Thi
 
 - Semantic HTML throughout
 - Focus rings on all interactive elements
-- Sufficient color contrast (test amber on both themes)
+- Sufficient color contrast (amber on dark theme)
 - Keyboard navigable
 - Screen reader friendly (ARIA labels on interactive elements)
 - JSON view is keyboard-navigable (collapsible nodes)
