@@ -409,16 +409,3 @@ When updating content:
 - [ ] Run tests
 - [ ] Update "Last synced" date
 
----
-
-## Change Log
-
-| Date | Changes |
-|------|---------|
-| Dec 2024 | Initial draft based on concept.md |
-| Dec 2024 | Revised with interview answers |
-| Dec 2024 | **Full revision** incorporating interview-questions.md, background.md, tech-stack.md |
-| Dec 2024 | Merged The Shift + About sections, updated GreenBuzz (2014–2025), Expertise now uses full sentences, CTA changed to "Learn More" |
-| Dec 2024 | Restructured About: personal story first, then "What I've Learned" (thesis), then "What I Focus On" (pillars) |
-| Dec 31, 2024 | Added Lab section above Contact |
-| Jan 2, 2026 | Added Impressum (legal notice) per German DDG requirements |

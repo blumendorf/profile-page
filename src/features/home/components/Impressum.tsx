@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import { siteData } from '@/lib/data';
 
 const Impressum = () => {
@@ -13,6 +15,14 @@ const Impressum = () => {
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-3xl mx-auto px-6 sm:px-8 py-16">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 text-text-muted hover:text-accent transition-colors mb-8"
+        >
+          <ArrowLeft size={16} />
+          <span className="text-sm">Back to profile</span>
+        </Link>
+
         <h1 className="text-4xl font-bold text-text-primary mb-8">
           Impressum
         </h1>
@@ -68,7 +78,6 @@ const Impressum = () => {
             </h2>
             <div className="text-text-secondary">
               <p>Dr. Marco Blumendorf</p>
-              <p>Adresse wie oben</p>
             </div>
           </section>
 

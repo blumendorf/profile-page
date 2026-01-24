@@ -1,12 +1,10 @@
 # Claude Code Rules & Conventions
 
-**CRITICAL: These rules must be kept in sync with `.cursor/rules/` at all times.**
+**CRITICAL: These rules must be kept in sync with `.cursor/rules/conventions.mdc` at all times.**
 
-When updating this file, you MUST also update:
-- `.cursor/rules/agent-context.mdc`
-- `.cursor/rules/conventions.mdc`
+When updating this file, you MUST also update `.cursor/rules/conventions.mdc`.
 
-When updating files in `.cursor/rules/`, you MUST also update this file.
+When updating `.cursor/rules/conventions.mdc`, you MUST also update this file.
 
 ---
 
@@ -36,6 +34,13 @@ The `agent-context/` directory contains the source of truth for this project's c
 
 - If you are updating the content, you MUST update the `content.md` file to keep it in sync.
 - If you are modifying `src/pages/lab/**`, you MUST update `src/pages/lab/lab.md` to reflect the changes.
+
+### Sitemap
+
+The sitemap is located at `public/sitemap.xml`. When adding, removing, or renaming pages/routes:
+1. Update `public/sitemap.xml` to reflect the new structure
+2. Update the `<lastmod>` date for changed pages
+3. Ensure all routes in `src/main.tsx` are represented in the sitemap
 
 ---
 
@@ -153,8 +158,9 @@ Follow a 3-tier component architecture:
 ### Before Committing
 1. Update docs in `/agent-context` when modifying content/design
 2. Update `/src/features/lab/lab.md` when modifying lab features
-3. Run `pnpm test`
-4. Run `pnpm lint --fix` and fix remaining issues
+3. Update `public/sitemap.xml` when adding/removing/renaming pages
+4. Run `pnpm test`
+5. Run `pnpm lint --fix` and fix remaining issues
 
 ### Code Organization Principles
 - **Colocate related code** - Keep components, hooks, types together
@@ -175,26 +181,25 @@ Follow a 3-tier component architecture:
 **CRITICAL REQUIREMENT**: Any AI agent (Claude, Cursor, or other) working on this project MUST:
 
 1. **Always read these rules** before starting any significant task
-2. **Keep rules synchronized** across all locations:
+2. **Keep rules synchronized** across both locations:
    - `.claude/claude.md` (this file)
-   - `.cursor/rules/agent-context.mdc`
    - `.cursor/rules/conventions.mdc`
 3. **When updating rules**:
-   - Update ALL rule files simultaneously
-   - Ensure content consistency across all files
+   - Update BOTH rule files simultaneously
+   - Ensure content consistency across both files
    - Preserve the specific formatting requirements of each file (frontmatter, MDC syntax, etc.)
 4. **Before committing changes** that involve rules:
-   - Verify all rule files are in sync
-   - Include all updated rule files in the commit
+   - Verify both rule files are in sync
+   - Include both updated rule files in the commit
 
 ### Rationale
 Different AI agents may read from different rule files:
 - Claude Code reads from `.claude/claude.md`
-- Cursor IDE reads from `.cursor/rules/*.mdc`
+- Cursor IDE reads from `.cursor/rules/conventions.mdc`
 
 Keeping these synchronized ensures consistent behavior across all AI tools working on this project.
 
 ---
 
-**Last Updated**: 2026-01-01
+**Last Updated**: 2026-01-02
 **Version**: 1.0.0
