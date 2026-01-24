@@ -1,7 +1,6 @@
 {
   "permissions": {
     "allow": [
-      "Bash(find:*)",
       "Bash(pnpm lint:*)",
       "Bash(pnpm test:*)",
       "Bash(pnpm test:e2e:*)"
