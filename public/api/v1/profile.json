@@ -36,56 +36,6 @@
       }
     ]
   },
-  "aboutVariants": {
-    "nonTechnical": {
-      "paragraphs": [
-        "20+ years in software engineering, from academic research to startup leadership to enterprise AI strategy. I've built engineering organizations from scratch and scaled them through growth phases.",
-        "Track record: Led a smart home development team from 2 to 18 engineers. Raised funding as CTO. Now directing software engineering at a Holtzbrinck Publishing Group company, leading their AI product strategy.",
-        "I focus on developer experience, team culture, and bridging the gap between product vision and technical execution. My teams ship quality code while maintaining velocity."
-      ],
-      "pillars": [
-        {
-          "icon": "Briefcase",
-          "title": "Scaled teams 2 → 18",
-          "description": "Built engineering organizations from scratch at multiple startups through growth phases."
-        },
-        {
-          "icon": "Users",
-          "title": "Bridge product & engineering",
-          "description": "Translate business needs into technical strategy and delivery milestones."
-        },
-        {
-          "icon": "TrendingUp",
-          "title": "AI strategy at enterprise scale",
-          "description": "Leading AI product development for Holtzbrinck Publishing Group."
-        }
-      ]
-    },
-    "technical": {
-      "paragraphs": [
-        "My PhD at TU-Berlin was on adaptive user interfaces-what we now call generative UI. I spent a decade building systems that work across devices and modalities: voice, touch, gestures, smart environments.",
-        "These days I'm at CHAPTR building reedy.ai. The stack is React/TypeScript frontend, Python backend, heavy LLM integration (OpenAI, Claude, Cohere). We use Firestore, BigQuery, Typesense for data and search.",
-        "My current obsession: structuring codebases so AI tools can actually help. Simple architecture, clear patterns, documentation about why-not just what. Tests are the ultimate lifeline."
-      ],
-      "pillars": [
-        {
-          "icon": "Code",
-          "title": "Code that AI can reason about",
-          "description": "Simple architecture, clear patterns, documentation about the why-not just the what."
-        },
-        {
-          "icon": "Cpu",
-          "title": "LLM-first development",
-          "description": "OpenAI, Claude, Cohere, LangChain-integrating AI into production systems daily."
-        },
-        {
-          "icon": "TestTube",
-          "title": "Tests as the ultimate lifeline",
-          "description": "The one thing that still proves your code works, whether you wrote it or AI did."
-        }
-      ]
-    }
-  },
   "expertise": {
     "heading": "Areas of Focus",
     "subheading": "What I spend my time on.",

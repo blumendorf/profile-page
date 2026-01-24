@@ -1,0 +1,20 @@
+# Dr Marco Blumendorf
+
+> Personal website of Dr Marco Blumendorf, Director of Software Engineering at CHAPTR (Holtzbrinck Publishing Group). PhD in Distributed AI from TU Berlin. 20+ years building software, from academic research to AI-powered publishing products.
+
+## Profile
+
+- [Profile API (JSON)](https://blumendorf.info/api/v1/profile.json): Structured profile data including background, expertise, tech stack, and professional journey
+
+## Sections
+
+- [About](https://blumendorf.info/#about): Background, career journey, and working philosophy
+- [Expertise](https://blumendorf.info/#expertise): Areas of focus - Developer Experience, Team Culture, Technical Leadership
+- [Tech Stack](https://blumendorf.info/#tech-stack): Technologies and tools used daily
+- [Journey](https://blumendorf.info/#timeline): Professional timeline from 1999 to present
+- [Lab](https://blumendorf.info/lab): Experiments with browser-based LLMs and generative UI
+- [Contact](https://blumendorf.info/#contact): Get in touch via email, LinkedIn, or GitHub
+
+## Optional
+
+- [Impressum](https://blumendorf.info/impressum): Legal notice (German law requirement)

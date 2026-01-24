@@ -1,33 +1,117 @@
-# profile-page
-My personal profile page
+# Dr Marco Blumendorf – Personal Profile
 
-## Development Process
+A personal profile website with an "Engineer's Notebook" aesthetic, featuring interactive elements and browser-based AI experiments.
 
-This profile page was created through an fully AI-assisted development process. Not a single line of code was written by hand.
+**[View Live Site →](https://blumendorf.github.io/profile-page)**
 
-### Primary Development Tools
-- **Cursor IDE with Claude-3.5-Sonnet**: Handled the core development process
-  - Code generation and implementation
-  - Real-time code modifications and improvements
-  - Technical problem-solving and debugging
-  - Structure and architecture decisions
+## Features
 
-- **ChatGPT**: Content generation and refinement
-  - Text content creation
-  - Content review and optimization
-  - Copy editing and tone consistency
+- **Warm, Personal Design** – Earth tones with amber accents, monospace typography, generous whitespace
+- **Interactive Profile Ring** – Mouse-tracking conic gradient animation around the profile image
+- **JSON View Mode** – Developer easter egg that displays profile data as an interactive API response
+- **Animated Network Background** – Canvas-based constellation effect with mouse proximity interactions
+- **Dark/Light Theme** – System-aware with manual toggle and localStorage persistence
+- **The Lab** – A collection of browser-based AI experiments using local LLMs
 
-### Workflow
-1. Initial react app and github workflow was created with Cursor IDE
-2. Initial concepts and requirements were created with ChatGPT by reviewing existing CVs and profiles
-3. Claude was instructed to include tailwind css and lucide icons
-4. Claude implemented the content into code, handling:
-   - HTML structure
-   - CSS styling
-   - JavaScript functionality
-5. Iterative improvements were made through continuous AI collaboration
-6. Final review and testing were performed to ensure quality
+## Tech Stack
 
-This project demonstrates the potential of human-AI collaboration in web development, where AI tools handle both the technical implementation and content creation aspects while human oversight guides the overall direction and final decisions.
+| Category | Technology |
+|----------|------------|
+| Framework | React 18 + Vite 6 |
+| Language | TypeScript 5.7+ |
+| Styling | Tailwind CSS v3 |
+| Animation | Framer Motion |
+| Icons | Lucide React |
+| Routing | React Router v7 |
+| Testing | Vitest + Testing Library |
+| Deployment | GitHub Pages |
 
-🌐 View the live site: [Profile Page](https://blumendorf.github.io/profile-page)
+## Project Structure
+
+```
+src/
+├── components/ui/         # Shared UI primitives
+├── features/
+│   ├── home/              # Landing page components
+│   │   └── components/    # Hero, About, Timeline, Contact, etc.
+│   ├── lab/               # AI experiments
+│   │   ├── html/          # HTML/CSS generator experiment
+│   │   ├── eval/          # Prompt evaluation playground
+│   │   ├── compare/       # Compare views experiment
+│   │   └── shared/        # Shared lab infrastructure
+│   └── shared/            # Cross-feature hooks & contexts
+├── lib/
+│   ├── data/              # Profile data (profile.json)
+│   └── utils/             # Utility functions
+└── main.tsx               # Router configuration
+```
+
+## The Lab
+
+The Lab (`/lab`) is a collection of browser-based AI experiments exploring what's possible with local LLMs running entirely in the browser via WebGPU.
+
+### Experiments
+
+| Experiment | Description |
+|------------|-------------|
+| **HTML Generator** | AI generates CSS styles for a fixed HTML template based on user descriptions |
+| **Eval Playground** | Test and compare prompt variants against constraint-based evaluations |
+| **Compare Views** | Side-by-side comparison tools |
+
+### Local LLM Infrastructure
+
+Each experiment includes its own LLM infrastructure supporting multiple backends:
+
+- **WebLLM (MLC)** – SmolLM 360M/1.7B, Llama 3.2 1B, Phi 3.5 Mini
+- **Transformers.js (ONNX)** – Qwen 2.5 0.5B, Gemma 3 270M/1B
+
+**Requirements:** Chrome 113+ or Edge 113+ with WebGPU support, 2-6GB available memory.
+
+## Development
+
+```bash
+# Install dependencies
+pnpm install
+
+# Start dev server
+pnpm dev
+
+# Run tests
+pnpm test
+
+# Lint & type check
+pnpm lint
+
+# Build for production
+pnpm build
+
+# Preview production build
+pnpm preview
+```
+
+## AI-Assisted Development
+
+This project was built through AI-assisted development using Cursor IDE with Claude. The workflow demonstrates human-AI collaboration where:
+
+- **AI** handles implementation details, code generation, and technical problem-solving
+- **Human** provides direction, design decisions, and final review
+
+The `agent-context/` directory serves as the source of truth for content and design, ensuring consistency between AI-generated code and project requirements.
+
+## API
+
+Profile data is exposed as a public JSON endpoint:
+
+```
+GET /api/v1/profile.json
+```
+
+This same data powers the JSON View mode in the UI.
+
+## License
+
+MIT
+
+---
+
+Built with ☕ in Brandenburg, Germany

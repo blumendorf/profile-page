@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface Point {
   x: number;
@@ -22,8 +22,24 @@ const NetworkBackground = ({
 }: NetworkBackgroundProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  // Check for reduced motion preference
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      setPrefersReducedMotion(e.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
 
   useEffect(() => {
+    // Skip animation if user prefers reduced motion
+    if (prefersReducedMotion) return;
     const canvas = canvasRef.current;
     const container = containerRef.current;
     if (!canvas || !container) return;
@@ -201,7 +217,12 @@ const NetworkBackground = ({
       window.removeEventListener('mouseout', handleMouseLeave);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [nodeCount, connectionDistance, mouseDistance]);
+  }, [nodeCount, connectionDistance, mouseDistance, prefersReducedMotion]);
+
+  // Don't render anything if user prefers reduced motion
+  if (prefersReducedMotion) {
+    return null;
+  }
 
   return (
     <div

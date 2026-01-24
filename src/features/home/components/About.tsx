@@ -83,9 +83,9 @@ const About = () => {
                   <ShineCard className="h-full group">
                     <div className="flex items-center gap-3 mb-3">
                       <Icon className="w-5 h-5 text-accent" />
-                      <h4 className="font-mono text-sm font-medium text-text-primary">
+                      <h3 className="font-mono text-sm font-medium text-text-primary">
                         {pillar.title}
-                      </h4>
+                      </h3>
                     </div>
                     <p className="text-muted leading-relaxed">
                       {pillar.description}

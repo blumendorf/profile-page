@@ -42,6 +42,20 @@ The sitemap is located at `public/sitemap.xml`. When adding, removing, or renami
 2. Update the `<lastmod>` date for changed pages
 3. Ensure all routes in `src/main.tsx` are represented in the sitemap
 
+### LLM & SEO Files
+
+The following files provide content for LLM crawlers and must stay in sync with content changes:
+
+- `public/llms.txt`: Site structure summary for AI crawlers
+- `public/llms-full.txt`: Full content in markdown format for deeper LLM context
+- `index.html` JSON-LD: Structured data (profile info, employer, description)
+
+**When updating content:**
+
+1. If section structure changes → Update `public/llms.txt`
+2. If text content changes → Update `public/llms-full.txt`
+3. If profile info changes (name, title, employer) → Update JSON-LD in `index.html`
+
 ---
 
 ## Core Technology Stack
@@ -159,8 +173,9 @@ Follow a 3-tier component architecture:
 1. Update docs in `/agent-context` when modifying content/design
 2. Update `/src/features/lab/lab.md` when modifying lab features
 3. Update `public/sitemap.xml` when adding/removing/renaming pages
-4. Run `pnpm test`
-5. Run `pnpm lint --fix` and fix remaining issues
+4. Update `public/llms.txt` and `public/llms-full.txt` when content changes
+5. Run `pnpm test`
+6. Run `pnpm lint --fix` and fix remaining issues
 
 ### Code Organization Principles
 - **Colocate related code** - Keep components, hooks, types together
@@ -201,5 +216,5 @@ Keeping these synchronized ensures consistent behavior across all AI tools worki
 
 ---
 
-**Last Updated**: 2026-01-02
-**Version**: 1.0.0
+**Last Updated**: 2026-01-24
+**Version**: 1.1.0

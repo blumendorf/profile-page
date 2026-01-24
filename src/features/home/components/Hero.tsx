@@ -84,7 +84,7 @@ const Hero = () => {
             <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-full overflow-hidden border-2 border-border-subtle pointer-events-none">
               <img
                 src={`${import.meta.env.BASE_URL}marco-small.jpg`}
-                alt={siteData.profile.name}
+                alt={`Portrait photo of ${siteData.profile.name}`}
                 className="w-full h-full object-cover object-center"
               />
             </div>

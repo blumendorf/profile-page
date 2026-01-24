@@ -27,6 +27,19 @@ function App() {
   return (
     <PersonaProvider>
       <div className="min-h-screen relative" lang="en">
+        {/* Skip link for keyboard users */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[60] focus:px-4 focus:py-2 focus:bg-accent focus:text-page focus:rounded-lg focus:font-medium"
+        >
+          Skip to main content
+        </a>
+
+        {/* ARIA live region for screen reader announcements */}
+        <div aria-live="polite" aria-atomic="true" className="sr-only">
+          {isJsonMode ? 'JSON view active' : 'Human view active'}
+        </div>
+
         {!isJsonMode && <NetworkBackground />}
         <Navbar
           isJsonMode={isJsonMode}
@@ -38,7 +51,7 @@ function App() {
         {isJsonMode ? (
           <JsonView focusedSection={focusedJsonSection} />
         ) : (
-          <main role="main" aria-label="Main content" className="relative z-10">
+          <main id="main-content" role="main" aria-label="Main content" className="relative z-10">
             <Hero />
             <About />
             <Expertise />
