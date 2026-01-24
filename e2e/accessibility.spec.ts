@@ -153,7 +153,7 @@ test.describe('Accessibility', () => {
           style.outlineWidth !== '0px' ||
           style.boxShadow !== 'none' ||
           el.classList.toString().includes('focus') ||
-          el.classList.toString().includes('ring')
+          el.classList.toString().includes('ring-3')
         );
       });
 

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Menu, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 
 const navItems = [
   { label: 'Home', href: '#home' },
@@ -146,7 +146,7 @@ const Navbar = ({ isJsonMode, onToggleJsonMode, onNavigateInJsonMode, focusedJso
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
         isScrolled
-          ? 'bg-page/80 backdrop-blur-xl border-border-subtle shadow-sm shadow-black/5 py-3'
+          ? 'bg-page/80 backdrop-blur-xl border-border-subtle shadow-xs shadow-black/5 py-3'
           : 'bg-transparent border-transparent py-5'
       }`}
       aria-label="Main navigation"

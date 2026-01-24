@@ -341,7 +341,7 @@ export default function HTMLPlayground() {
       )}
 
       {/* Header bar */}
-      <div className="flex-shrink-0 bg-page/95 backdrop-blur-sm border-b border-border-subtle">
+      <div className="shrink-0 bg-page/95 backdrop-blur-xs border-b border-border-subtle">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
           <Link
             to="/lab"
@@ -413,7 +413,7 @@ export default function HTMLPlayground() {
       ) : (
         <>
           {/* Input bar - only show when model is selected */}
-          <div className="flex-shrink-0 bg-page/95 backdrop-blur-sm border-b border-border-subtle">
+          <div className="shrink-0 bg-page/95 backdrop-blur-xs border-b border-border-subtle">
             <div className="max-w-6xl mx-auto p-4">
               <form onSubmit={handleSubmit} className="flex gap-3">
                 <input
@@ -424,7 +424,7 @@ export default function HTMLPlayground() {
                   disabled={!modelReady || isGenerating}
                   className="flex-1 bg-page-elevated border border-border-subtle rounded-lg px-4 py-3
                              text-text-primary placeholder:text-text-muted
-                             focus:outline-none focus:border-cyan-500 transition-colors
+                             focus:outline-hidden focus:border-cyan-500 transition-colors
                              disabled:opacity-50"
                 />
                 <button
@@ -621,7 +621,7 @@ export default function HTMLPlayground() {
           {/* Main content area */}
           <div className="flex-1 flex flex-col min-h-0">
             {/* Tabs */}
-            <div className="flex-shrink-0 border-b border-border-subtle">
+            <div className="shrink-0 border-b border-border-subtle">
               <div className="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between">
                 <div className="flex gap-2">
                   {tabs.map((tab) => (
@@ -665,7 +665,7 @@ export default function HTMLPlayground() {
                 {/* HTML Code (Editable) */}
                 <div className={`flex-1 min-h-0 flex-col ${activeTab === 'code' ? 'flex' : 'hidden'}`}>
                   <div className="flex-1 min-h-0 bg-page-elevated rounded-lg border border-border-subtle overflow-hidden flex flex-col">
-                    <div className="flex-shrink-0 px-4 py-2 border-b border-border-subtle flex items-center justify-between">
+                    <div className="shrink-0 px-4 py-2 border-b border-border-subtle flex items-center justify-between">
                       <span className="text-xs text-text-muted font-mono">Edit HTML to update preview</span>
                     </div>
                     <textarea
@@ -673,7 +673,7 @@ export default function HTMLPlayground() {
                       onChange={(e) => setHtml(e.target.value)}
                       spellCheck={false}
                       className="flex-1 min-h-0 w-full p-4 text-sm font-mono text-text-primary bg-transparent
-                                 resize-none focus:outline-none"
+                                 resize-none focus:outline-hidden"
                       style={{ tabSize: 2 }}
                     />
                   </div>
@@ -710,7 +710,7 @@ export default function HTMLPlayground() {
             </div>
 
             {/* Stats bar */}
-            <div className="flex-shrink-0 border-t border-border-subtle bg-page-elevated/50">
+            <div className="shrink-0 border-t border-border-subtle bg-page-elevated/50">
               <div className="max-w-6xl mx-auto px-4 py-2 flex items-center gap-6 text-xs font-mono text-text-muted">
                 {selectedModel && (
                   <div className="flex items-center gap-2">

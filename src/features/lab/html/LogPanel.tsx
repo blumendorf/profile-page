@@ -50,10 +50,10 @@ export function LogPanel({ logs, className = '' }: LogPanelProps) {
         <div className="space-y-1">
           {logs.map((log) => (
             <div key={log.id} className="flex gap-2">
-              <span className="text-text-muted/50 flex-shrink-0">
+              <span className="text-text-muted/50 shrink-0">
                 {formatTime(log.timestamp)}
               </span>
-              <span className={`flex-shrink-0 ${LEVEL_COLORS[log.level]}`}>
+              <span className={`shrink-0 ${LEVEL_COLORS[log.level]}`}>
                 {LEVEL_ICONS[log.level]}
               </span>
               <span className={LEVEL_COLORS[log.level]}>

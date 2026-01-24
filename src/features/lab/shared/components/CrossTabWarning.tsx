@@ -1,7 +1,7 @@
 /**
  * Warning banner displayed when another tab is using a model.
  */
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { AlertTriangle, X, Loader2, Cpu, Zap } from 'lucide-react';
 import type { OtherTabInfo } from '../hooks/useCrossTabModel';
 
@@ -42,7 +42,7 @@ export function CrossTabWarning({ otherTab, onDismiss, dismissed }: CrossTabWarn
           className="bg-amber-500/10 border border-amber-500/30 rounded-lg overflow-hidden"
         >
           <div className="p-4 flex items-start gap-3">
-            <AlertTriangle className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+            <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
             <div className="flex-1 min-w-0">
               <h4 className="font-medium text-amber-500 text-sm mb-1">
                 Model in Use by Another Tab
@@ -61,7 +61,7 @@ export function CrossTabWarning({ otherTab, onDismiss, dismissed }: CrossTabWarn
             </div>
             <button
               onClick={onDismiss}
-              className="p-1 rounded hover:bg-amber-500/20 text-amber-500 transition-colors"
+              className="p-1 rounded-sm hover:bg-amber-500/20 text-amber-500 transition-colors"
               aria-label="Dismiss warning"
             >
               <X className="w-4 h-4" />

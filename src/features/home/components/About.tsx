@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { Code, Users, TestTube, LucideIcon } from 'lucide-react';
 import Section from './Section';
 import ShineCard from '@/components/ui/ShineCard';

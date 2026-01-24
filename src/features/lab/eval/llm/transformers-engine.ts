@@ -65,7 +65,6 @@ export class TransformersEngine implements LLMEngine {
 
     let streamer: TextStreamer | undefined;
     if (onToken) {
-      // @ts-expect-error - TextStreamer constructor varies by version
       streamer = new TextStreamer(this.generator.tokenizer, {
         skip_prompt: true,
         callback_function: (text: string) => {

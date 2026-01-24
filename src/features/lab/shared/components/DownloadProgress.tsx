@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { Cpu, X } from 'lucide-react';
 
 interface DownloadProgressProps {

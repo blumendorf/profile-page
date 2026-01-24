@@ -1,5 +1,5 @@
 import { ReactNode, useRef, useCallback, useEffect, useState } from 'react';
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
+import { motion, useMotionValue, useTransform, animate } from 'motion/react';
 import { usePersona } from '@/features/shared';
 
 interface SplitViewProps {
@@ -147,7 +147,7 @@ export const SplitView = ({ nonTechnicalContent, technicalContent, className = '
             y: isHoveringDivider ? -2 : 0,
           }}
         >
-          <span className="text-xs font-mono text-text-primary bg-page px-2 py-1 rounded border border-border-subtle shadow-md">
+          <span className="text-xs font-mono text-text-primary bg-page px-2 py-1 rounded-sm border border-border-subtle shadow-md">
             non-technical
           </span>
         </motion.div>
@@ -160,7 +160,7 @@ export const SplitView = ({ nonTechnicalContent, technicalContent, className = '
             y: isHoveringDivider ? -2 : 0,
           }}
         >
-          <span className="text-xs font-mono text-text-primary bg-page px-2 py-1 rounded border border-border-subtle shadow-md">
+          <span className="text-xs font-mono text-text-primary bg-page px-2 py-1 rounded-sm border border-border-subtle shadow-md">
             technical
           </span>
         </motion.div>

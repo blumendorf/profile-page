@@ -62,8 +62,8 @@ const STYLE_PRESETS: Record<string, string> = {
 
   // Structure tests
   'gradient background': `body{background:linear-gradient(135deg,#1a1a2e,#16213e);color:#fff}`,
-  'with box shadow': `body{background:#fff;color:#111}.card{box-shadow:0 4px 20px rgba(0,0,0,0.1)}`,
-  'rounded corners': `body{background:#fff;color:#111}.card{border-radius:1rem}`,
+  'with box shadow-sm': `body{background:#fff;color:#111}.card{box-shadow:0 4px 20px rgba(0,0,0,0.1)}`,
+  'rounded-sm corners': `body{background:#fff;color:#111}.card{border-radius:1rem}`,
   'visible border': `body{background:#000;color:#0f0}.card{border:1px solid #0f0}`,
 
   // Combined tests
@@ -114,14 +114,14 @@ function mockGenerator(intent: string): Promise<string> {
 
   for (const [key, css] of Object.entries(STYLE_PRESETS)) {
     if (intentLower === key.toLowerCase()) {
-      return buildHTMLFromCSS(css);
+      return Promise.resolve(buildHTMLFromCSS(css));
     }
   }
 
   // Partial match
   for (const [key, css] of Object.entries(STYLE_PRESETS)) {
     if (intentLower.includes(key.toLowerCase()) || key.toLowerCase().includes(intentLower)) {
-      return buildHTMLFromCSS(css);
+      return Promise.resolve(buildHTMLFromCSS(css));
     }
   }
 

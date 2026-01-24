@@ -30,7 +30,7 @@ function App() {
         {/* Skip link for keyboard users */}
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[60] focus:px-4 focus:py-2 focus:bg-accent focus:text-page focus:rounded-lg focus:font-medium"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-60 focus:px-4 focus:py-2 focus:bg-accent focus:text-page focus:rounded-lg focus:font-medium"
         >
           Skip to main content
         </a>

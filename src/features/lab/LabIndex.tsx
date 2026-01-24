@@ -21,7 +21,7 @@ function ExperimentCard({ title, description, icon, href, accentColor, tag }: Ex
           {icon}
         </div>
         {tag && (
-          <span className="text-xs font-mono text-text-muted bg-page px-2 py-1 rounded">
+          <span className="text-xs font-mono text-text-muted bg-page px-2 py-1 rounded-sm">
             {tag}
           </span>
         )}

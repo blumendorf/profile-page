@@ -1,11 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "Bash(pnpm lint:*)",
-      "Bash(pnpm test:*)",
+      "Bash(find:*)",
       "Bash(pnpm outdated:*)",
       "Bash(pnpm add:*)",
-      "Bash(pnpm test:e2e:*)"
+      "Bash(pnpm update:*)",
+      "Bash(pnpm remove:*)",
+      "Bash(git stash:*)"
     ]
   }
 }

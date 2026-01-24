@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback } from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { ArrowDown } from 'lucide-react';
 import { siteData } from '@/lib/data';
 
@@ -57,7 +57,7 @@ const Hero = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="relative flex-shrink-0"
+            className="relative shrink-0"
           >
             {/* Animated ring - the fancy highlight */}
             <div
@@ -136,7 +136,7 @@ const Hero = () => {
         transition={{ delay: 1, duration: 0.5 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-text-muted"
       >
-        <div className="w-px h-12 bg-gradient-to-b from-border-active to-transparent" />
+        <div className="w-px h-12 bg-linear-to-b from-border-active to-transparent" />
       </motion.div>
 
       {/* Subtle gradient accent */}

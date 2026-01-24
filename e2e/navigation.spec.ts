@@ -56,8 +56,8 @@ test.describe('Navigation', () => {
         return (
           style.backdropFilter !== 'none' ||
           style.boxShadow !== 'none' ||
-          el.classList.toString().includes('backdrop-blur') ||
-          el.classList.toString().includes('shadow')
+          el.classList.toString().includes('backdrop-blur-sm') ||
+          el.classList.toString().includes('shadow-sm')
         );
       });
 

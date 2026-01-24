@@ -347,7 +347,8 @@ export function EvalPlayground() {
                 progress={state.progress.progress}
                 stage={state.progress.stage as 'downloading' | 'loading' | 'ready'}
                 text={state.progress.text}
-                modelConfig={getModelConfig(modelId)}
+                modelName={getModelConfig(modelId).name}
+                downloadSizeGB={getModelConfig(modelId).downloadSizeGB}
               />
             )}
             {state.status === 'running' && (

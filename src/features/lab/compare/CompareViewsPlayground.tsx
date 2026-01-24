@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowLeft, SplitSquareHorizontal, Code, Users, TestTube, Briefcase, TrendingUp, Cpu, LucideIcon } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import SplitView from '@/components/ui/SplitView';
 import ShineCard from '@/components/ui/ShineCard';
 import { PersonaProvider } from '@/features/shared';
@@ -148,7 +148,7 @@ export function CompareViewsPlayground() {
               <div className="p-2 rounded-lg">
                 <SplitSquareHorizontal className="w-6 h-6 text-accent" />
               </div>
-              <span className="text-xs font-mono text-text-muted bg-page-elevated px-2 py-1 rounded">
+              <span className="text-xs font-mono text-text-muted bg-page-elevated px-2 py-1 rounded-sm">
                 UX
               </span>
             </div>

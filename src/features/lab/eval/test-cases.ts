@@ -227,14 +227,14 @@ export const TEST_CASES: TestCase[] = [
   },
   {
     id: 'has-shadow',
-    intent: 'with box shadow',
+    intent: 'with box shadow-sm',
     constraints: [{ type: 'cssContains', pattern: 'box-shadow' }],
     category: 'structure',
     difficulty: 'easy',
   },
   {
     id: 'has-rounded',
-    intent: 'rounded corners',
+    intent: 'rounded-sm corners',
     constraints: [{ type: 'cssContains', pattern: 'border-radius' }],
     category: 'structure',
     difficulty: 'easy',

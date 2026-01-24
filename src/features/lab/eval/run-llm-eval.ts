@@ -48,7 +48,7 @@ async function llmGenerator(intent: string): Promise<string> {
     throw new Error('Engine not initialized');
   }
 
-  const result = await generateHTMLWithEngine(intent, engine);
+  const result = await generateHTMLWithEngine(intent, '', engine);
   return result.html;
 }
 

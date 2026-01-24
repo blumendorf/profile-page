@@ -73,7 +73,7 @@ export function ModelSelectorModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs">
       <div
         className="relative w-full max-w-4xl max-h-[90vh] bg-page rounded-xl border border-border-subtle shadow-2xl flex flex-col overflow-hidden"
         role="dialog"
@@ -81,7 +81,7 @@ export function ModelSelectorModal({
         aria-labelledby="model-selector-title"
       >
         {/* Header */}
-        <div className="flex-shrink-0 flex items-center justify-between px-6 py-4 border-b border-border-subtle">
+        <div className="shrink-0 flex items-center justify-between px-6 py-4 border-b border-border-subtle">
           <h2 id="model-selector-title" className="text-xl font-semibold text-text-primary">
             Select Model
           </h2>
@@ -122,7 +122,7 @@ export function ModelSelectorModal({
                   <span className="text-sm text-text-primary">Browser: {compat.browser}</span>
                 </div>
                 {!compat.canRun && compat.reason && (
-                  <div className="text-red-400 text-sm mt-2 p-3 bg-red-500/10 rounded">
+                  <div className="text-red-400 text-sm mt-2 p-3 bg-red-500/10 rounded-sm">
                     {compat.reason}
                   </div>
                 )}
@@ -176,14 +176,14 @@ export function ModelSelectorModal({
         </div>
 
         {/* Footer with selected model info and actions */}
-        <div className="flex-shrink-0 border-t border-border-subtle bg-page-elevated px-6 py-4">
+        <div className="shrink-0 border-t border-border-subtle bg-page-elevated px-6 py-4">
           {selectedModel ? (
             <div className="flex items-center justify-between gap-4">
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
                   <span className="font-semibold text-text-primary truncate">{selectedModel.name}</span>
                   {selectedModel.recommended && (
-                    <span className="text-xs bg-cyan-500/20 text-cyan-500 px-2 py-0.5 rounded flex-shrink-0">
+                    <span className="text-xs bg-cyan-500/20 text-cyan-500 px-2 py-0.5 rounded-sm shrink-0">
                       Recommended
                     </span>
                   )}
@@ -199,7 +199,7 @@ export function ModelSelectorModal({
                   </span>
                 </div>
               </div>
-              <div className="flex items-center gap-3 flex-shrink-0">
+              <div className="flex items-center gap-3 shrink-0">
                 <button
                   onClick={onClose}
                   disabled={isLoading}
@@ -271,17 +271,17 @@ function ModelCard({ model, isSelected, isCurrent, onClick, disabled }: ModelCar
         <div className="flex items-center gap-2">
           <h4 className="font-semibold text-text-primary">{model.name}</h4>
           {model.recommended && (
-            <span className="text-xs bg-cyan-500/20 text-cyan-500 px-1.5 py-0.5 rounded">
+            <span className="text-xs bg-cyan-500/20 text-cyan-500 px-1.5 py-0.5 rounded-sm">
               ★
             </span>
           )}
           {isCurrent && (
-            <span className="text-xs bg-emerald-500/20 text-emerald-500 px-1.5 py-0.5 rounded">
+            <span className="text-xs bg-emerald-500/20 text-emerald-500 px-1.5 py-0.5 rounded-sm">
               Current
             </span>
           )}
         </div>
-        <span className="text-xs font-mono text-text-muted bg-page px-2 py-0.5 rounded">
+        <span className="text-xs font-mono text-text-muted bg-page px-2 py-0.5 rounded-sm">
           {model.backend === 'webllm' ? 'MLC' : 'ONNX'}
         </span>
       </div>

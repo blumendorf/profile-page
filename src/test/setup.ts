@@ -17,25 +17,29 @@ interface MediaQueryList {
 expect.extend({})
 
 // Mock IntersectionObserver
-const mockIntersectionObserver = vi.fn()
-mockIntersectionObserver.mockReturnValue({
-  observe: () => null,
-  unobserve: () => null,
-  disconnect: () => null
-})
-window.IntersectionObserver = mockIntersectionObserver as unknown as typeof IntersectionObserver
+class MockIntersectionObserver {
+  observe = vi.fn(function() {});
+  unobserve = vi.fn(function() {});
+  disconnect = vi.fn(function() {});
+}
+window.IntersectionObserver = MockIntersectionObserver as unknown as typeof IntersectionObserver
 
 // Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: vi.fn().mockImplementation((query: string): MediaQueryList => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: vi.fn(),
-    removeListener: vi.fn(),
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn(),
-    dispatchEvent: vi.fn(),
-  })),
+  value: vi.fn(function(query: string): MediaQueryList {
+    return {
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener: vi.fn(function() {}),
+      removeListener: vi.fn(function() {}),
+      addEventListener: vi.fn(function() {}),
+      removeEventListener: vi.fn(function() {}),
+      dispatchEvent: vi.fn(function() { return true; }),
+    };
+  }),
 })
+
+// Mock HTMLCanvasElement.getContext for NetworkBackground component
+HTMLCanvasElement.prototype.getContext = vi.fn(function() { return null; });

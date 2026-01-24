@@ -57,7 +57,7 @@ export function ModelSelector({ models, selectedModelId, onModelChange, disabled
             disabled={disabled}
             className="w-full bg-page-elevated border border-border-subtle rounded-lg px-4 py-3
                        text-text-primary appearance-none cursor-pointer
-                       focus:outline-none focus:border-accent transition-colors
+                       focus:outline-hidden focus:border-accent transition-colors
                        disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {webllmModels.length > 0 && (
@@ -98,14 +98,14 @@ function ModelDetails({ model }: { model: ModelConfig }) {
           <h4 className="font-semibold text-text-primary flex items-center gap-2">
             {model.name}
             {model.recommended && (
-              <span className="text-xs bg-accent/20 text-accent px-2 py-0.5 rounded">
+              <span className="text-xs bg-accent/20 text-accent px-2 py-0.5 rounded-sm">
                 Recommended
               </span>
             )}
           </h4>
           <p className="text-sm text-text-muted mt-1">{model.description}</p>
         </div>
-        <span className="text-xs font-mono text-text-muted bg-page px-2 py-1 rounded">
+        <span className="text-xs font-mono text-text-muted bg-page px-2 py-1 rounded-sm">
           {model.backend}
         </span>
       </div>

@@ -93,7 +93,7 @@ const JsonNode = ({
 
   if (!isObject) {
     return (
-      <div className="flex items-start py-0.5 hover:bg-white/5 rounded group" style={{ paddingLeft: indent }}>
+      <div className="flex items-start py-0.5 hover:bg-white/5 rounded-sm group" style={{ paddingLeft: indent }}>
         <span className="w-4" /> {/* Spacer for alignment */}
         {keyName !== undefined && (
           <>
@@ -116,7 +116,7 @@ const JsonNode = ({
         style={{ paddingLeft: isFocused ? indent - 2 : indent }}
         onClick={() => setIsExpanded(!isExpanded)}
       >
-        <span className="w-4 flex-shrink-0 text-stone-500">
+        <span className="w-4 shrink-0 text-stone-500">
           {isExpanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
         </span>
         {keyName !== undefined && (
@@ -177,7 +177,7 @@ const CopyButton = ({ text, label }: { text: string; label: string }) => {
   return (
     <button
       onClick={handleCopy}
-      className="flex items-center gap-1.5 px-2 py-1 text-xs text-stone-400 hover:text-amber-400 bg-stone-800 hover:bg-stone-700 rounded transition-colors"
+      className="flex items-center gap-1.5 px-2 py-1 text-xs text-stone-400 hover:text-amber-400 bg-stone-800 hover:bg-stone-700 rounded-sm transition-colors"
       title={`Copy ${label}`}
     >
       {copied ? <Check size={12} className="text-green-400" /> : <Copy size={12} />}
@@ -204,7 +204,7 @@ const JsonView = ({ focusedSection = null }: JsonViewProps) => {
             href={`${import.meta.env.BASE_URL}${API_PATH.slice(1)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-stone-800 px-2 py-1 rounded hover:bg-stone-700 hover:text-amber-400 transition-colors"
+            className="bg-stone-800 px-2 py-1 rounded-sm hover:bg-stone-700 hover:text-amber-400 transition-colors"
             title="Open raw JSON"
           >
             {API_PATH}
@@ -220,7 +220,7 @@ const JsonView = ({ focusedSection = null }: JsonViewProps) => {
           <CopyButton text={JSON.stringify(siteData, null, 2)} label="JSON" />
           {focusedSection && (
             <span className="ml-2 text-xs text-amber-400">
-              Focused: <code className="bg-stone-800 px-1.5 py-0.5 rounded">{focusedSection}</code>
+              Focused: <code className="bg-stone-800 px-1.5 py-0.5 rounded-sm">{focusedSection}</code>
             </span>
           )}
         </div>
