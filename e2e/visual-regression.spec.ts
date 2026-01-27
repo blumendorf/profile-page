@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
 /**
  * Visual regression tests for the homepage
@@ -6,6 +6,19 @@ import { test, expect } from '@playwright/test';
  *
  * Note: Run `pnpm test:e2e --update-snapshots` to update baseline images
  */
+
+/**
+ * Hide fixed-position elements (navbar) for section-level screenshots.
+ * Fixed elements render at viewport position, causing them to overlay
+ * section content when taking element screenshots after scrolling.
+ */
+async function hideFixedElements(page: Page) {
+  await page.addStyleTag({
+    content: `
+      nav[class*="fixed"] { visibility: hidden !important; }
+    `,
+  });
+}
 
 test.describe('Visual Regression', () => {
   test.beforeEach(async ({ page }) => {
@@ -76,6 +89,7 @@ test.describe('Visual Regression', () => {
   test.describe('About Section', () => {
     test('desktop about', async ({ page }) => {
       await page.setViewportSize({ width: 1280, height: 720 });
+      await hideFixedElements(page);
       const about = page.locator('#about');
       await about.scrollIntoViewIfNeeded();
       await expect(about).toHaveScreenshot('about-desktop.png', {
@@ -85,6 +99,7 @@ test.describe('Visual Regression', () => {
 
     test('mobile about', async ({ page }) => {
       await page.setViewportSize({ width: 375, height: 667 });
+      await hideFixedElements(page);
       const about = page.locator('#about');
       await about.scrollIntoViewIfNeeded();
       await expect(about).toHaveScreenshot('about-mobile.png', {
@@ -96,6 +111,7 @@ test.describe('Visual Regression', () => {
   test.describe('Expertise Section', () => {
     test('desktop expertise', async ({ page }) => {
       await page.setViewportSize({ width: 1280, height: 720 });
+      await hideFixedElements(page);
       const expertise = page.locator('#expertise');
       await expertise.scrollIntoViewIfNeeded();
       await expect(expertise).toHaveScreenshot('expertise-desktop.png', {
@@ -105,6 +121,7 @@ test.describe('Visual Regression', () => {
 
     test('mobile expertise', async ({ page }) => {
       await page.setViewportSize({ width: 375, height: 667 });
+      await hideFixedElements(page);
       const expertise = page.locator('#expertise');
       await expertise.scrollIntoViewIfNeeded();
       await expect(expertise).toHaveScreenshot('expertise-mobile.png', {
@@ -116,6 +133,7 @@ test.describe('Visual Regression', () => {
   test.describe('Tech Stack Section', () => {
     test('desktop tech stack', async ({ page }) => {
       await page.setViewportSize({ width: 1280, height: 720 });
+      await hideFixedElements(page);
       const techStack = page.locator('#tech-stack');
       await techStack.scrollIntoViewIfNeeded();
       await expect(techStack).toHaveScreenshot('tech-stack-desktop.png', {
@@ -125,6 +143,7 @@ test.describe('Visual Regression', () => {
 
     test('mobile tech stack', async ({ page }) => {
       await page.setViewportSize({ width: 375, height: 667 });
+      await hideFixedElements(page);
       const techStack = page.locator('#tech-stack');
       await techStack.scrollIntoViewIfNeeded();
       await expect(techStack).toHaveScreenshot('tech-stack-mobile.png', {
@@ -136,6 +155,7 @@ test.describe('Visual Regression', () => {
   test.describe('Contact Section', () => {
     test('desktop contact', async ({ page }) => {
       await page.setViewportSize({ width: 1280, height: 720 });
+      await hideFixedElements(page);
       const contact = page.locator('#contact');
       await contact.scrollIntoViewIfNeeded();
       await expect(contact).toHaveScreenshot('contact-desktop.png', {
@@ -145,6 +165,7 @@ test.describe('Visual Regression', () => {
 
     test('mobile contact', async ({ page }) => {
       await page.setViewportSize({ width: 375, height: 667 });
+      await hideFixedElements(page);
       const contact = page.locator('#contact');
       await contact.scrollIntoViewIfNeeded();
       await expect(contact).toHaveScreenshot('contact-mobile.png', {
@@ -184,6 +205,7 @@ test.describe('Visual Regression', () => {
   test.describe('Footer', () => {
     test('desktop footer', async ({ page }) => {
       await page.setViewportSize({ width: 1280, height: 720 });
+      await hideFixedElements(page);
       await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
       const footer = page.locator('footer');
       await expect(footer).toHaveScreenshot('footer-desktop.png', {
@@ -193,6 +215,7 @@ test.describe('Visual Regression', () => {
 
     test('mobile footer', async ({ page }) => {
       await page.setViewportSize({ width: 375, height: 667 });
+      await hideFixedElements(page);
       await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
       const footer = page.locator('footer');
       await expect(footer).toHaveScreenshot('footer-mobile.png', {
