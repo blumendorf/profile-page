@@ -17,13 +17,13 @@ A personal profile website with an "Engineer's Notebook" aesthetic, featuring in
 
 | Category | Technology |
 |----------|------------|
-| Framework | React 18 + Vite 6 |
+| Framework | React 19 + Vite 6 |
 | Language | TypeScript 5.7+ |
-| Styling | Tailwind CSS v3 |
-| Animation | Framer Motion |
+| Styling | Tailwind CSS v4 |
+| Animation | Motion |
 | Icons | Lucide React |
 | Routing | React Router v7 |
-| Testing | Vitest + Testing Library |
+| Testing | Vitest, Testing Library, Playwright |
 | Deployment | GitHub Pages |
 
 ## Project Structure
@@ -76,8 +76,11 @@ pnpm install
 # Start dev server
 pnpm dev
 
-# Run tests
+# Run unit tests
 pnpm test
+
+# Run E2E tests (requires dev server running)
+pnpm test:e2e
 
 # Lint & type check
 pnpm lint
@@ -88,6 +91,27 @@ pnpm build
 # Preview production build
 pnpm preview
 ```
+
+### E2E & Visual Regression Tests
+
+E2E tests use Playwright and include visual regression testing to catch unintended design changes.
+
+**Test files:**
+- `e2e/homepage.spec.ts` – Homepage sections
+- `e2e/navigation.spec.ts` – Navigation behavior
+- `e2e/responsive.spec.ts` – Responsive layouts
+- `e2e/accessibility.spec.ts` – Accessibility checks
+- `e2e/visual-regression.spec.ts` – Screenshot comparisons
+
+**Updating snapshots after UI changes:**
+
+When you intentionally change the design, update the baseline screenshots:
+
+```bash
+pnpm test:e2e:update-snapshots
+```
+
+Review the updated images in `e2e/snapshots/` before committing to ensure changes are intentional.
 
 ## AI-Assisted Development
 

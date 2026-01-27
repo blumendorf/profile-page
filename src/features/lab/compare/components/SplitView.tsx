@@ -1,6 +1,6 @@
 import { ReactNode, useRef, useCallback, useEffect, useState } from 'react';
 import { motion, useMotionValue, useTransform, animate } from 'motion/react';
-import { usePersona } from '@/features/shared';
+import { usePersona } from '../usePersona';
 
 interface SplitViewProps {
   nonTechnicalContent: ReactNode;

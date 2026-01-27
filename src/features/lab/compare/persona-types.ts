@@ -16,4 +16,3 @@ export interface PersonaContextType {
 }
 
 export const PersonaContext = createContext<PersonaContextType | null>(null);
-

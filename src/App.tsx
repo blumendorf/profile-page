@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDevMessage, PersonaProvider } from '@/features/shared';
+import { useDevMessage } from '@/features/shared';
 import {
   Navbar,
   Hero,
@@ -25,8 +25,7 @@ function App() {
   };
 
   return (
-    <PersonaProvider>
-      <div className="min-h-screen relative" lang="en">
+    <div className="min-h-screen relative" lang="en">
         {/* Skip link for keyboard users */}
         <a
           href="#main-content"
@@ -64,7 +63,6 @@ function App() {
 
         {!isJsonMode && <Footer />}
       </div>
-    </PersonaProvider>
   );
 }
 

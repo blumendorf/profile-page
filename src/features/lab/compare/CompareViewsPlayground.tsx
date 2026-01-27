@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { ArrowLeft, SplitSquareHorizontal, Code, Users, TestTube, Briefcase, TrendingUp, Cpu, LucideIcon } from 'lucide-react';
 import { motion } from 'motion/react';
-import SplitView from '@/components/ui/SplitView';
-import ShineCard from '@/components/ui/ShineCard';
-import { PersonaProvider } from '@/features/shared';
+import { ShineCard } from '@/components/ui';
+import { PersonaProvider } from './PersonaContext';
+import { SplitView } from './components/SplitView';
 
 const iconMap: Record<string, LucideIcon> = {
   Code,

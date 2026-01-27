@@ -203,7 +203,7 @@ Visual regression tests use Playwright's screenshot comparison to catch unintend
 **Snapshots location:** `e2e/snapshots/visual-regression.spec.ts/`
 
 **When to update snapshots:**
-- After intentional design changes, run: `pnpm exec playwright test e2e/visual-regression.spec.ts --update-snapshots --project=chromium`
+- After intentional design changes, run: `pnpm test:e2e:update-snapshots`
 - Review the updated snapshots before committing to ensure changes are intentional
 
 **What's tested:**

@@ -32,4 +32,3 @@ export const PersonaProvider = ({ children }: { children: ReactNode }) => {
     </PersonaContext.Provider>
   );
 };
-
