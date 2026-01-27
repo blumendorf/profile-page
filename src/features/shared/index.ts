@@ -1,1 +1,1 @@
-export {  initializeTheme, useShineEffect } from './hooks';
+export { useShineEffect } from './hooks';

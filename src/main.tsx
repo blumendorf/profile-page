@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App'
 import { PageLoader } from '@/components/ui'
-import { initializeTheme } from '@/features/shared'
 import './index.css'
 
 // Lazy load non-critical routes for code splitting
@@ -20,9 +19,6 @@ const CompareViewsPlayground = lazy(() =>
 const Impressum = lazy(() =>
   import('@/features/home').then((m) => ({ default: m.Impressum }))
 )
-
-// Initialize theme before render to prevent flash of wrong theme
-initializeTheme();
 
 const router = createBrowserRouter([
   {
