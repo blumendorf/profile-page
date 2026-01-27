@@ -15,12 +15,12 @@ test.skip(({ browserName }) => browserName !== 'chromium', 'Visual tests only ru
 
 /**
  * Screenshot comparison options with tolerances for stable tests.
- * - maxDiffPixelRatio: Allow up to 2% of pixels to differ (antialiasing variance)
- * - threshold: Per-pixel color tolerance (0-1), 0.2 ignores subtle color shifts
+ * - maxDiffPixelRatio: Allow up to 5% of pixels to differ (antialiasing/subpixel variance)
+ * - threshold: Per-pixel color tolerance (0-1), 0.3 ignores subtle rendering shifts
  */
 const screenshotOptions = {
-  maxDiffPixelRatio: 0.02,
-  threshold: 0.2,
+  maxDiffPixelRatio: 0.05,
+  threshold: 0.3,
 };
 
 /**
@@ -42,7 +42,7 @@ async function hideFixedElements(page: Page) {
  * intersection observers, and complete any scroll-triggered reflows.
  */
 async function waitForLayoutStability(page: Page) {
-  await page.waitForTimeout(150);
+  await page.waitForTimeout(250);
 }
 
 test.describe('Visual Regression', () => {

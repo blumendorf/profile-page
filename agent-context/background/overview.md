@@ -243,7 +243,7 @@ AI in software development is the next level of abstraction, following:
 ### Unique Differentiators
 1. **Rare combination:** PhD in AI research + 20+ years practical engineering + current AI product work
 2. **Living the transformation:** Not theorizing about AI in engineering - actually leading teams through it
-3. **Academic connection to today:** PhD research on adaptive UI is directly relevant to generative UI
+3. **Academic connection to today:** PhD research on adaptive UIs is directly relevant to generative UI
 4. **Non-tech dimension:** Sustainability work through GreenBuzz (shows values beyond tech)
 
 ### Authenticity Markers
