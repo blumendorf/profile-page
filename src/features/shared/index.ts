@@ -1,2 +1,1 @@
-// Hooks
-export { useDevMessage, initializeTheme, useShineEffect } from './hooks';
+export {  initializeTheme, useShineEffect } from './hooks';

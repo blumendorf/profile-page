@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useDevMessage } from '@/features/shared';
 import {
   Navbar,
   Hero,
@@ -14,8 +13,6 @@ import {
 import { NetworkBackground, JsonView } from '@/components/ui';
 
 function App() {
-  // Show development process message in console
-  useDevMessage();
   const [isJsonMode, setIsJsonMode] = useState(false);
   const [focusedJsonSection, setFocusedJsonSection] = useState<string | null>(null);
 
