@@ -18,7 +18,6 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['json-summary', 'json', 'html'],
-      all: true,
       include: ['src/**/*.ts', 'src/**/*.tsx'],
       exclude: [
         'src/test/**',
