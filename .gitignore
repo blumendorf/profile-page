@@ -28,3 +28,4 @@ playwright-report/
 test-results/
 playwright/.cache/
 
+settings.local.json
