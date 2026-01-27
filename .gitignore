@@ -29,3 +29,6 @@ test-results/
 playwright/.cache/
 
 settings.local.json
+
+# Generated files
+public/api/v1/profile.json

@@ -47,7 +47,7 @@ Director of Software Engineering
 
 ### Headline
 ```
-I spent a decade at TU Berlin researching adaptive UI and distributed AI. Now I lead engineering teams, rethinking how we build software alongside AI.
+I spent a decade at TU Berlin researching adaptive UIs and distributed AI. Now I lead engineering teams, rethinking how we build software alongside AI.
 ```
 
 > **Why this works:** Connects PhD research to current work. Specific about the domain (publishers). No buzzwords.

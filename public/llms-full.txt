@@ -6,7 +6,7 @@
 
 **Name:** Dr Marco Blumendorf
 **Title:** Director of Software Engineering
-**Headline:** I spent a decade at TU Berlin researching adaptive UI and distributed AI. Now I lead engineering teams, rethinking how we build software alongside AI.
+**Headline:** I spent a decade at TU Berlin researching adaptive UIs and distributed AI. Now I lead engineering teams, rethinking how we build software alongside AI.
 **Tags:** Engineering, Leadership, AI first
 
 **Links:**
