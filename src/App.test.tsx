@@ -160,4 +160,61 @@ describe('App', () => {
       expect(githubLink).toHaveAttribute('rel', 'noopener noreferrer')
     })
   })
+
+  describe('DOM Snapshots', () => {
+    it('hero section structure', () => {
+      renderWithRouter(<App />)
+      const hero = document.getElementById('home')
+      expect(hero!.innerHTML).toMatchSnapshot()
+    })
+
+    it('about section structure', () => {
+      renderWithRouter(<App />)
+      const about = document.getElementById('about')
+      expect(about!.innerHTML).toMatchSnapshot()
+    })
+
+    it('expertise section structure', () => {
+      renderWithRouter(<App />)
+      const expertise = document.getElementById('expertise')
+      expect(expertise!.innerHTML).toMatchSnapshot()
+    })
+
+    it('tech-stack section structure', () => {
+      renderWithRouter(<App />)
+      const techStack = document.getElementById('tech-stack')
+      expect(techStack!.innerHTML).toMatchSnapshot()
+    })
+
+    it('contact section structure', () => {
+      renderWithRouter(<App />)
+      const contact = document.getElementById('contact')
+      expect(contact!.innerHTML).toMatchSnapshot()
+    })
+
+    it('navigation structure', () => {
+      renderWithRouter(<App />)
+      const nav = document.querySelector('nav')
+      expect(nav!.innerHTML).toMatchSnapshot()
+    })
+
+    it('footer structure', () => {
+      renderWithRouter(<App />)
+      const footer = document.querySelector('footer')
+      expect(footer!.innerHTML).toMatchSnapshot()
+    })
+
+    it('heading hierarchy', () => {
+      renderWithRouter(<App />)
+      const headings: string[] = []
+      document.querySelectorAll('h1, h2, h3').forEach((h) => {
+        const level = h.tagName.toLowerCase()
+        const text = h.textContent?.trim() || ''
+        if (text) {
+          headings.push(`${level}: ${text}`)
+        }
+      })
+      expect(headings.join('\n')).toMatchSnapshot()
+    })
+  })
 })

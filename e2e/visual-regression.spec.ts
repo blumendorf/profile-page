@@ -16,6 +16,8 @@ import { test, expect, Page } from '@playwright/test';
 
 // Skip in CI - cross-platform rendering differences make visual tests unreliable
 test.skip(() => !!process.env.CI, 'Visual regression tests are skipped in CI due to cross-platform rendering differences');
+// Skip visual regression tests on non-Chromium browsers
+test.skip(({ browserName }) => browserName !== 'chromium', 'Visual tests only run on Chromium');
 
 /**
  * Screenshot comparison options with tolerances for stable tests.

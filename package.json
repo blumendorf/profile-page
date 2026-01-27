@@ -13,6 +13,7 @@
     "predeploy": "pnpm build",
     "deploy": "gh-pages -d dist",
     "test": "vitest run",
+    "test:update": "vitest run --update",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
