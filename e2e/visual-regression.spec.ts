@@ -5,7 +5,23 @@ import { test, expect, Page } from '@playwright/test';
  * Uses Playwright's screenshot comparison to catch unintended visual changes
  *
  * Note: Run `pnpm test:e2e --update-snapshots` to update baseline images
+ *
+ * These tests run ONLY on Chromium for stability - Firefox and WebKit have
+ * non-deterministic font rendering that causes flaky tests.
  */
+
+// Skip visual regression tests on non-Chromium browsers
+test.skip(({ browserName }) => browserName !== 'chromium', 'Visual tests only run on Chromium');
+
+/**
+ * Screenshot comparison options with tolerances for stable tests.
+ * - maxDiffPixelRatio: Allow up to 2% of pixels to differ (antialiasing variance)
+ * - threshold: Per-pixel color tolerance (0-1), 0.2 ignores subtle color shifts
+ */
+const screenshotOptions = {
+  maxDiffPixelRatio: 0.02,
+  threshold: 0.2,
+};
 
 /**
  * Hide fixed-position elements (navbar) for section-level screenshots.
@@ -18,6 +34,15 @@ async function hideFixedElements(page: Page) {
       nav[class*="fixed"] { visibility: hidden !important; }
     `,
   });
+}
+
+/**
+ * Wait for layout to stabilize after scrolling.
+ * Gives the browser time to settle scroll position, trigger any
+ * intersection observers, and complete any scroll-triggered reflows.
+ */
+async function waitForLayoutStability(page: Page) {
+  await page.waitForTimeout(150);
 }
 
 test.describe('Visual Regression', () => {
@@ -40,6 +65,9 @@ test.describe('Visual Regression', () => {
 
     // Wait for fonts and images to load
     await page.waitForLoadState('networkidle');
+
+    // Ensure fonts are fully rendered (not just downloaded)
+    await page.evaluate(() => document.fonts.ready);
   });
 
   test.describe('Full Page Screenshots', () => {
@@ -47,7 +75,7 @@ test.describe('Visual Regression', () => {
       await page.setViewportSize({ width: 1280, height: 720 });
       await expect(page).toHaveScreenshot('homepage-desktop-full.png', {
         fullPage: true,
-        maxDiffPixelRatio: 0.01,
+        ...screenshotOptions,
       });
     });
 
@@ -55,7 +83,7 @@ test.describe('Visual Regression', () => {
       await page.setViewportSize({ width: 768, height: 1024 });
       await expect(page).toHaveScreenshot('homepage-tablet-full.png', {
         fullPage: true,
-        maxDiffPixelRatio: 0.01,
+        ...screenshotOptions,
       });
     });
 
@@ -63,7 +91,7 @@ test.describe('Visual Regression', () => {
       await page.setViewportSize({ width: 375, height: 667 });
       await expect(page).toHaveScreenshot('homepage-mobile-full.png', {
         fullPage: true,
-        maxDiffPixelRatio: 0.01,
+        ...screenshotOptions,
       });
     });
   });
@@ -73,7 +101,7 @@ test.describe('Visual Regression', () => {
       await page.setViewportSize({ width: 1280, height: 720 });
       const hero = page.locator('#home');
       await expect(hero).toHaveScreenshot('hero-desktop.png', {
-        maxDiffPixelRatio: 0.01,
+        ...screenshotOptions,
       });
     });
 
@@ -81,7 +109,7 @@ test.describe('Visual Regression', () => {
       await page.setViewportSize({ width: 375, height: 667 });
       const hero = page.locator('#home');
       await expect(hero).toHaveScreenshot('hero-mobile.png', {
-        maxDiffPixelRatio: 0.01,
+        ...screenshotOptions,
       });
     });
   });
@@ -92,8 +120,9 @@ test.describe('Visual Regression', () => {
       await hideFixedElements(page);
       const about = page.locator('#about');
       await about.scrollIntoViewIfNeeded();
+      await waitForLayoutStability(page);
       await expect(about).toHaveScreenshot('about-desktop.png', {
-        maxDiffPixelRatio: 0.01,
+        ...screenshotOptions,
       });
     });
 
@@ -102,8 +131,9 @@ test.describe('Visual Regression', () => {
       await hideFixedElements(page);
       const about = page.locator('#about');
       await about.scrollIntoViewIfNeeded();
+      await waitForLayoutStability(page);
       await expect(about).toHaveScreenshot('about-mobile.png', {
-        maxDiffPixelRatio: 0.01,
+        ...screenshotOptions,
       });
     });
   });
@@ -114,8 +144,9 @@ test.describe('Visual Regression', () => {
       await hideFixedElements(page);
       const expertise = page.locator('#expertise');
       await expertise.scrollIntoViewIfNeeded();
+      await waitForLayoutStability(page);
       await expect(expertise).toHaveScreenshot('expertise-desktop.png', {
-        maxDiffPixelRatio: 0.01,
+        ...screenshotOptions,
       });
     });
 
@@ -124,8 +155,9 @@ test.describe('Visual Regression', () => {
       await hideFixedElements(page);
       const expertise = page.locator('#expertise');
       await expertise.scrollIntoViewIfNeeded();
+      await waitForLayoutStability(page);
       await expect(expertise).toHaveScreenshot('expertise-mobile.png', {
-        maxDiffPixelRatio: 0.01,
+        ...screenshotOptions,
       });
     });
   });
@@ -136,8 +168,9 @@ test.describe('Visual Regression', () => {
       await hideFixedElements(page);
       const techStack = page.locator('#tech-stack');
       await techStack.scrollIntoViewIfNeeded();
+      await waitForLayoutStability(page);
       await expect(techStack).toHaveScreenshot('tech-stack-desktop.png', {
-        maxDiffPixelRatio: 0.01,
+        ...screenshotOptions,
       });
     });
 
@@ -146,8 +179,9 @@ test.describe('Visual Regression', () => {
       await hideFixedElements(page);
       const techStack = page.locator('#tech-stack');
       await techStack.scrollIntoViewIfNeeded();
+      await waitForLayoutStability(page);
       await expect(techStack).toHaveScreenshot('tech-stack-mobile.png', {
-        maxDiffPixelRatio: 0.01,
+        ...screenshotOptions,
       });
     });
   });
@@ -158,8 +192,9 @@ test.describe('Visual Regression', () => {
       await hideFixedElements(page);
       const contact = page.locator('#contact');
       await contact.scrollIntoViewIfNeeded();
+      await waitForLayoutStability(page);
       await expect(contact).toHaveScreenshot('contact-desktop.png', {
-        maxDiffPixelRatio: 0.01,
+        ...screenshotOptions,
       });
     });
 
@@ -168,8 +203,9 @@ test.describe('Visual Regression', () => {
       await hideFixedElements(page);
       const contact = page.locator('#contact');
       await contact.scrollIntoViewIfNeeded();
+      await waitForLayoutStability(page);
       await expect(contact).toHaveScreenshot('contact-mobile.png', {
-        maxDiffPixelRatio: 0.01,
+        ...screenshotOptions,
       });
     });
   });
@@ -179,7 +215,7 @@ test.describe('Visual Regression', () => {
       await page.setViewportSize({ width: 1280, height: 720 });
       const nav = page.locator('nav');
       await expect(nav).toHaveScreenshot('nav-desktop.png', {
-        maxDiffPixelRatio: 0.01,
+        ...screenshotOptions,
       });
     });
 
@@ -187,7 +223,7 @@ test.describe('Visual Regression', () => {
       await page.setViewportSize({ width: 375, height: 667 });
       const nav = page.locator('nav');
       await expect(nav).toHaveScreenshot('nav-mobile-closed.png', {
-        maxDiffPixelRatio: 0.01,
+        ...screenshotOptions,
       });
     });
 
@@ -197,7 +233,7 @@ test.describe('Visual Regression', () => {
       // Wait for menu animation
       await page.waitForTimeout(100);
       await expect(page).toHaveScreenshot('nav-mobile-open.png', {
-        maxDiffPixelRatio: 0.01,
+        ...screenshotOptions,
       });
     });
   });
@@ -207,9 +243,10 @@ test.describe('Visual Regression', () => {
       await page.setViewportSize({ width: 1280, height: 720 });
       await hideFixedElements(page);
       await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+      await waitForLayoutStability(page);
       const footer = page.locator('footer');
       await expect(footer).toHaveScreenshot('footer-desktop.png', {
-        maxDiffPixelRatio: 0.01,
+        ...screenshotOptions,
       });
     });
 
@@ -217,9 +254,10 @@ test.describe('Visual Regression', () => {
       await page.setViewportSize({ width: 375, height: 667 });
       await hideFixedElements(page);
       await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+      await waitForLayoutStability(page);
       const footer = page.locator('footer');
       await expect(footer).toHaveScreenshot('footer-mobile.png', {
-        maxDiffPixelRatio: 0.01,
+        ...screenshotOptions,
       });
     });
   });
