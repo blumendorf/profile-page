@@ -1,14 +1,26 @@
-import React from 'react'
+/* eslint-disable react-refresh/only-export-components */
+import React, { Suspense, lazy } from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App'
-import LabIndex from '@/features/lab/LabIndex'
-import { HTMLPlayground } from '@/features/lab/html'
-import { EvalPlayground } from '@/features/lab/eval/EvalPlayground'
-import { CompareViewsPlayground } from '@/features/lab/compare'
-import { Impressum } from '@/features/home'
+import { PageLoader } from '@/components/ui'
 import { initializeTheme } from '@/features/shared'
 import './index.css'
+
+// Lazy load non-critical routes for code splitting
+const LabIndex = lazy(() => import('@/features/lab/LabIndex'))
+const HTMLPlayground = lazy(() =>
+  import('@/features/lab/html').then((m) => ({ default: m.HTMLPlayground }))
+)
+const EvalPlayground = lazy(() =>
+  import('@/features/lab/eval/EvalPlayground').then((m) => ({ default: m.EvalPlayground }))
+)
+const CompareViewsPlayground = lazy(() =>
+  import('@/features/lab/compare').then((m) => ({ default: m.CompareViewsPlayground }))
+)
+const Impressum = lazy(() =>
+  import('@/features/home').then((m) => ({ default: m.Impressum }))
+)
 
 // Initialize theme before render to prevent flash of wrong theme
 initializeTheme();
@@ -20,27 +32,23 @@ const router = createBrowserRouter([
   },
   {
     path: '/lab',
-    element: <LabIndex />,
+    element: <Suspense fallback={<PageLoader />}><LabIndex /></Suspense>,
   },
-  // HTML Generator experiment
   {
     path: '/lab/html',
-    element: <HTMLPlayground />,
+    element: <Suspense fallback={<PageLoader />}><HTMLPlayground /></Suspense>,
   },
-  // Evaluation playground
   {
     path: '/lab/eval',
-    element: <EvalPlayground />,
+    element: <Suspense fallback={<PageLoader />}><EvalPlayground /></Suspense>,
   },
-  // Compare Views experiment
   {
     path: '/lab/compare',
-    element: <CompareViewsPlayground />,
+    element: <Suspense fallback={<PageLoader />}><CompareViewsPlayground /></Suspense>,
   },
-  // Impressum (Legal Notice)
   {
     path: '/impressum',
-    element: <Impressum />,
+    element: <Suspense fallback={<PageLoader />}><Impressum /></Suspense>,
   },
 ])
 
