@@ -208,9 +208,12 @@
   border: 1px solid var(--border-subtle);
   @apply transition-all duration-150;
 
-  &:hover {
-    border-color: var(--accent-primary);
-    color: var(--accent-primary);
+  /* Only show hover effect on devices with pointer hover capability (not mobile) */
+  @media (hover: hover) {
+    &:hover {
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+    }
   }
 
   /* Optional squircle shape for modern browsers */

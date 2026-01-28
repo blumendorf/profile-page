@@ -2,7 +2,7 @@
 
 This file contains the target text for each section of blumendorf.info. Keep this file aligned with the actual implementation. When updating content, update here first, then sync to components.
 
-**Last synced:** January 2, 2026 (added Impressum)
+**Last synced:** January 28, 2026 (removed quote and pillars from About section)
 
 ---
 
@@ -81,31 +81,6 @@ I spent over a decade at TU-Berlin researching how to build adaptive user interf
 After my PhD, I spent two years traveling, then moved into startups. I built engineering teams from scratch, scaled a smart home company, raised funding as CTO of an IoT energy platform, and worked as a freelance consultant across sustainability and tech. I've always preferred greenfield projects-building something new from nothing.
 
 Now I'm Director of Software Engineering at CHAPTR, a startup within the Holtzbrinck Publishing Group. We're Holtzbrinck's AI strategy. I work mainly on reedy.ai, a platform that uses AI to improve book metadata, optimize discoverability, and make large catalogs semantically searchable.
-```
-
-### Quote
-```
-Your job hasn't changed: deliver code that you've proven works. What's changed is how you get there.
-```
-
-### Pillars (no heading, displayed as cards)
-
-**Pillar 1**
-```
-Title: Code that AI can reason about
-Description: Simple architecture, clear patterns, documentation about the why-not just the what.
-```
-
-**Pillar 2**
-```
-Title: Engineers using AI as a multiplier
-Description: Working alongside a fast junior developer who's read everything but knows nothing about your product.
-```
-
-**Pillar 3**
-```
-Title: Tests as the ultimate lifeline
-Description: The one thing that still proves your code works, whether you wrote it or AI did.
 ```
 
 ---

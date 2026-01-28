@@ -23,14 +23,6 @@ After my PhD, I spent two years traveling, then moved into startups. I built eng
 
 Now I'm Director of Software Engineering at CHAPTR, a startup within the Holtzbrinck Publishing Group. We're Holtzbrinck's AI strategy. I work mainly on reedy.ai, a platform that uses AI to improve book metadata, optimize discoverability, and make large catalogs semantically searchable.
 
-> "Your job hasn't changed: deliver code that you've proven works. What's changed is how you get there."
-
-### Core Beliefs
-
-1. **Code that AI can reason about** - Simple architecture, clear patterns, documentation about the why-not just the what.
-2. **Engineers using AI as a multiplier** - Working alongside a fast junior developer who's read everything but knows nothing about your product.
-3. **Tests as the ultimate lifeline** - The one thing that still proves your code works, whether you wrote it or AI did.
-
 ---
 
 ## Areas of Focus
