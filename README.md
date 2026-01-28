@@ -2,7 +2,7 @@
 
 A personal profile website with an "Engineer's Notebook" aesthetic, featuring interactive elements and browser-based AI experiments.
 
-**[View Live Site →](https://blumendorf.github.io/profile-page)**
+**[View Live Site →](https://blumendorf.github.io)**
 
 ## Features
 
