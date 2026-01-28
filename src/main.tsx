@@ -20,32 +20,37 @@ const Impressum = lazy(() =>
   import('@/features/home').then((m) => ({ default: m.Impressum }))
 )
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: <App />,
+    },
+    {
+      path: '/lab',
+      element: <Suspense fallback={<PageLoader />}><LabIndex /></Suspense>,
+    },
+    {
+      path: '/lab/html',
+      element: <Suspense fallback={<PageLoader />}><HTMLPlayground /></Suspense>,
+    },
+    {
+      path: '/lab/eval',
+      element: <Suspense fallback={<PageLoader />}><EvalPlayground /></Suspense>,
+    },
+    {
+      path: '/lab/compare',
+      element: <Suspense fallback={<PageLoader />}><CompareViewsPlayground /></Suspense>,
+    },
+    {
+      path: '/impressum',
+      element: <Suspense fallback={<PageLoader />}><Impressum /></Suspense>,
+    },
+  ],
   {
-    path: '/',
-    element: <App />,
-  },
-  {
-    path: '/lab',
-    element: <Suspense fallback={<PageLoader />}><LabIndex /></Suspense>,
-  },
-  {
-    path: '/lab/html',
-    element: <Suspense fallback={<PageLoader />}><HTMLPlayground /></Suspense>,
-  },
-  {
-    path: '/lab/eval',
-    element: <Suspense fallback={<PageLoader />}><EvalPlayground /></Suspense>,
-  },
-  {
-    path: '/lab/compare',
-    element: <Suspense fallback={<PageLoader />}><CompareViewsPlayground /></Suspense>,
-  },
-  {
-    path: '/impressum',
-    element: <Suspense fallback={<PageLoader />}><Impressum /></Suspense>,
-  },
-])
+    basename: import.meta.env.BASE_URL,
+  }
+)
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
