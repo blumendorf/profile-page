@@ -2,7 +2,7 @@ name: PR Checks
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
@@ -13,15 +13,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # ratchet:actions/checkout@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # ratchet:actions/setup-node@v6
         with:
           node-version: '20'
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@eae0cfeb286e66ffb5155f1a79b90583a127a68b # ratchet:pnpm/action-setup@v2
         with:
           version: 8
           run_install: true
@@ -39,15 +39,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # ratchet:actions/checkout@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # ratchet:actions/setup-node@v6
         with:
           node-version: '20'
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@eae0cfeb286e66ffb5155f1a79b90583a127a68b # ratchet:pnpm/action-setup@v2
         with:
           version: 8
           run_install: true
@@ -59,7 +59,7 @@ jobs:
         run: pnpm test:e2e
 
       - name: Upload Playwright report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # ratchet:actions/upload-artifact@v6
         if: ${{ !cancelled() }}
         with:
           name: playwright-report

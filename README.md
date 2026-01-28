@@ -92,6 +92,24 @@ pnpm build
 pnpm preview
 ```
 
+### GitHub Actions Security
+
+GitHub Action versions are pinned to commit SHAs using [ratchet](https://github.com/sethvargo/ratchet) to prevent supply chain attacks.
+
+```bash
+# Check for unpinned or outdated actions
+ratchet check .github/workflows/*.yml
+
+# Pin all actions to their current SHA
+ratchet pin .github/workflows/*.yml
+
+# Update SHAs to latest commit for current version tags
+ratchet update .github/workflows/*.yml
+
+# Upgrade to newer version tags (e.g., v4 → v5)
+ratchet upgrade .github/workflows/*.yml
+```
+
 ### E2E & Visual Regression Tests
 
 E2E tests use Playwright and include visual regression testing to catch unintended design changes.

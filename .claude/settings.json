@@ -4,7 +4,8 @@
       "Bash(pnpm lint:*)",
       "Bash(pnpm test:*)",
       "Bash(pnpm test:e2e:*)",
-      "Bash(pnpm exec playwright test:*)"
+      "Bash(pnpm exec playwright test:*)",
+      "Bash(ratchet pin:*)"
     ]
   }
 }
