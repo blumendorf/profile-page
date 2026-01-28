@@ -27,7 +27,7 @@ jobs:
           draft: false
           prerelease: false
 
-  build-and-deploy:
+  gh-pages-deploy:
     runs-on: ubuntu-latest
     name: GitHub Pages - Build and Deploy
     environment:
@@ -70,6 +70,46 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
+  gh-pages-e2e-test:
+    runs-on: ubuntu-latest
+    name: E2E Tests - GitHub Pages
+    needs: gh-pages-deploy
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Wait for deployment to propagate
+        run: sleep 30
+
+      - name: Run E2E tests against GitHub Pages
+        env:
+          BASE_URL: https://blumendorf.github.io
+        run: pnpm test:e2e --project=chromium
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: e2e-results-gh-pages
+          path: playwright-report/
+          retention-days: 7
+
   ftp-deploy:
     runs-on: ubuntu-latest
     name: FTP - Build and Deploy
@@ -102,3 +142,43 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: dist/
+
+  ftp-e2e-test:
+    runs-on: ubuntu-latest
+    name: E2E Tests - FTP Deployment
+    needs: ftp-deploy
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Wait for deployment to propagate
+        run: sleep 30
+
+      - name: Run E2E tests against FTP deployment
+        env:
+          BASE_URL: https://blumendorf.info
+        run: pnpm test:e2e --project=chromium
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: e2e-results-ftp
+          path: playwright-report/
+          retention-days: 7
