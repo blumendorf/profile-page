@@ -1,0 +1,9 @@
+/* TEAM */
+Dr Marco Blumendorf
+Site: https://blumendorf.info
+Location: Germany
+
+/* SITE */
+Built with: React, TypeScript, Vite, Tailwind CSS
+Last update: 2026-01-24
+Standards: HTML5, CSS3, WCAG 2.2 AA

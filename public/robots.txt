@@ -1,5 +1,22 @@
 User-agent: *
 Allow: /
 
-# Sitemap
+# AI Crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Perplexity-AI
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Files
 Sitemap: https://blumendorf.info/sitemap.xml
+
+# LLM Context
+# See https://blumendorf.info/llms.txt for AI-friendly content summary
+# See https://blumendorf.info/llms-full.txt for complete content

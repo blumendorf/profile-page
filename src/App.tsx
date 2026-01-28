@@ -1,94 +1,66 @@
-import React from 'react'
-import { HashRouter, Routes, Route, useLocation } from 'react-router-dom'
-import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import About from './components/About'
-import Expertise from './components/Expertise'
-import Contact from './components/Contact'
-import Footer from './components/Footer'
-import TechStack from './components/TechStack'
-import Timeline from './components/Timeline'
-import Section from './components/Section'
-import CookieBanner from './components/CookieBanner'
-import PrivacyPolicy from './components/PrivacyPolicy'
-import Impressum from './components/Impressum'
-import { useDevMessage } from './hooks/useDevMessage'
-import { initializeGoogleAnalytics } from './utils/analytics'
+import { useState } from 'react';
+import {
+  Navbar,
+  Hero,
+  About,
+  Expertise,
+  TechStack,
+  Timeline,
+  Lab,
+  Contact,
+  Footer,
+} from '@/features/home';
+import { NetworkBackground, JsonView } from '@/components/ui';
 
-// Add type for section configuration
-type SectionConfig = {
-  id: string;
-  Component: React.ComponentType;
-};
+function App() {
+  const [isJsonMode, setIsJsonMode] = useState(false);
+  const [focusedJsonSection, setFocusedJsonSection] = useState<string | null>(null);
 
-function MainContent() {
-  const location = useLocation();
-
-  // Handle scroll when hash changes
-  React.useEffect(() => {
-    // Get the hash without the '#' symbol
-    const hash = location.hash.replace('#', '');
-    if (hash) {
-      const element = document.getElementById(hash);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  }, [location]);
-
-  // Define sections with explicit IDs
-  const mainSections: SectionConfig[] = [
-    { id: 'home', Component: Hero },
-    { id: 'about', Component: About },
-    { id: 'expertise', Component: Expertise },
-    { id: 'tech-stack', Component: TechStack },
-    { id: 'timeline', Component: Timeline },
-    { id: 'contact', Component: Contact },
-  ];
+  const handleToggleJsonMode = () => {
+    setIsJsonMode(!isJsonMode);
+    setFocusedJsonSection(null); // Reset focus when toggling
+  };
 
   return (
-    <main className="pt-16" role="main" aria-label="Main content">
-      {mainSections.map(({ id, Component }, index) => (
-        <Section
-          key={id}
-          id={id}
-          index={index}
-          totalSections={mainSections.length}
+    <div className="min-h-screen relative" lang="en">
+        {/* Skip link for keyboard users */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-60 focus:px-4 focus:py-2 focus:bg-accent focus:text-page focus:rounded-lg focus:font-medium"
         >
-          <Component />
-        </Section>
-      ))}
-    </main>
+          Skip to main content
+        </a>
+
+        {/* ARIA live region for screen reader announcements */}
+        <div aria-live="polite" aria-atomic="true" className="sr-only">
+          {isJsonMode ? 'JSON view active' : 'Human view active'}
+        </div>
+
+        {!isJsonMode && <NetworkBackground />}
+        <Navbar
+          isJsonMode={isJsonMode}
+          onToggleJsonMode={handleToggleJsonMode}
+          onNavigateInJsonMode={setFocusedJsonSection}
+          focusedJsonSection={focusedJsonSection}
+        />
+
+        {isJsonMode ? (
+          <JsonView focusedSection={focusedJsonSection} />
+        ) : (
+          <main id="main-content" role="main" aria-label="Main content" className="relative z-10">
+            <Hero />
+            <About />
+            <Expertise />
+            <TechStack />
+            <Timeline />
+            <Lab />
+            <Contact />
+          </main>
+        )}
+
+        {!isJsonMode && <Footer />}
+      </div>
   );
 }
 
-function MainLayout() {
-  // Show development process message
-  useDevMessage();
-
-  return (
-    <div className="min-h-[calc(var(--vh,1vh)*100)] bg-gray-50 dark:bg-gray-900" lang="en">
-      <Navbar />
-      <MainContent />
-      <Footer />
-      <CookieBanner />
-    </div>
-  )
-}
-
-function App() {
-  // Initialize Google Analytics with your measurement ID
-  initializeGoogleAnalytics('G-MG5LDT8GT6');
-
-  return (
-    <HashRouter>
-      <Routes>
-        <Route path="/" element={<MainLayout />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/impressum" element={<Impressum />} />
-      </Routes>
-    </HashRouter>
-  )
-}
-
-export default App
+export default App;

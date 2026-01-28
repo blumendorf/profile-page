@@ -1,0 +1,115 @@
+# Dr Marco Blumendorf
+
+> Personal website of Dr Marco Blumendorf, Director of Software Engineering at CHAPTR (Holtzbrinck Publishing Group). PhD in Distributed AI from TU Berlin. 20+ years building software, from academic research to AI-powered publishing products.
+
+## Profile
+
+**Name:** Dr Marco Blumendorf
+**Title:** Director of Software Engineering
+**Headline:** I spent a decade at TU Berlin researching adaptive UIs and distributed AI. Now I lead engineering teams, rethinking how we build software alongside AI.
+**Tags:** Engineering, Leadership, AI first
+
+**Links:**
+- LinkedIn: https://linkedin.com/in/marcoblu
+- GitHub: https://github.com/blumendorf
+
+---
+
+## About Me
+
+I spent over a decade at TU-Berlin researching how to build adaptive user interfaces-systems that work across phones, tablets, smart homes, and respond to voice, touch, gestures. We called it multimodal interaction. Today, it's closer to what people mean by generative UI.
+
+After my PhD, I spent two years traveling, then moved into startups. I built engineering teams from scratch, scaled a smart home company, raised funding as CTO of an IoT energy platform, and worked as a freelance consultant across sustainability and tech. I've always preferred greenfield projects-building something new from nothing.
+
+Now I'm Director of Software Engineering at CHAPTR, a startup within the Holtzbrinck Publishing Group. We're Holtzbrinck's AI strategy. I work mainly on reedy.ai, a platform that uses AI to improve book metadata, optimize discoverability, and make large catalogs semantically searchable.
+
+> "Your job hasn't changed: deliver code that you've proven works. What's changed is how you get there."
+
+### Core Beliefs
+
+1. **Code that AI can reason about** - Simple architecture, clear patterns, documentation about the why-not just the what.
+2. **Engineers using AI as a multiplier** - Working alongside a fast junior developer who's read everything but knows nothing about your product.
+3. **Tests as the ultimate lifeline** - The one thing that still proves your code works, whether you wrote it or AI did.
+
+---
+
+## Areas of Focus
+
+### Developer Experience
+Ensuring the team can deliver their best work by structuring codebases for quality and AI-compatibility, integrating AI tools into daily workflows, and building development environments that scale.
+
+### Team & Culture
+Building environments where engineers grow, adapting processes as tooling evolves, mentoring career development, and maintaining quality as velocity increases.
+
+### Technical Leadership
+Collaborating with product on roadmaps, making architecture decisions for new systems, managing delivery and timelines, and keeping technical debt under control.
+
+---
+
+## Technical Foundation
+
+### Frontend
+React, TypeScript, Vite, Tailwind CSS, TanStack Query
+
+### Backend
+Python, Firebase Functions, Pydantic, GCP Cloud Functions
+
+### Data & Search
+Firestore, BigQuery, Typesense, Elasticsearch, PostgreSQL
+
+### AI & ML
+OpenAI, Anthropic Claude, LangChain, Cohere, Google GenAI
+
+### Infrastructure
+GCP, Terraform, Cloud Tasks, Pub/Sub, Firebase Auth
+
+### Practices
+Vitest, Playwright, Cypress, CI/CD, Feature Flags
+
+---
+
+## Professional Journey
+
+### 2023–Present: CHAPTR - AI in Publishing
+Senior Engineer → Director of Software Engineering. CHAPTR is the AI strategy of Holtzbrinck Publishing Group. I lead the team building reedy.ai-AI-powered metadata optimization, discoverability, and semantic search for publishers.
+
+### 2014–2025: GreenBuzz Berlin
+Co-founded as Sustainability Drinks at yetu in 2014. Became GreenBuzz Berlin in 2015, part of a global network for sustainability professionals.
+
+### 2017–2023: Independent Practice
+Freelance CTO and consultant. Led engineering for startups in sustainability and IoT. Technical leadership, React coaching, strategic advisory. Lots of greenfield projects.
+
+### 2010–2017: Startup Building
+Built engineering teams from scratch. Scaled yetu AG's smart home development. Led smartB as CTO-raised funding, built an IoT platform for commercial energy management.
+
+### 1999–2010: Academic Foundations
+PhD at TU-Berlin's DAI-Labor, researching adaptive user interfaces across devices and modalities-voice, touch, gestures, smart environments. Led the Human-Computer Interaction workgroup. What we worked on then is now called generative UI.
+
+---
+
+## The Lab
+
+A place for experiments and writeups-things I'm tinkering with, exploring, or just curious about. Some ideas turn into real projects, others stay as notes on what I've learned along the way.
+
+---
+
+## Contact
+
+I enjoy conversations about where software engineering is headed-especially the intersection of AI tooling, team culture, and building products that matter.
+
+**Topics I like talking about:**
+- How AI is changing engineering
+- Building developer experience that scales
+- Greenfield projects and when to start fresh
+- The publishing industry meets AI
+
+**Get in touch:**
+- Email: Best for longer conversations
+- LinkedIn: Let's connect professionally
+- GitHub: See what I'm building
+
+---
+
+## Machine-Readable Data
+
+For structured data, see the Profile API: https://blumendorf.info/api/v1/profile.json

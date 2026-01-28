@@ -1,0 +1,255 @@
+# Claude Code Rules & Conventions
+
+**CRITICAL: These rules must be kept in sync with `.cursor/rules/conventions.mdc` at all times.**
+
+When updating this file, you MUST also update `.cursor/rules/conventions.mdc`.
+
+When updating `.cursor/rules/conventions.mdc`, you MUST also update this file.
+
+---
+
+## Agent Context & Source of Truth
+
+The `agent-context/` directory contains the source of truth for this project's content, design, and background.
+
+- `agent-context/content.md`: Contains the exact text content for the website.
+- `agent-context/design.md`: Contains the design philosophy, UX goals, visual identity, and specifications.
+- `agent-context/background/`: Contains background information (interview questions, overview, tech stack details).
+
+### Rules
+
+1. **Read First**: Before starting any significant task, check `agent-context/content.md` and `agent-context/design.md` to ensure alignment with the established source of truth.
+2. **Sync Content**: If you modify text in the codebase (`src/`), you MUST update `agent-context/content.md` to match, or verify it already matches. The markdown file is the master copy.
+3. **Sync Design**: If you change design tokens, layout, or visual patterns in `src/`, update `agent-context/design.md` to reflect these changes.
+4. **Consult Background**: When making decisions about tone, voice, or technical strategy, refer to `agent-context/background/` for context on the user's preferences and history.
+5. **Update Timestamp**: When updating `agent-context/content.md`, update the "Last synced" date and the Change Log at the bottom.
+
+### Workflow
+
+- **When implementing content:** Copy from `content.md` -> `src/`.
+- **When refining content:** Update `content.md` -> Then update `src/`.
+- **When changing design:** Update `design.md` -> Then implement in `src/`.
+
+### Important
+
+- If you are updating the content, you MUST update the `content.md` file to keep it in sync.
+- If you are modifying `src/pages/lab/**`, you MUST update `src/pages/lab/lab.md` to reflect the changes.
+
+### Sitemap
+
+The sitemap is located at `public/sitemap.xml`. When adding, removing, or renaming pages/routes:
+1. Update `public/sitemap.xml` to reflect the new structure
+2. Update the `<lastmod>` date for changed pages
+3. Ensure all routes in `src/main.tsx` are represented in the sitemap
+
+### LLM & SEO Files
+
+The following files provide content for LLM crawlers and must stay in sync with content changes:
+
+- `public/llms.txt`: Site structure summary for AI crawlers
+- `public/llms-full.txt`: Full content in markdown format for deeper LLM context
+- `index.html` JSON-LD: Structured data (profile info, employer, description)
+
+**When updating content:**
+
+1. If section structure changes → Update `public/llms.txt`
+2. If text content changes → Update `public/llms-full.txt`
+3. If profile info changes (name, title, employer) → Update JSON-LD in `index.html`
+
+---
+
+## Core Technology Stack
+
+### Framework & Runtime
+- **Build Tool**: Vite 6
+- **React**: React 19
+- **Language**: TypeScript 5.7+
+- **Package Manager**: pnpm
+
+### Styling
+- **CSS Framework**: Tailwind v4
+- **Component Library**: shadcn/ui
+- **Icons**: Lucide React
+
+### Animation
+- **Primary**: Motion library
+- **Simple effects**: CSS transitions
+
+### Testing
+- **Unit/Integration**: Vitest 3
+- **Component Testing**: Testing Library (React)
+- **E2E Testing**: Playwright
+
+### Deployment
+- **Platform**: GitHub Pages (static export)
+
+---
+
+## Project Structure
+
+### Folder Organization
+Organize code by **features**, not by type. Each feature is self-contained with its own components, hooks, types, and utilities.
+
+```
+src/
+├── components/ui/    # Shared UI primitives (Button, Card, etc.)
+├── features/         # Feature-based modules
+│   ├── home/         # Landing page feature
+│   ├── lab/          # Lab experiments feature
+│   └── shared/       # Cross-feature shared code
+├── lib/              # Non-UI utilities & integrations
+└── test/             # Test setup
+```
+
+### Feature Folder Structure
+Each feature should contain only what it needs:
+
+```
+features/{feature-name}/
+├── components/       # Feature-specific components
+├── hooks/            # Feature-specific hooks
+├── types.ts          # Feature types (if needed)
+├── constants.ts      # Feature constants (if needed)
+└── index.ts          # Public exports
+```
+
+### Component Hierarchy
+Follow a 3-tier component architecture:
+
+1. **Page Components** - Route entry points, minimal logic
+2. **Feature Components** - Domain logic, compose UI components
+3. **UI Components** - Reusable primitives in `components/ui/`
+
+### Where Things Go
+
+| Type | Location |
+|------|----------|
+| UI primitives (Button, Card) | `components/ui/` |
+| Feature components | `features/{name}/components/` |
+| Feature hooks | `features/{name}/hooks/` |
+| Shared hooks/contexts | `features/shared/` |
+| Utilities (cn, formatters) | `lib/utils/` |
+| Static data | `lib/data/` |
+| 3rd party integrations | `lib/{service}/` |
+
+---
+
+## Coding Conventions
+
+### TypeScript
+- Strict mode enabled
+- Explicit types for props and complex objects
+- Never use `any`
+- Co-locate types with their feature
+
+### React Components
+- Function components with arrow syntax
+- Named exports preferred
+- Destructure props in function signature
+- **Single responsibility**: each component renders one thing
+
+### Tailwind CSS v4
+- Use `@theme` in CSS for design tokens
+- Prefer utilities over custom CSS
+- Use `@layer components` for reusable patterns
+- Always use `cn()` for conditional classes
+- No hardcoded colors - use Tailwind theme tokens
+
+### Accessibility
+- Semantic HTML (`<nav>`, `<main>`, `<section>`)
+- ARIA labels on interactive elements
+- Visible focus states
+- Keyboard accessible
+
+### Dark Mode
+- Tailwind `class` strategy
+- Default to system preference
+- Persist in localStorage
+
+---
+
+## Workflow
+
+### Before Committing
+1. Update docs in `/agent-context` when modifying content/design
+2. Update `/src/features/lab/lab.md` when modifying lab features
+3. Update `public/sitemap.xml` when adding/removing/renaming pages
+4. Update `public/llms.txt` and `public/llms-full.txt` when content changes
+5. Run `pnpm test` (unit tests)
+6. Run `pnpm test:e2e` (E2E tests) when modifying homepage
+7. Run `pnpm lint --fix` and fix remaining issues
+
+### E2E Tests
+
+E2E tests are located in `e2e/` and use Playwright.
+
+**When modifying homepage components:**
+1. Run `pnpm test:e2e` to ensure tests pass
+2. If adding new UI elements or features, add corresponding E2E tests
+3. If removing features, remove or update related tests
+
+**Test file mapping:**
+- Homepage sections → `e2e/homepage.spec.ts`
+- Navigation behavior → `e2e/navigation.spec.ts`
+- JSON view mode → `e2e/json-view.spec.ts`
+- Responsive layouts → `e2e/responsive.spec.ts`
+- Accessibility → `e2e/accessibility.spec.ts`
+- Visual regression → `e2e/visual-regression.spec.ts`
+
+### Visual Regression Tests
+
+Visual regression tests use Playwright's screenshot comparison to catch unintended design changes.
+
+**Snapshots location:** `e2e/snapshots/visual-regression.spec.ts/`
+
+**When to update snapshots:**
+- After intentional design changes, run: `pnpm test:e2e:update-snapshots`
+- Review the updated snapshots before committing to ensure changes are intentional
+
+**What's tested:**
+- Full page screenshots (desktop, tablet, mobile)
+- Individual sections (hero, about, expertise, tech-stack, contact)
+- Navigation (desktop bar, mobile closed/open states)
+- Footer
+
+### Code Organization Principles
+- **Colocate related code** - Keep components, hooks, types together
+- **Single responsibility** - Each file does one thing well
+- **Explicit exports** - Use `index.ts` barrel files for public APIs
+- **Keep it simple** - Don't over-abstract; refactor when needed
+
+---
+
+## Security
+
+- Obfuscate email addresses in public-facing code
+
+---
+
+## AI Agent Synchronization Rules
+
+**CRITICAL REQUIREMENT**: Any AI agent (Claude, Cursor, or other) working on this project MUST:
+
+1. **Always read these rules** before starting any significant task
+2. **Keep rules synchronized** across both locations:
+   - `.claude/claude.md` (this file)
+   - `.cursor/rules/conventions.mdc`
+3. **When updating rules**:
+   - Update BOTH rule files simultaneously
+   - Ensure content consistency across both files
+   - Preserve the specific formatting requirements of each file (frontmatter, MDC syntax, etc.)
+4. **Before committing changes** that involve rules:
+   - Verify both rule files are in sync
+   - Include both updated rule files in the commit
+
+### Rationale
+Different AI agents may read from different rule files:
+- Claude Code reads from `.claude/claude.md`
+- Cursor IDE reads from `.cursor/rules/conventions.mdc`
+
+Keeping these synchronized ensures consistent behavior across all AI tools working on this project.
+
+---
+
+**Last Updated**: 2026-01-24
+**Version**: 1.2.0
