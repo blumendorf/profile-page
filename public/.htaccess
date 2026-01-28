@@ -1,0 +1,9 @@
+# Enable RewriteEngine
+RewriteEngine On
+
+# If the requested resource exists as a file or directory, serve it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Otherwise, rewrite all requests to index.html for SPA routing
+RewriteRule ^ /index.html [L]
