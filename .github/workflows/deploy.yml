@@ -10,6 +10,10 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
 jobs:
   create-release:
     runs-on: ubuntu-latest
@@ -94,9 +98,6 @@ jobs:
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps chromium
 
-      - name: Wait for deployment to propagate
-        run: sleep 30
-
       - name: Run E2E tests against GitHub Pages
         env:
           BASE_URL: https://blumendorf.github.io
@@ -166,9 +167,6 @@ jobs:
 
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps chromium
-
-      - name: Wait for deployment to propagate
-        run: sleep 30
 
       - name: Run E2E tests against FTP deployment
         env:
