@@ -10,29 +10,35 @@ When updating `.cursor/rules/conventions.mdc`, you MUST also update this file.
 
 ## Agent Context & Source of Truth
 
-The `agent-context/` directory contains the source of truth for this project's content, design, and background.
+Content is split between two sources:
 
-- `agent-context/content.md`: Contains the exact text content for the website.
-- `agent-context/design.md`: Contains the design philosophy, UX goals, visual identity, and specifications.
-- `agent-context/background/`: Contains background information (interview questions, overview, tech stack details).
+| File | Purpose | Contains |
+|------|---------|----------|
+| `public/api/v1/profile.json` | Structured content for UI | Profile, About, Expertise, Tech Stack, Journey, Lab, Contact |
+| `agent-context/content.md` | Agent context & guidelines | Meta/SEO, voice guidelines, implementation notes, legal content |
+
+Additional context files:
+- `agent-context/design.md`: Design philosophy, UX goals, visual identity, and specifications.
+- `agent-context/background/`: Background information (interview questions, overview, tech stack details).
 
 ### Rules
 
-1. **Read First**: Before starting any significant task, check `agent-context/content.md` and `agent-context/design.md` to ensure alignment with the established source of truth.
-2. **Sync Content**: If you modify text in the codebase (`src/`), you MUST update `agent-context/content.md` to match, or verify it already matches. The markdown file is the master copy.
-3. **Sync Design**: If you change design tokens, layout, or visual patterns in `src/`, update `agent-context/design.md` to reflect these changes.
-4. **Consult Background**: When making decisions about tone, voice, or technical strategy, refer to `agent-context/background/` for context on the user's preferences and history.
-5. **Update Timestamp**: When updating `agent-context/content.md`, update the "Last synced" date and the Change Log at the bottom.
+1. **Read First**: Before starting any significant task, check `profile.json` for content and `content.md` for voice/context guidelines.
+2. **Sync Structured Content**: If you modify text in UI components (`src/`), update `public/api/v1/profile.json` to match.
+3. **Sync Agent Context**: If you change meta/SEO, voice guidelines, or legal content, update `agent-context/content.md`.
+4. **Sync Design**: If you change design tokens, layout, or visual patterns in `src/`, update `agent-context/design.md` to reflect these changes.
+5. **Consult Background**: When making decisions about tone, voice, or technical strategy, refer to `agent-context/background/` for context on the user's preferences and history.
+6. **Update Timestamp**: When updating `agent-context/content.md`, update the "Last synced" date.
 
 ### Workflow
 
-- **When implementing content:** Copy from `content.md` -> `src/`.
-- **When refining content:** Update `content.md` -> Then update `src/`.
+- **When implementing content:** Reference `profile.json` for text, `content.md` for voice guidelines.
+- **When refining content:** Update `profile.json` -> Then update components.
 - **When changing design:** Update `design.md` -> Then implement in `src/`.
 
 ### Important
 
-- If you are updating the content, you MUST update the `content.md` file to keep it in sync.
+- If you are updating UI text content, you MUST update `public/api/v1/profile.json` to keep it in sync.
 - If you are modifying `src/pages/lab/**`, you MUST update `src/pages/lab/lab.md` to reflect the changes.
 
 ### Sitemap
@@ -251,5 +257,5 @@ Keeping these synchronized ensures consistent behavior across all AI tools worki
 
 ---
 
-**Last Updated**: 2026-01-24
-**Version**: 1.2.0
+**Last Updated**: 2026-01-28
+**Version**: 1.3.0

@@ -1,15 +1,31 @@
-# Website Content - Source of Truth
+# Website Content - Agent Context
 
-This file contains the target text for each section of blumendorf.info. Keep this file aligned with the actual implementation. When updating content, update here first, then sync to components.
+This file provides voice guidelines, implementation notes, and context for AI agents working on blumendorf.info.
 
-**Last synced:** January 28, 2026 (removed quote and pillars from About section)
+**Structured content source of truth:** [`/public/api/v1/profile.json`](/public/api/v1/profile.json)
+
+---
+
+## Content Architecture
+
+The website content is split between two files:
+
+| File | Purpose | Contains |
+|------|---------|----------|
+| `profile.json` | Structured data for UI components | Profile, About, Expertise, Tech Stack, Journey, Lab, Contact |
+| `content.md` (this file) | Agent context | Meta/SEO, voice guidelines, implementation notes, legal content, reference material |
+
+**When updating content:**
+1. Update `profile.json` for any text that appears in UI components
+2. Update this file for meta/SEO, voice guidelines, or legal content
+3. Sync components as needed
 
 ---
 
 ## Meta & SEO
 
 > **Component:** `index.html`
-> **Context:** Used in meta tags, OpenGraph, Twitter cards, and structured data.
+> **Context:** Used in meta tags, OpenGraph, Twitter cards, and structured data. Not in profile.json.
 
 ### Page Title
 ```
@@ -34,245 +50,75 @@ Software Engineering, Engineering Leadership, AI Development, CHAPTR, Holtzbrinc
 
 ---
 
-## Hero Section
+## Section Guidelines
+
+These notes provide voice and implementation context for sections whose content lives in `profile.json`.
+
+### Hero Section
 
 > **Component:** `src/components/Hero.tsx`
 > **Voice:** Direct introduction. No marketing speak.
+> **Content:** `profile.profile.name`, `profile.profile.title`, `profile.profile.headline`
 
-### Name & Title
-```
-Dr Marco Blumendorf
-Director of Software Engineering
-```
+**Why the headline works:** Connects PhD research to current work. Specific about the domain. No buzzwords.
 
-### Headline
-```
-I spent a decade at TU Berlin researching adaptive UIs and distributed AI. Now I lead engineering teams, rethinking how we build software alongside AI.
-```
-
-> **Why this works:** Connects PhD research to current work. Specific about the domain (publishers). No buzzwords.
-
-### Supporting Text (optional, currently not shown)
+**Supporting Text (optional, currently not shown):**
 ```
 At CHAPTR, part of Holtzbrinck's AI strategy, we build tools that help publishers manage and optimize their catalogs at scale.
 ```
 
-### CTA Button
-```
-Learn More
-```
+**CTA Button:** `Learn More`
 
----
-
-## About Section
+### About Section
 
 > **Component:** `src/components/About.tsx`
 > **Voice:** Personal background. First person. Conversational but professional.
+> **Content:** `profile.about`
 
-### Heading
-```
-About Me
-```
-
-### Personal Background
-```
-I spent over a decade at TU-Berlin researching how to build adaptive user interfaces-systems that work across phones, tablets, smart homes, and respond to voice, touch, gestures. We called it multimodal interaction. Today, it's closer to what people mean by generative UI.
-
-After my PhD, I spent two years traveling, then moved into startups. I built engineering teams from scratch, scaled a smart home company, raised funding as CTO of an IoT energy platform, and worked as a freelance consultant across sustainability and tech. I've always preferred greenfield projects-building something new from nothing.
-
-Now I'm Director of Software Engineering at CHAPTR, a startup within the Holtzbrinck Publishing Group. We're Holtzbrinck's AI strategy. I work mainly on reedy.ai, a platform that uses AI to improve book metadata, optimize discoverability, and make large catalogs semantically searchable.
-```
-
----
-
-## Expertise Section
+### Expertise Section
 
 > **Component:** `src/components/Expertise.tsx`
 > **Voice:** What he actually does, not what sounds impressive. Ordered by daily relevance.
+> **Content:** `profile.expertise`
 
-### Heading
-```
-Areas of Focus
-```
-
-### Intro
-```
-What I spend my time on.
-```
-
-### Area 1: Developer Experience
-```
-Title: Developer Experience
-Description: Ensuring the team can deliver their best work by structuring codebases for quality and AI-compatibility, integrating AI tools into daily workflows, and building development environments that scale.
-```
-
-### Area 2: Team & Culture
-```
-Title: Team & Culture
-Description: Building environments where engineers grow, adapting processes as tooling evolves, mentoring career development, and maintaining quality as velocity increases.
-```
-
-### Area 3: Technical Leadership
-```
-Title: Technical Leadership
-Description: Collaborating with product on roadmaps, making architecture decisions for new systems, managing delivery and timelines, and keeping technical debt under control.
-```
-
----
-
-## Tech Stack Section
+### Tech Stack Section
 
 > **Component:** `src/components/TechStack.tsx`
 > **Context:** Based on actual stack at CHAPTR (see tech-stack.md). Shows breadth and depth.
-
-### Heading
-```
-Technical Foundation
-```
-
-### Intro
-```
-Tools I work with daily.
-```
-
-### Categories
-
-**Frontend**
-```
-React, TypeScript, Vite, Tailwind CSS, TanStack Query
-```
-
-**Backend**
-```
-Python, Firebase Functions, Pydantic, GCP Cloud Functions
-```
-
-**Data & Search**
-```
-Firestore, BigQuery, Typesense, Elasticsearch, PostgreSQL
-```
-
-**AI & ML**
-```
-OpenAI, Anthropic Claude, LangChain, Cohere, Google GenAI
-```
-
-**Infrastructure**
-```
-GCP, Terraform, Cloud Tasks, Pub/Sub, Firebase Auth
-```
-
-**Practices**
-```
-Vitest, Playwright, Cypress, CI/CD, Feature Flags
-```
+> **Content:** `profile.techStack`
 
 > **Note:** This is the actual production stack, not aspirational. See tech-stack.md for full details.
 
----
-
-## Timeline Section
+### Timeline Section
 
 > **Component:** `src/components/Timeline.tsx`
 > **Voice:** Career story with specifics. Numbers and names add credibility.
+> **Content:** `profile.journey`
 
-### Heading
-```
-Professional Journey
-```
+**Personal element not shown:** After PhD, spent two years traveling the world. (Could add if desired, but may be too casual for main timeline.)
 
-### Academic Foundations (1999–2010)
-```
-Period: 1999–2010
-Title: Academic Foundations
-Description: PhD at TU-Berlin's DAI-Labor, researching adaptive user interfaces across devices and modalities-voice, touch, gestures, smart environments. Led the Human-Computer Interaction workgroup. Advised PhD students. What we worked on then is now called generative UI.
-```
-
-> **Personal element:** After PhD, spent two years traveling the world. (Could add if desired, but may be too casual for main timeline.)
-
-### Startup Building (2010–2017)
-```
-Period: 2010–2017
-Title: Startup Building
-Description: Built engineering teams from scratch. Scaled yetu AG's smart home development. Led smartB as CTO-raised funding, built an IoT platform for commercial energy management.
-```
-
-### Independent Practice (2017–2023)
-```
-Period: 2017–2023
-Title: Independent Practice
-Description: Freelance CTO and consultant. Led engineering for startups in sustainability and IoT. Technical leadership, React coaching, strategic advisory. Lots of greenfield projects.
-```
-
-### GreenBuzz Berlin (2014–2025)
-```
-Period: 2014–2025
-Title: GreenBuzz Berlin
-Description: Co-founded as Sustainability Drinks at yetu in 2014. Became GreenBuzz Berlin in 2015, part of a global network for sustainability professionals.
-```
-
-### CHAPTR (2023–Present)
-```
-Period: 2023–Present
-Title: CHAPTR - AI in Publishing
-Description: Senior Engineer → Director of Software Engineering. CHAPTR is the AI strategy of Holtzbrinck Publishing Group. I lead the team building reedy.ai-AI-powered metadata optimization, discoverability, and semantic search for publishers.
-```
-
----
-
-## Lab Section
+### Lab Section
 
 > **Component:** `src/components/Lab.tsx`
 > **Voice:** Inviting. Shows curiosity and willingness to share.
-
-### Heading
-```
-The Lab
-```
-
-### Intro Text
-```
-A place for experiments and writeups-things I'm tinkering with, exploring, or just curious about. Some ideas turn into real projects, others stay as notes on what I've learned along the way.
-```
+> **Content:** `profile.lab`
 
 > **Note:** The Lab is a general-purpose space, not themed around any specific topic. See `src/pages/lab/lab.md` for structure and details.
 
----
-
-## Contact Section
+### Contact Section
 
 > **Component:** `src/components/Contact.tsx`
 > **Voice:** Direct but personal. Shows what conversations are welcome.
+> **Content:** `profile.contact`
 
-### Heading
-```
-Get in Touch
-```
-
-### Intro Text
-```
-I enjoy conversations about where software engineering is headed-especially the intersection of AI tooling, team culture, and building products that matter.
-```
-
-### Things I Like Talking About
-```
-- How AI is changing engineering
-- Building developer experience that scales
-- Greenfield projects and when to start fresh
-- The publishing industry meets AI
-```
-
-### Contact Options
-- **Email:** marco@blumendorf.info (obfuscated in implementation) - "Best for longer conversations"
-- **LinkedIn:** linkedin.com/in/marcoblu - "Let's connect professionally"
-- **GitHub:** github.com/blumendorf - "See what I'm building"
-
+**Implementation note:** Email is obfuscated (base64) in profile.json for spam protection.
 
 ---
 
 ## Footer
 
 > **Component:** `src/components/Footer.tsx`
+> **Not in profile.json**
 
 ```
 © 2025 Dr Marco Blumendorf
@@ -286,6 +132,7 @@ Impressum
 > **Component:** `src/features/home/components/Impressum.tsx`
 > **Route:** `/impressum`
 > **Context:** Legally required disclosure for German websites per § 5 DDG
+> **Not in profile.json**
 
 ### Legal Information
 
@@ -370,17 +217,15 @@ AI is the next level of abstraction in software development's long history:
 
 When updating content:
 
-- [ ] Update this file first
-- [ ] Sync Hero.tsx
-- [ ] Sync About.tsx (contains merged The Shift + About Me content)
-- [ ] Sync Expertise.tsx
-- [ ] Sync TechStack.tsx
-- [ ] Sync Timeline.tsx
-- [ ] Sync Lab.tsx
-- [ ] Sync Contact.tsx
-- [ ] Sync Footer.tsx
-- [ ] Sync Impressum.tsx (if legal content changes)
-- [ ] Update index.html meta tags if needed
+**For profile.json changes:**
+- [ ] Update `public/api/v1/profile.json`
+- [ ] Sync affected components (Hero, About, Expertise, TechStack, Timeline, Lab, Contact)
 - [ ] Run tests
-- [ ] Update "Last synced" date
 
+**For meta/legal changes:**
+- [ ] Update this file
+- [ ] Sync index.html meta tags if needed
+- [ ] Sync Impressum.tsx if legal content changes
+- [ ] Sync Footer.tsx if needed
+
+- [ ] Update "Last synced" date in this file
