@@ -12,7 +12,16 @@ Create a well-structured pull request with proper description.
 2. **Set up PR**
    - Create PR with descriptive title
 
-3. **Write PR description**
-   - What and why—one or two sentences
-   - list changes
-   - change the PR description to the created description
+3. **Add a PR description**
+   - use the template below
+
+```
+Template
+
+[What and why—one or two sentences]
+
+## Changes
+- [Key change 1]
+- [Key change 2]
+
+```
