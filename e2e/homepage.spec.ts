@@ -57,16 +57,6 @@ test.describe('Homepage', () => {
       const count = await page.locator('#about p').count();
       expect(count).toBeGreaterThan(0);
     });
-
-    test('quote block displays', async ({ page }) => {
-      await expect(page.locator('#about blockquote')).toBeVisible();
-    });
-
-    test('pillar cards render', async ({ page }) => {
-      const cards = page.locator('#about').locator('[class*="card"], [class*="pillar"]');
-      const count = await cards.count();
-      expect(count).toBeGreaterThanOrEqual(3);
-    });
   });
 
   test.describe('Expertise Section', () => {

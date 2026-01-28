@@ -48,8 +48,7 @@ const contentVariants = {
         title: "AI strategy at enterprise scale",
         description: "Leading AI product development for Holtzbrinck Publishing Group."
       }
-    ],
-    quote: "Your job hasn't changed: deliver code that you've proven works. What's changed is how you get there."
+    ]
   },
   technical: {
     paragraphs: [
@@ -73,19 +72,17 @@ const contentVariants = {
         title: "Tests as the ultimate lifeline",
         description: "The one thing that still proves your code works, whether you wrote it or AI did."
       }
-    ],
-    quote: "Your job hasn't changed: deliver code that you've proven works. What's changed is how you get there."
+    ]
   }
 };
 
 const AboutContent = ({ persona }: ContentProps) => {
   const content = contentVariants[persona];
-  const { paragraphs, pillars, quote } = content;
+  const { paragraphs, pillars } = content;
 
   // Variant-specific styling
   const isTechnical = persona === 'technical';
   const accentClass = isTechnical ? 'text-cyan-500' : 'text-accent';
-  const borderAccentClass = isTechnical ? 'border-cyan-500' : 'border-accent';
 
   return (
     <div className="space-y-12">
@@ -97,11 +94,6 @@ const AboutContent = ({ persona }: ContentProps) => {
           </p>
         ))}
       </div>
-
-      {/* Quote */}
-      <blockquote className={`quote text-body ${borderAccentClass}`}>
-        {quote}
-      </blockquote>
 
       {/* Pillars */}
       <div className="grid gap-4 md:grid-cols-3">
