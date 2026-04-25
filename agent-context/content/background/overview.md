@@ -213,7 +213,6 @@ AI in software development is the next level of abstraction, following:
 | **Website**              | blumendorf.info                                 |
 | **LinkedIn**             | linkedin.com/in/marcoblu                        |
 | **GitHub**               | github.com/blumendorf                           |
-| **Old Email (academic)** | marco.blumendorf@dai-labor.de (likely outdated) |
 
 ---
 

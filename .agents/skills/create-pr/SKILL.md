@@ -9,8 +9,8 @@ description: Create a clear, reviewable pull request with a concise title and us
 
 1. Determine branch state:
    - Check the current branch and base branch first.
-   - If the current branch is `main`/`master`, prepare a new semantic branch, commit the intended changes, push it, and create the PR.
-   - If the current branch is not `main`/`master`, check whether a PR already exists for it before creating one.
+   - If the current branch is `main`, prepare a new semantic branch, commit the intended changes, push it, and create the PR.
+   - If the current branch is not `main`, check whether a PR already exists for it before creating one.
 
 2. Prepare or update the PR:
    - Ensure intended changes are committed.
