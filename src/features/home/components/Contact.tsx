@@ -1,12 +1,12 @@
 import { motion } from 'motion/react';
-import { Mail, Linkedin, Github, MessageSquare, LucideIcon } from 'lucide-react';
+import { Code2, ExternalLink, Mail, MessageSquare, type LucideIcon } from 'lucide-react';
 import Section from './Section';
 import { siteData } from '@/lib/data';
 
 const iconMap: Record<string, LucideIcon> = {
   email: Mail,
-  linkedin: Linkedin,
-  github: Github,
+  linkedin: ExternalLink,
+  github: Code2,
 };
 
 const Contact = () => {
