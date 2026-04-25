@@ -4,6 +4,8 @@ A personal profile website with an "Engineer's Notebook" aesthetic, featuring in
 
 **[View Live Site →](https://blumendorf.github.io)**
 
+**AI / agent context:** See [AGENTS.md](AGENTS.md) and the [agent-context/](agent-context/) docs.
+
 ## Features
 
 - **Warm, Personal Design** – Earth tones with amber accents, monospace typography, generous whitespace
@@ -15,16 +17,18 @@ A personal profile website with an "Engineer's Notebook" aesthetic, featuring in
 
 ## Tech Stack
 
-| Category | Technology |
-|----------|------------|
-| Framework | React 19 + Vite 6 |
-| Language | TypeScript 5.7+ |
-| Styling | Tailwind CSS v4 |
-| Animation | Motion |
-| Icons | Lucide React |
-| Routing | React Router v7 |
-| Testing | Vitest, Testing Library, Playwright |
-| Deployment | GitHub Pages |
+
+| Category   | Technology                          |
+| ---------- | ----------------------------------- |
+| Framework  | React 19 + Vite 7                   |
+| Language   | TypeScript 5.9+                     |
+| Styling    | Tailwind CSS v4                     |
+| Animation  | Motion                              |
+| Icons      | Lucide React                        |
+| Routing    | React Router v7                     |
+| Testing    | Vitest, Testing Library, Playwright |
+| Deployment | GitHub Pages                        |
+
 
 ## Project Structure
 
@@ -52,11 +56,13 @@ The Lab (`/lab`) is a collection of browser-based AI experiments exploring what'
 
 ### Experiments
 
-| Experiment | Description |
-|------------|-------------|
-| **HTML Generator** | AI generates CSS styles for a fixed HTML template based on user descriptions |
-| **Eval Playground** | Test and compare prompt variants against constraint-based evaluations |
-| **Compare Views** | Side-by-side comparison tools |
+
+| Experiment          | Description                                                                  |
+| ------------------- | ---------------------------------------------------------------------------- |
+| **HTML Generator**  | AI generates CSS styles for a fixed HTML template based on user descriptions |
+| **Eval Playground** | Test and compare prompt variants against constraint-based evaluations        |
+| **Compare Views**   | Side-by-side comparison tools                                                |
+
 
 ### Local LLM Infrastructure
 
@@ -115,6 +121,7 @@ ratchet upgrade .github/workflows/*.yml
 E2E tests use Playwright and include visual regression testing to catch unintended design changes.
 
 **Test files:**
+
 - `e2e/homepage.spec.ts` – Homepage sections
 - `e2e/navigation.spec.ts` – Navigation behavior
 - `e2e/responsive.spec.ts` – Responsive layouts
@@ -138,7 +145,7 @@ This project was built through AI-assisted development using Cursor IDE with Cla
 - **AI** handles implementation details, code generation, and technical problem-solving
 - **Human** provides direction, design decisions, and final review
 
-The `agent-context/` directory serves as the source of truth for content and design, ensuring consistency between AI-generated code and project requirements.
+The `agent-context/` directory separates coding guidance from content guidance so agents can load only the context needed for a task.
 
 ## API
 
@@ -153,7 +160,3 @@ This same data powers the JSON View mode in the UI.
 ## License
 
 MIT
-
----
-
-Built with ☕ in Brandenburg, Germany
