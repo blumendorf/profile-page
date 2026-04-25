@@ -1,5 +1,5 @@
 {
-  "name": "blumendorf-website-v2",
+  "name": "profile-page",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,6 +8,7 @@
     "dev": "pnpm sync:profile && vite",
     "build": "pnpm sync:profile && tsc -b && vite build",
     "lint": "tsc --noEmit && eslint .",
+    "lint:design": "npx @google/design.md lint DESIGN.md",
     "lint:fix": "pnpm lint --fix",
     "preview": "vite preview",
     "predeploy": "pnpm build",

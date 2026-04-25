@@ -1,24 +1,6 @@
 # Website Content - Agent Context
 
-This file provides voice guidelines, implementation notes, and context for AI agents working on blumendorf.info.
-
-**Structured content source of truth:** [`/public/api/v1/profile.json`](/public/api/v1/profile.json)
-
----
-
-## Content Architecture
-
-The website content is split between two files:
-
-| File | Purpose | Contains |
-|------|---------|----------|
-| `profile.json` | Structured data for UI components | Profile, About, Expertise, Tech Stack, Journey, Lab, Contact |
-| `content.md` (this file) | Agent context | Meta/SEO, voice guidelines, implementation notes, legal content, reference material |
-
-**When updating content:**
-1. Update `profile.json` for any text that appears in UI components
-2. Update this file for meta/SEO, voice guidelines, or legal content
-3. Sync components as needed
+Voice guidelines, meta/SEO copy, and legal text for blumendorf.info. For the JSON sync mechanics, see [`workflow.md`](workflow.md).
 
 ---
 
@@ -50,74 +32,35 @@ Software Engineering, Engineering Leadership, AI Development, CHAPTR, Holtzbrinc
 
 ---
 
-## Section Guidelines
+## Section Voice Cues
 
-These notes provide voice and implementation context for sections whose content lives in `profile.json`.
+Voice guidance for sections whose copy lives in `profile.json`. The component path and JSON keys are obvious from the codebase; only the voice direction is durable.
 
-### Hero Section
+| Section | Voice cue |
+|---------|-----------|
+| Hero | Direct introduction; no marketing speak |
+| About | First person; conversational but professional |
+| Expertise | What he actually does, not what sounds impressive; ordered by daily relevance |
+| Tech Stack | Actual production stack, not aspirational |
+| Timeline | Career story with specifics; numbers and names add credibility |
+| Lab | Inviting; shows curiosity and willingness to share |
+| Contact | Direct but personal; shows what conversations are welcome |
 
-> **Component:** `src/components/Hero.tsx`
-> **Voice:** Direct introduction. No marketing speak.
-> **Content:** `profile.profile.name`, `profile.profile.title`, `profile.profile.headline`
+### Section notes
 
-**Why the headline works:** Connects PhD research to current work. Specific about the domain. No buzzwords.
-
-**Supporting Text (optional, currently not shown):**
-```
-At CHAPTR, part of Holtzbrinck's AI strategy, we build tools that help publishers manage and optimize their catalogs at scale.
-```
-
-**CTA Button:** `Learn More`
-
-### About Section
-
-> **Component:** `src/components/About.tsx`
-> **Voice:** Personal background. First person. Conversational but professional.
-> **Content:** `profile.about`
-
-### Expertise Section
-
-> **Component:** `src/components/Expertise.tsx`
-> **Voice:** What he actually does, not what sounds impressive. Ordered by daily relevance.
-> **Content:** `profile.expertise`
-
-### Tech Stack Section
-
-> **Component:** `src/components/TechStack.tsx`
-> **Context:** Based on actual stack at CHAPTR (see tech-stack.md). Shows breadth and depth.
-> **Content:** `profile.techStack`
-
-> **Note:** This is the actual production stack, not aspirational. See tech-stack.md for full details.
-
-### Timeline Section
-
-> **Component:** `src/components/Timeline.tsx`
-> **Voice:** Career story with specifics. Numbers and names add credibility.
-> **Content:** `profile.journey`
-
-**Personal element not shown:** After PhD, spent two years traveling the world. (Could add if desired, but may be too casual for main timeline.)
-
-### Lab Section
-
-> **Component:** `src/components/Lab.tsx`
-> **Voice:** Inviting. Shows curiosity and willingness to share.
-> **Content:** `profile.lab`
-
-> **Note:** The Lab is a general-purpose space, not themed around any specific topic. See `src/pages/lab/lab.md` for structure and details.
-
-### Contact Section
-
-> **Component:** `src/components/Contact.tsx`
-> **Voice:** Direct but personal. Shows what conversations are welcome.
-> **Content:** `profile.contact`
-
-**Implementation note:** Email is obfuscated (base64) in profile.json for spam protection.
+- **Hero headline:** Connects PhD research to current work. Specific about the domain. No buzzwords.
+- **Hero supporting text** (currently not shown): *"At CHAPTR, part of Holtzbrinck's AI strategy, we build tools that help publishers manage and optimize their catalogs at scale."*
+- **Hero CTA:** `Learn More`
+- **Tech Stack source:** Based on actual stack at CHAPTR. See [`background/tech-stack.md`](background/tech-stack.md).
+- **Timeline omission:** Two years of post-PhD travel are not in the timeline (could add for personality, may read too casual).
+- **Lab framing:** General-purpose space, not themed. See [`../../src/features/lab/lab.md`](../../src/features/lab/lab.md) for structure.
+- **Contact email:** Obfuscated (base64) in `profile.json` for spam protection.
 
 ---
 
 ## Footer
 
-> **Component:** `src/components/Footer.tsx`
+> **Component:** `src/features/home/components/Footer.tsx`
 > **Not in profile.json**
 
 ```
@@ -210,22 +153,3 @@ AI is the next level of abstraction in software development's long history:
 - Named products: reedy.ai, not "AI products"
 - Named companies: yetu AG, smartB, CHAPTR, Holtzbrinck
 - Actual tech stack, not aspirational lists
-
----
-
-## Sync Checklist
-
-When updating content:
-
-**For profile.json changes:**
-- [ ] Update `public/api/v1/profile.json`
-- [ ] Sync affected components (Hero, About, Expertise, TechStack, Timeline, Lab, Contact)
-- [ ] Run tests
-
-**For meta/legal changes:**
-- [ ] Update this file
-- [ ] Sync index.html meta tags if needed
-- [ ] Sync Impressum.tsx if legal content changes
-- [ ] Sync Footer.tsx if needed
-
-- [ ] Update "Last synced" date in this file

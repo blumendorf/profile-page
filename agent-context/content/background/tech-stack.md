@@ -1,4 +1,10 @@
-# Technology Stack
+# Technology Stack (background / professional context)
+
+> **Not the profile website repo stack.** This document describes tools and systems from other professional work. For dependencies and versions of **this** repository, use [`../../coding/repository.md`](../../coding/repository.md) and the root `package.json`.
+>
+> Do not use this file to infer versions for `profile-page` unless a task explicitly concerns this background.
+
+---
 
 A comprehensive overview of all languages, tools, technologies, and frameworks used in the most recent project.
 
