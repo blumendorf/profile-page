@@ -26,7 +26,7 @@ Each new or extracted **reusable** UI unit uses a **folder per component**:
 - `ComponentName/index.ts` — barrel export (public import surface)
 - `ComponentName/ComponentName.test.tsx` — optional, colocated
 
-Applies to `src/components/ui/*` and feature-scoped components (e.g. `src/features/home/components/SectionHeader/`, `src/features/lab/shared/components/LabBackLink/`).
+Applies to `src/components/ui/*` and feature-scoped components (e.g. `src/features/home/components/SectionHeader/`, `src/features/lab/shared/components/BackLink/`).
 
 ## Tailwind CSS v4
 

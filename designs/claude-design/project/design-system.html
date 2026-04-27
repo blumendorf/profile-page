@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Engineer's Notebook — Design System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #1a1814;
+      --surface: #242019;
+      --surface-2: #2e2a24;
+      --surface-3: #3a342c;
+      --primary: #f59e0b;
+      --primary-hover: #fbbf24;
+      --on-primary: #1a1814;
+      --text-primary: #fafaf9;
+      --text-secondary: #d6d3d1;
+      --text-muted: #a8a29e;
+      --secondary: #78716c;
+      --outline: #44403c;
+      --outline-variant: #57534e;
+      --terminal-bg: #1e1e1e;
+      --terminal-surface: #27272a;
+    }
+    html, body { background: #0f0d0a; margin: 0; padding: 0; color: var(--text-primary); font-family: Inter, sans-serif; }
+    * { box-sizing: border-box; }
+
+    /* Type primitives */
+    .nb-display-md { font-family: 'JetBrains Mono', monospace; font-size: 40px; font-weight: 600; line-height: 1.1; letter-spacing: -0.02em; color: var(--text-primary); margin: 0; }
+    .nb-headline-lg { font-family: 'JetBrains Mono', monospace; font-size: 32px; font-weight: 600; line-height: 1.25; letter-spacing: -0.02em; color: var(--text-primary); margin: 0; }
+    .nb-headline-md { font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 500; line-height: 1.35; letter-spacing: -0.01em; color: var(--text-primary); margin: 0; }
+    .nb-body { font-family: Inter, sans-serif; font-size: 16px; font-weight: 400; line-height: 1.625; color: var(--text-secondary); margin: 0; }
+    .nb-body-sm { font-family: Inter, sans-serif; font-size: 14px; line-height: 1.6; color: var(--text-secondary); margin: 0; }
+    .nb-section-label { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--primary); }
+    .nb-mono-tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; }
+    .nb-mono-chip { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); background: var(--bg); padding: 4px 8px; border-radius: 2px; }
+
+    /* Card frame for design-system cards */
+    .nb-card-frame { background: var(--bg); border: 1px solid var(--outline); border-radius: 12px; overflow: hidden; }
+    .nb-card-header { padding: 20px 24px 16px; border-bottom: 1px solid var(--surface-2); display: flex; flex-direction: column; gap: 4px; }
+    .nb-card-body { padding: 24px; }
+
+    /* Surfaces */
+    .nb-card-standard { background: var(--surface); border: 1px solid var(--outline); border-radius: 8px; padding: 24px; }
+    .nb-card-interactive { background: var(--surface); border: 1px solid var(--outline); border-radius: 12px; padding: 24px; transition: border-color 200ms ease-out, box-shadow 200ms ease-out; cursor: pointer; }
+    .nb-card-interactive:hover { border-color: var(--primary); }
+
+    /* Buttons */
+    .nb-btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--primary); color: var(--on-primary); border: none; border-radius: 8px; padding: 10px 20px; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 500; cursor: pointer; transition: background 150ms ease-out, transform 150ms ease-out; }
+    .nb-btn-primary:hover, .nb-btn-hover { background: var(--primary-hover); }
+    .nb-btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--primary); border: 1px solid var(--primary); border-radius: 8px; padding: 10px 20px; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 500; cursor: pointer; transition: background 150ms ease-out, color 150ms ease-out; }
+    .nb-btn-secondary:hover { background: var(--primary); color: var(--on-primary); }
+    .nb-json-toggle { background: transparent; color: var(--text-muted); border: 1px solid var(--text-muted); border-radius: 4px; padding: 4px 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; cursor: pointer; transition: color 150ms ease-out, border-color 150ms ease-out; }
+    .nb-json-toggle:hover { color: var(--text-primary); border-color: var(--text-primary); }
+    .nb-json-toggle-active { background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
+    .nb-json-toggle-active:hover { background: var(--primary-hover); color: var(--on-primary); border-color: var(--primary-hover); }
+    .nb-pill { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--text-muted); border: 1px solid var(--outline); border-radius: 9999px; padding: 8px 16px; font-family: Inter, sans-serif; font-size: 13px; cursor: pointer; transition: color 150ms ease-out, border-color 150ms ease-out; }
+    .nb-pill:hover { color: var(--primary); border-color: var(--primary); }
+
+    /* Badges */
+    .nb-badge { display: inline-flex; align-items: center; background: var(--surface-2); color: var(--text-secondary); font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; padding: 6px 12px; border-radius: 6px; transition: background 150ms ease-out, color 150ms ease-out; }
+    .nb-badge:hover, .nb-badge-hover { background: rgba(245,158,11,0.15); color: var(--primary); }
+
+    /* Nav links */
+    .nb-nav-link { display: inline-flex; padding: 6px 12px; font-family: Inter, sans-serif; font-size: 13px; color: var(--text-muted); border-radius: 2px; cursor: pointer; transition: color 150ms ease-out; }
+    .nb-nav-link:hover { color: var(--text-primary); }
+    .nb-nav-link-active { color: var(--primary); }
+
+    /* Inputs */
+    .nb-input { background: var(--surface); border: 1px solid var(--outline); border-radius: 8px; padding: 12px 16px; font-family: Inter, sans-serif; font-size: 16px; color: var(--text-primary); width: 100%; outline: none; transition: border-color 150ms ease-out, box-shadow 150ms ease-out; }
+    .nb-input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(245,158,11,0.4); }
+
+    /* Icon well */
+    .nb-icon-well { display: inline-flex; padding: 8px; background: var(--surface-2); border-radius: 6px; align-items: center; justify-content: center; transition: background 200ms ease-out; }
+    .nb-card-interactive:hover .nb-icon-well { background: rgba(245,158,11,0.12); }
+
+    /* Timeline */
+    .nb-timeline-line { position: absolute; left: 5px; top: 6px; bottom: 6px; width: 1px; background: var(--outline); }
+    .nb-timeline-dot { position: absolute; left: -28px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); border: 2px solid var(--outline-variant); }
+    .nb-timeline-dot-active { border-color: var(--primary); box-shadow: 0 0 8px var(--primary); background: var(--primary); }
+
+    /* Contact rows */
+    .nb-contact-row { display: flex; align-items: center; gap: 16px; padding: 16px; border: 1px solid var(--outline); background: rgba(36,32,25,0.5); border-radius: 8px; cursor: pointer; transition: border-color 150ms ease-out, background 150ms ease-out; text-decoration: none; }
+    .nb-contact-row:hover { border-color: var(--primary); background: rgba(36,32,25,0.8); }
+    .nb-contact-icon { display: inline-flex; padding: 10px; background: var(--surface); color: var(--text-muted); border-radius: 6px; transition: background 150ms ease-out, color 150ms ease-out; }
+    .nb-contact-row:hover .nb-contact-icon { background: rgba(245,158,11,0.12); color: var(--primary); }
+    .nb-contact-icon-amber { display: inline-flex; padding: 10px; background: rgba(245,158,11,0.12); color: var(--primary); border-radius: 6px; }
+
+    /* Terminal toolbar */
+    .nb-terminal-toolbar { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: var(--terminal-bg); border: 1px solid var(--outline); border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-muted); }
+    .nb-terminal-chip { background: var(--terminal-surface); color: var(--text-secondary); padding: 4px 8px; border-radius: 2px; display: inline-flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+    .nb-terminal-pre { margin: 0; padding: 16px 20px; background: var(--terminal-bg); border: 1px solid var(--outline); border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7; color: var(--text-secondary); white-space: pre; overflow: auto; }
+    .nb-syntax-chip { display: flex; align-items: center; gap: 8px; padding: 8px 10px; background: var(--terminal-bg); border: 1px solid var(--outline); border-radius: 6px; }
+    .nb-syntax-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+    /* Screen frames */
+    .nb-screen { position: relative; background: var(--bg); overflow: hidden; }
+    .nb-screen-inner { position: relative; z-index: 1; height: 100%; }
+    .nb-screen-nav { position: absolute; top: 0; left: 0; right: 0; z-index: 10; padding: 14px 0; border-bottom: 1px solid transparent; transition: background 200ms ease-out, border-color 200ms ease-out; }
+    .nb-screen-nav-scrolled { background: rgba(26,24,20,0.8); backdrop-filter: blur(16px); border-bottom-color: var(--outline); }
+    .nb-screen-nav-inner { width: 100%; max-width: 1024px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; }
+    .nb-screen-nav-logo { font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 16px; color: var(--text-primary); }
+
+    /* Inline icon glyphs (built from CSS, no external deps) */
+    .nb-icon-arrow-down, .nb-icon-arrow-right, .nb-icon-arrow-left { display: inline-block; width: 14px; height: 14px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); position: relative; top: -2px; }
+    .nb-icon-arrow-right { transform: rotate(-45deg); top: 0; }
+    .nb-icon-arrow-left  { transform: rotate(135deg); top: 0; }
+    .nb-icon-flask { display: inline-block; width: 14px; height: 14px; background: linear-gradient(to bottom, transparent 30%, currentColor 30%, currentColor 100%); clip-path: polygon(40% 0, 60% 0, 60% 35%, 100% 100%, 0 100%, 40% 35%); color: currentColor; }
+    .nb-icon-cpu, .nb-icon-users, .nb-icon-briefcase, .nb-icon-code, .nb-icon-mail, .nb-icon-link, .nb-icon-message, .nb-icon-tube, .nb-icon-split, .nb-icon-copy { display: inline-block; width: 16px; height: 16px; border: 1.5px solid currentColor; border-radius: 2px; position: relative; color: var(--primary); }
+    .nb-icon-cpu::before { content: ""; position: absolute; inset: 3px; border: 1px solid currentColor; border-radius: 1px; }
+    .nb-icon-users { border-radius: 50% 50% 4px 4px; border-bottom-width: 4px; }
+    .nb-icon-briefcase::before { content: ""; position: absolute; left: 4px; right: 4px; top: -3px; height: 4px; border: 1.5px solid currentColor; border-radius: 1px 1px 0 0; border-bottom: none; }
+    .nb-icon-code::before, .nb-icon-code::after { content: ""; position: absolute; width: 4px; height: 4px; border-left: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg); top: 4px; left: 2px; }
+    .nb-icon-code::after { transform: rotate(-135deg); left: auto; right: 2px; }
+    .nb-icon-mail::before { content: ""; position: absolute; inset: 1px; border-top: 1.5px solid currentColor; transform: rotate(20deg); transform-origin: left top; width: 90%; }
+    .nb-icon-link { border-radius: 9999px; width: 12px; height: 12px; }
+    .nb-icon-link::before { content: ""; position: absolute; inset: -3px -1px; border: 1.5px solid currentColor; border-radius: 9999px; }
+    .nb-icon-message { border-radius: 4px 4px 4px 0; }
+    .nb-icon-tube { border-radius: 50% 50% 4px 4px; border-top: none; }
+    .nb-icon-split::before { content: ""; position: absolute; left: 50%; top: -1px; bottom: -1px; width: 1.5px; background: currentColor; }
+    .nb-icon-copy::before { content: ""; position: absolute; inset: 2px -2px -2px 2px; border: 1.5px solid currentColor; border-radius: 1px; }
+
+    /* Rotating ring */
+    @keyframes nb-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .nb-spin-slow { animation: nb-spin 8000ms linear infinite; }
+
+    /* Design canvas adapt */
+    body, html { overflow: hidden; height: 100%; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel" src="design-canvas.jsx"></script>
+  <script type="text/babel" src="tokens.jsx"></script>
+  <script type="text/babel" src="components.jsx"></script>
+  <script type="text/babel" src="screens.jsx"></script>
+
+  <script type="text/babel">
+    const App = () => (
+      <DesignCanvas title="Engineer's Notebook — Design System" subtitle="Extracted from blumendorf/blumendorf.github.io · DESIGN.md alpha">
+        <DCSection id="overview" title="Overview">
+          <DCArtboard id="overview" label="Aesthetic statement" width={1100} height={520}>
+            <div style={{ background: "#1a1814", color: "#fafaf9", height: "100%", padding: 56, display: "flex", flexDirection: "column", gap: 20, position: "relative", overflow: "hidden" }}>
+              <NetworkBg density={26} />
+              <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", gap: 20 }}>
+                <span className="nb-section-label">// engineer's notebook · alpha</span>
+                <h1 style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 56, fontWeight: 600, lineHeight: 1.05, letterSpacing: "-0.02em", color: "#fafaf9", margin: 0, maxWidth: 880 }}>
+                  A warm dark engineering site —<br/>personal, precise, quietly interactive.
+                </h1>
+                <p className="nb-body" style={{ fontSize: 17, maxWidth: 720 }}>
+                  This system reads like a senior engineer's notebook rather than a corporate portfolio: warm charcoal surfaces,
+                  stone text, monospace headings, and a single amber thread through actions and active states. Two complementary
+                  modes — a narrative profile and a structured-data view — share the same palette and typography.
+                </p>
+                <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
+                  <button className="nb-btn-primary"><span>Browse the system</span><span className="nb-icon-arrow-down" /></button>
+                  <button className="nb-btn-secondary"><span className="nb-icon-flask" /><span>Open in JSON</span></button>
+                </div>
+              </div>
+            </div>
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="foundations" title="Foundations">
+          <DCArtboard id="palette" label="Color palette" width={1200} height={1320}>
+            <ColorPalette />
+          </DCArtboard>
+          <DCArtboard id="type" label="Typography" width={1100} height={1320}>
+            <Typography />
+          </DCArtboard>
+          <DCArtboard id="spacing" label="Spacing scale" width={720} height={920}>
+            <Spacing />
+          </DCArtboard>
+          <DCArtboard id="shape" label="Shape, depth & motion" width={900} height={1080}>
+            <Shapes />
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="components" title="Components">
+          <DCArtboard id="buttons" label="Buttons & toggles" width={720} height={460}>
+            <ButtonsCard />
+          </DCArtboard>
+          <DCArtboard id="badges" label="Badges & nav" width={720} height={500}>
+            <BadgesCard />
+          </DCArtboard>
+          <DCArtboard id="cards" label="Cards" width={1100} height={420}>
+            <CardsShowcase />
+          </DCArtboard>
+          <DCArtboard id="timeline" label="Timeline" width={720} height={620}>
+            <TimelineCard />
+          </DCArtboard>
+          <DCArtboard id="ring" label="Profile ring" width={360} height={440}>
+            <ProfileRingCard />
+          </DCArtboard>
+          <DCArtboard id="contact-rows" label="Contact rows" width={540} height={400}>
+            <ContactRowsCard />
+          </DCArtboard>
+          <DCArtboard id="form" label="Inputs" width={540} height={340}>
+            <FormCard />
+          </DCArtboard>
+          <DCArtboard id="json-tokens" label="Structured data" width={720} height={560}>
+            <JsonTokensCard />
+          </DCArtboard>
+          <DCArtboard id="lab-accents" label="Lab accents" width={540} height={300}>
+            <LabAccentsCard />
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="screens" title="Screens">
+          <DCArtboard id="hero" label="01 · Hero" width={1280} height={800}>
+            <HeroScreen />
+          </DCArtboard>
+          <DCArtboard id="about" label="02 · About + Tech Stack" width={1280} height={1100}>
+            <AboutScreen />
+          </DCArtboard>
+          <DCArtboard id="expertise" label="03 · Expertise" width={1280} height={760}>
+            <ExpertiseScreen />
+          </DCArtboard>
+          <DCArtboard id="timeline-screen" label="04 · Journey" width={1280} height={900}>
+            <TimelineScreen />
+          </DCArtboard>
+          <DCArtboard id="contact-screen" label="05 · Lab + Contact + Footer" width={1280} height={1200}>
+            <LabContactScreen />
+          </DCArtboard>
+          <DCArtboard id="lab-index" label="06 · The Lab" width={1280} height={800}>
+            <LabIndexScreen />
+          </DCArtboard>
+          <DCArtboard id="json-view" label="07 · JSON View" width={1280} height={900}>
+            <JsonViewScreen />
+          </DCArtboard>
+        </DCSection>
+      </DesignCanvas>
+    );
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>
