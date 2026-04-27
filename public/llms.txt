@@ -12,7 +12,9 @@
 - [Expertise](https://blumendorf.info/#expertise): Areas of focus - Developer Experience, Team Culture, Technical Leadership
 - [Tech Stack](https://blumendorf.info/#tech-stack): Technologies and tools used daily
 - [Journey](https://blumendorf.info/#timeline): Professional timeline from 1999 to present
-- [Lab](https://blumendorf.info/lab): Experiments with browser-based LLMs and generative UI
+- [Lab](https://blumendorf.info/lab): Experiments with browser-based LLMs, generative UI, and design system notes
+- [Design System & Storybook](https://blumendorf.info/lab/storybook): Article about DESIGN.md, reusable components, Storybook, and keeping design and implementation aligned in AI-supported engineering
+- [Storybook](https://blumendorf.info/storybook/): Static visual workshop linked from the design system article
 - [Contact](https://blumendorf.info/#contact): Get in touch via email, LinkedIn, or GitHub
 
 ## Optional

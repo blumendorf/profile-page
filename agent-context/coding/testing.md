@@ -25,11 +25,32 @@ Run **`pnpm test:e2e`** when you change the homepage, navigation, JSON view, or 
 
 ## Visual regression
 
-- Baselines under `e2e/snapshots/visual-regression.spec.ts/`.
-- After **intentional** visual changes: `pnpm test:e2e:update-snapshots`, then review diffs before committing.
+- **Spec:** `e2e/visual-regression.spec.ts`.
+- **Run after any visual change:** `pnpm test:e2e e2e/visual-regression.spec.ts --project=chromium`.
+- Baselines live under `e2e/snapshots/visual-regression.spec.ts/`.
+- If a visual regression test fails, compare the actual, expected, and diff artifacts. Fix unintended differences.
+- After **intentional** visual changes, run `pnpm test:e2e:update-snapshots`, then review the updated snapshots before committing. Do not update snapshots just to make a failing visual test pass.
+
+### Screenshot coverage
+
+`e2e/visual-regression.spec.ts` currently covers only the homepage route (`/`). It does **not** cover `/lab`, lab experiment pages, JSON mode, or `/impressum`.
+
+Homepage screenshots currently include:
+
+- Full page: desktop, tablet, mobile.
+- Hero section: desktop, mobile.
+- About section: desktop, mobile.
+- Expertise section: desktop, mobile.
+- Tech Stack section: desktop, mobile.
+- Contact section: desktop, mobile.
+- Navigation: desktop bar, mobile closed, mobile open.
+- Footer: desktop, mobile.
+
+When changing a visual surface outside this coverage (for example `/lab`, `/lab/html`, `/lab/eval`, `/lab/compare`, JSON mode, or `/impressum`), add or extend visual screenshots for that route before relying on the visual suite to catch regressions.
 
 ## Before committing (recommended)
 
 1. `pnpm test`
-2. `pnpm test:e2e` if you touched home/nav/JSON/responsive/a11y/visual surfaces
-3. `pnpm lint` or `pnpm lint:fix`
+2. `pnpm test:e2e e2e/visual-regression.spec.ts --project=chromium` if you touched visual styling covered by screenshots
+3. `pnpm test:e2e` if you touched home/nav/JSON/responsive/a11y/E2E-covered behavior
+4. `pnpm lint` or `pnpm lint:fix`

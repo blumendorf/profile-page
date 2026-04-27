@@ -1,12 +1,12 @@
-export { default as About } from './About';
-export { default as Contact } from './Contact';
-export { default as Expertise } from './Expertise';
+export { ContactChannelCard, type ContactChannel, type ContactChannelCardProps } from './ContactChannelCard';
 export { default as Footer } from './Footer';
-export { default as Hero } from './Hero';
 export { default as Impressum } from './Impressum';
-export { default as Lab } from './Lab';
+export { JsonModeToggle, type JsonModeToggleProps } from './JsonModeToggle';
 export { default as Navbar } from './Navbar';
+export { HomeNavLink, type HomeNavLinkProps, NavLink, type NavLinkProps } from './NavLink';
+export { ProfileAvatar, type ProfileAvatarProps } from './ProfileAvatar';
+export { SectionHeader, type SectionHeaderProps } from './SectionHeader';
 export { default as Section } from './Section';
-export { default as TechStack } from './TechStack';
-export { default as Timeline } from './Timeline';
-
+export { FeatureCard, type FeatureCardProps } from './FeatureCard';
+export { TopicList, type TopicListProps } from './TopicList';
+export { TimelineItem, type TimelineItemProps } from './TimelineItem';

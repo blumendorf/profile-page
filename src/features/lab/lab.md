@@ -14,14 +14,14 @@ The Lab has its own section on the main profile page (`#lab`), positioned above 
 - Brief description of the Lab's purpose
 - "Explore the Lab" link to `/lab`
 
-Data lives in `profile.json` under the `lab` key. Component: `src/features/home/components/Lab.tsx`.
+Data lives in `profile.json` under the `lab` key. Component: `src/features/home/sections/Lab.tsx`.
 
 ---
 
 ## Experiment Independence Principle
 
 **Each experiment should be completely self-dependent**, except for:
-1. **Reusable UI components** (DownloadProgress, ModelSelector, CrossTabWarning)
+1. **Reusable UI components** (see `shared/components/`: DownloadProgress, ModelSelector, CrossTabWarning, LabExperimentCard, LabBackLink, LabPill, LabEmptyState, LabErrorPanel, LabInfoPanel, LabSelectField, LabSliderField, LabStatusDot, LabTabList, LabStatsBar, etc.)
 2. **Infrastructure needed for the Labs section in general** (cross-tab coordination)
 
 This means:
@@ -40,10 +40,21 @@ src/features/lab/
 ├── LabIndex.tsx        # Hub listing all experiments
 ├── index.ts            # Exports
 ├── shared/             # ONLY shared UI, hooks, and utils
-│   ├── components/           # Reusable UI components
-│   │   ├── DownloadProgress.tsx  # Model download UI
-│   │   ├── ModelSelector.tsx     # Model selection dropdown
-│   │   ├── CrossTabWarning.tsx   # Cross-tab warning UI
+│   ├── components/           # Reusable UI (folder-per-component: `Name/Name.tsx`, `Name.stories.tsx`, `index.ts`)
+│   │   ├── DownloadProgress/ …
+│   │   ├── ModelSelector/ …
+│   │   ├── CrossTabWarning/ …
+│   │   ├── LabExperimentCard/ …
+│   │   ├── LabBackLink/ …
+│   │   ├── LabPill/ …
+│   │   ├── LabEmptyState/ …
+│   │   ├── LabErrorPanel/ …
+│   │   ├── LabInfoPanel/ …
+│   │   ├── LabSelectField/ …
+│   │   ├── LabSliderField/ …
+│   │   ├── LabStatusDot/ …
+│   │   ├── LabTabList/ …
+│   │   ├── LabStatsBar/ …
 │   │   └── index.ts
 │   ├── hooks/                # Reusable hooks
 │   │   ├── useCrossTabModel.ts   # Hook for cross-tab state
@@ -98,6 +109,8 @@ src/features/lab/
 ---
 
 ## Experiments
+
+The `/lab` hub (`LabIndex.tsx`) uses **border-only** experiment cards (`bg-transparent`) on `bg-page`. Denser lab chrome (inputs, modals, panels) uses `bg-surface` / `bg-card` — not a separate `page-elevated` token.
 
 ### 1. Config Generator (`/lab/config`)
 
@@ -200,6 +213,28 @@ An ever-changing, breathing visual canvas where the AI continuously generates sh
 - Graceful degradation: unrecognized words are ignored, no errors
 - Continuous generation: the experience is meant to run indefinitely
 - Smooth transitions: state changes blend over time, never jarring
+
+---
+
+### 4. Design System & Storybook (`/lab/storybook`)
+
+**Status:** Active
+**Approach:** Article about design-system alignment, with a link to the static Storybook workshop
+
+The Lab entry is now an article route rather than a direct external Storybook link. The article introduces `DESIGN.md` as the source of visual intent, explains how reusable React/Tailwind components implement that intent, and frames design/implementation drift as a core challenge for AI-supported engineering.
+
+Storybook remains the visual workshop. The article links to `http://localhost:6006/` during local development and to `/storybook/` in production.
+
+**Coverage:**
+- DESIGN.md as design intent
+- Shared UI primitives and feature components as implementation constraints
+- Storybook as the visual feedback loop
+- AI-supported engineering risks: fast code generation, design drift, and stale examples
+
+**Files:**
+- `storybook/StorybookArticle.tsx` - Article route
+- `.storybook/` - Storybook config and preview decorators
+- `src/**/*.stories.tsx` - Component and visual workshop stories
 
 ---
 
@@ -353,8 +388,10 @@ updateStatus('idle', ''); // on unmount
 /lab/html/playground      → HTMLPlayground
 /lab/canvas               → CanvasLanding (with model selection)
 /lab/canvas/playground    → CanvasPlayground
+/lab/storybook           → StorybookArticle
+/storybook/               → Static Storybook visual workshop
 ```
 
 ---
 
-*Last updated: 2026-01-01*
+*Last updated: 2026-04-27*

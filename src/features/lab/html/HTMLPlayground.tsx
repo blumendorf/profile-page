@@ -1,6 +1,17 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { Link } from 'react-router-dom';
-import { DownloadProgress, CrossTabWarning, CrossTabIndicator } from '../shared/components';
+import {
+  DownloadProgress,
+  CrossTabWarning,
+  CrossTabIndicator,
+  BackLink,
+  EmptyState,
+  ErrorPanel,
+  InfoPanel,
+  SliderField,
+  StatusDot,
+  StatsBar,
+  TabList,
+} from '../shared/components';
 import { useCrossTabModel } from '../shared/hooks';
 import {
   createEngine,
@@ -17,7 +28,6 @@ import { LogPanel } from './LogPanel';
 import { createLogEntry, type LogEntry } from './log-utils';
 import { ModelSelectorModal } from './components';
 import {
-  ArrowLeft,
   Code2,
   Sparkles,
   Loader2,
@@ -27,9 +37,6 @@ import {
   Trash2,
   Terminal,
   FileText,
-  Clock,
-  Cpu,
-  Hash,
   Zap,
 } from 'lucide-react';
 
@@ -343,13 +350,7 @@ export default function HTMLPlayground() {
       {/* Header bar */}
       <div className="shrink-0 bg-page/95 backdrop-blur-xs border-b border-border-subtle">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-          <Link
-            to="/lab"
-            className="flex items-center gap-2 text-text-muted hover:text-cyan-500 transition-colors"
-          >
-            <ArrowLeft size={16} />
-            <span className="text-sm">Back to Lab</span>
-          </Link>
+          <BackLink display="flex" hoverAccentClassName="hover:text-cyan-500" />
 
           <div className="flex items-center gap-2 text-cyan-500 font-mono text-sm">
             <Code2 size={16} />
@@ -363,7 +364,7 @@ export default function HTMLPlayground() {
                 <button
                   onClick={() => setShowModelModal(true)}
                   disabled={isGenerating || (downloadState !== null && downloadState.stage !== 'ready')}
-                  className="flex items-center gap-2 px-3 py-1.5 bg-page-elevated border border-border-subtle rounded
+                  className="flex items-center gap-2 px-3 py-1.5 bg-surface border border-border-subtle rounded
                              hover:border-cyan-500/50 transition-colors
                              disabled:opacity-50 disabled:cursor-not-allowed"
                 >
@@ -372,9 +373,9 @@ export default function HTMLPlayground() {
                 </button>
                 <CrossTabIndicator otherTab={otherTabInfo} />
                 {modelReady ? (
-                  <span className="text-emerald-500">● Ready</span>
+                  <StatusDot status="ready" />
                 ) : (
-                  <span className="text-amber-500">● Loading...</span>
+                  <StatusDot status="loading" />
                 )}
               </>
             ) : (
@@ -386,18 +387,14 @@ export default function HTMLPlayground() {
 
       {/* Empty State - shown when no model is selected */}
       {isEmptyState ? (
-        <div className="flex-1 flex items-center justify-center p-8">
-          <div className="text-center max-w-md">
-            <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-cyan-500/10 flex items-center justify-center">
-              <Zap className="w-8 h-8 text-cyan-500" />
-            </div>
-            <h2 className="text-2xl font-bold text-text-primary mb-3">
-              Select a Model
-            </h2>
-            <p className="text-text-muted mb-6">
-              Choose an AI model to start generating HTML. Models run entirely in your browser using WebGPU.
-            </p>
+        <EmptyState
+          icon={<Zap className="w-8 h-8 text-cyan-500" />}
+          title="Select a Model"
+          description="Choose an AI model to start generating HTML. Models run entirely in your browser using WebGPU."
+          footnote="First load requires downloading the model (~500MB - 4GB depending on choice)"
+          action={
             <button
+              type="button"
               onClick={() => setShowModelModal(true)}
               className="px-8 py-3 bg-cyan-500 text-bg-page rounded-lg font-semibold
                          flex items-center gap-2 mx-auto hover:bg-cyan-400 transition-colors"
@@ -405,11 +402,8 @@ export default function HTMLPlayground() {
               <Sparkles className="w-5 h-5" />
               Select Model
             </button>
-            <p className="text-xs text-text-muted mt-4">
-              First load requires downloading the model (~500MB - 4GB depending on choice)
-            </p>
-          </div>
-        </div>
+          }
+        />
       ) : (
         <>
           {/* Input bar - only show when model is selected */}
@@ -422,7 +416,7 @@ export default function HTMLPlayground() {
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Describe any visual style you want..."
                   disabled={!modelReady || isGenerating}
-                  className="flex-1 bg-page-elevated border border-border-subtle rounded-lg px-4 py-3
+                  className="flex-1 bg-surface border border-border-subtle rounded-lg px-4 py-3
                              text-text-primary placeholder:text-text-muted
                              focus:outline-hidden focus:border-cyan-500 transition-colors
                              disabled:opacity-50"
@@ -481,7 +475,7 @@ export default function HTMLPlayground() {
 
               {/* Generation Settings Panel */}
               {showSettings && (
-                <div className="mt-4 p-4 bg-page-elevated border border-border-subtle rounded-lg">
+                <div className="mt-4 p-4 bg-surface border border-border-subtle rounded-lg">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-sm font-semibold text-text-primary">Generation Settings</h3>
                     <button
@@ -498,93 +492,76 @@ export default function HTMLPlayground() {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {/* Max Tokens */}
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <label className="text-xs font-medium text-text-primary">Max Tokens</label>
-                        <span className="text-xs font-mono text-cyan-500">{generationConfig.maxTokens}</span>
-                      </div>
-                      <input
-                        type="range"
-                        min="100"
-                        max="4096"
-                        step="100"
-                        value={generationConfig.maxTokens}
-                        onChange={(e) => setGenerationConfig(prev => ({ ...prev, maxTokens: parseInt(e.target.value) }))}
-                        className="w-full h-2 bg-page rounded-lg appearance-none cursor-pointer accent-cyan-500"
+                    <div>
+                      <SliderField
+                        label="Max Tokens"
+                        value={generationConfig.maxTokens ?? DEFAULT_HTML_GENERATION_CONFIG.maxTokens}
+                        onChange={(v) => setGenerationConfig((prev) => ({ ...prev, maxTokens: v }))}
+                        min={100}
+                        max={4096}
+                        step={100}
+                        disabled={isGenerating}
                       />
-                      <p className="text-xs text-text-muted">
+                      <p className="text-xs text-text-muted mt-1">
                         Maximum number of tokens (words/pieces) to generate. Higher = longer output but slower.
                       </p>
                     </div>
 
-                    {/* Temperature */}
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <label className="text-xs font-medium text-text-primary">Temperature</label>
-                        <span className="text-xs font-mono text-cyan-500">{generationConfig.temperature?.toFixed(2)}</span>
-                      </div>
-                      <input
-                        type="range"
-                        min="0"
-                        max="2"
-                        step="0.05"
-                        value={generationConfig.temperature}
-                        onChange={(e) => setGenerationConfig(prev => ({ ...prev, temperature: parseFloat(e.target.value) }))}
-                        className="w-full h-2 bg-page rounded-lg appearance-none cursor-pointer accent-cyan-500"
+                    <div>
+                      <SliderField
+                        label="Temperature"
+                        value={generationConfig.temperature ?? 0}
+                        onChange={(v) => setGenerationConfig((prev) => ({ ...prev, temperature: v }))}
+                        min={0}
+                        max={2}
+                        step={0.05}
+                        formatValue={(v) => v.toFixed(2)}
+                        disabled={isGenerating}
                       />
-                      <p className="text-xs text-text-muted">
+                      <p className="text-xs text-text-muted mt-1">
                         Controls randomness. Lower (0.0-0.3) = more focused/deterministic. Higher (0.7-1.5) = more creative/random.
                       </p>
                     </div>
 
-                    {/* Top P */}
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <label className="text-xs font-medium text-text-primary">Top P (Nucleus Sampling)</label>
-                        <span className="text-xs font-mono text-cyan-500">{generationConfig.topP?.toFixed(2)}</span>
-                      </div>
-                      <input
-                        type="range"
-                        min="0.1"
-                        max="1"
-                        step="0.05"
-                        value={generationConfig.topP}
-                        onChange={(e) => setGenerationConfig(prev => ({ ...prev, topP: parseFloat(e.target.value) }))}
-                        className="w-full h-2 bg-page rounded-lg appearance-none cursor-pointer accent-cyan-500"
+                    <div>
+                      <SliderField
+                        label="Top P (Nucleus Sampling)"
+                        value={generationConfig.topP ?? 0}
+                        onChange={(v) => setGenerationConfig((prev) => ({ ...prev, topP: v }))}
+                        min={0.1}
+                        max={1}
+                        step={0.05}
+                        formatValue={(v) => v.toFixed(2)}
+                        disabled={isGenerating}
                       />
-                      <p className="text-xs text-text-muted">
+                      <p className="text-xs text-text-muted mt-1">
                         Considers only tokens within this cumulative probability mass. Lower = more focused, higher = more diverse.
                       </p>
                     </div>
 
-                    {/* Repetition Penalty */}
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <label className="text-xs font-medium text-text-primary">Repetition Penalty</label>
-                        <span className="text-xs font-mono text-cyan-500">{generationConfig.repetitionPenalty?.toFixed(2)}</span>
-                      </div>
-                      <input
-                        type="range"
-                        min="1"
-                        max="2"
-                        step="0.05"
-                        value={generationConfig.repetitionPenalty}
-                        onChange={(e) => setGenerationConfig(prev => ({ ...prev, repetitionPenalty: parseFloat(e.target.value) }))}
-                        className="w-full h-2 bg-page rounded-lg appearance-none cursor-pointer accent-cyan-500"
+                    <div>
+                      <SliderField
+                        label="Repetition Penalty"
+                        value={generationConfig.repetitionPenalty ?? 1}
+                        onChange={(v) => setGenerationConfig((prev) => ({ ...prev, repetitionPenalty: v }))}
+                        min={1}
+                        max={2}
+                        step={0.05}
+                        formatValue={(v) => v.toFixed(2)}
+                        disabled={isGenerating}
                       />
-                      <p className="text-xs text-text-muted">
+                      <p className="text-xs text-text-muted mt-1">
                         Penalizes repeated tokens. 1.0 = no penalty. Higher = less repetition but may reduce coherence.
                       </p>
                     </div>
                   </div>
 
                   {/* Quick Info */}
-                  <div className="mt-4 p-3 bg-page rounded-lg border border-border-subtle">
-                    <p className="text-xs text-text-muted">
-                      <strong className="text-text-primary">Tip:</strong> For HTML generation, lower temperature (0.2-0.5)
-                      and high top_p (0.9) work well. Increase max tokens if output is being cut off.
-                    </p>
+                  <div className="mt-4">
+                    <InfoPanel>
+                      <strong className="text-text-primary">Tip:</strong> For HTML generation, lower temperature
+                      (0.2-0.5) and high top_p (0.9) work well. Increase max tokens if output is being cut off.
+                    </InfoPanel>
                   </div>
                 </div>
               )}
@@ -605,16 +582,16 @@ export default function HTMLPlayground() {
           {/* Error */}
           {error && (
             <div className="max-w-6xl mx-auto px-4 py-3 w-full">
-              <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4">
-                <p className="text-red-400 text-sm mb-3">{error}</p>
+              <ErrorPanel message={error}>
                 <button
+                  type="button"
                   onClick={() => setShowModelModal(true)}
                   className="inline-flex items-center gap-2 text-sm text-red-400 hover:text-red-300 underline"
                 >
                   <RefreshCw size={14} />
                   Select a different model
                 </button>
-              </div>
+              </ErrorPanel>
             </div>
           )}
 
@@ -623,28 +600,23 @@ export default function HTMLPlayground() {
             {/* Tabs */}
             <div className="shrink-0 border-b border-border-subtle">
               <div className="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between">
-                <div className="flex gap-2">
-                  {tabs.map((tab) => (
-                    <button
-                      key={tab.id}
-                      onClick={() => setActiveTab(tab.id)}
-                      className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition-colors
-                        ${activeTab === tab.id
-                          ? 'bg-cyan-500/20 text-cyan-500'
-                          : 'text-text-muted hover:text-text-primary'
-                        }`}
-                    >
-                      <tab.icon size={16} />
-                      {tab.label}
-                      {tab.id === 'logs' && logs.length > 0 && (
+                <TabList
+                  active={activeTab}
+                  onChange={setActiveTab}
+                  tabs={tabs.map((tab) => ({
+                    id: tab.id,
+                    label: tab.label,
+                    icon: tab.icon,
+                    suffix:
+                      tab.id === 'logs' && logs.length > 0 ? (
                         <span className="text-xs opacity-60">({logs.length})</span>
-                      )}
-                    </button>
-                  ))}
-                </div>
+                      ) : undefined,
+                  }))}
+                />
 
                 {activeTab === 'logs' && logs.length > 0 && (
                   <button
+                    type="button"
                     onClick={handleClearLogs}
                     className="text-xs text-text-muted hover:text-text-primary transition-colors"
                   >
@@ -664,7 +636,7 @@ export default function HTMLPlayground() {
 
                 {/* HTML Code (Editable) */}
                 <div className={`flex-1 min-h-0 flex-col ${activeTab === 'code' ? 'flex' : 'hidden'}`}>
-                  <div className="flex-1 min-h-0 bg-page-elevated rounded-lg border border-border-subtle overflow-hidden flex flex-col">
+                  <div className="flex-1 min-h-0 bg-surface rounded-lg border border-border-subtle overflow-hidden flex flex-col">
                     <div className="shrink-0 px-4 py-2 border-b border-border-subtle flex items-center justify-between">
                       <span className="text-xs text-text-muted font-mono">Edit HTML to update preview</span>
                     </div>
@@ -681,7 +653,7 @@ export default function HTMLPlayground() {
 
                 {/* Raw Output */}
                 <div className={`flex-1 min-h-0 ${activeTab === 'raw' ? 'block' : 'hidden'}`}>
-                  <div className="h-full bg-page-elevated rounded-lg border border-border-subtle overflow-auto">
+                  <div className="h-full bg-surface rounded-lg border border-border-subtle overflow-auto">
                     <div className="p-4">
                       <div className="text-xs text-text-muted mb-2 font-mono">
                         Raw model output (HTML):
@@ -709,37 +681,11 @@ export default function HTMLPlayground() {
               </div>
             </div>
 
-            {/* Stats bar */}
-            <div className="shrink-0 border-t border-border-subtle bg-page-elevated/50">
-              <div className="max-w-6xl mx-auto px-4 py-2 flex items-center gap-6 text-xs font-mono text-text-muted">
-                {selectedModel && (
-                  <div className="flex items-center gap-2">
-                    <Cpu size={12} />
-                    <span>{selectedModel.backend}</span>
-                  </div>
-                )}
-
-                {stats && (
-                  <>
-                    <div className="flex items-center gap-2">
-                      <Clock size={12} />
-                      <span>{(stats.generationTimeMs / 1000).toFixed(1)}s</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Hash size={12} />
-                      <span>~{stats.tokenCount} tokens</span>
-                    </div>
-                  </>
-                )}
-
-                {isGenerating && (
-                  <div className="flex items-center gap-2 text-cyan-500">
-                    <Loader2 size={12} className="animate-spin" />
-                    <span>Generating...</span>
-                  </div>
-                )}
-              </div>
-            </div>
+            <StatsBar
+              modelBackendLabel={selectedModel ? selectedModel.backend : undefined}
+              stats={stats ?? null}
+              isGenerating={isGenerating}
+            />
           </div>
         </>
       )}

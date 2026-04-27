@@ -83,6 +83,12 @@ PhD at TU-Berlin's DAI-Labor, researching adaptive user interfaces across device
 
 A place for experiments and writeups-things I'm tinkering with, exploring, or just curious about. Some ideas turn into real projects, others stay as notes on what I've learned along the way.
 
+### Design System & Storybook
+
+The design system article is available at https://blumendorf.info/lab/storybook. It describes how DESIGN.md captures visual intent, how reusable React/Tailwind components turn that intent into implementation, and why keeping design and code aligned is a core challenge for AI-supported engineering.
+
+Storybook is available from that article and directly at https://blumendorf.info/storybook/ as a static visual workshop for shared UI primitives, Home components, Lab components, and larger existing visuals.
+
 ---
 
 ## Contact

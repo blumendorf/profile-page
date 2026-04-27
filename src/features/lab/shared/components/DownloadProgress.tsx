@@ -50,7 +50,7 @@ export function DownloadProgress({
         <p className="text-text-muted text-sm mb-6 font-mono">{text}</p>
 
         {/* Progress bar */}
-        <div className="h-2 bg-page-elevated rounded-full overflow-hidden mb-2">
+        <div className="h-2 bg-surface rounded-full overflow-hidden mb-2">
           <motion.div
             className="h-full bg-accent"
             initial={{ width: 0 }}

@@ -16,6 +16,9 @@ const EvalPlayground = lazy(() =>
 const CompareViewsPlayground = lazy(() =>
   import('@/features/lab/compare').then((m) => ({ default: m.CompareViewsPlayground }))
 )
+const StorybookArticle = lazy(() =>
+  import('@/features/lab/storybook').then((m) => ({ default: m.StorybookArticle }))
+)
 const Impressum = lazy(() =>
   import('@/features/home').then((m) => ({ default: m.Impressum }))
 )
@@ -41,6 +44,10 @@ const router = createBrowserRouter(
     {
       path: '/lab/compare',
       element: <Suspense fallback={<PageLoader />}><CompareViewsPlayground /></Suspense>,
+    },
+    {
+      path: '/lab/storybook',
+      element: <Suspense fallback={<PageLoader />}><StorybookArticle /></Suspense>,
     },
     {
       path: '/impressum',

@@ -55,7 +55,7 @@ export function ModelSelector({ models, selectedModelId, onModelChange, disabled
             value={selectedModelId}
             onChange={(e) => onModelChange(e.target.value)}
             disabled={disabled}
-            className="w-full bg-page-elevated border border-border-subtle rounded-lg px-4 py-3
+            className="w-full bg-surface border border-border-subtle rounded-lg px-4 py-3
                        text-text-primary appearance-none cursor-pointer
                        focus:outline-hidden focus:border-accent transition-colors
                        disabled:opacity-50 disabled:cursor-not-allowed"
@@ -92,7 +92,7 @@ export function ModelSelector({ models, selectedModelId, onModelChange, disabled
 
 function ModelDetails({ model }: { model: ModelConfig }) {
   return (
-    <div className="bg-page-elevated rounded-lg p-4 border border-border-subtle">
+    <div className="bg-surface rounded-lg p-4 border border-border-subtle">
       <div className="flex items-start justify-between mb-3">
         <div>
           <h4 className="font-semibold text-text-primary flex items-center gap-2">

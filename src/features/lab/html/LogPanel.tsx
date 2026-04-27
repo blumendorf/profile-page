@@ -42,7 +42,7 @@ export function LogPanel({ logs, className = '' }: LogPanelProps) {
   return (
     <div
       ref={containerRef}
-      className={`font-mono text-xs overflow-auto bg-page-elevated rounded-lg border border-border-subtle p-4 ${className}`}
+      className={`font-mono text-xs overflow-auto bg-surface rounded-lg border border-border-subtle p-4 ${className}`}
     >
       {logs.length === 0 ? (
         <div className="text-text-muted opacity-50">No events yet...</div>

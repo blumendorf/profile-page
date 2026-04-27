@@ -5,7 +5,7 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
-  { ignores: ['dist', 'e2e/**', 'playwright.config.ts'] },
+  { ignores: ['dist', 'dist/**', 'e2e/**', 'playwright.config.ts', 'storybook-static'] },
   {
     extends: [
       js.configs.recommended,
@@ -48,6 +48,12 @@ export default tseslint.config(
       react: {
         version: 'detect',
       },
+    },
+  },
+  {
+    files: ['**/*.stories.{ts,tsx}'],
+    rules: {
+      'react-refresh/only-export-components': 'off',
     },
   },
 )

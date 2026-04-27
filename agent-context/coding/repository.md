@@ -28,7 +28,7 @@ Defined in [`src/main.tsx`](../../src/main.tsx):
 |------|---------|
 | `/` | Home (profile sections) |
 | `/lab` | Lab index |
-| `/lab/html`, `/lab/eval`, `/lab/compare` | Lab experiments |
+| `/lab/html`, `/lab/eval`, `/lab/compare`, `/lab/storybook` | Lab experiments and writeups |
 | `/impressum` | Legal (Impressum) |
 
 ## Layout

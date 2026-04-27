@@ -1,0 +1,25 @@
+---
+description: Component folder contract (per-component directory with barrel and Storybook)
+alwaysApply: true
+---
+
+# Component folder structure
+
+## Rule
+
+- **Name**: Each **visual** React component lives in its own folder, named after the component (PascalCase), under the appropriate feature path or `src/components/ui/`.
+- **Required files**:
+  - `ComponentName.tsx` — implementation (named export for primitives/features).
+  - `ComponentName.stories.tsx` — Storybook, colocated.
+  - `index.ts` — public API: re-export the component and prop types the folder exposes.
+- **Optional**: `ComponentName.test.tsx` for Vitest/RTL, colocated in the same folder.
+- **Imports**: Prefer importing from the folder barrel (`import { Foo } from './Foo'` or `@/components/ui`) rather than deep `Foo.tsx` paths, unless a circular dependency requires otherwise.
+- **Route sections** are not generic reusable “components” — one-off page sections go under e.g. `src/features/home/sections/`; shared building blocks stay under `src/features/{feature}/components/`.
+
+## Examples
+
+- `src/components/ui/Button/`
+- `src/features/home/components/SectionHeader/`
+- `src/features/lab/shared/components/LabExperimentCard/`
+
+See also `agent-context/coding/conventions.md` (Component folders).
