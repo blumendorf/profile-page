@@ -30,5 +30,10 @@ playwright/.cache/
 
 settings.local.json
 
+# Local MCP config (machine-specific paths; symlinked into .cursor and .mcp.json)
+.agents/mcp.json
+.cursor/mcp.json
+.mcp.json
+
 # Generated files
 public/api/v1/profile.json

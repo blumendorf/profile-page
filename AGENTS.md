@@ -25,7 +25,8 @@ Use this file as the **root entrypoint**. Keep context lean: open only the `agen
 ## Optional tooling
 
 - **All agent-facing docs live in [`agent-context/`](agent-context/).** Iterate on the existing files; only add a new doc when the task explicitly requires it. Do not duplicate guidance into other tooling folders.
-- **No `.cursor/` directory.** Cursor rules and similar config should not live in this repo — guidance belongs in `agent-context/` (and is discoverable via this `AGENTS.md`).
+- **No agent guidance in `.cursor/`.** Cursor rules and similar config don't live in this repo — guidance belongs in `agent-context/` (and is discoverable via this `AGENTS.md`). The only file ever expected at `.cursor/mcp.json` is a symlink (see below); it is gitignored as machine-specific.
 - **`.claude/` stays minimal:** [`settings.json`](.claude/settings.json) for Claude Code permissions and a single [`skills`](.claude/skills) symlink pointing at [`.agents/skills/`](.agents/skills). Do not duplicate skill contents or add per-skill symlinks.
 - **Project skills:** author shared skills in `.agents/skills/<skill-name>/SKILL.md`. They are exposed to Claude (and Cursor, which reads the Claude skill path in this repo) through the single `.claude/skills` symlink above.
+- **MCP config:** the canonical file is `.agents/mcp.json`. Cursor (`.cursor/mcp.json`) and Claude Code (`.mcp.json` at the repo root) read their MCP config through symlinks pointing at it. All three paths are gitignored — config is machine-specific. To bootstrap on a new machine: write `.agents/mcp.json`, then `ln -s ../.agents/mcp.json .cursor/mcp.json && ln -s .agents/mcp.json .mcp.json`.
 - **Root [`CLAUDE.md`](CLAUDE.md):** short pointer to this file.
