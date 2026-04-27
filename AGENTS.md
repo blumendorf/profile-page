@@ -24,6 +24,8 @@ Use this file as the **root entrypoint**. Keep context lean: open only the `agen
 
 ## Optional tooling
 
-- Claude Code may use [`.claude/settings.json`](.claude/settings.json) for permissions only — not a second copy of these conventions.
-- **Project skills:** author shared skills in `.agents/skills/<skill-name>/SKILL.md`, then expose them via a symlink at `.claude/skills/<skill-name>`. Cursor reads the Claude skill path in this repo; do not create `.cursor/skills` or duplicate skill contents.
+- **All agent-facing docs live in [`agent-context/`](agent-context/).** Iterate on the existing files; only add a new doc when the task explicitly requires it. Do not duplicate guidance into other tooling folders.
+- **No `.cursor/` directory.** Cursor rules and similar config should not live in this repo — guidance belongs in `agent-context/` (and is discoverable via this `AGENTS.md`).
+- **`.claude/` stays minimal:** [`settings.json`](.claude/settings.json) for Claude Code permissions and a single [`skills`](.claude/skills) symlink pointing at [`.agents/skills/`](.agents/skills). Do not duplicate skill contents or add per-skill symlinks.
+- **Project skills:** author shared skills in `.agents/skills/<skill-name>/SKILL.md`. They are exposed to Claude (and Cursor, which reads the Claude skill path in this repo) through the single `.claude/skills` symlink above.
 - **Root [`CLAUDE.md`](CLAUDE.md):** short pointer to this file.
