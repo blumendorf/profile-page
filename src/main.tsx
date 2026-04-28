@@ -16,8 +16,26 @@ const EvalPlayground = lazy(() =>
 const CompareViewsPlayground = lazy(() =>
   import('@/features/lab/compare').then((m) => ({ default: m.CompareViewsPlayground }))
 )
-const StorybookArticle = lazy(() =>
-  import('@/features/lab/storybook').then((m) => ({ default: m.StorybookArticle }))
+const DesignAndAiIntro = lazy(() =>
+  import('@/features/lab/design-and-ai').then((m) => ({ default: m.IntroPage }))
+)
+const DesignAndAiDesignMd = lazy(() =>
+  import('@/features/lab/design-and-ai').then((m) => ({ default: m.DesignMdPage }))
+)
+const DesignAndAiStorybook = lazy(() =>
+  import('@/features/lab/design-and-ai').then((m) => ({ default: m.StorybookPage }))
+)
+const DesignAndAiComponentsAndTokens = lazy(() =>
+  import('@/features/lab/design-and-ai').then((m) => ({ default: m.ComponentsAndTokensPage }))
+)
+const DesignAndAiFigmaJobs = lazy(() =>
+  import('@/features/lab/design-and-ai').then((m) => ({ default: m.FigmaJobsPage }))
+)
+const DesignAndAiTools = lazy(() =>
+  import('@/features/lab/design-and-ai').then((m) => ({ default: m.ToolsPage }))
+)
+const DesignAndAiWorkflow = lazy(() =>
+  import('@/features/lab/design-and-ai').then((m) => ({ default: m.WorkflowPage }))
 )
 const Impressum = lazy(() =>
   import('@/features/home').then((m) => ({ default: m.Impressum }))
@@ -46,8 +64,32 @@ const router = createBrowserRouter(
       element: <Suspense fallback={<PageLoader />}><CompareViewsPlayground /></Suspense>,
     },
     {
-      path: '/lab/storybook',
-      element: <Suspense fallback={<PageLoader />}><StorybookArticle /></Suspense>,
+      path: '/lab/design-and-ai',
+      element: <Suspense fallback={<PageLoader />}><DesignAndAiIntro /></Suspense>,
+    },
+    {
+      path: '/lab/design-and-ai/design-md',
+      element: <Suspense fallback={<PageLoader />}><DesignAndAiDesignMd /></Suspense>,
+    },
+    {
+      path: '/lab/design-and-ai/storybook',
+      element: <Suspense fallback={<PageLoader />}><DesignAndAiStorybook /></Suspense>,
+    },
+    {
+      path: '/lab/design-and-ai/components-and-tokens',
+      element: <Suspense fallback={<PageLoader />}><DesignAndAiComponentsAndTokens /></Suspense>,
+    },
+    {
+      path: '/lab/design-and-ai/figma-jobs',
+      element: <Suspense fallback={<PageLoader />}><DesignAndAiFigmaJobs /></Suspense>,
+    },
+    {
+      path: '/lab/design-and-ai/tools',
+      element: <Suspense fallback={<PageLoader />}><DesignAndAiTools /></Suspense>,
+    },
+    {
+      path: '/lab/design-and-ai/workflow',
+      element: <Suspense fallback={<PageLoader />}><DesignAndAiWorkflow /></Suspense>,
     },
     {
       path: '/impressum',

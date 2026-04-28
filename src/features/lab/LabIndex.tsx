@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, FlaskConical, Code2, TestTube2, SplitSquareHorizontal, BookOpen } from 'lucide-react';
+import { ArrowLeft, FlaskConical, Code2, TestTube2, SplitSquareHorizontal, Layers } from 'lucide-react';
 import { ExperimentCard } from './shared/components';
 
 export default function LabIndex() {
@@ -32,13 +32,13 @@ export default function LabIndex() {
       tag: 'UX',
     },
     {
-      title: 'Design System & Storybook',
+      title: 'UI/UX design in AI-assisted engineering',
       description:
-        'An article about DESIGN.md, reusable components, and keeping design and implementation aligned in AI-supported engineering.',
-      icon: <BookOpen size={24} className="text-amber-500" />,
-      href: '/lab/storybook',
+        "Notes from running an AI-assisted UI/UX workflow on this site. A seven-part series on what changes in design when agents read the same files humans write.",
+      icon: <Layers size={24} className="text-amber-500" />,
+      href: '/lab/design-and-ai',
       accentColor: 'bg-amber-500/20',
-      tag: 'Article',
+      tag: 'Series',
     },
   ];
 

@@ -1,7 +1,7 @@
 ---
 version: alpha
 name: Engineer's Notebook
-description: A warm dark personal engineering site with amber accents, monospace structure, quiet technical motion, and notebook-like restraint.
+description: A warm dark personal engineering site with amber accents, monospace details, quiet technical motion, and notebook-like restraint.
 colors:
   primary: "#f59e0b"
   primary-hover: "#fbbf24"
@@ -38,29 +38,29 @@ colors:
   error: "#f87171"
 typography:
   display-lg:
-    fontFamily: JetBrains Mono
-    fontSize: 56px
+    fontFamily: Inter
+    fontSize: 60px
     fontWeight: "600"
     lineHeight: 60px
-    letterSpacing: -0.02em
+    letterSpacing: -0.025em
   display-md:
-    fontFamily: JetBrains Mono
+    fontFamily: Inter
     fontSize: 48px
     fontWeight: "600"
-    lineHeight: 53px
-    letterSpacing: -0.02em
+    lineHeight: 48px
+    letterSpacing: -0.025em
   headline-lg:
-    fontFamily: JetBrains Mono
-    fontSize: 32px
+    fontFamily: Inter
+    fontSize: 30px
     fontWeight: "600"
-    lineHeight: 40px
-    letterSpacing: -0.02em
+    lineHeight: 36px
+    letterSpacing: -0.025em
   headline-md:
-    fontFamily: JetBrains Mono
+    fontFamily: Inter
     fontSize: 20px
     fontWeight: "500"
-    lineHeight: 27px
-    letterSpacing: -0.01em
+    lineHeight: 28px
+    letterSpacing: 0em
   title-md:
     fontFamily: Inter
     fontSize: 18px
@@ -81,6 +81,11 @@ typography:
     fontSize: 14px
     fontWeight: "400"
     lineHeight: 22px
+  button-label:
+    fontFamily: Inter
+    fontSize: 14px
+    fontWeight: "500"
+    lineHeight: 20px
   label-md:
     fontFamily: JetBrains Mono
     fontSize: 14px
@@ -206,7 +211,7 @@ components:
   button-primary:
     backgroundColor: "{colors.primary}"
     textColor: "{colors.on-primary}"
-    typography: "{typography.label-md}"
+    typography: "{typography.button-label}"
     rounded: "{rounded.lg}"
     padding: 10px 20px
   button-primary-hover:
@@ -215,7 +220,7 @@ components:
   button-secondary:
     backgroundColor: "{colors.background}"
     textColor: "{colors.primary}"
-    typography: "{typography.label-md}"
+    typography: "{typography.button-label}"
     rounded: "{rounded.lg}"
     padding: 10px 20px
   badge:
@@ -335,7 +340,7 @@ components:
 
 The visual identity is a warm, dark engineer's notebook: personal, precise, and quietly interactive. It should feel like a senior engineer's well-organized workspace rather than a corporate portfolio or a glossy SaaS landing page.
 
-The dominant mood is grounded and thoughtful. Warm charcoal surfaces, muted stone text, amber highlights, and monospace headings create a technical atmosphere without turning the page into a cold terminal. Motion and interactivity are present, but they are restrained and purposeful: the interface should reward attention without feeling busy.
+The dominant mood is grounded and thoughtful. Warm charcoal surfaces, muted stone text, amber highlights, and monospace labels create a technical atmosphere without turning the page into a cold terminal. Motion and interactivity are present, but they are restrained and purposeful: the interface should reward attention without feeling busy.
 
 The system has two complementary modes. The primary mode is a narrative profile with generous spacing and readable sections. The secondary mode is a developer-flavored structured data view, using the same amber and stone palette inside a darker editor-like surface.
 
@@ -353,12 +358,13 @@ The palette is dark-only and warm. Avoid pure black as the page foundation; use 
 
 ## Typography
 
-Typography carries most of the personality. Headings and labels use JetBrains Mono to make the site feel technical and authored. Body text uses Inter for readability and a softer reading rhythm.
+Typography uses Inter for headings and body so long-form copy stays readable, and JetBrains Mono for labels, metadata, badges, and structured data so the technical character still comes through. Headings carry the personality through tight tracking and semibold weight; the monospace voice handles the smaller engineered details.
 
-- **Large headings:** Use monospace, semibold, tight tracking, and compact line-height. They should feel deliberate and slightly mechanical, not decorative.
+- **Large headings:** Use Inter, semibold, tight tracking, and compact line-height. They should feel deliberate and quietly confident — assured sans, not decorative.
 - **Section labels:** Use small uppercase monospace with wide tracking and amber color. The labels may use code-comment language such as slashes or short technical markers.
-- **Body copy:** Use a comfortable sans-serif with generous line-height. Long paragraphs should feel calm and readable.
-- **Metadata and chips:** Use monospace at small sizes. This gives tags, dates, technical categories, and structured data a consistent engineered character.
+- **Body copy:** Use Inter with generous line-height. Long paragraphs should feel calm and readable.
+- **Metadata, chips, and badges:** Use monospace at small sizes. This gives tags, dates, technical categories, and structured data a consistent engineered character.
+- **Buttons:** Use Inter at 14px / 500 weight. Buttons live in the body register, not the metadata register.
 - **Avoid ornate typography:** No serif display faces, no ultra-thin weights, no oversized marketing-style gradients in text.
 
 ## Layout
@@ -399,7 +405,7 @@ Active navigation uses amber text. Inactive links stay muted stone and become br
 
 The hero should be the one memorable visual moment. The portrait sits inside an amber conic ring that rotates slowly and responds to pointer movement. The ring is expressive but still thin enough to feel engineered.
 
-Hero text uses a large stacked monospace name, an amber monospace title, readable body copy, muted technical badges, and a single amber primary action. Keep the composition calm: one portrait, one title block, one action.
+Hero text uses a large stacked sans-serif name, an amber monospace title, readable body copy, muted technical badges, and a single amber primary action. Keep the composition calm: one portrait, one title block, one action.
 
 ### Cards And Badges
 
@@ -430,7 +436,7 @@ Respect reduced-motion preferences by reducing animation and transition duration
 - Do keep the dark palette warm, muted, and low-glare.
 - Do use amber as the main thread through actions, labels, active states, and highlights.
 - Do preserve generous vertical spacing and readable line lengths.
-- Do use monospace for headings, labels, metadata, and structured data.
+- Do use Inter for headings and body, and monospace (JetBrains Mono) for labels, metadata, badges, and structured data.
 - Do let borders and tonal contrast create most of the hierarchy.
 - Do keep motion small, slow where ambient, and quick where interactive.
 - Don't introduce bright blue or cyan as the primary brand color outside experiment-specific contexts.

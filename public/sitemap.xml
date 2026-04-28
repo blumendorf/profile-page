@@ -72,7 +72,43 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://blumendorf.info/lab/storybook</loc>
+    <loc>https://blumendorf.info/lab/design-and-ai</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://blumendorf.info/lab/design-and-ai/design-md</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://blumendorf.info/lab/design-and-ai/storybook</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://blumendorf.info/lab/design-and-ai/components-and-tokens</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://blumendorf.info/lab/design-and-ai/figma-jobs</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://blumendorf.info/lab/design-and-ai/tools</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://blumendorf.info/lab/design-and-ai/workflow</loc>
     <lastmod>2026-04-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

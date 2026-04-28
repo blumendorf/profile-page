@@ -12,9 +12,9 @@
 - [Expertise](https://blumendorf.info/#expertise): Areas of focus - Developer Experience, Team Culture, Technical Leadership
 - [Tech Stack](https://blumendorf.info/#tech-stack): Technologies and tools used daily
 - [Journey](https://blumendorf.info/#timeline): Professional timeline from 1999 to present
-- [Lab](https://blumendorf.info/lab): Experiments with browser-based LLMs, generative UI, and design system notes
-- [Design System & Storybook](https://blumendorf.info/lab/storybook): Article about DESIGN.md, reusable components, Storybook, and keeping design and implementation aligned in AI-supported engineering
-- [Storybook](https://blumendorf.info/storybook/): Static visual workshop linked from the design system article
+- [Lab](https://blumendorf.info/lab): Experiments with browser-based LLMs, generative UI, and a long-form research series on AI-assisted UI/UX work
+- [UI/UX design in AI-assisted engineering](https://blumendorf.info/lab/design-and-ai): Seven-part research series on what changes in design when agents read the same files humans write (DESIGN.md, Storybook, components and tokens, removing Figma, tools survey, the 2026 workflow)
+- [Storybook](https://blumendorf.info/storybook/): Static visual workshop referenced from Part 3 of the research series
 - [Contact](https://blumendorf.info/#contact): Get in touch via email, LinkedIn, or GitHub
 
 ## Optional

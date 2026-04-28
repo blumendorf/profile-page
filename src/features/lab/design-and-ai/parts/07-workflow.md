@@ -10,7 +10,7 @@ description: "Staged pipeline (paper, prompt, materialise, verify, document); ro
 
 *Part of [UI/UX design in the age of AI-assisted engineering](../).*
 
-I sketched a new feature on paper last week, prompted Stitch into a five-screen draft on Wednesday, ported the parts I liked into the codebase with Claude Code on Thursday, refined two components in Storybook on Friday, updated the DESIGN.md on Saturday, and shipped a preview deploy on Sunday. The whole thing took about eight hours of actual work. The same feature in 2022 would have taken three days, mostly Figma plus handoff plus implementation.
+I sketched a new feature on paper last week, prompted [Stitch](https://stitch.withgoogle.com/) into a five-screen draft on Wednesday, ported the parts I liked into the codebase with [Claude Code](https://www.anthropic.com/claude-code) on Thursday, refined two components in [Storybook](https://storybook.js.org/) on Friday, updated the [DESIGN.md](https://github.com/google-labs-code/design.md) on Saturday, and shipped a preview deploy on Sunday. The whole thing took about eight hours of actual work. The same feature in 2022 would have taken three days, mostly [Figma](https://www.figma.com/) plus handoff plus implementation.
 
 The five-stage pipeline that produced that result isn't the only one that works. It is the one I keep landing on, and the one I think will hold for the next year.
 
@@ -20,19 +20,19 @@ The pipeline has five stages, and each stage has a different cost of being wrong
 
 ### Idea
 
-The cheapest place to be wrong is paper, a tablet, or a lightweight whiteboarding tool (Excalidraw, tldraw). No agent in the loop. Think, mark, think. The output is a photo, a scan, or a redraw if it earns the upgrade.
+The cheapest place to be wrong is paper, a tablet, or a lightweight whiteboarding tool ([Excalidraw](https://excalidraw.com/), [tldraw](https://www.tldraw.com/)). No agent in the loop. Think, mark, think. The output is a photo, a scan, or a redraw if it earns the upgrade.
 
 This stage is short and undocumented by design. Its purpose is to discard four bad ideas before committing to one that might be wrong. Skipping it is the failure mode I see most often in AI-native teams: reaching for the prompt before the pencil produces confidently-rendered versions of half-formed thoughts, which are harder to throw away than confidently-rendered versions of well-formed thoughts. The fidelity hides the lack of thought.
 
 ### Concept
 
-With a sketch in hand, prompt a flow-aware generator (Stitch, Claude Design, Figma Make) to produce a multi-screen rough draft against your DESIGN.md and component library. The output is not the design. It's a forcing function that exposes which decisions you've already made implicitly and which you still have to make.
+With a sketch in hand, prompt a flow-aware generator ([Stitch](https://stitch.withgoogle.com/), [Claude Design](https://www.anthropic.com/news/claude-design-anthropic-labs), [Figma Make](https://www.figma.com/make/)) to produce a multi-screen rough draft against your DESIGN.md and component library. The output is not the design. It's a forcing function that exposes which decisions you've already made implicitly and which you still have to make.
 
 Iteration here is fast (seconds to minutes per round). Discard liberally. The job of this stage is to get from "I have a sketch" to "I have a clickable rough draft I can show someone," not to produce final UI. If you find yourself fine-tuning pixel positions in this stage, you're doing the wrong job.
 
 ### Materialisation
 
-This is where the workflow bifurcates. **Path A** uses canvas-as-code tools (Pencil or Paper) to round-trip between visual edits and code as a single artifact, with MCP-mediated agent assistance. **Path B** skips the canvas entirely and uses Claude Code or Cursor with `AGENTS.md` and `DESIGN.md` as context to land the screens directly in the repo.
+This is where the workflow bifurcates. **Path A** uses canvas-as-code tools ([Pencil](https://www.pencil.dev/) or [Paper](https://paper.design/)) to round-trip between visual edits and code as a single artifact, with [MCP](https://modelcontextprotocol.io/)-mediated agent assistance. **Path B** skips the canvas entirely and uses [Claude Code](https://www.anthropic.com/claude-code) or [Cursor](https://cursor.com/) with [`AGENTS.md`](https://agents.md/) and `DESIGN.md` as context to land the screens directly in the repo.
 
 Both paths produce committable code. The difference is whether visual editing is a first-class loop or only happens in the running app. For engineers who prefer to live in the IDE, Path B is faster; for designers who want a canvas, Path A keeps the visual editing affordance.
 
@@ -40,7 +40,7 @@ The stage is over when the code is in the repo, the components match the system,
 
 ### Verification
 
-Every component lives in Storybook with all states. Chromatic regression-tests visual changes. Preview deploys go up on every PR. Stakeholder communication happens via preview URLs plus short Looms.
+Every component lives in Storybook with all states. [Chromatic](https://www.chromatic.com/) regression-tests visual changes. Preview deploys go up on every PR. Stakeholder communication happens via preview URLs plus short [Looms](https://www.loom.com/).
 
 There is no separate "design review" stage in this pipeline because design review *is* PR review. The reviewer looks at the preview deploy, the Storybook stories, and the DESIGN.md changes in the same place where they look at the code diff. This is a real change from the 2022 pattern, where design review happened in Figma comments while implementation review happened in GitHub. Collapsing the two surfaces is the part of the workflow that took me longest to internalise, and the part that pays off most.
 
@@ -70,7 +70,7 @@ This pipeline implies a different shape of work for designers and engineers. I'l
 
 **The agent does the production work, but only because the team has been clear about intent.** The pattern of failure I see most often in AI-assisted UI work is not "the agent is too dumb." It is "the team didn't write down what they actually wanted, and the agent confidently produced a plausible interpretation that nobody disagrees with strongly enough to push back on." Writing things down (DESIGN.md, AGENTS.md, component-library docs, Storybook stories) is the work that makes the agent useful. It is also the work humans benefit from independently.
 
-**Brand, marketing, and illustration split off.** These have always been adjacent rather than central to product UI work. They will use their own tools (Figma, Adobe, Webflow, Framer, Canva) outside the product engineering pipeline, because the product engineering pipeline no longer includes Figma at all. The split was always implicit; in 2026 it becomes explicit and probably formalises in org structure.
+**Brand, marketing, and illustration split off.** These have always been adjacent rather than central to product UI work. They will use their own tools ([Figma](https://www.figma.com/), [Adobe](https://www.adobe.com/creativecloud.html), [Webflow](https://webflow.com/), [Framer](https://www.framer.com/), [Canva](https://www.canva.com/)) outside the product engineering pipeline, because the product engineering pipeline no longer includes Figma at all. The split was always implicit; in 2026 it becomes explicit and probably formalises in org structure.
 
 ## Predictions
 
@@ -92,7 +92,7 @@ A research log is more useful when it states the conditions under which it would
 
 If Claude Design or Stitch starts producing screens good enough that the materialisation stage doesn't need a separate Claude Code pass, the five-stage pipeline collapses to four. That's plausible by Q4 2026.
 
-If MCP standardises a richer interchange than DESIGN.md (a JSON Schema for design systems that all tools agree to read and write), the YAML-front-matter pattern becomes a transitional hack. Worth watching the W3C Design Token Community Group and whatever Anthropic, Google, and Figma converge on.
+If MCP standardises a richer interchange than DESIGN.md (a JSON Schema for design systems that all tools agree to read and write), the YAML-front-matter pattern becomes a transitional hack. Worth watching the [W3C Design Token Community Group](https://www.designtokens.org/) and whatever [Anthropic](https://www.anthropic.com/), [Google](https://about.google/), and [Figma](https://www.figma.com/) converge on.
 
 If non-engineer stakeholders start refusing preview deploys as a substitute for Figma frames ("too high-fidelity, I can't tell what's draft"), the communication job that I thought was solved comes back. So far in my own work this hasn't happened. It might.
 

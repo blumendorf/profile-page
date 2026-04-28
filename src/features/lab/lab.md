@@ -216,25 +216,31 @@ An ever-changing, breathing visual canvas where the AI continuously generates sh
 
 ---
 
-### 4. Design System & Storybook (`/lab/storybook`)
+### 4. UI/UX design in AI-assisted engineering (`/lab/design-and-ai`)
 
 **Status:** Active
-**Approach:** Article about design-system alignment, with a link to the static Storybook workshop
+**Approach:** Seven-part long-form research series, read linearly via prev/next navigation
 
-The Lab entry is now an article route rather than a direct external Storybook link. The article introduces `DESIGN.md` as the source of visual intent, explains how reusable React/Tailwind components implement that intent, and frames design/implementation drift as a core challenge for AI-supported engineering.
+A research log on what changes in UI/UX work when AI agents become first-class readers and writers of the same files humans produce. The experiment runs on this site itself. Each part is its own URL but the experience is one continuous long-read; readers move through the series with the prev/next nav rendered above and below every part.
 
-Storybook remains the visual workshop. The article links to `http://localhost:6006/` during local development and to `/storybook/` in production.
+**Series order:**
+1. `/lab/design-and-ai` — UI/UX design in the age of AI-assisted engineering (intro / framing)
+2. `/lab/design-and-ai/design-md` — DESIGN.md: history and 2026 reframing
+3. `/lab/design-and-ai/storybook` — Storybook as verification layer and agent registry
+4. `/lab/design-and-ai/components-and-tokens` — Components and design tokens
+5. `/lab/design-and-ai/figma-jobs` — Removing Figma: the four jobs it was bundling
+6. `/lab/design-and-ai/tools` — Tools for AI-assisted UI work, surveyed
+7. `/lab/design-and-ai/workflow` — The 2026 workflow
 
-**Coverage:**
-- DESIGN.md as design intent
-- Shared UI primitives and feature components as implementation constraints
-- Storybook as the visual feedback loop
-- AI-supported engineering risks: fast code generation, design drift, and stale examples
+The static Storybook workshop at `/storybook/` is unchanged. It is referenced from inside Part 3 where it earns its place, not promoted on the Lab index.
 
 **Files:**
-- `storybook/StorybookArticle.tsx` - Article route
-- `.storybook/` - Storybook config and preview decorators
-- `src/**/*.stories.tsx` - Component and visual workshop stories
+- `design-and-ai/design-and-ai.md` — feature doc (purpose, structure, how to add a part)
+- `design-and-ai/parts/*.md` — markdown source of truth for the seven parts
+- `design-and-ai/parts/index.ts` — ordered series manifest with raw markdown imports
+- `design-and-ai/SeriesPart/SeriesPart.tsx` — shell that renders any part: header strip, markdown body, footer prev/next cards
+- `design-and-ai/SeriesNav/SeriesNav.tsx` — compact and card variants of the prev/next pair
+- `design-and-ai/pages/*.tsx` — one thin wrapper per route
 
 ---
 
@@ -388,8 +394,14 @@ updateStatus('idle', ''); // on unmount
 /lab/html/playground      → HTMLPlayground
 /lab/canvas               → CanvasLanding (with model selection)
 /lab/canvas/playground    → CanvasPlayground
-/lab/storybook           → StorybookArticle
-/storybook/               → Static Storybook visual workshop
+/lab/design-and-ai                          → DesignAndAi · Part 1 (intro)
+/lab/design-and-ai/design-md                → DesignAndAi · Part 2
+/lab/design-and-ai/storybook                → DesignAndAi · Part 3
+/lab/design-and-ai/components-and-tokens    → DesignAndAi · Part 4
+/lab/design-and-ai/figma-jobs               → DesignAndAi · Part 5
+/lab/design-and-ai/tools                    → DesignAndAi · Part 6
+/lab/design-and-ai/workflow                 → DesignAndAi · Part 7
+/storybook/                                 → Static Storybook visual workshop
 ```
 
 ---

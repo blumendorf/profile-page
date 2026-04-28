@@ -83,11 +83,19 @@ PhD at TU-Berlin's DAI-Labor, researching adaptive user interfaces across device
 
 A place for experiments and writeups-things I'm tinkering with, exploring, or just curious about. Some ideas turn into real projects, others stay as notes on what I've learned along the way.
 
-### Design System & Storybook
+### UI/UX design in AI-assisted engineering
 
-The design system article is available at https://blumendorf.info/lab/storybook. It describes how DESIGN.md captures visual intent, how reusable React/Tailwind components turn that intent into implementation, and why keeping design and code aligned is a core challenge for AI-supported engineering.
+A seven-part research series at https://blumendorf.info/lab/design-and-ai on what changes in UI/UX work when AI agents become first-class readers and writers of the same files humans produce. The series runs as one continuous long-read with prev/next navigation between parts:
 
-Storybook is available from that article and directly at https://blumendorf.info/storybook/ as a static visual workshop for shared UI primitives, Home components, Lab components, and larger existing visuals.
+1. The framing piece - why I added DESIGN.md and Storybook to a 2026 codebase (https://blumendorf.info/lab/design-and-ai)
+2. DESIGN.md: history and 2026 reframing (https://blumendorf.info/lab/design-and-ai/design-md)
+3. Storybook as verification layer and agent registry (https://blumendorf.info/lab/design-and-ai/storybook)
+4. Components and design tokens (https://blumendorf.info/lab/design-and-ai/components-and-tokens)
+5. Removing Figma: the four jobs it was bundling (https://blumendorf.info/lab/design-and-ai/figma-jobs)
+6. Tools for AI-assisted UI work, surveyed (https://blumendorf.info/lab/design-and-ai/tools)
+7. The 2026 workflow (https://blumendorf.info/lab/design-and-ai/workflow)
+
+Storybook is available at https://blumendorf.info/storybook/ as a static visual workshop for shared UI primitives, Home components, Lab components, and larger existing visuals. It is referenced from inside Part 3 of the series.
 
 ---
 
