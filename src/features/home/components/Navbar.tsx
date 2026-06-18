@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { HomeNavLink } from './NavLink';
+import { JsonModeToggle } from './JsonModeToggle';
 
 const navItems = [
   { label: 'Home', href: '#home' },
@@ -172,47 +174,28 @@ const Navbar = ({ isJsonMode, onToggleJsonMode, onNavigateInJsonMode, focusedJso
               const sectionId = item.href.replace('#', '');
               const isActive = currentActiveSection === sectionId;
               return (
-                <a
+                <HomeNavLink
                   key={item.href}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
-                  className={`px-3 py-1.5 text-sm font-medium whitespace-nowrap transition-colors ${
-                    isActive
-                      ? 'text-accent'
-                      : 'text-text-muted hover:text-text-primary'
-                  }`}
-                  aria-current={isActive ? 'page' : undefined}
+                  isActive={isActive}
+                  variant="desktop"
                 >
                   {item.label}
-                </a>
+                </HomeNavLink>
               );
             })}
-<div className="w-px h-4 bg-border-subtle mx-2" />
-            <button
-              onClick={onToggleJsonMode}
-              className={`px-2 py-1 text-xs font-mono font-bold rounded border transition-colors ${
-                isJsonMode
-                  ? 'bg-accent text-bg-page border-accent hover:bg-accent/90'
-                  : 'bg-transparent text-text-muted border-text-muted hover:text-text-primary hover:border-text-primary'
-              }`}
-              aria-label={isJsonMode ? 'Switch to Human view' : 'Switch to JSON view'}
-            >
-              {isJsonMode ? '{JSON}' : 'JSON'}
-            </button>
+            <div className="w-px h-4 bg-border-subtle mx-2" />
+            <JsonModeToggle isJsonMode={isJsonMode} onClick={onToggleJsonMode} size="default" />
           </div>
 
           {/* Mobile Menu Button */}
           <div className="flex items-center gap-2 lg:hidden">
-            <button
+            <JsonModeToggle
+              isJsonMode={isJsonMode}
               onClick={onToggleJsonMode}
-              className={`px-2 py-1 text-xs font-mono font-bold rounded border transition-colors ${
-                isJsonMode
-                  ? 'bg-accent text-bg-page border-accent'
-                  : 'bg-transparent text-text-muted border-text-muted'
-              }`}
-            >
-              JSON
-            </button>
+              size="compact"
+            />
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="p-2 text-text-muted hover:text-text-primary rounded-md transition-colors"
@@ -240,19 +223,15 @@ const Navbar = ({ isJsonMode, onToggleJsonMode, onNavigateInJsonMode, focusedJso
                 const sectionId = item.href.replace('#', '');
                 const isActive = currentActiveSection === sectionId;
                 return (
-                  <a
+                  <HomeNavLink
                     key={item.href}
                     href={item.href}
                     onClick={(e) => handleNavClick(e, item.href)}
-                    className={`block px-3 py-2.5 text-base font-medium rounded-md transition-colors ${
-                      isActive
-                        ? 'text-accent bg-surface/50'
-                        : 'text-text-muted hover:text-text-primary hover:bg-surface'
-                    }`}
-                    aria-current={isActive ? 'page' : undefined}
+                    isActive={isActive}
+                    variant="mobile"
                   >
                     {item.label}
-                  </a>
+                  </HomeNavLink>
                 );
               })}
             </div>

@@ -1,9 +1,9 @@
-import { Link } from 'react-router-dom';
-import { ArrowLeft, SplitSquareHorizontal, Code, Users, TestTube, Briefcase, TrendingUp, Cpu, LucideIcon } from 'lucide-react';
+import { SplitSquareHorizontal, Code, Users, TestTube, Briefcase, TrendingUp, Cpu, LucideIcon } from 'lucide-react';
 import { motion } from 'motion/react';
 import { ShineCard } from '@/components/ui';
 import { PersonaProvider } from './PersonaContext';
 import { SplitView } from './components/SplitView';
+import { BackLink, Pill } from '../shared/components';
 
 const iconMap: Record<string, LucideIcon> = {
   Code,
@@ -126,13 +126,7 @@ export function CompareViewsPlayground() {
       <div className="min-h-screen bg-page">
         <div className="max-w-6xl mx-auto px-8 py-16">
           {/* Back link */}
-          <Link
-            to="/lab"
-            className="inline-flex items-center gap-2 text-text-muted hover:text-accent transition-colors mb-8"
-          >
-            <ArrowLeft size={16} />
-            <span className="text-sm">Back to lab</span>
-          </Link>
+          <BackLink className="mb-8">Back to lab</BackLink>
 
           {/* Header */}
           <div className="mb-12">
@@ -140,9 +134,7 @@ export function CompareViewsPlayground() {
               <div className="p-2 rounded-lg">
                 <SplitSquareHorizontal className="w-6 h-6 text-accent" />
               </div>
-              <span className="text-xs font-mono text-text-muted bg-page-elevated px-2 py-1 rounded-sm">
-                UX
-              </span>
+              <Pill className="bg-surface">UX</Pill>
             </div>
             <h1 className="text-4xl font-bold mb-4">Compare Views</h1>
             <p className="text-text-muted text-lg leading-relaxed max-w-3xl">
@@ -151,7 +143,7 @@ export function CompareViewsPlayground() {
           </div>
 
           {/* Explanation */}
-          <div className="mb-8 p-6 rounded-lg border border-border-subtle bg-page-elevated">
+          <div className="mb-8 p-6 rounded-lg border border-border-subtle bg-surface">
             <h2 className="text-xl font-semibold mb-3">About this experiment</h2>
             <div className="space-y-3 text-text-muted">
               <p>

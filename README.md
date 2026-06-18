@@ -4,7 +4,7 @@ A personal profile website with an "Engineer's Notebook" aesthetic, featuring in
 
 **[View Live Site →](https://blumendorf.github.io)**
 
-**AI / agent context:** See [AGENTS.md](AGENTS.md) and the [agent-context/](agent-context/) docs.
+<!-- **AI / agent context:** See [AGENTS.md](AGENTS.md) and the [agent-context/](agent-context/) docs. -->
 
 ## Features
 

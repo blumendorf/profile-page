@@ -88,7 +88,7 @@ export function ModelSelectorModal({
           <button
             onClick={onClose}
             disabled={isLoading}
-            className="p-2 text-text-muted hover:text-text-primary rounded-lg hover:bg-page-elevated transition-colors disabled:opacity-50"
+            className="p-2 text-text-muted hover:text-text-primary rounded-lg hover:bg-surface transition-colors disabled:opacity-50"
             aria-label="Close modal"
           >
             <X size={20} />
@@ -98,7 +98,7 @@ export function ModelSelectorModal({
         {/* Content - scrollable */}
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
           {/* Compatibility Check */}
-          <div className="bg-page-elevated rounded-lg p-4 border border-border-subtle">
+          <div className="bg-surface rounded-lg p-4 border border-border-subtle">
             <h3 className="font-mono text-sm text-text-muted mb-3">System Check</h3>
             {checkingCompat ? (
               <div className="text-text-muted flex items-center gap-2">
@@ -176,7 +176,7 @@ export function ModelSelectorModal({
         </div>
 
         {/* Footer with selected model info and actions */}
-        <div className="shrink-0 border-t border-border-subtle bg-page-elevated px-6 py-4">
+        <div className="shrink-0 border-t border-border-subtle bg-surface px-6 py-4">
           {selectedModel ? (
             <div className="flex items-center justify-between gap-4">
               <div className="flex-1 min-w-0">
@@ -262,7 +262,7 @@ function ModelCard({ model, isSelected, isCurrent, onClick, disabled }: ModelCar
       className={`w-full text-left p-4 rounded-lg border transition-all
         ${isSelected
           ? 'border-cyan-500 bg-cyan-500/10 ring-1 ring-cyan-500/50'
-          : 'border-border-subtle bg-page-elevated hover:border-text-muted'
+          : 'border-border-subtle bg-surface hover:border-text-muted'
         }
         ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
       `}

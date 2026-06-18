@@ -17,6 +17,32 @@
   --color-border-subtle: var(--border-subtle);
   --color-border-active: var(--border-active);
 
+  /* Optional alias: enables `text-bg-page` / `bg-bg-page` where used (e.g. nav, lab buttons) */
+  --color-bg-page: var(--bg-page);
+
+  /* Extra palette tokens for refactors */
+  --color-terminal: var(--terminal-background);
+  --color-terminal-surface: var(--terminal-surface);
+  --color-terminal-outline: var(--terminal-outline);
+  --color-syntax-key: var(--syntax-key);
+  --color-syntax-string: var(--syntax-string);
+  --color-syntax-number: var(--syntax-number);
+  --color-syntax-boolean: var(--syntax-boolean);
+  --color-syntax-null: var(--syntax-null);
+  --color-lab-cyan: var(--lab-cyan);
+  --color-lab-green: var(--lab-green);
+  --color-lab-purple: var(--lab-purple);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-inverse-surface: var(--inverse-surface);
+  --color-inverse-on-surface: var(--inverse-on-surface);
+  --color-on-primary: var(--on-primary);
+  --color-network-node: var(--network-node);
+  --color-network-line: var(--network-line);
+
   --font-mono: 'JetBrains Mono', monospace;
   --font-sans: Inter, system-ui, sans-serif;
 
@@ -151,6 +177,7 @@
   @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg font-medium text-sm;
   @apply transition-all duration-150;
   @apply active:scale-[0.98];
+  @apply disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none;
 
   /* Optional squircle shape for modern browsers */
 }
@@ -221,7 +248,7 @@
 
 @utility focus-ring {
   /* Focus states */
-  @apply focus:outline-hidden focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-page;
+  @apply focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-page;
 
   /* Optional squircle shape for modern browsers */
 }
@@ -412,6 +439,29 @@
     /* Borders */
     --border-subtle: #44403c;
     --border-active: #57534e;
+
+    /* Additive design tokens (same as DESIGN.md; for refactors / future use) */
+    --terminal-background: #1e1e1e;
+    --terminal-surface: #27272a;
+    --terminal-outline: #27272a;
+    --syntax-key: #d6d3d1;
+    --syntax-string: #fcd34d;
+    --syntax-number: #60a5fa;
+    --syntax-boolean: #c084fc;
+    --syntax-null: #78716c;
+    --lab-cyan: #06b6d4;
+    --lab-green: #22c55e;
+    --lab-purple: #a855f7;
+    --success: #34d399;
+    --warning: #f59e0b;
+    --error: #f87171;
+    --destructive: #dc2626;
+    --destructive-foreground: #fafaf9;
+    --inverse-surface: #fafaf9;
+    --inverse-on-surface: #1a1814;
+    --on-primary: #1a1814;
+    --network-node: rgb(168 162 158 / 0.3);
+    --network-line: rgb(168 162 158 / 0.1);
   }
 
   html {

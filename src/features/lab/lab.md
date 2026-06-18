@@ -14,14 +14,14 @@ The Lab has its own section on the main profile page (`#lab`), positioned above 
 - Brief description of the Lab's purpose
 - "Explore the Lab" link to `/lab`
 
-Data lives in `profile.json` under the `lab` key. Component: `src/features/home/components/Lab.tsx`.
+Data lives in `profile.json` under the `lab` key. Component: `src/features/home/sections/Lab.tsx`.
 
 ---
 
 ## Experiment Independence Principle
 
 **Each experiment should be completely self-dependent**, except for:
-1. **Reusable UI components** (DownloadProgress, ModelSelector, CrossTabWarning)
+1. **Reusable UI components** (see `shared/components/`: DownloadProgress, ModelSelector, CrossTabWarning, ExperimentCard, BackLink, Pill, EmptyState, ErrorPanel, InfoPanel, SelectField, SliderField, StatusDot, TabList, StatsBar, etc.)
 2. **Infrastructure needed for the Labs section in general** (cross-tab coordination)
 
 This means:
@@ -40,10 +40,21 @@ src/features/lab/
 ├── LabIndex.tsx        # Hub listing all experiments
 ├── index.ts            # Exports
 ├── shared/             # ONLY shared UI, hooks, and utils
-│   ├── components/           # Reusable UI components
-│   │   ├── DownloadProgress.tsx  # Model download UI
-│   │   ├── ModelSelector.tsx     # Model selection dropdown
-│   │   ├── CrossTabWarning.tsx   # Cross-tab warning UI
+│   ├── components/           # Reusable UI (folder-per-component: `Name/Name.tsx`, `Name.stories.tsx`, `index.ts`)
+│   │   ├── DownloadProgress/ …
+│   │   ├── ModelSelector/ …
+│   │   ├── CrossTabWarning/ …
+│   │   ├── ExperimentCard/ …
+│   │   ├── BackLink/ …
+│   │   ├── Pill/ …
+│   │   ├── EmptyState/ …
+│   │   ├── ErrorPanel/ …
+│   │   ├── InfoPanel/ …
+│   │   ├── SelectField/ …
+│   │   ├── SliderField/ …
+│   │   ├── StatusDot/ …
+│   │   ├── TabList/ …
+│   │   ├── StatsBar/ …
 │   │   └── index.ts
 │   ├── hooks/                # Reusable hooks
 │   │   ├── useCrossTabModel.ts   # Hook for cross-tab state
@@ -98,6 +109,8 @@ src/features/lab/
 ---
 
 ## Experiments
+
+The `/lab` hub (`LabIndex.tsx`) uses **border-only** experiment cards (`bg-transparent`) on `bg-page`. Denser lab chrome (inputs, modals, panels) uses `bg-surface` / `bg-card` — not a separate `page-elevated` token.
 
 ### 1. Config Generator (`/lab/config`)
 
@@ -200,6 +213,34 @@ An ever-changing, breathing visual canvas where the AI continuously generates sh
 - Graceful degradation: unrecognized words are ignored, no errors
 - Continuous generation: the experience is meant to run indefinitely
 - Smooth transitions: state changes blend over time, never jarring
+
+---
+
+### 4. UI/UX design in AI-assisted engineering (`/lab/design-and-ai`)
+
+**Status:** Active
+**Approach:** Seven-part long-form research series, read linearly via prev/next navigation
+
+A research log on what changes in UI/UX work when AI agents become first-class readers and writers of the same files humans produce. The experiment runs on this site itself. Each part is its own URL but the experience is one continuous long-read; readers move through the series with the prev/next nav rendered above and below every part.
+
+**Series order:**
+1. `/lab/design-and-ai` — UI/UX design in the age of AI-assisted engineering (intro / framing)
+2. `/lab/design-and-ai/design-md` — DESIGN.md: history and 2026 reframing
+3. `/lab/design-and-ai/storybook` — Storybook as verification layer and agent registry
+4. `/lab/design-and-ai/components-and-tokens` — Components and design tokens
+5. `/lab/design-and-ai/figma-jobs` — Removing Figma: the four jobs it was bundling
+6. `/lab/design-and-ai/tools` — Tools for AI-assisted UI work, surveyed
+7. `/lab/design-and-ai/workflow` — The 2026 workflow
+
+The static Storybook workshop at `/storybook/` is unchanged. It is referenced from inside Part 3 where it earns its place, not promoted on the Lab index.
+
+**Files:**
+- `design-and-ai/design-and-ai.md` — feature doc (purpose, structure, how to add a part)
+- `design-and-ai/parts/*.md` — markdown source of truth for the seven parts
+- `design-and-ai/parts/index.ts` — ordered series manifest with raw markdown imports
+- `design-and-ai/SeriesPart/SeriesPart.tsx` — shell that renders any part: header strip, markdown body, footer prev/next cards
+- `design-and-ai/SeriesNav/SeriesNav.tsx` — compact and card variants of the prev/next pair
+- `design-and-ai/pages/*.tsx` — one thin wrapper per route
 
 ---
 
@@ -353,8 +394,16 @@ updateStatus('idle', ''); // on unmount
 /lab/html/playground      → HTMLPlayground
 /lab/canvas               → CanvasLanding (with model selection)
 /lab/canvas/playground    → CanvasPlayground
+/lab/design-and-ai                          → DesignAndAi · Part 1 (intro)
+/lab/design-and-ai/design-md                → DesignAndAi · Part 2
+/lab/design-and-ai/storybook                → DesignAndAi · Part 3
+/lab/design-and-ai/components-and-tokens    → DesignAndAi · Part 4
+/lab/design-and-ai/figma-jobs               → DesignAndAi · Part 5
+/lab/design-and-ai/tools                    → DesignAndAi · Part 6
+/lab/design-and-ai/workflow                 → DesignAndAi · Part 7
+/storybook/                                 → Static Storybook visual workshop
 ```
 
 ---
 
-*Last updated: 2026-01-01*
+*Last updated: 2026-04-27*

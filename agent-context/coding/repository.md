@@ -29,6 +29,7 @@ Defined in [`src/main.tsx`](../../src/main.tsx):
 | `/` | Home (profile sections) |
 | `/lab` | Lab index |
 | `/lab/html`, `/lab/eval`, `/lab/compare` | Lab experiments |
+| `/lab/design-and-ai` and `/lab/design-and-ai/<part>` | Seven-part research series on AI-assisted UI/UX work |
 | `/impressum` | Legal (Impressum) |
 
 ## Layout

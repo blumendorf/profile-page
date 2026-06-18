@@ -4,14 +4,13 @@
  * Compare different prompt variants to find the best performing one.
  */
 
-import { useState, useCallback, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowLeft, Play, Square, Trophy, Clock, CheckCircle, XCircle } from 'lucide-react';
+import { useState, useCallback, useRef, useMemo } from 'react';
+import { Play, Square, Trophy, Clock, CheckCircle, XCircle } from 'lucide-react';
 import { TEST_CASES } from './test-cases';
 import { checkTestCase, isValidHTML, type TestResult } from './constraint-checker';
 import { buildHTML } from '../html/html-generator';
 import { createEngine, getModelConfig, AVAILABLE_MODELS, type LLMEngine, type GenerationConfig } from './llm';
-import { DownloadProgress } from '../shared/components';
+import { DownloadProgress, BackLink, SelectField } from '../shared/components';
 import { PROMPT_VARIANTS, PROFILE } from './prompt-variants';
 
 // Generation config
@@ -53,6 +52,22 @@ export function EvalPlayground() {
 
   const abortRef = useRef(false);
   const engineRef = useRef<LLMEngine | null>(null);
+
+  const isBusy = state.status === 'running' || state.status === 'initializing';
+
+  const modelOptions = useMemo(
+    () => AVAILABLE_MODELS.map((m) => ({ value: m.id, label: `${m.name} (${m.size})` })),
+    []
+  );
+
+  const difficultyOptions = useMemo(
+    () => [
+      { value: 'easy', label: `Easy (${TEST_CASES.filter((t) => t.difficulty === 'easy').length} tests)` },
+      { value: 'medium', label: `Medium (${TEST_CASES.filter((t) => t.difficulty === 'medium').length} tests)` },
+      { value: 'all', label: `All (${TEST_CASES.length} tests)` },
+    ],
+    []
+  );
 
   const toggleVariant = (id: string) => {
     setSelectedVariants((prev) =>
@@ -235,13 +250,7 @@ export function EvalPlayground() {
       <div className="max-w-6xl mx-auto space-y-6">
         {/* Header */}
         <div>
-          <Link
-            to="/lab"
-            className="inline-flex items-center gap-2 text-text-muted hover:text-accent transition-colors mb-4"
-          >
-            <ArrowLeft size={16} />
-            <span className="text-sm">Back to Lab</span>
-          </Link>
+          <BackLink className="mb-4" />
           <h1 className="text-3xl font-bold font-mono mb-2">Prompt Comparison</h1>
           <p className="text-text-muted">
             Compare different prompt variants to find the best performing one.
@@ -252,39 +261,21 @@ export function EvalPlayground() {
         <div className="grid md:grid-cols-2 gap-6">
           {/* Left: Model & Tests */}
           <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium mb-2">Model</label>
-              <select
-                value={modelId}
-                onChange={(e) => setModelId(e.target.value)}
-                disabled={state.status === 'running' || state.status === 'initializing'}
-                className="w-full px-3 py-2 border border-border-subtle rounded-lg bg-page-elevated"
-              >
-                {AVAILABLE_MODELS.map((m) => (
-                  <option key={m.id} value={m.id}>
-                    {m.name} ({m.size})
-                  </option>
-                ))}
-              </select>
-            </div>
+            <SelectField
+              label="Model"
+              value={modelId}
+              onChange={setModelId}
+              options={modelOptions}
+              disabled={isBusy}
+            />
 
-            <div>
-              <label className="block text-sm font-medium mb-2">Test Difficulty</label>
-              <select
-                value={difficulty}
-                onChange={(e) => setDifficulty(e.target.value as 'all' | 'easy' | 'medium')}
-                disabled={state.status === 'running' || state.status === 'initializing'}
-                className="w-full px-3 py-2 border border-border-subtle rounded-lg bg-page-elevated"
-              >
-                <option value="easy">
-                  Easy ({TEST_CASES.filter((t) => t.difficulty === 'easy').length} tests)
-                </option>
-                <option value="medium">
-                  Medium ({TEST_CASES.filter((t) => t.difficulty === 'medium').length} tests)
-                </option>
-                <option value="all">All ({TEST_CASES.length} tests)</option>
-              </select>
-            </div>
+            <SelectField
+              label="Test Difficulty"
+              value={difficulty}
+              onChange={(v) => setDifficulty(v as 'all' | 'easy' | 'medium')}
+              options={difficultyOptions}
+              disabled={isBusy}
+            />
           </div>
 
           {/* Right: Variant Selection */}
@@ -341,7 +332,7 @@ export function EvalPlayground() {
 
         {/* Progress */}
         {(state.status === 'initializing' || state.status === 'running') && (
-          <div className="p-4 border border-border-subtle rounded-lg bg-page-elevated">
+          <div className="p-4 border border-border-subtle rounded-lg bg-surface">
             {state.status === 'initializing' && (
               <DownloadProgress
                 progress={state.progress.progress}
@@ -398,7 +389,7 @@ export function EvalPlayground() {
                     className={`p-4 border rounded-lg ${
                       isBest
                         ? 'border-green-500 bg-green-500/10'
-                        : 'border-border-subtle bg-page-elevated'
+                        : 'border-border-subtle bg-surface'
                     }`}
                   >
                     {isBest && (
@@ -439,7 +430,7 @@ export function EvalPlayground() {
             <div className="border border-border-subtle rounded-lg overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
-                  <thead className="bg-page-elevated">
+                  <thead className="bg-surface">
                     <tr>
                       <th className="px-4 py-3 text-left font-medium">Test</th>
                       <th className="px-4 py-3 text-left font-medium">Intent</th>
@@ -458,7 +449,7 @@ export function EvalPlayground() {
                       ? TEST_CASES
                       : TEST_CASES.filter((t) => t.difficulty === difficulty)
                     ).map((test, i) => (
-                      <tr key={test.id} className={i % 2 === 0 ? 'bg-page' : 'bg-page-elevated/50'}>
+                      <tr key={test.id} className={i % 2 === 0 ? 'bg-page' : 'bg-surface/50'}>
                         <td className="px-4 py-2 font-mono text-xs">{test.id}</td>
                         <td className="px-4 py-2 text-text-muted">{test.intent}</td>
                         {state.variantResults.map((vr) => {
