@@ -7,13 +7,11 @@ description: "Framing piece for a set of lab notes on what changes in UI/UX work
 
 # UI/UX design in the age of AI-assisted engineering
 
-I added a [DESIGN.md](https://github.com/blumendorf/blumendorf.github.io/blob/main/DESIGN.md) to this site last month. This PR adds a [Storybook](/storybook/). Both are mid-2010s ideas, the kind of thing every serious frontend codebase has had for a decade. The reason I'm adding both to a 2026 codebase is not the reason a team would have added them in 2018.
-
-This page is the framing piece for a set of lab notes on what changes in UI/UX work when AI agents become first-class readers and writers of the same files humans produce. The experiment runs on this site. The research notes are linked at the bottom and grow as I write them.
+This page is the framing piece for a set of lab notes on what changes in UI/UX work when AI agents become first-class readers and writers of the same files humans produce. The experiment runs on this site. The research notes are linked at the bottom and grow as I write them together with different AI agents.
 
 ## The classic problem
 
-Design and implementation drift apart by default. Designers ship Figma files; engineers ship code; both evolve on independent clocks. The "source of truth" silently becomes whichever artifact someone looked at last, which is usually whichever one is most legible to whoever's asking. Designers see Figma; managers see screenshots; engineers see what shipped. None of them are wrong, exactly. None of them are looking at the same thing.
+Design and implementation drift apart by default. Designers ship Figma files; engineers ship code; both evolve on independent clocks. The "source of truth" silently becomes whichever artifact someone looked at last, which is usually whichever one is most legible to whoever's asking. Designers see Figma; managers see screenshots; engineers see what shipped.
 
 The classic stack of Figma to handoff to engineering to Storybook leaks at three points. Decision rationale gets lost between design and implementation; nobody documented why a button is the size it is, so the next person to touch it re-litigates a settled question and probably re-litigates it wrong. Async fragmentation makes it impossible for a distributed team to keep up with each other's decisions without constant meetings, which forces more meetings. Onboarding cost compounds: new contributors have no trouble *writing* code, but can't reliably *locate* it or understand why a particular component exists at all.
 
